@@ -56,3 +56,22 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Sistema-Auxiliares
+### Instalacion
+
+- git clone https://github.com/agaak/tis_auxiliares.git
+- cd tis_auxiliares
+- crear el nombre del archivo ".env" y copiar el contenido de ".env.example"
+- composer install
+- composer update
+- php artisan key:generate
+- php artisan serve
+
+### Configuracion de la base de datos a Postgres de XAMPP
+- abrir XAMPP 
+- apache  boton "config" abrir PHP(php.ini)
+- buscar:
+	- ;extension=php_pdo_pgsql.dll
+	- ;extension=php_pgsql.dll
+- quitar ";"
