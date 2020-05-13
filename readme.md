@@ -4,7 +4,7 @@ El sistema realizara la administracion de las convocatorias de auxiliares en la 
 ## Sistema-Auxiliares
 ### Instalacion
 
-- git clone https://github.com/agaak/tis_auxiliares.git
+- git clone https://github.com/agaak/Convocatoria-Auxiliares.git
 - cd tis_auxiliares
 - crear el nombre del archivo ".env" y copiar el contenido de ".env.example"
 - composer install
