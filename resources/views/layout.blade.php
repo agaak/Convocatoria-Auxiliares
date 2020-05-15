@@ -29,13 +29,13 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav navbar-navbar">
                             <li class="nav-item">
-                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="{{ route('createConvocatory') }}">convocatorias</a>
+                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="{{ route('convocatory') }}">convocatorias</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="">resultados</a>
+                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="{{ route('results') }}">resultados</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="">admisión</a>
+                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="{{ route('admission') }}">admisión</a>
                             </li>
                         </ul>
                     </div>

@@ -8,26 +8,26 @@
             <ul class="navbar-nav flex-column navbar-content">
                 <h2 class="txt-uppercase">nueva convocatoria</h2>
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="{{ route('createConvocatory') }}">título y descripción</span></a>
+                    <a class="nav-link text-uppercase text-dark" href="{{ route('titleDescription') }}">título y descripción</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="">requerimientos</a>
+                    <a class="nav-link text-uppercase text-dark" href="{{ route('request') }}">requerimientos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-uppercase text-dark" href="{{ route('requirement') }}">requisitos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="#">fechas importantes</a>
+                    <a class="nav-link text-uppercase text-dark" href="{{ route('importantDates') }}">fechas importantes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="#">calificación de meritos</a>
+                    <a class="nav-link text-uppercase text-dark" href="{{ route('meritRating') }}">calificación de meritos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="#">calificación de conocimientos</a>
+                    <a class="nav-link text-uppercase text-dark" href="{{ route('knowledgeRating') }}">calificación de conocimientos</a>
                 </li>
             </ul>
         </nav>
-
+        
         @yield('content-convocatory')
                 
     </div>
