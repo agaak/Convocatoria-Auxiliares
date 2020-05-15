@@ -8,12 +8,17 @@ body {
     max-width: 1366px;
     margin: auto;
 }
-
 /* Barra de navegación */
 .navbar-container {
     display: flex;
     background-image: url(../img/background-navbar.png);
     background-repeat: no-repeat;
+    margin-bottom: 60px;
+}
+
+.navbar-container a img {
+    position: relative;
+    top: 50px
 }
 
 .login-container {
@@ -27,6 +32,11 @@ body {
     flex-direction: column;
 }
 
+.navbar-navbar li a {
+    background-color: white;
+    border-radius: 50px 50px;
+}
+
 /* Contenido */
 
 .content-div {
@@ -37,6 +47,11 @@ body {
 /* Contenido - barra de navegación */
 .navbar-margin {
     background-color: #B9DEE7;
+    padding: 0;
+}
+
+.navbar-content li a {
+    border-top: 2px solid royalblue;
 }
 
 

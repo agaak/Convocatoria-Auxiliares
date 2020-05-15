@@ -27,16 +27,16 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase font-weight-bold text-dark" href="{{ route('createConvocatory') }}">convocatorias <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase font-weight-bold text-dark" href="">resultados</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase font-weight-bold text-dark" href="">admisión</a>
-                        </li>
+                        <ul class="navbar-nav navbar-navbar">
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="{{ route('createConvocatory') }}">convocatorias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="">resultados</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="">admisión</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
