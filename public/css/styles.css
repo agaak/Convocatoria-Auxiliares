@@ -1,0 +1,49 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Margen de todo el contenido */
+.container-header {
+    width: 100%;
+    max-width: 1366px;
+    margin: auto;
+}
+
+/* Barra de navegación */
+.navbar-container {
+    display: flex;
+    background-image: url(../img/background-navbar.png);
+    background-repeat: no-repeat;
+}
+
+.login-container {
+    margin: 25px 10px;
+    text-align: right;
+}
+
+.navbar-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenido */
+
+.content-div {
+    display: flex;
+    height: 800px;
+    background-color: white;
+}
+/* Contenido - barra de navegación */
+.navbar-margin {
+    background-color: #B9DEE7;
+}
+
+
+/* Contenido - contenido */
+
+.content {
+    margin-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+}

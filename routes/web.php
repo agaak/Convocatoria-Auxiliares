@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ['as' => 'home',function () {
+    return view('home');
+}]);
+
+Route::get('convocatoria/titulo-descripcion', ['as' => 'createConvocatory',function () {
+    return view('convocatory.titleDescription');
+}]);
+
+Route::get('convocatoria/requisitos', ['as' => 'requirement',function () {
+    return view('convocatory.requirements');
+}]);
