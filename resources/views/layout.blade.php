@@ -12,42 +12,62 @@
 
 <body>
     <!-- Barra de navegación principal -->
-    <div class="container-header">
-        <header class="navbar-container">
-            <a href="{{ route('home') }}">
-                <img src="{{ asset('img/logo.png')}}" width="133" height="133">
-            </a>
-            <div class="navbar-div">
-                <div class="login-container">
-                    <a href="" class="login text-white">Iniciar sesión</a>
+    <div class="container-body">
+        <header class="container-navbar">
+            
+            <div class="logo-title">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('img/logo.png')}}" width="55" height="90">
+                </a>
+                <h1 class="title-convocatory text-uppercase">
+                    sistema de convocatorias <br>
+                    universidad mayor de san simon
+                </h1>
+            </div>
+
+            <div class="time-navbar">
+                <div class="container-time">
+                    <time class="text-white date-time"> {{ date('d-m-Y') }} <br> {{ date('H:i:s') }} </time>
                 </div>
-                <nav class="navbar navbar-expand-lg navbar-light">
+                <nav class="navbar navbar-expand-lg navbar-dark navbar-navbar">
+                    @php
+                        function activeMenu($url) {
+                            $direction = '';
+                            if (request()->is($url)) {
+                                $direction = 'activate';
+                            } elseif (request()->is($url.'/*')) {
+                                $direction = 'activate';
+                            }
+                            return $direction;
+                        }
+                    @endphp
                     <a class="navbar-brand" href="#"></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav navbar-navbar">
+                    <div class="collapse navbar-collapse navbar-collapse-color" id="navbarNav">
+                        <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="{{ route('convocatory') }}">convocatorias</a>
+                                <a class="nav-link {{ activeMenu('convocatoria') }}" href="{{ route('convocatory') }}">Convocatorias</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="{{ route('results') }}">resultados</a>
+                                <a class="nav-link {{ activeMenu('resultados') }}" href="{{ route('results') }}">Resultados</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-uppercase font-weight-bold text-dark" href="{{ route('admission') }}">admisión</a>
+                                <a class="nav-link {{ activeMenu('admision') }}" href="{{ route('admission') }}">Tramites y documentos</a>
                             </li>
                         </ul>
                     </div>
                 </nav>
             </div>
-    
+        
         </header>
+        
     
         @yield('content')
     
         <!-- Footer -->
-        <footer class="bg-secondary">
+        <footer class="footer-personal">
             <div class="text-center py-3">© 2020 Copyright:
                 <a href="" class="text-uppercase text-white">agaak code</a>
             </div>

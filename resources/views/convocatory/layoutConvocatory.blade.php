@@ -4,26 +4,31 @@
     <!-- Divición del contenido de la página -->
     <div class="content-div">
         <!-- Barra de navegación secundario -->
-        <nav class="navbar navbar-expand-lg navbar-light navbar-margin">
-            <ul class="navbar-nav flex-column navbar-content">
-                <h2 class="txt-uppercase">nueva convocatoria</h2>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="{{ route('titleDescription') }}">título y descripción</span></a>
+        <nav class="navbar-personal">
+            @php
+                function activeMenuConten($url) {
+                    return request()->is($url)? 'navbar-lateral-active': '';
+                }
+            @endphp
+            <h2 class="text-uppercase title-navbar">nueva convocatoria</h2>
+            <ul class="container-list">
+                <li class="navbar-item {{ activeMenuConten('convocatoria/titulo-descripcion') }}">
+                    <a class="link-list" href="{{ route('titleDescription') }}">Título y Descripción</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="{{ route('request') }}">requerimientos</a>
+                <li class="navbar-item {{ activeMenuConten('convocatoria/requerimientos') }}">
+                    <a class="link-list" href="{{ route('request') }}">Requerimientos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="{{ route('requirement') }}">requisitos</a>
+                <li class="navbar-item {{ activeMenuConten('convocatoria/requisitos') }}">
+                    <a class="link-list" href="{{ route('requirement') }}">Requisitos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="{{ route('importantDates') }}">fechas importantes</a>
+                <li class="navbar-item {{ activeMenuConten('convocatoria/fechas-importantes') }}">
+                    <a class="link-list" href="{{ route('importantDates') }}">Fechas Importantes</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="{{ route('meritRating') }}">calificación de meritos</a>
+                <li class="navbar-item {{ activeMenuConten('convocatoria/calificacion-meritos') }}">
+                    <a class="link-list" href="{{ route('meritRating') }}">Calificación de Meritos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase text-dark" href="{{ route('knowledgeRating') }}">calificación de conocimientos</a>
+                <li class="navbar-item {{ activeMenuConten('convocatoria/calificacion-conocimientos') }}">
+                    <a class="link-list" href="{{ route('knowledgeRating') }}">Calificación de Conocimientos</a>
                 </li>
             </ul>
         </nav>
