@@ -2,27 +2,28 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: lightgrey;
 }
-/* Barra de navegación */
+/* Todo el contenido incluido la barra de navegacion, contenido y footer */
 .container-body {
     width: 100%;
     max-width: 1366px;
     margin: auto;
 }
 
+/* Barra de navegación */
 .container-navbar {
     background-color: #001523;
     height: 101px;
     display: flex;
 }
-
+/* logo y titulo de la barra de navegación */
 .logo-title {
-    margin: auto 0 auto 30px;
+    margin: 5.5px 0 5.5px 30px;
     width: 45%;
     display: flex;
 }
 
-.title-convocatory {
-    height: 101px;
+.logo-title-body {
+    height: 90px;
     display: flex;
     align-items: center;
     color: white;
@@ -30,18 +31,11 @@ body {
     padding-left: 1rem;
     margin: 0;
 }
-
+/* tiempo y bara de navegación */
 .time-navbar {
     width: 55%;
     display: flex;
     flex-direction: column;
-}
-
-.container-time {
-    position: relative;
-    font-size: .8rem;
-    margin-right: 30px;
-    height: 50px;
 }
 
 .date-time {
@@ -52,39 +46,43 @@ body {
     right: 0;
 }
 
-.navbar-navbar {
+.container-time {
+    position: relative;
+    font-size: .8rem;
+    margin-right: 30px;
+    height: 50px;
+}
+
+.container-bar {
     height: 51px;
 }
 
 .navbar-collapse-color {
     background-color: #001523;
-    padding: 0 30px ;
+    padding: 0;
 }
 
 .navbar-collapse-color ul li a {
     color: white !important;
+    border-radius: 10px 10px;
     font-size: 14px;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px gray;
 }
 
 .navbar-collapse-color ul li {
     padding: 0 10px;
 }
 
-.navbar-collapse-color ul li a:hover {
-    background-color: white;
-    color: #001523 !important;
-    border-radius: 10px 10px;
-    font-weight: 500;
-}
-
+.navbar-collapse-color ul li a:hover,
 .navbar-collapse-color ul li a.activate {
+    box-shadow: 0 0 5px black inset;
     background-color: white;
     color: #001523 !important;
-    border-radius: 10px 10px;
-    font-weight: 500;
 }
 
-/* Contenido */
+
+/* Contenido  entre el header y el footer*/
 .content-div {
     background-color: #E7E7E7;
     display: flex;
@@ -96,6 +94,7 @@ body {
     background-color: #313A48;
     width: 251px;
 }
+
 .title-navbar {
     font-size: 14px;
     color: white;
@@ -110,10 +109,28 @@ body {
     list-style: none;
 }
 
+.navbar-item {
+    padding: 0;
+    margin-bottom: 5px;
+    
+}
+
+.navbar-item:hover {
+    background-color: rgb(13, 99, 156);
+}
+
+.navbar-lateral-active {
+    background-color: #2D6F9C;
+    box-shadow: 0 10px 5px -5px rgba(0, 0, 0, .5);
+}
+
 .link-list {
+    padding: 15px 10px;
+    display: block;
     color: white;
     font-size: 14px;
     font-weight: 500;
+    text-shadow: 1px 1px 5px black;
 }
 
 .link-list:hover {
@@ -121,17 +138,6 @@ body {
     text-decoration: none;
 }
 
-.navbar-item {
-    padding: 10px 30px;
-}
-
-.navbar-item:hover {
-    background-color: #2D6F9C;
-}
-
-.navbar-lateral-active {
-    background-color: #2D6F9C;
-}
 /* Contenido - contenido */
 
 .content {
@@ -144,3 +150,24 @@ body {
     background-color: #B1B9C0;
 }
 
+/* Media queris - responsive design */
+
+/* Responsive - header - barra de navegación */
+@media screen and (max-width: 830px) {
+    .logo-title-body {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .logo-title-body {
+        font-size: 14px;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .logo-title-body {
+        font-size: 12px;
+    }
+}

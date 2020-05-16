@@ -19,7 +19,7 @@
                 <a href="{{ route('home') }}">
                     <img src="{{ asset('img/logo.png')}}" width="55" height="90">
                 </a>
-                <h1 class="title-convocatory text-uppercase">
+                <h1 class="logo-title-body text-uppercase">
                     sistema de convocatorias <br>
                     universidad mayor de san simon
                 </h1>
@@ -29,7 +29,7 @@
                 <div class="container-time">
                     <time class="text-white date-time"> {{ date('d-m-Y') }} <br> {{ date('H:i:s') }} </time>
                 </div>
-                <nav class="navbar navbar-expand-lg navbar-dark navbar-navbar">
+                <nav class="navbar navbar-expand-lg navbar-dark container-bar">
                     @php
                         function activeMenu($url) {
                             $direction = '';
