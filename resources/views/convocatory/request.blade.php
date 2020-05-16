@@ -3,16 +3,19 @@
 @section('content-convocatory')
     <!-- Contenido real de la página -->
     <div class="overflow-auto content">
-        <h3>Requerimientos</h3><br>
+        <h3 style="margin: 20px">Requerimientos</h3><br>
 
         <!-- Button trigger modal -->
+  
         
-<button type="button" class="btn btn-light add-item" data-toggle="modal" data-target="#exampleModalCenter">
-<a class="add-item" data-toggle="modal" data-target="#exampleModalCenter">
+ 
+      
+<button type="button" style="margin-left: 65px" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
+<a data-toggle="modal" data-target="#exampleModalCenter">
                 <img src="{{ asset('img/addBLUE.png')}}" width="35" height="35">
             </a> Añadir requerimiento
   </button>
-  
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -33,15 +36,16 @@
       </div>
     </div>
   </div>
+  <div class="col-md-10" style="margin-left: 50px">
         <table class="table table-striped">
             <thead class="thead-dark">
               <tr>
-                <th scope="col">Items</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Hrs. Academicas</th>
-                <th scope="col">Nombre de la Auxiliatura</th>
-                <th scope="col">Codigo de Auxiliatura</th>
-                <th scope="col">Opciones</th>
+                <th style="font-weight: normal" scope="col">Items</th>
+                <th style="font-weight: normal" scope="col">Cantidad</th>
+                <th style="font-weight: normal" scope="col">Hrs. Academicas</th>
+                <th style="font-weight: normal" scope="col">Nombre de la Auxiliatura</th>
+                <th style="font-weight: normal" scope="col">Codigo de Auxiliatura</th>
+                <th style="font-weight: normal" scope="col">Opciones</th>
               </tr>
             </thead>
             <tbody>
@@ -54,11 +58,12 @@
                 <td><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
                 <img src="{{ asset('img/pen.png')}}" width="30" height="30">
                   </a>
-                  <a class="options" data-toggle="modal" data-target="#exampleModalCenter">
+                  <a class="options" >
                 <img src="{{ asset('img/trash.png')}}" width="30" height="30">
                   </a></td>
               </tr>
             </tbody>
           </table>
+  </div>
     </div>
 @endsection
