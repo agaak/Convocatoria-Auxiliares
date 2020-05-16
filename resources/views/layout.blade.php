@@ -54,7 +54,7 @@
                                 <a class="nav-link {{ activeMenu('resultados') }}" href="{{ route('results') }}">Resultados</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ activeMenu('admision') }}" href="{{ route('admission') }}">Tramites y documentos</a>
+                                <a class="nav-link {{ activeMenu('admision') }}" href="{{ route('proceduresDocs') }}">Tramites y documentos</a>
                             </li>
                         </ul>
                     </div>

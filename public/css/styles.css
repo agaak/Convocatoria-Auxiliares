@@ -142,6 +142,7 @@ body {
 
 .content {
     width: 1115px;
+    padding: 1rem 2rem;
 }
 
 /* Footer */
@@ -174,7 +175,6 @@ body {
 /* Requerimientos */
 .add-item {
     margin-bottom: 20px;
-    
 }
 
 .options {
