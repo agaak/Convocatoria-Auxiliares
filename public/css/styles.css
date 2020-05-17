@@ -124,6 +124,11 @@ body {
     box-shadow: 0 10px 5px -5px rgba(0, 0, 0, .5);
 }
 
+.table-requests {
+    margin-left: 3ch;
+    margin-right: 3ch;
+}
+
 .modal-header {
     background-color: #001523;
     padding: 0;
