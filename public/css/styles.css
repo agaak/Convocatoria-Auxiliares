@@ -124,6 +124,29 @@ body {
     box-shadow: 0 10px 5px -5px rgba(0, 0, 0, .5);
 }
 
+.modal-header {
+    background-color: #001523;
+    padding: 0;
+}
+
+.modal-header {
+    /* height: 90px; */
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+    padding-left: 1rem;
+    margin: 0;
+}
+
+.modal-icon {
+    align-items: center;
+    background-color: #001523;
+    color: white;
+    border: 0px;
+    margin-right: 0.5rem;
+}
+
 .link-list {
     padding: 15px 10px;
     display: block;
