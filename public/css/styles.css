@@ -96,7 +96,7 @@ body {
 }
 
 .title-navbar {
-    font-size: 14px;
+    font-size: 16px;
     color: white;
     text-align: center;
     background-color: #002640;
@@ -182,6 +182,14 @@ body {
 
 form div label {
     font-weight: 500;
+}
+
+.calendar-svg {
+    margin: 2px 1px;
+}
+
+.form-title-description {
+    font-size: 14px;
 }
 /* Requerimientos */
 .add-item {
