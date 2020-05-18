@@ -172,6 +172,17 @@ body {
         font-size: 12px;
     }
 }
+/* NUEVA CONVOCATORIA */
+
+/* Titulo y descripción */
+
+.content h3 {
+    font-size: 16px;
+}
+
+form div label {
+    font-weight: 500;
+}
 /* Requerimientos */
 .add-item {
     margin-bottom: 20px;
