@@ -6,8 +6,7 @@
     <div class="overflow-auto content">
         <h5 style="margin: 20px" class="font-weight-bold">REQUISITOS</h5>
         <br>
-        <div style="margin-left: 50px">
-            <button type="button" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
+            <button type="button" style="margin-left: 15px" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
                 <a class="add-item" data-toggle="modal" data-target="#exampleModalCenter">
                     <img src="{{ asset('img/addBLUE.png')}}" width="35" height="35">
                 </a> Añadir requerimiento
@@ -49,11 +48,10 @@
                       <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ingrese la nota respectiva" rows="3"></textarea>
                     </div>
                 </form>
-                <div style="text-align: center">
-                    <button type="button" class="btn btn-info">Siguiente</button>
+                <div class="my-5 py-5 text-center">
+                  <a href="{{ route('importantDates') }}" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">Siguiente</a>
                 </div>
             </div>
-        </div>
         
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

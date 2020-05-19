@@ -7,7 +7,7 @@
   <h5 style="margin: 20px" class="font-weight-bold">REQUERIMIENTOS</h5><br>
 
   <!-- Button trigger modal -->
-  <button type="button" style="margin-left: 65px" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
+  <button type="button" style="margin-left: 15px" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
     <a data-toggle="modal" data-target="#exampleModalCenter">
       <img src="{{ asset('img/addBLUE.png')}}" width="35" height="35">
     </a> Añadir requerimiento
@@ -17,14 +17,14 @@
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header" style="background-color: #001523">
-          <h5 class="modal-title text-light" id="exampleModalLongTitle">Requerimiento</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Requerimiento</h5>
+          <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body" style="background-color: #E7E7E7">
-          <form action="/" method="POST" role="form">
+          <form method="POST" action="{{ route('requirement') }}">
             <div class="form-group">
               <label for="nombre">Nombre de Auxiliatura</label>
               <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Ingresa el nombre de la auxiliatura">
@@ -77,10 +77,9 @@
       </div>
     </div>
   </div>
-  <div class="col-md-10" style="margin-left: 50px">
     <!-- Table -->
     <div class="table-requests">
-    <table class="table align-middle" style="text-align: center">
+    <table class="table" style="text-align: center">
       <thead class="thead-dark">
         <tr>
           <th style="font-weight: normal" scope="col">Items</th>
@@ -109,9 +108,9 @@
     </table>
     </div>
     
-  </div>
-  <div style="text-align: center">
-    <button type="button" class="btn btn-info">Siguiente</button>
+
+<div class="my-5 py-5 text-center">
+  <a href="{{ route('requirement') }}" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">Siguiente</a>
 </div>
 </div>
 
