@@ -7,7 +7,7 @@
         <h5 style="margin: 20px" class="font-weight-bold">REQUISITOS</h5>
         <br>
         <div style="margin-left: 50px">
-            <button type="button" class="btn btn-light add-item" data-toggle="modal" data-target="#exampleModalCenter">
+            <button type="button" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
                 <a class="add-item" data-toggle="modal" data-target="#exampleModalCenter">
                     <img src="{{ asset('img/addBLUE.png')}}" width="35" height="35">
                 </a> Añadir requerimiento
@@ -16,39 +16,22 @@
                 <table class="table">
                     <thead class="thead-dark">
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Descripcion</th>
-                        <th scope="col">Opciones</th>
+                        <th style="font-weight: normal" scope="col">#</th>
+                        <th style="font-weight: normal" scope="col">Descripcion</th>
+                        <th style="font-weight: normal" scope="col">Opciones</th>
                       </tr>
                     </thead>
                     <tbody style="background-color: white">
                       <tr>
                         <th scope="row">A</th>
-                        <td>Mark asdsad sadas sad asd sad  sad  asd  wq e wqe  wqe wqe wq e wq e  wq e 2 3 w q</td>
-                        <td style="text-align: center">
-                            <a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-                                <img src="{{ asset('img/pen.png')}}" width="25" height="25">
-                            </a>
-                            <a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-                                <img src="{{ asset('img/trash.png')}}" width="25" height="25">
-                            </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">B</th>
-                        <td>Mark</td>
-                        <td style="text-align: center">
-                            <a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-                                <img src="{{ asset('img/pen.png')}}" width="25" height="25">
-                            </a>
-                            <a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-                                <img src="{{ asset('img/trash.png')}}" width="25" height="25">
-                            </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">C</th>
-                        <td>Mark</td>
+                        <td>Ser estudiante regular y con rendimiento de las carreras de Licenciatura en Ingeniería
+                          Informática o Licenciatura en Ingeniería de Sistemas y/o afín, que cursa regularmente en la
+                          universidad. Para administrador de Laboratorio de Mantenimiento de Hardware podrán
+                          presentarse además estudiantes de Ing. Electrónica. Estudiante regular es aquel que está
+                          inscrito en la gestión académica vigente y cumple los requisitos exigidos para seguir una
+                          carrera universitaria y el rendimiento académico, haber aprobado más de la mitad de las
+                          materias curriculares que corresponde al semestre anterior, certificado por el
+                          departamento de Registros e Inscripciones.</td>
                         <td style="text-align: center">
                             <a class="options" data-toggle="modal" data-target="#exampleModalCenter">
                                 <img src="{{ asset('img/pen.png')}}" width="25" height="25">

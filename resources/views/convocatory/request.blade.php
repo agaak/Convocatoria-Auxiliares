@@ -19,7 +19,7 @@
       <div class="modal-content">
         <div class="modal-header" style="background-color: #001523">
           <h5 class="modal-title text-light" id="exampleModalLongTitle">Requerimiento</h5>
-          <button type="button" class="close" style="color: #E76E54" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -79,7 +79,8 @@
   </div>
   <div class="col-md-10" style="margin-left: 50px">
     <!-- Table -->
-    <table class="table table-striped align-middle" style="text-align: center">
+    <div class="table-requests">
+    <table class="table align-middle" style="text-align: center">
       <thead class="thead-dark">
         <tr>
           <th style="font-weight: normal" scope="col">Items</th>
@@ -90,7 +91,7 @@
           <th style="font-weight: normal" scope="col">Opciones</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style="background-color: white">
         <tr>
           <td>1</td>
           <td>7 Aux.</td>
@@ -106,7 +107,12 @@
         </tr>
       </tbody>
     </table>
+    </div>
+    
   </div>
+  <div style="text-align: center">
+    <button type="button" class="btn btn-info">Siguiente</button>
+</div>
 </div>
 
 @endsection
