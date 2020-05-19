@@ -25,6 +25,7 @@
         </div>
         <div class="modal-body" style="background-color: #E7E7E7">
           <form method="POST" action="{{ route('request') }}">
+            {{ csrf_field() }}
             <div class="form-group">
               <label for="nombre">Nombre de Auxiliatura</label>
               <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Ingresa el nombre de la auxiliatura" required>
