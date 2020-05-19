@@ -4,12 +4,12 @@
     
     <!-- Contenido real de la página -->
     <div class="overflow-auto content">
-        <h5 style="margin: 20px" class="font-weight-bold">REQUISITOS</h5>
-        <br>
+        <h5 style="margin: 20px" class="font-weight-bold">Requisitos</h5>
+
             <button type="button" style="margin-left: 15px" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
                 <a class="add-item" data-toggle="modal" data-target="#exampleModalCenter">
                     <img src="{{ asset('img/addBLUE.png')}}" width="35" height="35">
-                </a> Añadir requerimiento
+                </a> Añadir requisito
             </button>
             <div class="table-requests">
                 <table class="table">
@@ -22,7 +22,7 @@
                     </thead>
                     <tbody style="background-color: white">
                       <tr>
-                        <th scope="row">A</th>
+                        <th scope="row">a</th>
                         <td>Ser estudiante regular y con rendimiento de las carreras de Licenciatura en Ingeniería
                           Informática o Licenciatura en Ingeniería de Sistemas y/o afín, que cursa regularmente en la
                           universidad. Para administrador de Laboratorio de Mantenimiento de Hardware podrán
@@ -66,7 +66,7 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Inciso A:</label>
+                      <label for="exampleInputEmail1">Inciso a:</label>
                       <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ingrese el requisito" rows="3"></textarea>
                       <small id="emailHelp" class="form-text text-muted">Los requisitos son creados atravez de indices alfabeticos.</small>
                     </div>

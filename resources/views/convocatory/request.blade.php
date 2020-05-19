@@ -4,7 +4,7 @@
 
 <!-- Contenido real de la página -->
 <div class="overflow-auto content">
-  <h5 style="margin: 20px" class="font-weight-bold">REQUERIMIENTOS</h5><br>
+  <h5 style="margin: 20px" class="font-weight-bold">Requerimientos</h5>
 
   <!-- Button trigger modal -->
   <button type="button" style="margin-left: 15px" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
@@ -24,16 +24,16 @@
           </button>
         </div>
         <div class="modal-body" style="background-color: #E7E7E7">
-          <form method="POST" action="{{ route('requirement') }}">
+          <form method="POST" action="{{ route('request') }}">
             <div class="form-group">
               <label for="nombre">Nombre de Auxiliatura</label>
-              <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Ingresa el nombre de la auxiliatura">
+              <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Ingresa el nombre de la auxiliatura" required>
               <div class="form-row " style="margin-top: 20px">
                 <div class="form-group col-6">
                   <div class="row">
                   <label for="nombre colFormLabelSm" class="col-sm-4 col-form-label">Item</label>
                   <div class="col-sm-8">
-                  <input name="item" type="text" class="form-control form-control-sm" id="item" placeholder="1">
+                  <input name="item" type="text" class="form-control form-control-sm" id="item" placeholder="1" required>
                   </div>
                   </div>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="row">
                   <label for="codigo_pro colFormLabelSm"  class="col-sm-4 col-form-label">Cantidad</label>
                   <div class="col-sm-8">
-                  <input name="codigo_pro" type="text" class="form-control form-control-sm" id="cantidad" placeholder="3">
+                  <input name="codigo_pro" type="text" class="form-control form-control-sm" id="cantidad" placeholder="3" required>
                   </div>
                 </div>
                 </div>
@@ -49,9 +49,9 @@
               <div class="form-row">
                 <div class="form-group col-6">
                 <div class="row">
-                  <label for="marca colFormLabelSm" class="col-sm-8 col-form-label">Hrs. Academicas</label>
+                  <label for="marca colFormLabelSm" class="col-sm-8 col-form-label">Hrs.Academicas/mes</label>
                   <div class="col-sm-4">
-                  <input name="marca" type="text" class="form-control form-control-sm" id="hr-aca" placeholder="80">
+                  <input name="marca" type="text" class="form-control form-control-sm" id="hr-aca" placeholder="80" required>
                   </div>
                 </div>
               </div>
@@ -59,7 +59,7 @@
                 <div class="row">
                   <label for="precio colFormLabelSm" class="col-sm-6 col-form-label">Codigo Aux.</label>
                   <div class="col-sm-6">
-                  <input name="precio" type="text" class="form-control form-control-sm" id="cod-aux" placeholder="LCO-ADM">
+                  <input name="precio" type="text" class="form-control form-control-sm" id="cod-aux" placeholder="LCO-ADM" required>
                   </div>
                 </div>
                 </div>
@@ -69,7 +69,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-info">Guardar</button>
+              <input class="btn btn-info" type="submit" value="Guardar"></input>
             </div>
           </form>
         </div>
@@ -84,7 +84,7 @@
         <tr>
           <th style="font-weight: normal" scope="col">Items</th>
           <th style="font-weight: normal" scope="col">Cantidad</th>
-          <th style="font-weight: normal" scope="col">Hrs. Academicas</th>
+          <th style="font-weight: normal" scope="col">Hrs. Academicas/Mes</th>
           <th style="font-weight: normal" scope="col">Nombre de la Auxiliatura</th>
           <th style="font-weight: normal" scope="col">Codigo de Auxiliatura</th>
           <th style="font-weight: normal" scope="col">Opciones</th>
