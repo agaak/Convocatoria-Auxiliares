@@ -1,5 +1,5 @@
 $('.input-group.date').datepicker({
-    format: "dd/mm/yyyy",
+    format: 'mm/dd/yyyy',
     language: "es",
     orientation: "bottom left",
     todayHighlight: true,
