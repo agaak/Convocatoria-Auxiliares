@@ -25,4 +25,13 @@ class Convocatory extends Controller
     public function knowledgeRating(){
         return view('convocatory.knowledgeRating');
     }
+
+    public function requestValid(Request $request){
+        $this->validate($request, [
+            'titulo-conv' => 'required',
+            'fecha-ini' => 'before_or_equal:fecha-fin',
+            'descripcion-conv' => 'required'
+        ]);
+        return view('convocatory.request');
+    }
 }
