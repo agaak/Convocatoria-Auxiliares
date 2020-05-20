@@ -205,14 +205,15 @@ body {
 /* Titulo y descripción */
 
 .content h3 {
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 form div label {
     font-weight: 500;
 }
 
-.calendar-svg {
+.center-y-icon {
     margin: 2px 1px;
 }
 
