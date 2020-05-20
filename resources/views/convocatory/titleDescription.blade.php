@@ -36,7 +36,7 @@
                 <div class="col-xl input-group date">
                     <input type="text" class="form-control" name="fecha-ini" id="date-ini" required value=" {{ old('fecha-ini') }} " autocomplete="off">
                     <span class="input-group-addon">
-                        <img class="center-y-icon" src="{{ asset('img/calendarAdd.png')}}" width="34" height="34" alt="icon-calendar">
+                        <img class="center-y-icon" src="{{ asset('img/calendar.png')}}" width="34" height="34" alt="icon-calendar">
                     </span>
                     {{ $errors->first('fecha-ini') }}
                 </div>
@@ -44,7 +44,7 @@
                 <div class="col-xl input-group date">
                     <input type="text" class="form-control" name="fecha-fin" id="date-end" required value=" {{ old('fecha-fin') }} " autocomplete="off">
                     <span class="input-group-addon">
-                        <img class="center-y-icon" src="{{ asset('img/calendarAdd.png')}}" width="34" height="34" alt="icon-calendar">
+                        <img class="center-y-icon" src="{{ asset('img/calendar.png')}}" width="34" height="34" alt="icon-calendar">
                     </span>
                 </div>
             </div>
