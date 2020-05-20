@@ -30,7 +30,7 @@ Route::post('/convocatoria/requerimientos', ['as' => 'requestValid', 'uses' => '
 Route::get('/convocatoria/requisitos', ['as' => 'requirement', 'uses' => 'Pages\Convocatory@requirements']);
 
 Route::get('/convocatoria/fechas-importantes', ['as' => 'importantDates', 'uses' => 'Pages\Convocatory@importantDates']);
-Route::post('/convocatoria/fechas-importantes', ['as' => 'importantDates', 'uses' => 'Pages\Convocatory@importantDates']);
+Route::post('/convocatoria/fechas-importantes', ['as' => 'importantDatesValid', 'uses' => 'Pages\Convocatory@importantDatesValid']);
 
 Route::get('/convocatoria/calificacion-meritos', ['as' => 'meritRating', 'uses' => 'Pages\Convocatory@meritRating']);
 

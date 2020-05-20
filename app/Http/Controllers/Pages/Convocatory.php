@@ -34,4 +34,10 @@ class Convocatory extends Controller
         ]);
         return view('convocatory.request');
     }
+    public function importantDatesValid(Request $request){
+        $this->validate($request, [
+            'fecha-ini-evento' => 'before_or_equal:fecha-fin-evento'
+        ]);
+        return view('convocatory.importantDates');
+    }
 }

@@ -22,30 +22,38 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{ route('importantDates') }}" id="important-dates">
+                        <form method="POST" action="{{ route('importantDatesValid') }}" id="important-dates">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="title-event">Titulo de evento</label>
-                                <input type="text" class="form-control" name="titulo-evento" id="title-event" required>
+                                <input type="text" class="form-control" name="titulo-evento" id="title-event" placeholder="Ingrese el titulo del evento" value="{{ old('titulo-evento') }}" required>
                             </div>
                             <div class="form-group">
                                 <label for="place-event">Lugar de evento</label>
-                                <input type="text" class="form-control" name="lugar-evento" id="place-event" required>
+                                <input type="text" class="form-control" name="lugar-evento" id="place-event" placeholder="Ingrese el lugar del evento" value="{{ old('lugar-evento') }}" required>
                             </div>
                             <div class="form-row">
                                 <div class="col-sm-6 text-center">
                                     <label for="place-event-date-ini">Fecha inicio</label>
                                     <div class="input-group date">
-                                        <input type="text" class="form-control" name="fecha-ini-evento" id="place-event-date-ini" autocomplete="off" required>
+                                        <input type="text" class="form-control" name="fecha-ini-evento" id="place-event-date-ini" autocomplete="off" placeholder="Mes/Día/Año" value="{{ old('fecha-ini-evento') }}" required>
                                         <span class="input-group-addon">
                                             <img class="center-y-icon" src="{{ asset('img/calendarAdd.png')}}" width="34" height="34" alt="icon-calendar">
                                         </span>
                                     </div>
+                                    @if ($errors->has('fecha-ini-evento'))
+                                        <script>
+                                            window.onload = function(){
+                                                $('#importantDatesModal').modal('show');
+                                            }
+                                        </script>
+                                    @endif
+                                    {{ $errors->first('fecha-ini-evento') }}
                                 </div>
                                 <div class="col-sm-6 text-center">
                                     <label for="place-event-date-end">Fecha fin</label>
                                     <div class="input-group date">
-                                        <input type="text" class="form-control" name="fecha-fin-evento" id="place-event-date-end" autocomplete="off" required>
+                                        <input type="text" class="form-control" name="fecha-fin-evento" id="place-event-date-end" autocomplete="off" placeholder="Mes/Día/Año" value="{{ old('fecha-fin-evento') }}" required>
                                         <span class="input-group-addon">
                                             <img class="center-y-icon" src="{{ asset('img/calendarAdd.png')}}" width="34" height="34" alt="icon-calendar">
                                         </span>
@@ -81,10 +89,10 @@
                     <td class="text-center">02/02/2020</td>
                     <td class="text-center">05/05/2020</td>
                     <td class="text-center">
-                        <a>
+                        <a type="button" data-toggle="modal" data-target="#importantDatesModal">
                             <img src="{{ asset('img/pen.png')}}" width="30" height="30">
                         </a>
-                        <a>
+                        <a type="button">
                             <img src="{{ asset('img/trash.png')}}" width="30" height="30">
                         </a>
                     </td>
