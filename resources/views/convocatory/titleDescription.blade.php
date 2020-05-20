@@ -4,7 +4,7 @@
     <!-- Contenido real de la página -->
     <div class="overflow-auto content">
 
-        <h3 class="text-uppercase text-center font-weight-bold">nueva convocatoria</h3>
+        <h3>Nueva Convocatoria</h3>
         <form class="form-title-description" method="POST" action="{{ route('requestValid') }}">
             {{ csrf_field() }}
             <div class="form-group my-5">
@@ -34,23 +34,17 @@
                 </div>
                 <label class="col-auto col-form-label text-uppercase" for="date-ini">fecha inicio</label>
                 <div class="col-xl input-group date">
-                    <input type="text" class="form-control" name="fecha-ini" id="date-ini" required value=" {{ old('fecha-ini') }} " autocomplete="off">
+                    <input type="text" class="form-control" name="fecha-ini" id="date-ini" autocomplete="off" placeholder="Mes/Día/Año" value="{{ old('fecha-ini') }}" required>
                     <span class="input-group-addon">
-                        <svg class="calendar-svg" width="34px" height="34px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" clip-rule="evenodd"/>
-                            <path fill-rule="evenodd" d="M6.5 7a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
-                        </svg>
+                        <img class="center-y-icon" src="{{ asset('img/calendar.png')}}" width="34" height="34" alt="icon-calendar">
                     </span>
                     {{ $errors->first('fecha-ini') }}
                 </div>
                 <label class="col-auto col-form-label text-uppercase" for="date-end">fecha fin</label>
                 <div class="col-xl input-group date">
-                    <input type="text" class="form-control" name="fecha-fin" id="date-end" required value=" {{ old('fecha-fin') }} " autocomplete="off">
+                    <input type="text" class="form-control" name="fecha-fin" id="date-end" autocomplete="off" placeholder="Mes/Día/Año" value="{{ old('fecha-fin') }}" required>
                     <span class="input-group-addon">
-                        <svg class="calendar-svg" width="34px" height="34px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z" clip-rule="evenodd"/>
-                            <path fill-rule="evenodd" d="M6.5 7a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
-                        </svg>
+                        <img class="center-y-icon" src="{{ asset('img/calendar.png')}}" width="34" height="34" alt="icon-calendar">
                     </span>
                 </div>
             </div>
