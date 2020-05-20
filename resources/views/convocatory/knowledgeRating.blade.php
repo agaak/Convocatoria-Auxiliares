@@ -71,7 +71,7 @@
                   <div class="row">
                   <label for="nombre colFormLabelSm" class="col-sm-8 col-form-label">Valor por defecto:</label>
                   <div class="col-sm-4">
-                  <input name="item" type="text" class="form-control form-control-sm" id="item" placeholder="30" required>
+                  <input name="item" type="text" class="form-control form-control-sm" value="30" id="item" required>
                   </div>
                   </div>
                 </div>
