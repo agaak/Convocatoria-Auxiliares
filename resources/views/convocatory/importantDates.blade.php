@@ -7,8 +7,8 @@
         <div class="my-5">
             <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#importantDatesModal">
                 <img src="{{ asset('img/calendarAdd.png')}}" width="40" height="40">
-            </a>
             <span class="mx-2">Añadir Evento</span>
+            </a>            
         </div>
 
         <div class="modal fade" id="importantDatesModal" tabindex="-1" role="dialog" aria-labelledby="importanDatesTitle"
@@ -38,7 +38,7 @@
                                     <div class="input-group date">
                                         <input type="text" class="form-control" name="fecha-ini-evento" id="place-event-date-ini" autocomplete="off" placeholder="Mes/Día/Año" value="{{ old('fecha-ini-evento') }}" required>
                                         <span class="input-group-addon">
-                                            <img class="center-y-icon" src="{{ asset('img/calendarAdd.png')}}" width="34" height="34" alt="icon-calendar">
+                                            <img class="center-y-icon" src="{{ asset('img/calendar.png')}}" width="34" height="34" alt="icon-calendar">
                                         </span>
                                     </div>
                                     @if ($errors->has('fecha-ini-evento'))
@@ -55,7 +55,7 @@
                                     <div class="input-group date">
                                         <input type="text" class="form-control" name="fecha-fin-evento" id="place-event-date-end" autocomplete="off" placeholder="Mes/Día/Año" value="{{ old('fecha-fin-evento') }}" required>
                                         <span class="input-group-addon">
-                                            <img class="center-y-icon" src="{{ asset('img/calendarAdd.png')}}" width="34" height="34" alt="icon-calendar">
+                                            <img class="center-y-icon" src="{{ asset('img/calendar.png')}}" width="34" height="34" alt="icon-calendar">
                                         </span>
                                     </div>
                                 </div>
