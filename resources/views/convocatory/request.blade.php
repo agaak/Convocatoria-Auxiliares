@@ -4,7 +4,7 @@
 
 <!-- Contenido real de la página -->
 <div class="overflow-auto content">
-  <h5 style="margin: 20px" class="font-weight-bold">Requerimientos</h5>
+  <h5 style="margin: 25px" class="font-weight-bold">Requerimientos</h5>
 
   <!-- Button trigger modal -->
   <button type="button" style="margin-left: 15px" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
@@ -23,7 +23,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body" style="background-color: #E7E7E7">
+        <div class="modal-body">
           <form method="POST" action="{{ route('request') }}">
             {{ csrf_field() }}
             <div class="form-group">
@@ -80,7 +80,7 @@
   </div>
     <!-- Table -->
     <div class="table-requests">
-    <table class="table" style="text-align: center">
+    <table class="table table-bordered" style="text-align: center">
       <thead class="thead-dark">
         <tr>
           <th style="font-weight: normal" scope="col">Items</th>

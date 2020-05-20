@@ -4,7 +4,7 @@
     
     <!-- Contenido real de la página -->
     <div class="overflow-auto content">
-        <h5 style="margin: 20px" class="font-weight-bold">Requisitos</h5>
+        <h5 style="margin: 25px" class="font-weight-bold">Requisitos</h5>
 
             <button type="button" style="margin-left: 15px" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
                 <a class="add-item" data-toggle="modal" data-target="#exampleModalCenter">
@@ -12,7 +12,7 @@
                 </a> Añadir requisito
             </button>
             <div class="table-requests">
-                <table class="table">
+                <table class="table table-bordered">
                     <thead class="thead-dark">
                       <tr>
                         <th style="font-weight: normal" scope="col">#</th>
@@ -22,7 +22,7 @@
                     </thead>
                     <tbody style="background-color: white">
                       <tr>
-                        <th scope="row">a</th>
+                        <th scope="row">a)</th>
                         <td>Ser estudiante regular y con rendimiento de las carreras de Licenciatura en Ingeniería
                           Informática o Licenciatura en Ingeniería de Sistemas y/o afín, que cursa regularmente en la
                           universidad. Para administrador de Laboratorio de Mantenimiento de Hardware podrán
