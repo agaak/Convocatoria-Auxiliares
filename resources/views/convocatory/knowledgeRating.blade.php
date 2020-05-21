@@ -3,17 +3,23 @@
 @section('content-convocatory')
     <!-- Contenido real de la página -->
     <div class="overflow-auto content">
-        <h5 style="margin: 25px" class="font-weight-bold">Calificacion de Conocimientos</h5>
+        <h6 class="font-weight-bold text-uppercase">Calificacion de Conocimientos</h6>
+        <div class="card border-dark mb-3">
+          <div class="card-body">
+            <p class="card-text">La calificación de conocimientos se realiza sobre la base de <strong> 100 </strong> puntos, equivalentes al <strong> 80% </strong>
+              de la calificación final.</p>
+          </div>
+        </div>
       <!-- Button trigger modal -->
       <div class="row">
-      <button type="button" style="margin-left: 25px" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
+      <button type="button" style="margin-left: 25px; margin-top: 5px" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
         <a data-toggle="modal" data-target="#exampleModalCenter">
-          <img src="{{ asset('img/addBLUE.png')}}" width="35" height="35">
+          <img src="{{ asset('img/addBLUE.png')}}" width="30" height="30">
         </a> Añadir Tematica
       </button>
-      <button type="button" style="margin-left: 15px" class="btn add-item" data-toggle="modal" data-target="#modalAuxiliatura">
+      <button type="button" style="margin-left: 15px; margin-top: 6px" class="btn add-item" data-toggle="modal" data-target="#modalAuxiliatura">
         <a data-toggle="modal" data-target="#modalAuxiliatura">
-          <img src="{{ asset('img/pen.png')}}" width="35" height="35">
+          <img src="{{ asset('img/pen.png')}}" width="30" height="30">
         </a> Editar Auxiliatura
       </button>
     </div>
@@ -159,8 +165,7 @@
               <div class="form-row" style="margin-top: 20px">
                   <div class="form-group col-7">
                   <div class="row">
-                    <label for="marca colFormLabelSm" class="col-sm-5 col-form-label">Tematica 1:</label>
-                    <label for="marca colFormLabelSm" class="col-sm-7 col-form-label">Linux Avanzado</label>
+                    <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 1:<span style="font-weight: normal; margin-left:10px">Linux Avanzado</span></label>
                   </div>
                 </div>
                   <div class="form-group col-4">
@@ -172,10 +177,9 @@
                 </div>
                 <div class="form-row">
                   <div class="form-group col-7">
-                  <div class="row">
-                    <label for="marca colFormLabelSm" class="col-sm-5 col-form-label">Tematica 2:</label>
-                    <label for="marca colFormLabelSm" class="col-sm-7 col-form-label">Programacion Web</label>
-                  </div>
+                    <div class="row">
+                      <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 2:<span style="font-weight: normal; margin-left:10px">Programacion Web</span></label>
+                    </div>
                 </div>
                 <div class="form-group col-4">
                   <div class="row">
@@ -186,10 +190,9 @@
                 </div>
                 <div class="form-row">
                   <div class="form-group col-7">
-                  <div class="row">
-                    <label for="marca colFormLabelSm" class="col-sm-5 col-form-label">Tematica 3:</label>
-                    <label for="marca colFormLabelSm" class="col-sm-7 col-form-label">Base de datos</label>
-                  </div>
+                    <div class="row">
+                      <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 4:<span style="font-weight: normal; margin-left:10px">Base de Datos</span></label>
+                    </div>
                 </div>
                 <div class="form-group col-4">
                   <div class="row">
