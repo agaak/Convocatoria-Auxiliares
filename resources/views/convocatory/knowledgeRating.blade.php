@@ -102,15 +102,13 @@
           <form method="POST" action="{{ route('request') }}">
             {{ csrf_field() }}
             <div class="form-group">
-              <label for="nombre">Nueva Tematica</label>
+              <label for="nombre">Nombre de la Tematica</label>
               <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Linux Avanzado" required>
               <div class="form-row " style="margin-top: 20px">
                 <div class="form-group col-6">
                   <div class="row">
-                  <label for="nombre colFormLabelSm" class="col-sm-8 col-form-label">Valor por defecto:</label>
-                  <div class="col-sm-4">
-                  <input name="item" type="text" class="form-control form-control-sm" value="30" id="item" required>
-                  </div>
+                    <label class="col-8 col-form-label" for="porcent-merit">Valor por defecto:</label>
+                    <input type="number" class="form-control col-sm-4" name="porcentaje-merito" id="porcent-merit" value="30" min="0" max="100" required>
                   </div>
                 </div>
               </div>
@@ -166,12 +164,10 @@
                   </div>
                 </div>
                   <div class="form-group col-4">
-                  <div class="row">
-                    <label for="precio colFormLabelSm" class="col-sm-6 col-form-label">Porcentaje:</label>
-                    <div class="col-sm-6">
-                    <input name="precio" type="text" class="form-control form-control-sm" id="cod-aux" placeholder="30" required>
-                    </div>
-                  </div>
+                      <div class="row">
+                        <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
+                        <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito" id="porcent-merit" placeholder="30%" min="0" max="100" required>
+                      </div>
                   </div>
                 </div>
                 <div class="form-row">
@@ -181,14 +177,12 @@
                     <label for="marca colFormLabelSm" class="col-sm-7 col-form-label">Programacion Web</label>
                   </div>
                 </div>
-                  <div class="form-group col-4">
+                <div class="form-group col-4">
                   <div class="row">
-                    <label for="precio colFormLabelSm" class="col-sm-6 col-form-label">Porcentaje:</label>
-                    <div class="col-sm-6">
-                    <input name="precio" type="text" class="form-control form-control-sm" id="cod-aux" placeholder="30" required>
-                    </div>
+                    <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
+                    <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito" id="porcent-merit" placeholder="30%" min="0" max="100" required>
                   </div>
-                  </div>
+              </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-7">
@@ -197,14 +191,12 @@
                     <label for="marca colFormLabelSm" class="col-sm-7 col-form-label">Base de datos</label>
                   </div>
                 </div>
-                  <div class="form-group col-4">
+                <div class="form-group col-4">
                   <div class="row">
-                    <label for="precio colFormLabelSm" class="col-sm-6 col-form-label">Porcentaje:</label>
-                    <div class="col-sm-6">
-                    <input name="precio" type="text" class="form-control form-control-sm" id="cod-aux" placeholder="30" required>
-                    </div>
+                    <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
+                    <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito" id="porcent-merit" placeholder="30%" min="0" max="100" required>
                   </div>
-                  </div>
+              </div>
                 </div>
               </div>
               </fieldset>
