@@ -3,7 +3,63 @@
 @section('content-convocatory')
     <!-- Contenido real de la página -->
     <div class="overflow-auto content">
+        @php
+            $notaBase = 100;
+            $notaPorcentaje = 10;
+        @endphp
         <h3>Calificación de Méritos</h1>
+        {{-- Descripcion del contenido y adjunto un icono para edita esta descripcion en un modal --}}
+        <div class="container">
+            <div class="row my-5">
+                <p class="paragraph-merit col-sm my-auto">
+                    <span class="font-weight-bold">La calificacion de méritos</span> se basará en los documentos presentados 
+                    por el postulante y se realizará sobre la base de <span class="font-weight-bold">{{ $notaBase }}</span>
+                    puntos que representa el <span class="font-weight-bold">{{ $notaPorcentaje }}%</span> del puntaje final.
+                </p>
+                <a class="col-auto my-auto mx-auto" type="button" data-toggle="modal" data-target="#porcentageModal">
+                    <img src="{{ asset('img/pen.png')}}" width="30" height="30">
+                </a>
+            </div>
+        </div>
+        {{-- Modal de la descripcion del contenido para cambiar dato nota y porcentaje --}}
+        <div class="modal fade" id="porcentageModal" tabindex="-1" role="dialog" aria-labelledby="porcentageMeritModal"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="porcentageMeritModal">Porcentaje de evaluación</h5>
+                        <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ route('importantDatesValid') }}" id="merit-form">
+                            {{ csrf_field() }}
+                            <p>
+                                <span class="font-weight-bold">La calificación de méritos</span> se basará en los documentos presentados por el postulante:
+                            </p>
+                            <div class="form-row my-4 bg-light">
+                                <span class="my-auto">Se calificará sobre la base de:</span>
+                                <input type="number" class="form-control col-sm-2 mx-2" name="puntos-calificacion" placeholder="100" min="0" max="100" required>
+                                <span class="my-auto">puntos</span>
+                            </div>
+                            <div class="form-row my-4 bg-light">
+                                <span class="my-auto">Que representa el:</span>
+                                <input type="number" class="form-control col-sm-2 mx-2" name="porcentaje-merito" id="porcent-merit" placeholder="%" min="0" max="100" required>
+                                <span class="my-auto">% de la nota final</span>
+                            </div>
+                        </form>
+                        
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <input type="submit" class="btn btn-info" value="Guardar" form="merit-form">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- Botones para añadir merito y submerito que ademas abren el modal respectivo --}}
         <div class="row my-4">
             <div class="col-lg-3 my-1">
                 <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#meritModal">
@@ -17,7 +73,7 @@
                 </a>
             </div>
         </div>
-
+        {{-- Modal del añadir merito --}}
         <div class="modal fade" id="meritModal" tabindex="-1" role="dialog" aria-labelledby="meritModalTitle"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -50,7 +106,7 @@
                 </div>
             </div>
         </div>
-        
+        {{-- Modal del añadir submerito --}}
         <div class="modal fade" id="subMeritModal" tabindex="-1" role="dialog" aria-labelledby="subMeritModalTitle"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -92,7 +148,7 @@
                 </div>
             </div>
         </div>
-        
+        {{-- Tabla de merito y submeritos --}}
         <table class="table my-5">
             <thead class="thead-dark text-center">
                 <tr>
