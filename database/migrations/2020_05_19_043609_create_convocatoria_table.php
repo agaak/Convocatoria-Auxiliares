@@ -16,7 +16,7 @@ class CreateConvocatoriaTable extends Migration
         Schema::create('convocatoria', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titulo',256);
-            $table->text('description');
+            $table->text('descripcion');
             $table->timestamps();
         });
     }

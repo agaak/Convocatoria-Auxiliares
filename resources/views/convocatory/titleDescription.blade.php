@@ -7,6 +7,7 @@
         <h3>Nueva Convocatoria</h3>
         <form class="form-title-description" method="POST" action="{{ route('requestValid') }}">
             {{ csrf_field() }}
+            @csrf
             <div class="form-group my-5">
                 <label class="text-uppercase" for="convocatory-title">titulo</label>
                 <textarea class="form-control text-center" name="titulo-conv" id="convocatory-title" rows="3" required placeholder="Ingrese el título de la CONVOCATORIA">{{ old('titulo-conv') }}</textarea>
