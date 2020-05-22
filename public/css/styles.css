@@ -220,6 +220,18 @@ form div label {
 .form-title-description {
     font-size: 14px;
 }
+
+/* Calificacion de meritos */
+
+.paragraph-merit {
+    background-color: white;
+    border-radius: 5px 5px;
+    padding: 2px 4px;
+    font-size: 14px;
+    border: 1px solid lightblue;
+    display: inline;
+}
+
 /* Requerimientos */
 .add-item {
     margin-bottom: 20px;
