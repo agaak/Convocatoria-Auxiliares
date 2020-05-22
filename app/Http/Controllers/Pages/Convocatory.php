@@ -22,6 +22,11 @@ class Convocatory extends Controller
     public function meritRating(){
         return view('convocatory.meritRating');
     }
+
+    public function meritRatingValid(){
+        return view('convocatory.meritRating');
+    }
+
     public function knowledgeRating(){
         return view('convocatory.knowledgeRating');
     }
