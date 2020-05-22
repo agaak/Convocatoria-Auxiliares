@@ -3,18 +3,14 @@
 @section('content-convocatory')
     <!-- Contenido real de la página -->
     <div class="overflow-auto content">
-        @php
-            $notaBase = 100;
-            $notaPorcentaje = 10;
-        @endphp
         <h3>Calificación de Méritos</h1>
         {{-- Descripcion del contenido y adjunto un icono para edita esta descripcion en un modal --}}
         <div class="container">
             <div class="row my-5">
                 <p class="paragraph-merit col-sm my-auto">
                     <span class="font-weight-bold">La calificacion de méritos</span> se basará en los documentos presentados 
-                    por el postulante y se realizará sobre la base de <span class="font-weight-bold">{{ $notaBase }}</span>
-                    puntos que representa el <span class="font-weight-bold">{{ $notaPorcentaje }}%</span> del puntaje final.
+                    por el postulante y se realizará sobre la base de <span class="font-weight-bold">100</span>
+                    puntos que representa el <span class="font-weight-bold">10%</span> del puntaje final.
                 </p>
                 <a class="col-auto my-auto mx-auto" type="button" data-toggle="modal" data-target="#porcentageModal">
                     <img src="{{ asset('img/pen.png')}}" width="30" height="30">
@@ -33,7 +29,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{ route('importantDatesValid') }}" id="merit-form">
+                        <form method="POST" action="{{ route('meritRatingValid') }}" id="points-merit-form">
                             {{ csrf_field() }}
                             <p>
                                 <span class="font-weight-bold">La calificación de méritos</span> se basará en los documentos presentados por el postulante:
@@ -54,7 +50,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <input type="submit" class="btn btn-info" value="Guardar" form="merit-form">
+                        <input type="submit" class="btn btn-info" value="Guardar" form="points-merit-form">
                     </div>
                 </div>
             </div>
@@ -85,7 +81,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{ route('importantDatesValid') }}" id="merit-form">
+                        <form method="POST" action="{{ route('meritRatingValid') }}" id="merit-form">
                             {{ csrf_field() }}
                             <div class="form-row my-2">
                                 <label class="col-3 my-auto" for="description-merit">Descripción:</label>
@@ -118,7 +114,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{ route('importantDatesValid') }}" id="sub-merit-form">
+                        <form method="POST" action="{{ route('meritRatingValid') }}" id="sub-merit-form">
                             {{ csrf_field() }}
                             <div class="form-row my-2">
                                 <label class="col-3" for="merit-sub-merit">Mértio / submérito</label>
@@ -158,23 +154,33 @@
                 </tr>
             </thead>
             <tbody class="bg-white">
-                @php
-                    $contenedor = ['merito a', 'merito b', 'merito c', 'merito n'];
-                @endphp
-                @foreach ($contenedor as $item)
-                    <tr>
-                        <td class="text-uppercase">{{ $item }}</td>
-                        <td class="text-center">65</td>
-                        <td class="text-center">
-                            <a type="button" data-toggle="modal" data-target="#importantDatesModal">
-                                <img src="{{ asset('img/pen.png')}}" width="30" height="30">
-                            </a>
-                            <a type="button">
-                                <img src="{{ asset('img/trash.png')}}" width="30" height="30">
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
+
+                <tr>
+                    <td class="text-uppercase">descripcion del merito y submeritos</td>
+                    <td class="text-center">65</td>
+                    <td class="text-center">
+                        <a type="button" data-toggle="modal" data-target="#meritModal">
+                            <img src="{{ asset('img/pen.png')}}" width="30" height="30">
+                        </a>
+                        <a type="button">
+                            <img src="{{ asset('img/trash.png')}}" width="30" height="30">
+                        </a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="pl-4">descripcion del merito y submeritos</td>
+                    <td class="text-center">65</td>
+                    <td class="text-center">
+                        <a type="button" data-toggle="modal" data-target="#subMeritModal">
+                            <img src="{{ asset('img/pen.png')}}" width="30" height="30">
+                        </a>
+                        <a type="button">
+                            <img src="{{ asset('img/trash.png')}}" width="30" height="30">
+                        </a>
+                    </td>
+                </tr>
+
             </tbody>
         </table>
         <div class="my-5 text-center">
