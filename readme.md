@@ -3,12 +3,8 @@ El sistema realizara la administracion de las convocatorias de auxiliares en la 
 
 ## Sistema-Auxiliares
 ### Instalacion
-
 - git clone https://github.com/agaak/Convocatoria-Auxiliares.git
-- cd tis_auxiliares
-- crear el nombre del archivo ".env" y copiar el contenido de ".env.example"
 - composer install
-- composer update
 - php artisan key:generate
 - php artisan serve
 
@@ -19,3 +15,4 @@ El sistema realizara la administracion de las convocatorias de auxiliares en la 
 	- ;extension=php_pdo_pgsql.dll
 	- ;extension=php_pgsql.dll
 - quitar ";"
+- php artisan migrate

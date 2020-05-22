@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Pages;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
+use App\Convocatoria;
+use App\Cronograma;
+use App\Evento;
+use App\Unidad_Academica;
+
 class Convocatory extends Controller
 {
     public function titleDescription(){
@@ -37,6 +43,11 @@ class Convocatory extends Controller
             'fecha-ini' => 'before_or_equal:fecha-fin',
             'descripcion-conv' => 'required'
         ]);
+        Convocatoria::create([
+            'titulo'=> $request->get('titulo-conv'),
+            'descripcion'=> $request->get('descripcion-conv')
+        ]);
+
         return view('convocatory.request');
     }
     public function importantDatesValid(Request $request){
