@@ -147,33 +147,62 @@
         {{-- Tabla de merito y submeritos --}}
 
         @php
+            function espacios($cadena){
+                $contar = 0;
+                for ($i=0; $i < strlen($cadena) ; $i++) {
+                    $contar += 10;
+                    if ($cadena[$i] == ')') {
+                        break;
+                    }
+                }
+                return $contar-8;
+            }
             $pruebas = [
-                1 => [null, 'A) Descripcion Merito', 100],
-                2 => [1,'A.1) Descripcion subMerito', 100],
-                3 => [2, 'A.1.1) Descripcion subMerito', 100],
-                4 => [null, 'B) Descripcion Merito', 100],
-                5 => [4, 'B.1) Descripcion subMerito', 100],
-                6 => [5, 'B.1.1) Descripcion subMerito', 100],
-                7 => [6, 'B.1.1.1) Descripcion subMerito', 100],
-                8 => [3, 'A.1.1.1) Descripcion subMerito', 100],
-                9 => [3, 'A.1.1.2) Descripcion subMerito', 100],
+                1 => [null, "Descripcion Merito", 100],
+                2 => [1, "Descripcion subMerito", 100],
+                3 => [2, "Descripcion subMerito", 100],
+                4 => [null, "Descripcion Merito", 100],
+                5 => [4, "Descripcion subMerito", 100],
+                6 => [5, "Descripcion subMerito", 100],
+                7 => [6, "Descripcion subMerito", 100],
+                8 => [3, "Descripcion subMerito", 100],
+                9 => [3, "Descripcion subMerito", 100],
+                10 => [2, "Descripcion subMerito", 100],
+                11 => [10, "Descripcion subMerito", 100],
+                12 => [10, "Descripcion subMerito", 100],
+                13 => [7, "Descripcion subMerito", 100],
+                14 => [5, "Descripcion subMerito", 100],
+                15 => [5, "Descripcion subMerito", 100],
+                16 => [4, "Descripcion subMerito", 100],
             ];
             $pruebasOrdenadas = [];
             foreach ($pruebas as $key => $value) {
+                $caracteres = 321;
                 if ($value[0] === null) {
+                    $value[1] = chr($caracteres).') '.$value[1];
                     array_push($pruebasOrdenadas, $value);
-                    foreach ($pruebas as $key2 => $value2) {
-                        if ($value2[0] === $key){
-                            array_push($pruebasOrdenadas, $value2);
-                        }
-                    }
-                } else {
-                    foreach ($pruebas as $key2 => $value2) {
-                        if ($value2[0] === $key){
-                            array_push($pruebasOrdenadas, $value2);
+                    $pruebasOrdenadas = buscarPerteneciente($pruebas, $key, $pruebasOrdenadas, $caracteres, '.');
+                    $caracteres++;
+                }
+            }
+
+            function buscarPerteneciente($original, $identificador, $arreglo, $caracteres, $cadena) {
+                $contador = 1;
+                $cadenaTempral  ;
+                foreach ($original as $key => $value) {
+                    if ($value[0] !== null) {
+                        if($value[0] === $identificador) {
+                            $cadenaTemporal = $cadena.$contador;
+                            $value[1] = chr($caracteres).$cadenaTemporal.') '.$value[1];
+                            array_push($arreglo, $value);
+                            $arreglo = buscarPerteneciente($original ,$key, $arreglo, $caracteres, $cadenaTemporal.'.');
+                            $contador++;
                         }
                     }
                 }
+
+                return $arreglo;
+
             }
         @endphp
         <table class="table my-5">
@@ -187,7 +216,7 @@
             <tbody class="bg-white">
                 @foreach ($pruebasOrdenadas as $item)
                 <tr>
-                    <td class="text-uppercase">{{ $item[1] }}</td>
+                    <td class="{{ $item[0] === null? 'text-uppercase font-weight-bold': 'text-lowercase' }}" style="padding-left: {{ espacios($item[1]) }}px;">{{ $item[1] }}</td>
                     <td class="text-center">{{ $item[2] }}</td>
                     <td class="text-center">
                         <a type="button" data-toggle="modal" data-target="{{ $item[0] === null? '#meritModal': '#subMeritModal' }}">
