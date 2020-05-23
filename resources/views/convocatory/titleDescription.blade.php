@@ -36,8 +36,8 @@
             </div>
             <label class="col-auto col-form-label text-uppercase" for="date-ini">fecha inicio</label>
             <div class="col-xl input-group date">
-                <input type="button" class="form-control" name="fecha-ini" id="date-ini" autocomplete="off"
-                    value="Mes/Día/Año" placeholder="{{ old('fecha-ini') }}" required>
+                <input type="text" class="form-control" name="fecha-ini" id="date-ini" autocomplete="off"
+                    value="{{ old('fecha-ini') }}" placeholder="Mes/Día/Año" required>
                 <span class="input-group-addon">
                     <img class="center-y-icon" src="{{ asset('img/calendar.png') }}" width="34"
                         height="34" alt="icon-calendar">
@@ -46,8 +46,8 @@
             </div>
             <label class="col-auto col-form-label text-uppercase" for="date-end">fecha fin</label>
             <div class="col-xl input-group date">
-                <input type="button" class="form-control" name="fecha-fin" id="date-end" autocomplete="off"
-                    value="Mes/Día/Año" placeholder="{{ old('fecha-fin') }}" required>
+                <input type="text" class="form-control" name="fecha-fin" id="date-end" autocomplete="off"
+                value="{{ old('fecha-ini') }}" placeholder="Mes/Día/Año" required>
                 <span class="input-group-addon">
                     <img class="center-y-icon" src="{{ asset('img/calendar.png') }}" width="34"
                         height="34" alt="icon-calendar">

@@ -57,7 +57,7 @@
                                 <label for="time-event-ini" class="d-block my-2">Hora inicio</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control timepicker text-center" name="tiempo-inicio"
-                                        id="time-event-ini" autocomplete="off" required>
+                                        id="time-event-ini" autocomplete="off" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" required>
                                     <label for="time-event-ini" class="my-auto"><img class="my-auto"
                                             src="{{ asset('img/clock.png') }}" width="30"
                                             height="30"></label>
@@ -85,7 +85,7 @@
                                 <label for="time-event-end" class="d-block my-2">Hora final</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control timepicker text-center" name="tiempo-final"
-                                        id="time-event-end" autocomplete="off" required>
+                                        id="time-event-end" autocomplete="off" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" required>
                                     <label class="my-auto" for="time-event-end"><img
                                             src="{{ asset('img/clock.png') }}" width="30"
                                             height="30"></label>
