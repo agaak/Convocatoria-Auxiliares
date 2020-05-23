@@ -85,7 +85,7 @@
                                 <label for="time-event-end" class="d-block my-2">Hora final</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control timepicker text-center" name="tiempo-final"
-                                        id="time-event-end" autocomplete="off" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" required>
+                                        id="time-event-end" autocomplete="off" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" required readonly>
                                     <label class="my-auto" for="time-event-end"><img
                                             src="{{ asset('img/clock.png') }}" width="30"
                                             height="30"></label>
