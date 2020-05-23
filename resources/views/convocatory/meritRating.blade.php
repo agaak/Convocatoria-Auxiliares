@@ -145,6 +145,37 @@
             </div>
         </div>
         {{-- Tabla de merito y submeritos --}}
+
+        @php
+            $pruebas = [
+                1 => [null, 'A) Descripcion Merito', 100],
+                2 => [1,'A.1) Descripcion subMerito', 100],
+                3 => [2, 'A.1.1) Descripcion subMerito', 100],
+                4 => [null, 'B) Descripcion Merito', 100],
+                5 => [4, 'B.1) Descripcion subMerito', 100],
+                6 => [5, 'B.1.1) Descripcion subMerito', 100],
+                7 => [6, 'B.1.1.1) Descripcion subMerito', 100],
+                8 => [3, 'A.1.1.1) Descripcion subMerito', 100],
+                9 => [3, 'A.1.1.2) Descripcion subMerito', 100],
+            ];
+            $pruebasOrdenadas = [];
+            foreach ($pruebas as $key => $value) {
+                if ($value[0] === null) {
+                    array_push($pruebasOrdenadas, $value);
+                    foreach ($pruebas as $key2 => $value2) {
+                        if ($value2[0] === $key){
+                            array_push($pruebasOrdenadas, $value2);
+                        }
+                    }
+                } else {
+                    foreach ($pruebas as $key2 => $value2) {
+                        if ($value2[0] === $key){
+                            array_push($pruebasOrdenadas, $value2);
+                        }
+                    }
+                }
+            }
+        @endphp
         <table class="table my-5">
             <thead class="thead-dark text-center">
                 <tr>
@@ -154,12 +185,12 @@
                 </tr>
             </thead>
             <tbody class="bg-white">
-
+                @foreach ($pruebasOrdenadas as $item)
                 <tr>
-                    <td class="text-uppercase">descripcion del merito y submeritos</td>
-                    <td class="text-center">65</td>
+                    <td class="text-uppercase">{{ $item[1] }}</td>
+                    <td class="text-center">{{ $item[2] }}</td>
                     <td class="text-center">
-                        <a type="button" data-toggle="modal" data-target="#meritModal">
+                        <a type="button" data-toggle="modal" data-target="{{ $item[0] === null? '#meritModal': '#subMeritModal' }}">
                             <img src="{{ asset('img/pen.png')}}" width="30" height="30">
                         </a>
                         <a type="button">
@@ -167,19 +198,7 @@
                         </a>
                     </td>
                 </tr>
-
-                <tr>
-                    <td class="pl-4">descripcion del merito y submeritos</td>
-                    <td class="text-center">65</td>
-                    <td class="text-center">
-                        <a type="button" data-toggle="modal" data-target="#subMeritModal">
-                            <img src="{{ asset('img/pen.png')}}" width="30" height="30">
-                        </a>
-                        <a type="button">
-                            <img src="{{ asset('img/trash.png')}}" width="30" height="30">
-                        </a>
-                    </td>
-                </tr>
+                @endforeach
 
             </tbody>
         </table>
