@@ -4,13 +4,13 @@
     <!-- Contenido real de la página -->
     <div class="overflow-auto content">
 
-        <h3>Nueva Convocatoria</h3>
+        <h3 class="text-uppercase">Nueva Convocatoria</h3>
         <form class="form-title-description" method="POST" action="{{ route('requestValid') }}">
             {{ csrf_field() }}
     
             <div class="form-group my-5">
                 <label class="text-uppercase" for="convocatory-title">titulo</label>
-                <textarea class="form-control text-center" name="titulo-conv" id="convocatory-title" rows="3" required placeholder="Ingrese el título de la CONVOCATORIA">{{ old('titulo-conv') }}</textarea>
+                <input class="form-control" name="titulo-conv" id="convocatory-title" rows="3" placeholder="Ingrese el título de la CONVOCATORIA" required>{{ old('titulo-conv') }}
                 {{ $errors->first('titulo-conv') }}
             </div>
             <div class="form-row my-5">
@@ -55,7 +55,7 @@
                 {{ $errors->first('descripcion-conv') }}
             </div>
             <div class="text-center">
-                <input class="btn btn-info text-uppercase form-title-description" type="submit" value="siguiente"></input>
+                <input class="btn btn-info text-uppercase form-title-description" type="submit" value="siguiente">
             </div>
         </form>
     </div>
