@@ -15,7 +15,7 @@ class CreateUnidadAcademicaTable extends Migration
     {
         Schema::create('unidad_academica', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
+            $table->string('departament_conv');
             $table->timestamps();
         });
     }

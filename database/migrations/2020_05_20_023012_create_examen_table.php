@@ -15,7 +15,7 @@ class CreateExamenTable extends Migration
     {
         Schema::create('examen', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_postulante');
+            $table->integer('id_postulante')->unsigned();
             $table->integer('calificar');
 
             $table->foreign('id_postulante')->references('id')->on('postulante')->onDelete('cascade');         
