@@ -15,7 +15,7 @@ class CreateAvisoTable extends Migration
     {
         Schema::create('aviso', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_convocatoria');
+            $table->integer('id_convocatoria')->unsigned();
             $table->text('descripcion');
 
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
