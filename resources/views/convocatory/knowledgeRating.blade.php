@@ -1,101 +1,105 @@
 @extends('convocatory.layoutConvocatory')
 
 @section('content-convocatory')
-    <!-- Contenido real de la página -->
-    <div class="overflow-auto content">
-        <h6 class="font-weight-bold text-uppercase">Calificacion de Conocimientos</h6>
-        <div class="card border-dark mb-3">
-          <div class="card-body">
-            <p class="card-text">La calificación de conocimientos se realiza sobre la base de <strong> 100 </strong> puntos, equivalentes al <strong> 80% </strong>
-              de la calificación final.</p>
-          </div>
-        </div>
-      <!-- Button trigger modal -->
-      <div class="row">
-      <button type="button" style="margin-left: 25px; margin-top: 5px" class="btn add-item" data-toggle="modal" data-target="#exampleModalCenter">
-        <a data-toggle="modal" data-target="#exampleModalCenter">
-          <img src="{{ asset('img/addBLUE.png')}}" width="30" height="30">
-        </a> Añadir Tematica
-      </button>
-      <button type="button" style="margin-left: 15px; margin-top: 6px" class="btn add-item" data-toggle="modal" data-target="#modalAuxiliatura">
-        <a data-toggle="modal" data-target="#modalAuxiliatura">
-          <img src="{{ asset('img/pen.png')}}" width="30" height="30">
-        </a> Editar Auxiliatura
-      </button>
+
+<div class="overflow-auto content">
+
+  <h3 class="text-uppercase text-center">Calificacion de Conocimientos</h3>
+
+  <div class="card border-dark mb-3">
+    <div class="card-body">
+      <p class="card-text">La calificación de conocimientos se realiza sobre la base de <strong> 100 </strong> puntos,
+        equivalentes al <strong> 80% </strong>
+        de la calificación final.</p>
     </div>
-        <!-- Table -->
-    <div class="table-requests">
-        <table class="table table-bordered" style="text-align: center">
-          <thead class="thead-dark">
-            <tr>
-              <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">#</th>
-              <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">Tematica</th>
-              <th style="font-weight: normal" scope="col" colspan="6">Codigo de Auxiliatura</th>
-              <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">Opciones</th>
-            </tr>
-            <tr>
-              <th style="font-weight: normal" scope="col">LCO-ADM</th>
-              <th style="font-weight: normal" scope="col">LDS-ADM</th>
-              <th style="font-weight: normal" scope="col">LDS-AUX</th>
-              <th style="font-weight: normal" scope="col">LM-AUX</th>
-              <th style="font-weight: normal" scope="col">LM-ADM</th>
-              <th style="font-weight: normal" scope="col">LM-AUX</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="table-light">1</td>
-              <td class="table-light">Linux Avanzado</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-                  <img src="{{ asset('img/pen.png')}}" width="30" height="30">
-                </a>
-                <a class="options">
-                  <img src="{{ asset('img/trash.png')}}" width="30" height="30">
-                </a></td>
-            </tr>
-            <tr>
-              <td class="table-light">2</td>
-              <td class="table-light">Programacion web</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-                  <img src="{{ asset('img/pen.png')}}" width="30" height="30">
-                </a>
-                <a class="options">
-                  <img src="{{ asset('img/trash.png')}}" width="30" height="30">
-                </a></td>
-            </tr>
-            <tr>
-              <td class="table-light">3</td>
-              <td class="table-light">Dase de datos</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light">0</td>
-              <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-                  <img src="{{ asset('img/pen.png')}}" width="30" height="30">
-                </a>
-                <a class="options">
-                  <img src="{{ asset('img/trash.png')}}" width="30" height="30">
-                </a></td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-      <!-- Modal -->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  </div>
+
+  <!-- Button trigger modal -->
+  <div class="row my-3" style="margin-left: 3ch">
+    <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#tematicaModal">
+      <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
+      <span class="mx-1">Añadir Tematica</span>
+    </a>
+    <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal" data-target="#auxiliaturaModal">
+      <img src="{{ asset('img/pen.png') }}" width="30" height="30">
+      <span class="mx-1">Editar Auxiliatura</span>
+    </a>
+  </div>
+
+  <!-- Table -->
+  <div class="table-requests">
+    <table class="table table-bordered" style="text-align: center">
+      <thead class="thead-dark">
+        <tr>
+          <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">#</th>
+          <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">Tematica</th>
+          <th style="font-weight: normal" scope="col" colspan="6">Codigo de Auxiliatura</th>
+          <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">Opciones</th>
+        </tr>
+        <tr>
+          <th style="font-weight: normal" scope="col">LCO-ADM</th>
+          <th style="font-weight: normal" scope="col">LDS-ADM</th>
+          <th style="font-weight: normal" scope="col">LDS-AUX</th>
+          <th style="font-weight: normal" scope="col">LM-AUX</th>
+          <th style="font-weight: normal" scope="col">LM-ADM</th>
+          <th style="font-weight: normal" scope="col">LM-AUX</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-light">1</td>
+          <td class="table-light">Linux Avanzado</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
+              <img src="{{ asset('img/pen.png') }}" width="30" height="30">
+            </a>
+            <a class="options">
+              <img src="{{ asset('img/trash.png') }}" width="30" height="30">
+            </a></td>
+        </tr>
+        <tr>
+          <td class="table-light">2</td>
+          <td class="table-light">Programacion web</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
+              <img src="{{ asset('img/pen.png') }}" width="30" height="30">
+            </a>
+            <a class="options">
+              <img src="{{ asset('img/trash.png') }}" width="30" height="30">
+            </a></td>
+        </tr>
+        <tr>
+          <td class="table-light">3</td>
+          <td class="table-light">Dase de datos</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light">0</td>
+          <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
+              <img src="{{ asset('img/pen.png') }}" width="30" height="30">
+            </a>
+            <a class="options">
+              <img src="{{ asset('img/trash.png') }}" width="30" height="30">
+            </a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="tematicaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -109,12 +113,14 @@
             {{ csrf_field() }}
             <div class="form-group">
               <label for="nombre">Nombre de la Tematica</label>
-              <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Linux Avanzado" required>
+              <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="emailHelp"
+                placeholder="Linux Avanzado" required>
               <div class="form-row " style="margin-top: 20px">
                 <div class="form-group col-6">
                   <div class="row">
                     <label class="col-8 col-form-label" for="porcent-merit">Valor por defecto:</label>
-                    <input type="number" class="form-control col-sm-4" name="porcentaje-merito" id="porcent-merit" value="30" min="0" max="100" required>
+                    <input type="number" class="form-control col-sm-4" name="porcentaje-merito" id="porcent-merit"
+                      value="30" min="0" max="100" required>
                   </div>
                 </div>
               </div>
@@ -126,9 +132,12 @@
             </div>
           </form>
         </div>
-      </div></div></div>
-         <!-- Modal Auxiliatura-->
-  <div class="modal fade" id="modalAuxiliatura" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      </div>
+    </div>
+  </div>
+  <!-- Modal Auxiliatura-->
+  <div class="modal fade" id="auxiliaturaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -142,77 +151,85 @@
             {{ csrf_field() }}
             <div class="form-group">
               <div class="form-row">
-              <label class="col-auto col-form-label" for="department-conv">Auxiliatura</label>
+                <label class="col-auto col-form-label" for="department-conv">Auxiliatura</label>
                 <div class="col-xl">
-                    <select class="form-control" id="department-conv" name="departamento-ant">
-                        @php
-                            function valor($dato) {
-                                $direction = '';
-                                if ( old('departamento-ant') == $dato ) {
-                                    $direction = 'selected';
-                                }
-                            return $direction;
-                            }
-                        @endphp
-                        <option {{ valor('LCO-ADM') }}>LCO-ADM</option>
-                        <option {{ valor('LDS-ADM') }}>LDS-ADM</option>
-                        <option {{ valor('LDS-AUX') }}>LDS-AUX</option>
-                        <option {{ valor('LM-ADM') }}>LM-ADM</option>
-                        <option {{ valor('LM-AUX') }}>LM-AUX</option>
-                    </select>
+                  <select class="form-control" id="department-conv" name="departamento-ant">
+                    @php
+                      function valor($dato) {
+                      $direction = '';
+                      if ( old('departamento-ant') == $dato ) {
+                      $direction = 'selected';
+                      }
+                      return $direction;
+                      }
+                    @endphp
+                    <option {{ valor('LCO-ADM') }}>LCO-ADM</option>
+                    <option {{ valor('LDS-ADM') }}>LDS-ADM</option>
+                    <option {{ valor('LDS-AUX') }}>LDS-AUX</option>
+                    <option {{ valor('LM-ADM') }}>LM-ADM</option>
+                    <option {{ valor('LM-AUX') }}>LM-AUX</option>
+                  </select>
                 </div>
               </div>
               <div class="form-row" style="margin-top: 20px">
-                  <div class="form-group col-7">
+                <div class="form-group col-7">
                   <div class="row">
-                    <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 1:<span style="font-weight: normal; margin-left:10px">Linux Avanzado</span></label>
+                    <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 1:<span
+                        style="font-weight: normal; margin-left:10px">Linux Avanzado</span></label>
                   </div>
-                </div>
-                  <div class="form-group col-4">
-                      <div class="row">
-                        <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
-                        <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito" id="porcent-merit" placeholder="30%" min="0" max="100" required>
-                      </div>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-7">
-                    <div class="row">
-                      <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 2:<span style="font-weight: normal; margin-left:10px">Programacion Web</span></label>
-                    </div>
                 </div>
                 <div class="form-group col-4">
                   <div class="row">
                     <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
-                    <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito" id="porcent-merit" placeholder="30%" min="0" max="100" required>
+                    <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito"
+                      id="porcent-merit" placeholder="30%" min="0" max="100" required>
                   </div>
-              </div>
                 </div>
-                <div class="form-row">
-                  <div class="form-group col-7">
-                    <div class="row">
-                      <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 4:<span style="font-weight: normal; margin-left:10px">Base de Datos</span></label>
-                    </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-7">
+                  <div class="row">
+                    <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 2:<span
+                        style="font-weight: normal; margin-left:10px">Programacion Web</span></label>
+                  </div>
                 </div>
                 <div class="form-group col-4">
                   <div class="row">
                     <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
-                    <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito" id="porcent-merit" placeholder="30%" min="0" max="100" required>
+                    <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito"
+                      id="porcent-merit" placeholder="30%" min="0" max="100" required>
                   </div>
-              </div>
                 </div>
               </div>
-              </fieldset>
+              <div class="form-row">
+                <div class="form-group col-7">
+                  <div class="row">
+                    <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 4:<span
+                        style="font-weight: normal; margin-left:10px">Base de Datos</span></label>
+                  </div>
+                </div>
+                <div class="form-group col-4">
+                  <div class="row">
+                    <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
+                    <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito"
+                      id="porcent-merit" placeholder="30%" min="0" max="100" required>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <input class="btn btn-info" type="submit" value="Guardar"></input>
-            </div>
-          </form>
+            </fieldset>
         </div>
-      </div></div>
-    <div class="my-5 py-5 text-center">
-        <a href="{{ route('knowledgeRating') }}" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">Finalizar</a>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <input class="btn btn-info" type="submit" value="Guardar"></input>
+        </div>
+        </form>
+      </div>
     </div>
-    </div>
+  </div>
+  <div class="my-5 py-5 text-center">
+    <a href="{{ route('knowledgeRating') }}" class="btn btn-info" tabindex="-1" role="button"
+      aria-disabled="true">Finalizar</a>
+  </div>
+</div>
 @endsection

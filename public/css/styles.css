@@ -5,7 +5,7 @@ body {
 /* Todo el contenido incluido la barra de navegacion, contenido y footer */
 .container-body {
     width: 100%;
-    max-width: 1366px;
+    /*max-width: 1366px; */
     margin: auto;
 }
 
@@ -230,16 +230,4 @@ form div label {
     font-size: 14px;
     border: 1px solid lightblue;
     display: inline;
-}
-
-/* Requerimientos */
-.add-item {
-    margin-bottom: 20px;
-}
-
-.options {
-    margin-top: 40px;
-    padding-left: 0px;
-    padding-right: 0px;
-
 }
