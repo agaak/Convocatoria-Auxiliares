@@ -41,6 +41,12 @@
                                             <img class="center-y-icon" src="{{ asset('img/calendar.png')}}" width="34" height="34" alt="icon-calendar">
                                         </span>
                                     </div>
+                                    {{ $errors->first('fecha-ini-evento') }}
+                                    <label for="time-event-ini" class="d-block my-2">Hora inicio</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control timepicker text-center" name="tiempo-inicio" id="time-event-ini" autocomplete="off" required>
+                                        <label for="time-event-ini" class="my-auto"><img class="my-auto" src="{{ asset('img/clock.png')}}" width="30" height="30"></label>
+                                    </div>
                                     @if ($errors->has('fecha-ini-evento'))
                                         <script>
                                             window.onload = function(){
@@ -48,7 +54,6 @@
                                             }
                                         </script>
                                     @endif
-                                    {{ $errors->first('fecha-ini-evento') }}
                                 </div>
                                 <div class="col-sm-6 text-center">
                                     <label for="place-event-date-end">Fecha fin</label>
@@ -57,6 +62,11 @@
                                         <span class="input-group-addon">
                                             <img class="center-y-icon" src="{{ asset('img/calendar.png')}}" width="34" height="34" alt="icon-calendar">
                                         </span>
+                                    </div>
+                                    <label for="time-event-end" class="d-block my-2">Hora final</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control timepicker text-center" name="tiempo-final" id="time-event-end" autocomplete="off" required>
+                                        <label class="my-auto" for="time-event-end"><img src="{{ asset('img/clock.png')}}" width="30" height="30"></label>
                                     </div>
                                 </div>
                             </div>
