@@ -13,11 +13,22 @@ class CreateConvocatoriaTable extends Migration
      */
     public function up()
     {
+        Schema::create('unidad_academica', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('departament_conv');
+            $table->timestamps();
+        });
         Schema::create('convocatoria', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('titulo',256);
-            $table->text('descripcion');
+            $table->integer('id_unidad_academica');
+            $table->string('titulo_conv',256);
+            $table->text('descripcion_conv');
+            $table->string('fecha_ini');
+            $table->string('fecha_fin');
             $table->timestamps();
+            
+            $table->foreign('id_unidad_academica')->references('id')->on('unidad_academica')->onDelete('cascade');
+
         });
     }
 
@@ -29,5 +40,6 @@ class CreateConvocatoriaTable extends Migration
     public function down()
     {
         Schema::dropIfExists('convocatoria');
+        Schema::dropIfExists('unidad_academica');
     }
 }

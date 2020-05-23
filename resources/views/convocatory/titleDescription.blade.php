@@ -7,7 +7,7 @@
         <h3>Nueva Convocatoria</h3>
         <form class="form-title-description" method="POST" action="{{ route('requestValid') }}">
             {{ csrf_field() }}
-            @csrf
+    
             <div class="form-group my-5">
                 <label class="text-uppercase" for="convocatory-title">titulo</label>
                 <textarea class="form-control text-center" name="titulo-conv" id="convocatory-title" rows="3" required placeholder="Ingrese el título de la CONVOCATORIA">{{ old('titulo-conv') }}</textarea>
@@ -20,17 +20,17 @@
                         @php
                             function valor($dato) {
                                 $direction = '';
-                                if ( old('departamento-ant') == $dato ) {
+                                if ( old('departamento_ant') == $dato ) {
                                     $direction = 'selected';
                                 }
                             return $direction;
                             }
                         @endphp
-                        <option {{ valor('SISTEMAS') }}>SISTEMAS</option>
-                        <option {{ valor('FISICA') }}>FISICA</option>
-                        <option {{ valor('MATEMATICAS') }}>MATEMATICAS</option>
-                        <option {{ valor('OTRO') }}>OTRO</option>
-                        <option {{ valor('OTRO ALGO') }}>OTRO ALGO</option>
+                        @forelse($departamets as $item)
+                            <option {{ $item->departament_conv }} value= {{$item->id}}>{{ $item->departament_conv }}</option>                
+                        @empty
+                            <option {{ valor('NONE') }}>NONE</option>
+                        @endforelse
                     </select>
                 </div>
                 <label class="col-auto col-form-label text-uppercase" for="date-ini">fecha inicio</label>
@@ -58,6 +58,5 @@
                 <input class="btn btn-info text-uppercase form-title-description" type="submit" value="siguiente"></input>
             </div>
         </form>
-
     </div>
 @endsection

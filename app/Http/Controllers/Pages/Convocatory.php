@@ -14,7 +14,8 @@ use App\Unidad_Academica;
 class Convocatory extends Controller
 {
     public function titleDescription(){
-        return view('convocatory.titleDescription');
+        $departamets=Unidad_Academica::get();
+        return view('convocatory.titleDescription', compact('departamets'));
     }
     public function request(){
         return view('convocatory.request');
@@ -44,8 +45,12 @@ class Convocatory extends Controller
             'descripcion-conv' => 'required'
         ]);
         Convocatoria::create([
-            'titulo'=> $request->get('titulo-conv'),
-            'descripcion'=> $request->get('descripcion-conv')
+
+            'id_unidad_academica' => $request->get('departamento-ant'),
+            'titulo_conv'=> $request->get('titulo-conv'),
+            'descripcion_conv'=> $request->get('descripcion-conv'),
+            'fecha_ini'=> $request->get('fecha-ini'),
+            'fecha_fin'=>$request->get('fecha-fin')
         ]);
 
         return view('convocatory.request');
