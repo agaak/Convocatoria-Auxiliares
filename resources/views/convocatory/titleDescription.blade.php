@@ -9,8 +9,8 @@
         {{ csrf_field() }}
         <div class="form-group my-5">
             <label class="text-uppercase" for="convocatory-title">titulo</label>
-            <input class="form-control" name="titulo-conv" id="convocatory-title" autofocus
-                placeholder="Ingrese el título de la CONVOCATORIA" required>{{ old('titulo-conv') }}
+            <textarea style="resize: none;" class="form-control" name="titulo-conv" id="convocatory-title" rows="2" autofocus
+                placeholder="Ingrese el título de la CONVOCATORIA" required>{{ old('titulo-conv') }}</textarea>
             {{ $errors->first('titulo-conv') }}
         </div>
         <div class="form-row my-5">
@@ -37,7 +37,7 @@
             <label class="col-auto col-form-label text-uppercase" for="date-ini">fecha inicio</label>
             <div class="col-xl input-group date">
                 <input type="text" class="form-control" name="fecha-ini" id="date-ini" autocomplete="off"
-                    value="{{ old('fecha-ini') }}" placeholder="Mes/Día/Año" required>
+                    value="{{ old('fecha-ini') }}" placeholder="Mes/Día/Año" required readonly>
                 <span class="input-group-addon">
                     <img class="center-y-icon" src="{{ asset('img/calendar.png') }}" width="34"
                         height="34" alt="icon-calendar">
@@ -47,7 +47,7 @@
             <label class="col-auto col-form-label text-uppercase" for="date-end">fecha fin</label>
             <div class="col-xl input-group date">
                 <input type="text" class="form-control" name="fecha-fin" id="date-end" autocomplete="off"
-                value="{{ old('fecha-ini') }}" placeholder="Mes/Día/Año" required>
+                value="{{ old('fecha-ini') }}" placeholder="Mes/Día/Año" required readonly>
                 <span class="input-group-addon">
                     <img class="center-y-icon" src="{{ asset('img/calendar.png') }}" width="34"
                         height="34" alt="icon-calendar">
