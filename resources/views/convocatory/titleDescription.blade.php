@@ -5,7 +5,7 @@
 <div class="overflow-auto content">
 
     <h3 class="text-uppercase text-center">Nueva Convocatoria</h3>
-    <form class="form-title-description" method="POST" action="{{ route('requestValid') }}">
+    <form class="form-title-description" method="POST" action="{{ route('titleDescriptionValid') }}">
         {{ csrf_field() }}
         <div class="form-group my-5">
             <label class="text-uppercase" for="convocatory-title">titulo</label>
