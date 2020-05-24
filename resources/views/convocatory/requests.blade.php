@@ -30,15 +30,15 @@
             {{ csrf_field() }}
             <div class="form-group">
               <label for="nombre">Nombre de Auxiliatura</label>
-              <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="emailHelp"
-              autofocus placeholder="Ingresa el nombre de la auxiliatura" required>
+              <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="emailHelp" autofocus
+                placeholder="Ingresa el nombre de la auxiliatura" required>
               <div class="form-row " style="margin-top: 20px">
                 <div class="form-group col-6">
                   <div class="row">
                     <label for="nombre colFormLabelSm" class="col-sm-4 col-form-label">Item</label>
                     <div class="col-sm-8">
                       <input name="item" type="number" class="form-control form-control-sm" id="item" placeholder="1"
-                      min="1" max="50" required>
+                        min="1" max="50" required>
                     </div>
                   </div>
                 </div>
@@ -57,8 +57,8 @@
                   <div class="row">
                     <label for="marca colFormLabelSm" class="col-sm-8 col-form-label">Hrs.Academicas/mes</label>
                     <div class="col-sm-4">
-                      <input name="marca" type="number" class="form-control form-control-sm" id="hr-aca" placeholder="80"
-                      min="1" max="100" required>
+                      <input name="marca" type="number" class="form-control form-control-sm" id="hr-aca"
+                        placeholder="80" min="1" max="100" required>
                     </div>
                   </div>
                 </div>
@@ -97,19 +97,20 @@
         </tr>
       </thead>
       <tbody style="background-color: white">
+        @foreach($requests as $request)
         <tr>
-          <td>1</td>
-          <td>7 Aux.</td>
-          <td>80 hrs/mes</td>
-          <td>Administrador de laboratorio de Computo</td>
-          <td>LCO-ADM</td>
-          <td><a class="options" data-toggle="modal" data-target="#requestModal">
-              <img src="{{ asset('img/pen.png') }}" width="25" height="25">
-            </a>
-            <a class="options">
-              <img src="{{ asset('img/trash.png') }}" width="25" height="25">
-            </a></td>
-        </tr>
+          <td>{{ $request->item }}</td>
+          <td>{{ $request->cantidad }} Aux.</td>
+          <td>{{ $request->horas_mes }} hrs/mes</td>
+          <td>{{ $request->nombre }}</td>
+          <td>{{ $request->cod_aux }}</td>
+          <td><a class="options" data-toggle="modal" data-target="#requestEditModal" data-item="{{ $request->item }}"
+              data-cantidad="{{ $request->cantidad }}" data-horas_mes="{{ $request->horas_mes }}"
+              data-nombre="{{ $request->nombre }}" data-cod_aux="{{ $request->cod_aux }}" data-dismiss="modal"><img
+                src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
+                <a class="options" href=""><img
+                src="{{ asset('img/trash.png') }}" width="25" height="25"></a></td>
+        </tr>@endforeach
       </tbody>
     </table>
   </div>
