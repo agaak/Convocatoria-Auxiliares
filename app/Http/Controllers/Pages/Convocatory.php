@@ -13,6 +13,8 @@ use App\ImportantEvents;
 use App\Unidad_Academica;
 use App\Requerimiento;
 use Illuminate\Support\Facades\DB;
+use App\Requisito;
+
 
 class Convocatory extends Controller
 {
@@ -71,12 +73,6 @@ class Convocatory extends Controller
         ]);
         return $requerimient;
     }
-    // public function importantDatesValid(Request $request){
-    //     $this->validate($request, [
-    //         'fecha-ini-evento' => 'before_or_equal:fecha-fin-evento'
-    //     ]);
-    //     return view('convocatory.importantDates');
-    // }
 
     public function importantDateSave(Request $request){
         DB::table('important_events')->where('id_important_events', $request->input('id-datos'))->update([
@@ -88,6 +84,14 @@ class Convocatory extends Controller
             'time_fin' => $request->input('tiempo-final')
         ]);
         return redirect()->route('importantDates');
+    }
+
+    public function requirementsValid(Request $request){
+        Requisito::create([
+            'id_convocatoria'=>$request->session()->get('convocatoria'), 
+            'descripcion'=>$request->get('descripcion')
+        ]);
+        return view('convocatory.requirements');
     }
 
     public function importantDatesValid(Request $request){

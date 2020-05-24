@@ -45,10 +45,10 @@
         </tr>
       </tbody>
     </table>
-    <form>
+    <form method="post" accion=>
       <div class="form-group">
         <label for="exampleInputEmail1">Nota(*)</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ingrese la nota respectiva"
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="" placeholder="Ingrese la nota respectiva"
           rows="3"></textarea>
       </div>
     </form>
@@ -70,19 +70,20 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form method="post" accion="{{ route('requirementValid') }}">
+            {{ csrf_field() }}
             <div class="form-group">
               <label for="exampleInputEmail1">Inciso a:</label>
               <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ingrese el requisito"
-                rows="3"></textarea>
+                rows="3" name="descripcion"></textarea>
               <small id="emailHelp" class="form-text text-muted">Los requisitos son creados atravez de indices
                 alfabeticos.</small>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <input class="btn btn-info" type="submit" value="Guardar">
+            </div>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-info">Guardar</button>
         </div>
       </div>
     </div>
