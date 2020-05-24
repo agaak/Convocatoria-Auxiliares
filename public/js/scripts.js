@@ -27,13 +27,13 @@ $('.timepicker').click(function() {
 });
 
 function editDatesList(listDates) {
-    $('#id-important-events').val(listDates['id_important_events']);
-    $('#title-event').val(listDates['title_event']);
-    $('#place-event').val(listDates['place_event']);
-    $('#place-event-date-ini').val(listDates['date_ini']);
-    $('#place-event-date-end').val(listDates['date_fin']);
-    $('#time-event-ini').val(listDates['time_ini']);
-    $('#time-event-end').val(listDates['time_fin']);
+    $('#id-important-events').val(listDates['id_eventos_importantes']);
+    $('#title-event').val(listDates['titulo_evento']);
+    $('#place-event').val(listDates['lugar_evento']);
+    $('#place-event-date-ini').val(listDates['fecha_inicio']);
+    $('#place-event-date-end').val(listDates['fecha_final']);
+    $('#time-event-ini').val(listDates['hora_inicio']);
+    $('#time-event-end').val(listDates['hora_final']);
 }
 
 $(document).ready(function(){
