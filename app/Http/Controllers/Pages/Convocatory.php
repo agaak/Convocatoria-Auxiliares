@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Convocatoria;
 use App\Cronograma;
 use App\Evento;
-use App\ImportantEvents;
+use App\EventosImportantes;
 use App\Unidad_Academica;
 use App\Requerimiento;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +31,7 @@ class Convocatory extends Controller
         return view('convocatory.requirements');
     }
     public function importantDates(){
-        $importantDatesList = ImportantEvents::get();
+        $importantDatesList = EventosImportantes::get();
         return view('convocatory.importantDates', compact('importantDatesList'));
     }
     public function meritRating(){
@@ -77,13 +77,13 @@ class Convocatory extends Controller
     }
 
     public function importantDateSave(Request $request){
-        DB::table('important_events')->where('id_important_events', $request->input('id-datos'))->update([
-            'title_event' => $request->input('titulo-evento'),
-            'place_event' => $request->input('lugar-evento'),
-            'date_ini' => date("Y-m-d", strtotime($request->input('fecha-ini-evento'))),
-            'date_fin' => date("Y-m-d", strtotime($request->input('fecha-fin-evento'))),
-            'time_ini' => $request->input('tiempo-inicio'),
-            'time_fin' => $request->input('tiempo-final')
+        DB::table('eventos_importantes')->where('id_eventos_importantes', $request->input('id-datos'))->update([
+            'titulo_evento' => $request->input('titulo-evento'),
+            'lugar_evento' => $request->input('lugar-evento'),
+            'fecha_inicio' => date("Y-m-d", strtotime($request->input('fecha-ini-evento'))),
+            'fecha_final' => date("Y-m-d", strtotime($request->input('fecha-fin-evento'))),
+            'hora_inicio' => $request->input('tiempo-inicio'),
+            'hora_final' => $request->input('tiempo-final')
         ]);
         return redirect()->route('importantDates');
     }
@@ -97,19 +97,19 @@ class Convocatory extends Controller
     }
 
     public function importantDatesValid(Request $request){
-        DB::table('important_events')->insert([
-            'title_event' => $request->input('titulo-evento'),
-            'place_event' => $request->input('lugar-evento'),
-            'date_ini' => date("Y-m-d", strtotime($request->input('fecha-ini-evento'))),
-            'date_fin' => date("Y-m-d", strtotime($request->input('fecha-fin-evento'))),
-            'time_ini' => $request->input('tiempo-inicio'),
-            'time_fin' => $request->input('tiempo-final')
+        DB::table('eventos_importantes')->insert([
+            'titulo_evento' => $request->input('titulo-evento'),
+            'lugar_evento' => $request->input('lugar-evento'),
+            'fecha_inicio' => date("Y-m-d", strtotime($request->input('fecha-ini-evento'))),
+            'fecha_final' => date("Y-m-d", strtotime($request->input('fecha-fin-evento'))),
+            'hora_inicio' => $request->input('tiempo-inicio'),
+            'hora_final' => $request->input('tiempo-final')
         ]);
         return redirect()->route('importantDates');
     }
 
     public function importantDatesDelete(Request $request){
-        DB::table('important_events')->where('id_important_events', $request->input('id-eliminar'))->delete();
+        DB::table('eventos_importantes')->where('id_eventos_importantes', $request->input('id-eliminar'))->delete();
         return redirect()->route('importantDates');
     }
 

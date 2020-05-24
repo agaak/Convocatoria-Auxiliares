@@ -217,10 +217,10 @@
             <tbody class="bg-white">
                 @foreach ($importantDatesList as $item)
                 <tr>
-                    <td>{{ $item->title_event }}</td>
-                    <td>{{ $item->place_event }}</td>
-                    <td class="text-center">{{ $item->date_ini }}</td>
-                    <td class="text-center">{{ $item->date_fin }}</td>
+                    <td>{{ $item->titulo_evento }}</td>
+                    <td>{{ $item->lugar_evento }}</td>
+                    <td class="text-center">{{ $item->fecha_inicio }} <br> {{ $item->hora_inicio }} </td>
+                    <td class="text-center">{{ $item->fecha_final }} <br> {{ $item->hora_final }} </td>
                     <td class="text-center">
                         <a type="button" onclick="editDatesList({{ $item }})" data-toggle="modal" data-target="#importantDatesModalUpdate">
                             <img src="{{ asset('img/pen.png') }}" width="30" height="30">
@@ -229,7 +229,7 @@
                         <form class="d-inline" action="{{ route('importantDatesDelete') }}" method="POST" id="important-dates-delete">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
-                            <input type="hidden" name="id-eliminar" value="{{ $item->id_important_events }}">
+                            <input type="hidden" name="id-eliminar" value="{{ $item->id_eventos_impotantes }}">
                             <a type="button" id="deleteDates">
                                 <img src="{{ asset('img/trash.png') }}" width="30" height="30">
                             </a>    
