@@ -46,7 +46,7 @@
                                 <div class="input-group date">
                                     <input type="text" class="form-control" name="fecha-ini-evento"
                                         id="place-event-date-ini" autocomplete="off" placeholder="Mes/Día/Año"
-                                        value="{{ old('fecha-ini-evento') }}" required>
+                                        value="{{ old('fecha-ini-evento') }}" required readonly>
                                     <span class="input-group-addon">
                                         <img class="center-y-icon"
                                             src="{{ asset('img/calendar.png') }}" width="34"
@@ -75,7 +75,7 @@
                                 <div class="input-group date">
                                     <input type="text" class="form-control" name="fecha-fin-evento"
                                         id="place-event-date-end" autocomplete="off" placeholder="Mes/Día/Año"
-                                        value="{{ old('fecha-fin-evento') }}" required>
+                                        value="{{ old('fecha-fin-evento') }}" required readonly>
                                     <span class="input-group-addon">
                                         <img class="center-y-icon"
                                             src="{{ asset('img/calendar.png') }}" width="34"
@@ -85,7 +85,7 @@
                                 <label for="time-event-end" class="d-block my-2">Hora final</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control timepicker text-center" name="tiempo-final"
-                                        id="time-event-end" autocomplete="off" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" required readonly>
+                                        id="time-event-end" autocomplete="off" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" required>
                                     <label class="my-auto" for="time-event-end"><img
                                             src="{{ asset('img/clock.png') }}" width="30"
                                             height="30"></label>
