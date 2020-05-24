@@ -32,6 +32,8 @@ Route::get('/convocatoria/requisitos', ['as' => 'requirement', 'uses' => 'Pages\
 
 Route::get('/convocatoria/fechas-importantes', ['as' => 'importantDates', 'uses' => 'Pages\Convocatory@importantDates']);
 Route::post('/convocatoria/fechas-importantes', ['as' => 'importantDatesValid', 'uses' => 'Pages\Convocatory@importantDatesValid']);
+Route::put('/convocatoria/fechas-importantes', ['as' => 'importantDateSave', 'uses' => 'Pages\Convocatory@importantDateSave']);
+Route::delete('/convocatoria/fechas-importantes', ['as' => 'importantDatesDelete', 'uses' => 'Pages\Convocatory@importantDatesDelete']);
 
 Route::get('/convocatoria/calificacion-meritos', ['as' => 'meritRating', 'uses' => 'Pages\Convocatory@meritRating']);
 Route::post('/convocatoria/calificacion-meritos', ['as' => 'meritRatingValid', 'uses' => 'Pages\Convocatory@meritRatingValid']);
