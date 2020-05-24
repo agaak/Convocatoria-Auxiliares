@@ -97,19 +97,23 @@
         </tr>
       </thead>
       <tbody style="background-color: white">
+        @foreach($requests as request)
         <tr>
-          <td>1</td>
-          <td>7 Aux.</td>
-          <td>80 hrs/mes</td>
-          <td>Administrador de laboratorio de Computo</td>
-          <td>LCO-ADM</td>
-          <td><a class="options" data-toggle="modal" data-target="#requestModal">
-              <img src="{{ asset('img/pen.png') }}" width="25" height="25">
+          <td>{{ $request->item}}</td> 
+          <td>{{ $request->cantidad}} Aux.</td>
+          <td>{{ $request->horas_mes}} hrs/mes</td>
+          <td>{{ $request->nombre}}</td>
+          <td>{{ $request->cod_aux}}</td>
+          <td><a class="options" data-toggle="modal" data-target="#requestEditModal"
+            data-item="{{ $request->item}}" data-cantidad="{{ $request->cantidad}}" data-horas_mes="{{ $request->horas_mes}}" 
+            data-nombre="{{ $request->nombre}}" data-cod_aux="{{ $request->cod_aux}}" data-dismiss="modal">
+              <img src="{{ asset('img/pen.png') }}" width="25" height="25">  
             </a>
-            <a class="options">
+            <a class="options" href=" {{ route('requests.destroy', $request->id) }} ">
               <img src="{{ asset('img/trash.png') }}" width="25" height="25">
             </a></td>
         </tr>
+        @endforeach
       </tbody>
     </table>
   </div>
