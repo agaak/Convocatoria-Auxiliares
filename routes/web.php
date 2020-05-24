@@ -25,7 +25,7 @@ Route::get('/tramites-documentos', ['as' => 'proceduresDocs', 'uses' => 'NavbarP
 Route::get('/convocatoria/titulo-descripcion', ['as' => 'titleDescription', 'uses' => 'Pages\Convocatory@titleDescription']);
 Route::post('/convocatoria/titulo-descripcion', ['as' => 'titleDescriptionValid', 'uses' => 'Pages\Convocatory@titleDescriptionValid']);
 
-Route::get('/convocatoria/requerimientos', ['as' => 'request', 'uses' => 'Pages\Convocatory@request']);
+Route::get('/convocatoria/requerimientos', ['as' => 'requests', 'uses' => 'Pages\Convocatory@requests']);
 Route::post('/convocatoria/requerimientos', ['as' => 'requestValid', 'uses' => 'Pages\Convocatory@requestValid']);
 
 Route::get('/convocatoria/requisitos', ['as' => 'requirement', 'uses' => 'Pages\Convocatory@requirements']);

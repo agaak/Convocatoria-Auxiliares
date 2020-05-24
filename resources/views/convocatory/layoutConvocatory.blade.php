@@ -16,7 +16,7 @@
                     <a class="link-list" href="{{ route('titleDescription') }}">Título y Descripción</span></a>
                 </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/requerimientos') }}">
-                    <a class="link-list" href="{{ route('request') }}">Requerimientos</a>
+                    <a class="link-list" href="{{ route('requests') }}">Requerimientos</a>
                 </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/requisitos') }}">
                     <a class="link-list" href="{{ route('requirement') }}">Requisitos</a>

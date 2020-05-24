@@ -19,8 +19,10 @@ class Convocatory extends Controller
         $departamets=Unidad_Academica::get();
         return view('convocatory.titleDescription', compact('departamets'));
     }
-    public function request(){
-        return view('convocatory.request');
+    public function requests(){
+        $requests=Requerimiento::get();
+
+        return view('convocatory.requests', compact('requests')); //
     }
     public function requirements(){
         return view('convocatory.requirements');
@@ -55,7 +57,7 @@ class Convocatory extends Controller
             'fecha_fin'=>$request->get('fecha-fin')
         ]);
         $request->session()->put('convocatoria', $convocatoria->id) ;
-        return view('convocatory.request');
+        return view('convocatory.requests');
     }
     
     public function requestValid(Request $request){
@@ -67,7 +69,7 @@ class Convocatory extends Controller
             'horas_mes'=>$request->get('marca'),
             'cod_aux'=>$request->get('precio')
         ]);
-        return $requerimient;
+        return view('convocatory.requests');
     }
 
     public function requirementsValid(Request $request){
