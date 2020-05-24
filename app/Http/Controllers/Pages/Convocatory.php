@@ -11,6 +11,7 @@ use App\Cronograma;
 use App\Evento;
 use App\Unidad_Academica;
 use App\Requerimiento;
+use App\Requisito;
 
 class Convocatory extends Controller
 {
@@ -68,6 +69,15 @@ class Convocatory extends Controller
         ]);
         return $requerimient;
     }
+
+    public function requirementsValid(Request $request){
+        Requisito::create([
+            'id_convocatoria'=>$request->session()->get('convocatoria'), 
+            'descripcion'=>$request->get('descripcion')
+        ]);
+        return view('convocatory.requirements');
+    }
+
     public function importantDatesValid(Request $request){
         $this->validate($request, [
             'fecha-ini-evento' => 'before_or_equal:fecha-fin-evento'
