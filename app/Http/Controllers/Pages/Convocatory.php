@@ -58,20 +58,15 @@ class Convocatory extends Controller
     }
     
     public function requestValid(Request $request){
-        $this->validate($request, [
-            'titulo-conv' => 'required',
-            'fecha-ini' => 'before_or_equal:fecha-fin',
-            'descripcion-conv' => 'required'
-        ]);
-    Requerimiento::create([
+        $requerimient=Requerimiento::create([
             'id_convocatoria'=>$request->session()->get('convocatoria'),
-            'nombre'=>$request->get(),
-            'item'=>$request->get(),
-            'cantidad'=>$request->get(),
-            'horas_mes'=>$request->get(),
-            'cod_aux'=>$request->get()
+            'nombre'=>$request->get('nombre'),
+            'item'=>$request->get('item'),
+            'cantidad'=>$request->get('codigo_pro'),
+            'horas_mes'=>$request->get('marca'),
+            'cod_aux'=>$request->get('precio')
         ]);
-        return view('convocatory.request');
+        return $requerimient;
     }
     public function importantDatesValid(Request $request){
         $this->validate($request, [
