@@ -25,3 +25,19 @@ $('body').mouseleave(function() {
 $('.timepicker').click(function() {
     $('.ui-timepicker-container').css('display', 'block');
 });
+
+function editDatesList(listDates) {
+    $('#id-important-events').val(listDates['id_important_events']);
+    $('#title-event').val(listDates['title_event']);
+    $('#place-event').val(listDates['place_event']);
+    $('#place-event-date-ini').val(listDates['date_ini']);
+    $('#place-event-date-end').val(listDates['date_fin']);
+    $('#time-event-ini').val(listDates['time_ini']);
+    $('#time-event-end').val(listDates['time_fin']);
+}
+
+$(document).ready(function(){
+    $("#deleteDates").click(function(){        
+        $("#important-dates-delete").submit(); // Submit the form
+    });
+});
