@@ -53,11 +53,15 @@ $('#requestEditModal').on('show.bs.modal', function (event) {
     modal.find('.modal-body #cod_aux-request').val(mcod_aux);
     })
 
-
-
 $(document).ready(function(){
     $("#deleteDates").click(function(){        
         $("#important-dates-delete").submit(); // Submit the form
     });
 });
 
+
+function editMeritModal(lista) {
+    $('#description-merit-edit').val(lista[1].split(' ')[1]);
+    $('#porcent-merit-edit').val(lista[2]);
+    $('#id-merit-input').val(lista[3]);
+}
