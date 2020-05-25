@@ -114,9 +114,9 @@ class Convocatory extends Controller
     }
 
     public function knowledgeRating(){
-        $lista=Tematica::get();
-        $lista2=Requerimiento::get();
-        return view('convocatory.knowledgeRating', compact('lista', 'lista2'));
+        $tematics=Tematica::get();
+        $requests=Requerimiento::get();
+        return view('convocatory.knowledgeRating', compact('tematics', 'requests'));
     }
 
     public function titleDescriptionValid(Request $request){
@@ -204,14 +204,18 @@ class Convocatory extends Controller
         return redirect()->route('requests');
     }
     
-    public function knowledgeRatingTematic(Request $request){
-        $tematica=Tematica::create([
-            'tematica'=>$request->get('nombre')
+    public function knowledgeRatingTematicValid(Request $request){
+        DB::table('tematica')->insert([
+            'nombre' => $request->input('nombre'),
+            'porcentaje' => $request->input('porcentaje')
         ]);
-
-        /** 
-         * para consultar dudas
-        */
         return redirect()->route('knowledgeRating');
-    }    
+    }
+    
+
+
+    public function knowledgeRatingTematicDelete($id){
+        DB::table('tematica')->where('id', $id)->delete();
+        return redirect()->route('knowledgeRating');
+    }
 }
