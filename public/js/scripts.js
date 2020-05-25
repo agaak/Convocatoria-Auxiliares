@@ -28,7 +28,7 @@ $('.timepicker').click(function() {
 
 function editDatesList(listDates) {
     $('#id-important-events').val(listDates['id_eventos_importantes']);
-    $('#title-event').val(listDates['titulo_evento']);
+    $('#title-event').val(listDates['titulo_evento']);      
     $('#place-event').val(listDates['lugar_evento']);
     $('#place-event-date-ini').val(listDates['fecha_inicio']);
     $('#place-event-date-end').val(listDates['fecha_final']);
@@ -37,7 +37,27 @@ function editDatesList(listDates) {
 }
 
 function editMeritModal(lista) {
-    $('#description-merit-edit').val(lista[1].split(' ')[1]);
+    formaterar = lista[1].split(' ')
+    formaterar.splice(0, 1);
+    $('#description-merit-edit').val(formaterar.join(" "));
     $('#porcent-merit-edit').val(lista[2]);
     $('#id-merit-input').val(lista[3]);
+}
+
+function editSubMeritModal(lista) {
+    formaterar = lista[1].split(' ')
+    formaterar.splice(0, 1);
+    seleccionarOpcion(lista[0]);
+    disableOpcion(lista[3]);
+    $('#description-sub-merit').val(formaterar.join(" "));
+    $('#porcent-sub-merit').val(lista[2]);
+    $('#id-sub-merit-input').val(lista[3]);
+}
+
+function seleccionarOpcion(dato) {
+    document.getElementById('id-option-' + dato).setAttribute('selected','');
+}
+
+function disableOpcion(dato) {
+    document.getElementById('id-option-' + dato).setAttribute('disabled','');
 }

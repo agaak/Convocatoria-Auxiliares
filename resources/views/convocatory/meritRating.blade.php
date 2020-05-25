@@ -147,6 +147,57 @@
             </div>
         </div>
     </div>
+    {{-- Modal para editar submerito --}}
+    <div class="modal fade" id="subMeritModalEdit" tabindex="-1" role="dialog" aria-labelledby="subMeritModalTitleEdit"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="subMeritModalTitleEdit">actualizar submérito</h5>
+                    <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('meritRatingUpdate') }}" id="sub-merit-form-edit">
+
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+
+                        <input type="hidden" id="id-sub-merit-input" name="id-submerito">
+
+                        <div class="form-row my-2">
+                            <label class="col-3" for="merit-sub-merit">Mértio / submérito</label>
+                            <div class="col-sm">
+                                <select class="form-control" id="merit-sub-merit" name="merito-o-submerito">
+                                    @foreach ($listaOrdenada as $item)
+                                    <option value="{{ $item[3] }}" id="id-option-{{$item[3]}}"> {{ $item[1] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row my-2">
+                            <label class="col-3" for="description-sub-merit">Descripción:</label>
+                            <textarea class="form-control col-sm" name="descripcion-sub-merito"
+                                id="description-sub-merit" rows="3" placeholder="Ingrese la descripción del mérito"
+                                required></textarea>
+                        </div>
+                        <div class="form-row my-2">
+                            <label class="col-3 col-form-label" for="porcent-sub-merit">Porcentaje:</label>
+                            <input type="number" class="form-control col-sm-3" name="porcentaje-sub-merito"
+                                id="porcent-sub-merit" placeholder="%" required min="0" max="100">
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <input type="submit" class="btn btn-info" value="Guardar" form="sub-merit-form-edit">
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- Modal del añadir submerito --}}
     <div class="modal fade" id="subMeritModal" tabindex="-1" role="dialog" aria-labelledby="subMeritModalTitle"
         aria-hidden="true">
@@ -165,8 +216,9 @@
                             <label class="col-3" for="merit-sub-merit">Mértio / submérito</label>
                             <div class="col-sm">
                                 <select class="form-control" id="merit-sub-merit" name="merito-o-submerito">
-                                    <option>MÉRITO</option>
-                                    <option>sub mérito</option>
+                                    @foreach ($listaOrdenada as $item)
+                                    <option value="{{ $item[3] }}"> {{ $item[1] }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -223,10 +275,16 @@
                             style="padding-left: {{ espacios($item[1]) }}px;">{{ $item[1] }}</td>
                         <td class="text-center">{{ $item[2] }}</td>
                         <td class="text-center">
-                            <a type="button" data-toggle="modal" data-target="{{ $item[0] === null? '#meritModalEdit': '#subMeritModal' }}"
-                                onclick="editMeritModal({{ convertir($item) }})">
+                            @if ($item[0] === null)
+                            <a type="button" data-toggle="modal" data-target="#meritModalEdit" onclick="editMeritModal({{ convertir($item) }})">
                                 <img src="{{ asset('img/pen.png') }}" width="30" height="30">
                             </a>
+                            @else
+                            <a type="button" data-toggle="modal" data-target="#subMeritModalEdit"
+                                onclick="editSubMeritModal({{ convertir($item) }})">
+                                <img src="{{ asset('img/pen.png') }}" width="30" height="30">
+                            </a> 
+                            @endif
                             <form class="d-inline" action="{{ route('meritRatingDelete', $item[3]) }}" method="POST" id="merit-delete">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
