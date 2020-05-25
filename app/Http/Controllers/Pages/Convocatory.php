@@ -19,10 +19,21 @@ use App\Requisito;
 
 class Convocatory extends Controller
 {
-    public function titleDescription(){
-        $departamets=Unidad_Academica::get();
-        return view('convocatory.titleDescription', compact('departamets'));
+    public function titleDescriptionGet(){
+        $id = rand(10,1000);
+        //Convocatoria::create(['id' => $id ]);
+        return redirect()->route('titleDescription',$id);
+        //return view('convocatory.titleDescription', compact('departamets'));
     }
+
+    public function titleDescription(Request $request, $id){
+        $departamets=Unidad_Academica::get();
+        $convo = DB::table('convocatoria')->where($id);
+        //$request->session()->put('convocatoria', $id);
+        session()->put('convocatoria', $id) ;
+        return $id;//view('convocatory.titleDescription', compact('departamets'));
+    }
+
     public function requests(){
         $requests=Requerimiento::get();
 
