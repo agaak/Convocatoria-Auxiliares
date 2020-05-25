@@ -22,7 +22,7 @@ Route::get('/resultados', ['as' => 'results', 'uses' => 'NavbarPages@results']);
 
 Route::get('/tramites-documentos', ['as' => 'proceduresDocs', 'uses' => 'NavbarPages@proceduresDocs']);
 
-Route::get('/convocatoria/titulo-descripcion/{id}', ['as' => 'titleDescription', 'uses' => 'Pages\Convocatory@titleDescription']);
+Route::get('/convocatoria/titulo-descripcion', ['as' => 'titleDescription', 'uses' => 'Pages\Convocatory@titleDescription']);
 Route::post('/convocatoria/titulo-descripcion', ['as' => 'titleDescriptionValid', 'uses' => 'Pages\Convocatory@titleDescriptionValid']);
 Route::get('/convocatoria/titulo-descripcionGet', ['as' => 'titleDescriptionGet', 'uses' => 'Pages\Convocatory@titleDescriptionGet']);
 
