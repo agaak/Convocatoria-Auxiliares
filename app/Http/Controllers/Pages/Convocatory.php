@@ -10,6 +10,7 @@ use App\Convocatoria;
 use App\Cronograma;
 use App\Evento;
 use App\EventosImportantes;
+use App\Merito;
 use App\Unidad_Academica;
 use App\Requerimiento;
 use Illuminate\Support\Facades\DB;
@@ -35,11 +36,80 @@ class Convocatory extends Controller
         return view('convocatory.importantDates', compact('importantDatesList'));
     }
     public function meritRating(){
-        return view('convocatory.meritRating');
+        $meritList = DB::table('merito')->get();
+
+        $llenarLista = [];
+        $listaInicial = [];
+        foreach ($meritList as $value) {
+            $listaInicial = [];
+            array_push($listaInicial, $value->id_sub_merito);
+            array_push($listaInicial, $value->descripcion);
+            array_push($listaInicial, $value->porcentaje);
+            array_push($listaInicial, $value->id_merito);
+            $llenarLista[$value->id_merito] = $listaInicial;
+        }
+
+        function buscarPerteneciente($original, $identificador, $arreglo, $caracteres, $cadena) {
+            $contador = 1;
+            $cadenaTempral = "";
+            foreach ($original as $key => $value) {
+                if ($value[0] !== null) {
+                    if($value[0] === $identificador) {
+                        $cadenaTemporal = $cadena.$contador;
+                        $value[1] = chr($caracteres).$cadenaTemporal.') '.$value[1];
+                        array_push($arreglo, $value);
+                        $arreglo = buscarPerteneciente($original ,$key, $arreglo, $caracteres, $cadenaTemporal.'.');
+                        $contador++;
+                    }
+                }
+            }
+            return $arreglo;
+        }
+
+        $listaOrdenada = [];
+        $caracteres = 321;
+        foreach ($llenarLista as $key => $value) {
+            if ($value[0] === null) {
+                $value[1] = chr($caracteres).') '.$value[1];
+                array_push($listaOrdenada, $value);
+                $listaOrdenada = buscarPerteneciente($llenarLista, $key, $listaOrdenada, $caracteres, '.');
+                $caracteres++;
+            }
+        }
+
+        return view('convocatory.meritRating', compact('listaOrdenada'));
     }
 
-    public function meritRatingValid(){
-        return view('convocatory.meritRating');
+    
+
+    public function meritRatingValid(Request $request){
+        if ($request->has('merito-o-submerito')) {
+
+        } else {
+            DB::table('merito')->insert([
+                'descripcion' => $request->input('descripcion-merito'),
+                'porcentaje' => $request->input('porcentaje-merito')
+            ]);
+        }
+        return redirect()->route('meritRating');
+    }
+
+    public function meritRatingDelete($id){
+        DB::table('merito')->where('id_merito', $id)->delete();
+        return redirect()->route('meritRating');
+    }
+
+    public function meritRatingUpdate(Request $request){
+        if ($request->input('_method') === 'PUT') {
+            DB::table('merito')->where('id_merito', $request->input('id-merito'))->update([
+                'descripcion' => $request->input('descripcion-merito'),
+                'porcentaje' => $request->input('porcentaje-merito')
+            ]);
+        } else {
+            
+        }
+        
+        return redirect()->route('meritRating');
     }
 
     public function knowledgeRating(){
@@ -108,8 +178,8 @@ class Convocatory extends Controller
         return redirect()->route('importantDates');
     }
 
-    public function importantDatesDelete(Request $request){
-        DB::table('eventos_importantes')->where('id_eventos_importantes', $request->input('id-eliminar'))->delete();
+    public function importantDatesDelete($id){
+        DB::table('eventos_importantes')->where('id_eventos_importantes', $id)->delete();
         return redirect()->route('importantDates');
     }
 

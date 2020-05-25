@@ -30,17 +30,17 @@ class CreateCalificacionFinalTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('merito', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('id_calf_merito')->unsigned();
-            $table->integer('id_mer_prin')->unsigned();
-            $table->text('descripcion');
-            $table->integer('porcentaje');
+        // Schema::create('merito', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('id_calf_merito')->unsigned();
+        //     $table->integer('id_mer_prin')->unsigned();
+        //     $table->text('descripcion');
+        //     $table->integer('porcentaje');
             
-            $table->foreign('id_calf_merito')->references('id')->on('calificacion_merito')->onDelete('cascade');
-            $table->foreign('id_mer_prin')->references('id')->on('merito')->onDelete('cascade');
-            $table->timestamps();
-        });
+        //     $table->foreign('id_calf_merito')->references('id')->on('calificacion_merito')->onDelete('cascade');
+        //     $table->foreign('id_mer_prin')->references('id')->on('merito')->onDelete('cascade');
+        //     $table->timestamps();
+        // });
     }
 
     /**

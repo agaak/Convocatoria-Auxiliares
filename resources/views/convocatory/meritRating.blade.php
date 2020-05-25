@@ -74,6 +74,44 @@
             <span class="mx-1">Añadir submérito</span>
         </a>
     </div>
+    {{-- Modal de editar merito --}}
+    <div class="modal fade" id="meritModalEdit" tabindex="-1" role="dialog" aria-labelledby="meritModalTitleEdit"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="meritModalTitleEdit">Actualizar mérito</h5>
+                    <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('meritRatingUpdate') }}" id="merit-form-update">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+
+                        <input type="hidden" name="id-merito" id="id-merit-input" value="">
+                        <div class="form-row my-2">
+                            <label class="col-3" for="description-merit-edit">Descripción:</label>
+                            <textarea class="form-control col-sm" name="descripcion-merito" id="description-merit-edit"
+                                rows="3" placeholder="Ingrese la descripción del mérito" required></textarea>
+                        </div>
+                        <div class="form-row my-2">
+                            <label class="col-3 col-form-label" for="porcent-merit-edit">Porcentaje:</label>
+                            <input type="number" class="form-control col-sm-3" name="porcentaje-merito"
+                                id="porcent-merit-edit" placeholder="%" min="0" max="100" required>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <input type="submit" class="btn btn-info" value="Guardar" form="merit-form-update">
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- Modal del añadir merito --}}
     <div class="modal fade" id="meritModal" tabindex="-1" role="dialog" aria-labelledby="meritModalTitle"
         aria-hidden="true">
@@ -157,55 +195,17 @@
     {{-- Tabla de merito y submeritos --}}
 
     @php
-        function espacios($cadena){
-        $contar = 0;
-        for ($i=0; $i < strlen($cadena) ; $i++) { $contar +=10; if ($cadena[$i]==')' ) { break; } } return $contar-8; }
-            $pruebas=[ 1=> [null, "Descripcion Merito", 100],
-            2 => [1, "Descripcion subMerito", 100],
-            3 => [2, "Descripcion subMerito", 100],
-            4 => [null, "Descripcion Merito", 100],
-            5 => [4, "Descripcion subMerito", 100],
-            6 => [5, "Descripcion subMerito", 100],
-            7 => [6, "Descripcion subMerito", 100],
-            8 => [3, "Descripcion subMerito", 100],
-            9 => [3, "Descripcion subMerito", 100],
-            10 => [2, "Descripcion subMerito", 100],
-            11 => [10, "Descripcion subMerito", 100],
-            12 => [10, "Descripcion subMerito", 100],
-            13 => [7, "Descripcion subMerito", 100],
-            14 => [5, "Descripcion subMerito", 100],
-            15 => [5, "Descripcion subMerito", 100],
-            16 => [4, "Descripcion subMerito", 100],
-            ];
-            $pruebasOrdenadas = [];
-            foreach ($pruebas as $key => $value) {
-            $caracteres = 321;
-            if ($value[0] === null) {
-            $value[1] = chr($caracteres).') '.$value[1];
-            array_push($pruebasOrdenadas, $value);
-            $pruebasOrdenadas = buscarPerteneciente($pruebas, $key, $pruebasOrdenadas, $caracteres, '.');
-            $caracteres++;
+        function espacios($cadena) {
+            $contar = 0;
+            for ($i=0; $i < strlen($cadena) ; $i++) {
+                $contar +=10; if ($cadena[$i]==')' ) { break; } 
             }
-            }
+            return $contar-8; 
+        }
 
-            function buscarPerteneciente($original, $identificador, $arreglo, $caracteres, $cadena) {
-            $contador = 1;
-            $cadenaTempral ;
-            foreach ($original as $key => $value) {
-            if ($value[0] !== null) {
-            if($value[0] === $identificador) {
-            $cadenaTemporal = $cadena.$contador;
-            $value[1] = chr($caracteres).$cadenaTemporal.') '.$value[1];
-            array_push($arreglo, $value);
-            $arreglo = buscarPerteneciente($original ,$key, $arreglo, $caracteres, $cadenaTemporal.'.');
-            $contador++;
-            }
-            }
-            }
-
-            return $arreglo;
-
-            }
+        function convertir($arreglo) {
+            return json_encode($arreglo);
+        }
     @endphp
     <div class="table-requests">
         <table class="table table-bordered">
@@ -217,19 +217,23 @@
                 </tr>
             </thead>
             <tbody class="bg-white">
-                @foreach($pruebasOrdenadas as $item)
+                @foreach($listaOrdenada  as $item)
                     <tr>
                         <td class="{{ $item[0] === null? 'text-uppercase font-weight-bold': 'text-lowercase' }}"
                             style="padding-left: {{ espacios($item[1]) }}px;">{{ $item[1] }}</td>
                         <td class="text-center">{{ $item[2] }}</td>
                         <td class="text-center">
-                            <a type="button" data-toggle="modal"
-                                data-target="{{ $item[0] === null? '#meritModal': '#subMeritModal' }}">
+                            <a type="button" data-toggle="modal" data-target="{{ $item[0] === null? '#meritModalEdit': '#subMeritModal' }}"
+                                onclick="editMeritModal({{ convertir($item) }})">
                                 <img src="{{ asset('img/pen.png') }}" width="30" height="30">
                             </a>
-                            <a type="button">
-                                <img src="{{ asset('img/trash.png') }}" width="30" height="30">
-                            </a>
+                            <form class="d-inline" action="{{ route('meritRatingDelete', $item[3]) }}" method="POST" id="merit-delete">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button type="submit" class="btn btn-link">
+                                    <img src="{{ asset('img/trash.png') }}" width="30" height="30">
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

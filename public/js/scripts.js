@@ -36,8 +36,8 @@ function editDatesList(listDates) {
     $('#time-event-end').val(listDates['hora_final']);
 }
 
-$(document).ready(function(){
-    $("#deleteDates").click(function(){        
-        $("#important-dates-delete").submit(); // Submit the form
-    });
-});
+function editMeritModal(lista) {
+    $('#description-merit-edit').val(lista[1].split(' ')[1]);
+    $('#porcent-merit-edit').val(lista[2]);
+    $('#id-merit-input').val(lista[3]);
+}

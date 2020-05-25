@@ -226,13 +226,12 @@
                             <img src="{{ asset('img/pen.png') }}" width="30" height="30">
                         </a>
                         
-                        <form class="d-inline" action="{{ route('importantDatesDelete') }}" method="POST" id="important-dates-delete">
+                        <form class="d-inline" action="{{ route('importantDatesDelete', $item->id_eventos_importantes) }}" method="POST" id="important-dates-delete">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
-                            <input type="hidden" name="id-eliminar" value="{{ $item->id_eventos_impotantes }}">
-                            <a type="button" id="deleteDates">
+                            <button type="submit" class="btn btn-link">
                                 <img src="{{ asset('img/trash.png') }}" width="30" height="30">
-                            </a>    
+                            </button>    
                         </form>
                         
                     </td>
