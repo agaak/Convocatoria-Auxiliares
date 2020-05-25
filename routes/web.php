@@ -27,6 +27,8 @@ Route::post('/convocatoria/titulo-descripcion', ['as' => 'titleDescriptionValid'
 
 Route::get('/convocatoria/requerimientos', ['as' => 'requests', 'uses' => 'Pages\Convocatory@requests']);
 Route::post('/convocatoria/requerimientos', ['as' => 'requestValid', 'uses' => 'Pages\Convocatory@requestValid']);
+Route::put('/convocatoria/requerimientos', ['as' => 'requestUpdate', 'uses' => 'Pages\Convocatory@requestUpdate']);
+Route::delete('/convocatoria/requerimientos', ['as' => 'requestDelete', 'uses' => 'Pages\Convocatory@requestDelete']);
 
 Route::get('/convocatoria/requisitos', ['as' => 'requirement', 'uses' => 'Pages\Convocatory@requirements']);
 Route::post('/convocatoria/requisitos', ['as' => 'requirementValid', 'uses' => 'Pages\Convocatory@requirementsValid']);

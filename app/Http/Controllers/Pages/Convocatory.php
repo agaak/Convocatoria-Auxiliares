@@ -61,7 +61,8 @@ class Convocatory extends Controller
             'fecha_fin'=>$request->get('fecha-fin')
         ]);
         $request->session()->put('convocatoria', $convocatoria->id) ;
-        return view('convocatory.requests');
+        $requests=Requerimiento::get();
+        return view('convocatory.requests', compact('requests'));
     }
     
     public function requestValid(Request $request){
@@ -73,7 +74,19 @@ class Convocatory extends Controller
             'horas_mes'=>$request->get('marca'),
             'cod_aux'=>$request->get('precio')
         ]);
-        return view('convocatory.requests');
+        $requests=Requerimiento::get();
+        return view('convocatory.requests', compact('requests'));
+    }
+
+    public function requestUpdate(Request $request){
+        DB::table('requerimiento')->where('id', $request->input('id-request'))->update([
+            'nombre' => $request->input('nombre-request'),
+            'item' => $request->input('item-request'),
+            'horas_mes' => $request->input('horas_mes-request'),
+            'cantidad' => $request->input('cantidad-request'),
+            'cod_aux' => $request->input('cod_aux-request')
+        ]);
+        return back();
     }
 
     public function importantDateSave(Request $request){
@@ -111,6 +124,11 @@ class Convocatory extends Controller
     public function importantDatesDelete(Request $request){
         DB::table('eventos_importantes')->where('id_eventos_importantes', $request->input('id-eliminar'))->delete();
         return redirect()->route('importantDates');
+    }
+
+    public function requestDelete(Request $request, $id){
+        //DB::table('requerimiento')->where('id', $id)->delete();
+        return $id;//redirect()->route('requests');
     }
 
     

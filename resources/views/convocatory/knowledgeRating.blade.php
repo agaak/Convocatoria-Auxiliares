@@ -109,7 +109,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="{{ route('request') }}">
+          <form method="POST" action="{{ route('requests') }}">
             {{ csrf_field() }}
             <div class="form-group">
               <label for="nombre">Nombre de la Tematica</label>
@@ -147,7 +147,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="{{ route('request') }}">
+          <form method="POST" action="{{ route('requests') }}">
             {{ csrf_field() }}
             <div class="form-group">
               <div class="form-row">
