@@ -19,10 +19,18 @@ use App\Requisito;
 
 class Convocatory extends Controller
 {
-    public function titleDescription(){
-        $departamets=Unidad_Academica::get();
-        return view('convocatory.titleDescription', compact('departamets'));
+    public function titleDescriptionGet(){
+        $convo = Convocatoria::create(['id_unidad_academica' => 1 ]);
+        session()->put('convocatoria', $convo->id) ;
+        return redirect()->route('titleDescription');
     }
+
+    public function titleDescription(Request $request){
+        $departamets=Unidad_Academica::get();
+        $convo = DB::table('convocatoria')->where($request->session()->get('convocatoria'));
+        return view('convocatory.titleDescription', compact('departamets','convo'));
+    }
+
     public function requests(){
         $requests=Requerimiento::get();
 
@@ -129,15 +137,13 @@ class Convocatory extends Controller
             'fecha-ini' => 'before_or_equal:fecha-fin',
             'descripcion-conv' => 'required'
         ]);
-        $convocatoria= Convocatoria::create([
-
-            'id_unidad_academica' => $request->get('departamento-ant'),
-            'titulo_conv'=> $request->get('titulo-conv'),
-            'descripcion_conv'=> $request->get('descripcion-conv'),
-            'fecha_ini'=> $request->get('fecha-ini'),
-            'fecha_fin'=>$request->get('fecha-fin')
+        DB::table('convocatoria')->where('id', session()->get('convocatoria'))->update([
+            'id_unidad_academica' => $request->input('departamento-ant'),
+            'titulo_conv' => $request->input('titulo-conv'),
+            'descripcion_conv' => $request->input('descripcion-conv'),
+            'fecha_ini' => $request->input('fecha-ini'),
+            'fecha_fin' => $request->input('fecha-fin')
         ]);
-        $request->session()->put('convocatoria', $convocatoria->id) ;
         $requests=Requerimiento::get();
         return view('convocatory.requests', compact('requests'));
     }

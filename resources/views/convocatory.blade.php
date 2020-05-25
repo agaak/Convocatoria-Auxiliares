@@ -2,5 +2,5 @@
 
 @section('content')
     <h1>Vista Convocatoria</h1>
-    <a href="{{ route('titleDescription') }}">Crear Convocatoria</a>
+    <a href="{{ route('titleDescriptionGet') }}">Crear Convocatoria</a>
 @endsection
