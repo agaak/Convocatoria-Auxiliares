@@ -109,14 +109,14 @@
               data-nombre="{{ $reques->nombre }}" data-cod_aux="{{ $reques->cod_aux }}" data-dismiss="modal"><img
                 src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
                   
-                  <form class="d-inline" action="{{ route('requestDelete', $reques->id) }}" method="POST">
+                <form class="d-inline" action="{{ route('requestDelete', $reques->id) }}" method="POST">
                   {{ csrf_field() }}
                   {{ method_field('DELETE') }}
-                  
-                  <button type="submit" >
+                  <button type="submit" class="btn btn-link">
                       <img src="{{ asset('img/trash.png') }}" width="30" height="30">
-                     
-              </form></td>
+                  </button>    
+              </form>
+        </td>
         </tr>@endforeach
       </tbody>
     </table>

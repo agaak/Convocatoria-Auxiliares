@@ -65,7 +65,7 @@ class Convocatory extends Controller
         return view('convocatory.requests', compact('requests'));
     }
     
-    public function requestValid(Request $request){
+    public function requestValid(Request $request){        
         $requerimient=Requerimiento::create([
             'id_convocatoria'=>$request->session()->get('convocatoria'),
             'nombre'=>$request->get('nombre'),
@@ -86,7 +86,7 @@ class Convocatory extends Controller
             'cantidad' => $request->input('cantidad-request'),
             'cod_aux' => $request->input('cod_aux-request')
         ]);
-        return back();
+        return redirect()->route('requests');
     }
 
     public function importantDateSave(Request $request){
@@ -126,11 +126,10 @@ class Convocatory extends Controller
         return redirect()->route('importantDates');
     }
 
-    public function requestDelete(Request $request, $id){
-        //DB::table('requerimiento')->where('id', $id)->delete();
-        return $id;//redirect()->route('requests');
+    public function requestDelete($id){
+        DB::table('requerimiento')->where('id', $id)->delete();
+        return redirect()->route('requests');
     }
-
     
 
 }

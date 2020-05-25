@@ -61,8 +61,3 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
-    $("#deleteRequest").click(function(){        
-        $("#request-delete").submit(); // Submit the form
-    });
-});
