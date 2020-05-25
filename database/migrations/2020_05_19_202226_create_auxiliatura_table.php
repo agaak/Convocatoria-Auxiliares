@@ -17,6 +17,7 @@ class CreateAuxiliaturaTable extends Migration
             $table->increments('id');
             $table->integer('id_convocatoria')->unsigned();
             $table->text('nombre');
+            $table->string('cod_aux',12);
 
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
             $table->timestamps();
@@ -29,7 +30,8 @@ class CreateAuxiliaturaTable extends Migration
      * @return void
      */
     public function down()
-    {
+    {   
+        Schema::dropIfExists('requerimiento_aux');
         Schema::dropIfExists('auxiliatura');
     }
 }

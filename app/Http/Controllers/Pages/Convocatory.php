@@ -15,6 +15,7 @@ use App\Unidad_Academica;
 use App\Requerimiento;
 use Illuminate\Support\Facades\DB;
 use App\Requisito;
+use App\Tematica;
 
 
 class Convocatory extends Controller
@@ -113,7 +114,9 @@ class Convocatory extends Controller
     }
 
     public function knowledgeRating(){
-        return view('convocatory.knowledgeRating');
+        $lista=Tematica::get();
+        $lista2=Requerimiento::get();
+        return view('convocatory.knowledgeRating', compact('lista', 'lista2'));
     }
 
     public function titleDescriptionValid(Request $request){
@@ -201,5 +204,14 @@ class Convocatory extends Controller
         return redirect()->route('requests');
     }
     
+    public function knowledgeRatingTematic(Request $request){
+        $tematica=Tematica::create([
+            'tematica'=>$request->get('nombre')
+        ]);
 
+        /** 
+         * para consultar dudas
+        */
+        return redirect()->route('knowledgeRating');
+    }    
 }

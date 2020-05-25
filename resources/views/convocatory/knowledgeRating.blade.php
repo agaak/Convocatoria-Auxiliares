@@ -37,24 +37,19 @@
           <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">Opciones</th>
         </tr>
         <tr>
-          <th style="font-weight: normal" scope="col">LCO-ADM</th>
-          <th style="font-weight: normal" scope="col">LDS-ADM</th>
-          <th style="font-weight: normal" scope="col">LDS-AUX</th>
-          <th style="font-weight: normal" scope="col">LM-AUX</th>
-          <th style="font-weight: normal" scope="col">LM-ADM</th>
-          <th style="font-weight: normal" scope="col">LM-AUX</th>
+          @foreach($lista2 as $item)
+            <th style="font-weight: normal" scope="col">{{ $item->cod_aux }}</th>
+          @endforeach
         </tr>
       </thead>
       <tbody>
+      @foreach($lista as $item)
         <tr>
-          <td class="table-light">1</td>
-          <td class="table-light">Linux Avanzado</td>
+          <td class="table-light">{{ $item->id }}</td>
+          <td class="table-light">{{ $item->tematica }}</td>
+          @foreach($lista2 as $item2)
           <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
+          @endforeach 
           <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
               <img src="{{ asset('img/pen.png') }}" width="30" height="30">
             </a>
@@ -62,38 +57,7 @@
               <img src="{{ asset('img/trash.png') }}" width="30" height="30">
             </a></td>
         </tr>
-        <tr>
-          <td class="table-light">2</td>
-          <td class="table-light">Programacion web</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-              <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-            </a>
-            <a class="options">
-              <img src="{{ asset('img/trash.png') }}" width="30" height="30">
-            </a></td>
-        </tr>
-        <tr>
-          <td class="table-light">3</td>
-          <td class="table-light">Dase de datos</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-              <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-            </a>
-            <a class="options">
-              <img src="{{ asset('img/trash.png') }}" width="30" height="30">
-            </a></td>
-        </tr>
+      @endforeach 
       </tbody>
     </table>
   </div>
