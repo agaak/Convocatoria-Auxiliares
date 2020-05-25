@@ -131,6 +131,7 @@
                             <textarea class="form-control col-sm" name="descripcion-merito" id="description-merit"
                                 rows="3" placeholder="Ingrese la descripción del mérito" required></textarea>
                         </div>
+                        {{ $errors->first('descripcion-merito') }}
                         <div class="form-row my-2">
                             <label class="col-3 col-form-label" for="porcent-merit">Porcentaje:</label>
                             <input type="number" class="form-control col-sm-3" name="porcentaje-merito"
@@ -226,13 +227,16 @@
                             <label class="col-3" for="description-sub-merit">Descripción:</label>
                             <textarea class="form-control col-sm" name="descripcion-sub-merito"
                                 id="description-sub-merit" rows="3" placeholder="Ingrese la descripción del mérito"
-                                required></textarea>
+                                required>
+                            </textarea>
                         </div>
+                        {{ $errors->first('descripcion-sub-merito') }}
                         <div class="form-row my-2">
                             <label class="col-3 col-form-label" for="porcent-sub-merit">Porcentaje:</label>
                             <input type="number" class="form-control col-sm-3" name="porcentaje-sub-merito"
                                 id="porcent-sub-merit" placeholder="%" required min="0" max="100">
                         </div>
+                        {{ $errors->first('porcentaje-sub-merito') }}
                     </form>
 
                 </div>

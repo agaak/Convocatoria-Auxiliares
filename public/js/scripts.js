@@ -59,5 +59,6 @@ function seleccionarOpcion(dato) {
 }
 
 function disableOpcion(dato) {
+    $('option').removeAttr('disabled');
     document.getElementById('id-option-' + dato).setAttribute('disabled','');
 }

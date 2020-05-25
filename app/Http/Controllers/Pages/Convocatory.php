@@ -32,11 +32,11 @@ class Convocatory extends Controller
         return view('convocatory.requirements');
     }
     public function importantDates(){
-        $importantDatesList = EventosImportantes::get();
+        $importantDatesList = EventosImportantes::orderBy('id_eventos_importantes', 'ASC')->get();
         return view('convocatory.importantDates', compact('importantDatesList'));
     }
     public function meritRating(){
-        $meritList = DB::table('merito')->get();
+        $meritList = DB::table('merito')->orderBy('id_merito', 'ASC')->get();
 
         $llenarLista = [];
         $listaInicial = [];
@@ -79,8 +79,6 @@ class Convocatory extends Controller
 
         return view('convocatory.meritRating', compact('listaOrdenada'));
     }
-
-    
 
     public function meritRatingValid(Request $request){
         if ($request->has('merito-o-submerito')) {
