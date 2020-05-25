@@ -33,11 +33,11 @@ class Convocatory extends Controller
         return view('convocatory.requirements', compact('requerimients'));
     }
     public function importantDates(){
-        $importantDatesList = EventosImportantes::get();
+        $importantDatesList = EventosImportantes::orderBy('id_eventos_importantes', 'ASC')->get();
         return view('convocatory.importantDates', compact('importantDatesList'));
     }
     public function meritRating(){
-        $meritList = DB::table('merito')->get();
+        $meritList = DB::table('merito')->orderBy('id_merito', 'ASC')->get();
 
         $llenarLista = [];
         $listaInicial = [];
@@ -81,11 +81,13 @@ class Convocatory extends Controller
         return view('convocatory.meritRating', compact('listaOrdenada'));
     }
 
-    
-
     public function meritRatingValid(Request $request){
         if ($request->has('merito-o-submerito')) {
-
+            DB::table('merito')->insert([
+                'id_sub_merito' => $request->input('merito-o-submerito'),
+                'descripcion' => $request->input('descripcion-sub-merito'),
+                'porcentaje' => $request->input('porcentaje-sub-merito')
+            ]);
         } else {
             DB::table('merito')->insert([
                 'descripcion' => $request->input('descripcion-merito'),
@@ -101,13 +103,17 @@ class Convocatory extends Controller
     }
 
     public function meritRatingUpdate(Request $request){
-        if ($request->input('_method') === 'PUT') {
+        if ($request->has('merito-o-submerito')) {
+            DB::table('merito')->where('id_merito', $request->input('id-submerito'))->update([
+                'id_sub_merito' => $request->input('merito-o-submerito'),
+                'descripcion' => $request->input('descripcion-sub-merito'),
+                'porcentaje' => $request->input('porcentaje-sub-merito')
+            ]);
+        } else {
             DB::table('merito')->where('id_merito', $request->input('id-merito'))->update([
                 'descripcion' => $request->input('descripcion-merito'),
                 'porcentaje' => $request->input('porcentaje-merito')
             ]);
-        } else {
-            
         }
         
         return redirect()->route('meritRating');

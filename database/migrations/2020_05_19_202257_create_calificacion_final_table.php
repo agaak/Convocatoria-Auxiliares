@@ -50,7 +50,7 @@ class CreateCalificacionFinalTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('merito');
+        // Schema::dropIfExists('merito');
         Schema::dropIfExists('calificacion_merito');
         Schema::dropIfExists('calificacion_final');
     }
