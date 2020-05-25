@@ -47,3 +47,6 @@ Route::put('/convocatoria/calificacion-meritos', ['as' => 'meritRatingUpdate', '
 Route::delete('/convocatoria/calificacion-meritos/{id}', ['as' => 'meritRatingDelete', 'uses' => 'Pages\Convocatory@meritRatingDelete']);
 
 Route::get('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRating', 'uses' => 'Pages\Convocatory@knowledgeRating']);
+Route::post('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRatingTematicValid', 'uses' => 'Pages\Convocatory@knowledgeRatingTematicValid']);
+Route::put('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRatingTematicUpdate', 'uses' => 'Pages\Convocatory@knowledgeRatingTematicUpdate']);
+Route::delete('/convocatoria/calificacion-conocimientos/{id}', ['as' => 'knowledgeRatingTematicDelete', 'uses' => 'Pages\Convocatory@knowledgeRatingTematicDelete']);

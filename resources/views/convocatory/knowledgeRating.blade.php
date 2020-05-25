@@ -20,7 +20,8 @@
       <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
       <span class="mx-1">Añadir Tematica</span>
     </a>
-    <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal" data-target="#auxiliaturaModal">
+    <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
+      data-target="#auxiliaturaModal">
       <img src="{{ asset('img/pen.png') }}" width="30" height="30">
       <span class="mx-1">Editar Auxiliatura</span>
     </a>
@@ -33,71 +34,44 @@
         <tr>
           <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">#</th>
           <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">Tematica</th>
-          <th style="font-weight: normal" scope="col" colspan="6">Codigo de Auxiliatura</th>
-          <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">Opciones</th>
+          <th style="font-weight: normal" scope="col" colspan="{{ count($requests) }}">Codigo de Auxiliatura</th>
+          <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">Opciones de<br>Tematica </th>
         </tr>
         <tr>
-          <th style="font-weight: normal" scope="col">LCO-ADM</th>
-          <th style="font-weight: normal" scope="col">LDS-ADM</th>
-          <th style="font-weight: normal" scope="col">LDS-AUX</th>
-          <th style="font-weight: normal" scope="col">LM-AUX</th>
-          <th style="font-weight: normal" scope="col">LM-ADM</th>
-          <th style="font-weight: normal" scope="col">LM-AUX</th>
+          @foreach($requests as $item)
+            <th style="font-weight: normal" scope="col">{{ $item->cod_aux }}</th>
+          @endforeach
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="table-light">1</td>
-          <td class="table-light">Linux Avanzado</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-              <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-            </a>
-            <a class="options">
-              <img src="{{ asset('img/trash.png') }}" width="30" height="30">
-            </a></td>
-        </tr>
-        <tr>
-          <td class="table-light">2</td>
-          <td class="table-light">Programacion web</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-              <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-            </a>
-            <a class="options">
-              <img src="{{ asset('img/trash.png') }}" width="30" height="30">
-            </a></td>
-        </tr>
-        <tr>
-          <td class="table-light">3</td>
-          <td class="table-light">Dase de datos</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light">0</td>
-          <td class="table-light"><a class="options" data-toggle="modal" data-target="#exampleModalCenter">
-              <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-            </a>
-            <a class="options">
-              <img src="{{ asset('img/trash.png') }}" width="30" height="30">
-            </a></td>
-        </tr>
+        <div style="visibility: hidden"> {{ $num = 1 }}</div>
+        @foreach($tematics as $tematic)
+          <tr>
+            <td class="table-light">{{ $num++ }}</td>
+            <td class="table-light">{{ $tematic->nombre }}</td>
+            @foreach($requests as $item)
+              <td class="table-light">0</td>
+            @endforeach
+            <td class="table-light">
+              <a class="options" data-toggle="modal" data-target="#editTematicaModal" data-id="{{ $tematic->id }}"
+                data-porcentaje="{{ $tematic->porcentaje }}" data-nombre="{{ $tematic->nombre }}"
+                data-dismiss="modal"><img src="{{ asset('img/pen.png') }}" width="25"
+                  height="25"></a>
+              <form class="d-inline"
+                action="{{ route('knowledgeRatingTematicDelete', $tematic->id) }}" method="POST">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}
+                <button type="submit" class="btn btn-link">
+                  <img src="{{ asset('img/trash.png') }}" width="25" height="25">
+                </button>
+              </form>
+            </td>
+          </tr>
+        @endforeach
       </tbody>
     </table>
   </div>
-  <!-- Modal -->
+  <!-- Modal Tematica-->
   <div class="modal fade" id="tematicaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -109,7 +83,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="{{ route('requests') }}">
+          <form method="POST" action="{{ route('knowledgeRatingTematicValid') }}">
             {{ csrf_field() }}
             <div class="form-group">
               <label for="nombre">Nombre de la Tematica</label>
@@ -119,8 +93,8 @@
                 <div class="form-group col-6">
                   <div class="row">
                     <label class="col-8 col-form-label" for="porcent-merit">Valor por defecto:</label>
-                    <input type="number" class="form-control col-sm-4" name="porcentaje-merito" id="porcent-merit"
-                      value="30" min="0" max="100" required>
+                    <input type="number" class="form-control col-sm-4" name="porcentaje" id="porcentaje" value="30"
+                      min="0" max="100" required>
                   </div>
                 </div>
               </div>
@@ -128,7 +102,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <input class="btn btn-info" type="submit" value="Guardar"></input>
+              <input class="btn btn-info" type="submit" value="Guardar">
             </div>
           </form>
         </div>
@@ -150,78 +124,43 @@
           <form method="POST" action="{{ route('requests') }}">
             {{ csrf_field() }}
             <div class="form-group">
-              <div class="form-row">
+              <div class="form-row" style="margin-bottom: 5px">
                 <label class="col-auto col-form-label" for="department-conv">Auxiliatura</label>
                 <div class="col-xl">
                   <select class="form-control" id="department-conv" name="departamento-ant">
-                    @php
-                      function valor($dato) {
-                      $direction = '';
-                      if ( old('departamento-ant') == $dato ) {
-                      $direction = 'selected';
-                      }
-                      return $direction;
-                      }
-                    @endphp
-                    <option {{ valor('LCO-ADM') }}>LCO-ADM</option>
-                    <option {{ valor('LDS-ADM') }}>LDS-ADM</option>
-                    <option {{ valor('LDS-AUX') }}>LDS-AUX</option>
-                    <option {{ valor('LM-ADM') }}>LM-ADM</option>
-                    <option {{ valor('LM-AUX') }}>LM-AUX</option>
+                    @forelse($requests as $item)
+                      <option {{ $item->departament_conv }} value={{ $item->id }}>{{ $item->cod_aux }} -
+                        {{ $item->nombre }}
+                      </option>
+                    @empty
+                      <option {{ valor('NONE') }}>NONE</option>
+                    @endforelse
                   </select>
                 </div>
               </div>
-              <div class="form-row" style="margin-top: 20px">
-                <div class="form-group col-7">
-                  <div class="row">
-                    <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 1:<span
-                        style="font-weight: normal; margin-left:10px">Linux Avanzado</span></label>
+              <div style="visibility: hidden"> {{ $num = 1 }}</div>
+              @foreach($tematics as $tematic)
+                <div class="form-row">
+                  <div class="form-group col-7">
+                    <div class="row">
+                      <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica {{ $num++ }}
+                        :<span style="font-weight: normal; margin-left:10px">{{ $tematic->nombre }} </span></label>
+                    </div>
+                  </div>
+                  <div class="form-group col-4">
+                    <div class="row">
+                      <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
+                      <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito"
+                        id="porcent-merit" placeholder="30%" min="0" max="100" required>
+                    </div>
                   </div>
                 </div>
-                <div class="form-group col-4">
-                  <div class="row">
-                    <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
-                    <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito"
-                      id="porcent-merit" placeholder="30%" min="0" max="100" required>
-                  </div>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-7">
-                  <div class="row">
-                    <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 2:<span
-                        style="font-weight: normal; margin-left:10px">Programacion Web</span></label>
-                  </div>
-                </div>
-                <div class="form-group col-4">
-                  <div class="row">
-                    <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
-                    <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito"
-                      id="porcent-merit" placeholder="30%" min="0" max="100" required>
-                  </div>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-7">
-                  <div class="row">
-                    <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica 4:<span
-                        style="font-weight: normal; margin-left:10px">Base de Datos</span></label>
-                  </div>
-                </div>
-                <div class="form-group col-4">
-                  <div class="row">
-                    <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
-                    <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito"
-                      id="porcent-merit" placeholder="30%" min="0" max="100" required>
-                  </div>
-                </div>
-              </div>
+              @endforeach
             </div>
-            </fieldset>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <input class="btn btn-info" type="submit" value="Guardar"></input>
+          <input class="btn btn-info" type="submit" value="Guardar">
         </div>
         </form>
       </div>

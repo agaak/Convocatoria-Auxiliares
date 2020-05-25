@@ -15,6 +15,7 @@ use App\Unidad_Academica;
 use App\Requerimiento;
 use Illuminate\Support\Facades\DB;
 use App\Requisito;
+use App\Tematica;
 
 
 class Convocatory extends Controller
@@ -128,7 +129,9 @@ class Convocatory extends Controller
     }
 
     public function knowledgeRating(){
-        return view('convocatory.knowledgeRating');
+        $tematics=Tematica::get();
+        $requests=Requerimiento::get();
+        return view('convocatory.knowledgeRating', compact('tematics', 'requests'));
     }
 
     public function titleDescriptionValid(Request $request){
@@ -226,5 +229,18 @@ class Convocatory extends Controller
         return back();
     }
     
+    public function knowledgeRatingTematicValid(Request $request){
+        DB::table('tematica')->insert([
+            'nombre' => $request->input('nombre'),
+            'porcentaje' => $request->input('porcentaje')
+        ]);
+        return redirect()->route('knowledgeRating');
+    }
+    
 
+
+    public function knowledgeRatingTematicDelete($id){
+        DB::table('tematica')->where('id', $id)->delete();
+        return redirect()->route('knowledgeRating');
+    }
 }
