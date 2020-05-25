@@ -65,3 +65,14 @@ function editMeritModal(lista) {
     $('#porcent-merit-edit').val(lista[2]);
     $('#id-merit-input').val(lista[3]);
 }
+
+$('#requirementsEditModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var mid = button.data('id')
+    var minc = button.data('inc')
+    var mdescripcion = button.data('descripcion')
+    var modal = $(this)
+    modal.find('.modal-body #id-requirement').val(mid);
+    modal.find('.modal-body #inc-requirement').val(minc);
+    modal.find('.modal-body #descripcion-requirement').val(mdescripcion);
+    })

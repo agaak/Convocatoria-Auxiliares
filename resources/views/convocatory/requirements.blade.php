@@ -24,25 +24,27 @@
         </tr>
       </thead>
       <tbody style="background-color: white">
+        <div style="visibility: hidden"> {{ $alphas = 65 }}</div> 
+        @foreach($requerimients as $requeriment)
         <tr>
-          <th scope="row">a)</th>
-          <td style="text-align: justify;">Ser estudiante regular y con rendimiento de las carreras de Licenciatura en Ingeniería
-            Informática o Licenciatura en Ingeniería de Sistemas y/o afín, que cursa regularmente en la
-            universidad. Para administrador de Laboratorio de Mantenimiento de Hardware podrán
-            presentarse además estudiantes de Ing. Electrónica. Estudiante regular es aquel que está
-            inscrito en la gestión académica vigente y cumple los requisitos exigidos para seguir una
-            carrera universitaria y el rendimiento académico, haber aprobado más de la mitad de las
-            materias curriculares que corresponde al semestre anterior, certificado por el
-            departamento de Registros e Inscripciones.</td>
-          <td style="text-align: center">
-            <a class="options" data-toggle="modal" data-target="#requirementsModal">
-              <img src="{{ asset('img/pen.png') }}" width="25" height="25">
-            </a>
-            <a class="options" data-toggle="modal" data-target="#requirementsModal">
-              <img src="{{ asset('img/trash.png') }}" width="25" height="25">
-            </a>
+          <th scope="row">{{ chr($alphas++) }} )</th>
+          <td style="text-align: justify;">
+            {{ $requeriment->descripcion }}
           </td>
-        </tr>
+          <td style="text-align: center">
+            <a class="options" data-toggle="modal" data-target="#requirementsEditModal" data-id="{{ $requeriment->id }}"
+              data-descripcion="{{ $requeriment->descripcion }}"  data-inc="{{ chr($alphas-1) }}" data-dismiss="modal"><img
+                src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
+                  
+                <form class="d-inline" action="{{ route('requirementDelete', $requeriment->id) }}" method="POST">
+                  {{ csrf_field() }}
+                  {{ method_field('DELETE') }}
+                  <button type="submit" class="btn btn-link">
+                      <img src="{{ asset('img/trash.png') }}" width="25" height="25">
+                  </button>    
+              </form>
+          </td>
+        </tr>@endforeach
       </tbody>
     </table>
     <form method="post" accion=>
@@ -73,11 +75,11 @@
           <form method="post" accion="{{ route('requirementValid') }}">
             {{ csrf_field() }}
             <div class="form-group">
-              <label for="exampleInputEmail1">Inciso a:</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Ingrese el requisito"
+              <label for="exampleInputEmail1">Inciso {{ chr($alphas) }}:
+              </label>
+              <textarea class="form-control" id="descripcion-req" placeholder="Ingrese el requisito"
                 rows="3" name="descripcion"></textarea>
-              <small id="emailHelp" class="form-text text-muted">Los requisitos son creados atravez de indices
-                alfabeticos.</small>
+              <small id="emailHelp" class="form-text text-muted">Los requisitos se listan en orden alfabético.</small>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -88,5 +90,40 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Edit-->
+  <div class="modal fade" id="requirementsEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Requisito</h5>
+          <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{{ route('requirementUpdate') }}" role="form" autocomplete="off">
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+            <input type="hidden" id="id-requirement" name="id-requirement">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Inciso</label>
+              <input for="exampleInputEmail1" type="button" class="btn btn-light" id="inc-requirement" name="inc-requirement" readonly/>
+              <textarea class="form-control" id="descripcion-requirement"
+                rows="3" name="descripcion-requirement" value="{{ old('nombre') }}" ></textarea>
+              <small id="emailHelp" class="form-text text-muted">Los requisitos se listan en orden alfabético.</small>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <input class="btn btn-info" type="submit" value="Guardar">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>
 @endsection

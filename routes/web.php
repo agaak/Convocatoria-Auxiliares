@@ -32,6 +32,8 @@ Route::delete('/convocatoria/requerimientos/{id}', ['as' => 'requestDelete', 'us
 
 Route::get('/convocatoria/requisitos', ['as' => 'requirement', 'uses' => 'Pages\Convocatory@requirements']);
 Route::post('/convocatoria/requisitos', ['as' => 'requirementValid', 'uses' => 'Pages\Convocatory@requirementsValid']);
+Route::put('/convocatoria/requisitos', ['as' => 'requirementUpdate', 'uses' => 'Pages\Convocatory@requirementUpdate']);
+Route::delete('/convocatoria/requisitos/{id}', ['as' => 'requirementDelete', 'uses' => 'Pages\Convocatory@requirementDelete']);
 
 Route::get('/convocatoria/fechas-importantes', ['as' => 'importantDates', 'uses' => 'Pages\Convocatory@importantDates']);
 Route::post('/convocatoria/fechas-importantes', ['as' => 'importantDatesValid', 'uses' => 'Pages\Convocatory@importantDatesValid']);

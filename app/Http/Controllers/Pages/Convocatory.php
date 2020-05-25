@@ -29,7 +29,8 @@ class Convocatory extends Controller
         return view('convocatory.requests', compact('requests')); //
     }
     public function requirements(){
-        return view('convocatory.requirements');
+        $requerimients=Requisito::get();
+        return view('convocatory.requirements', compact('requerimients'));
     }
     public function importantDates(){
         $importantDatesList = EventosImportantes::get();
@@ -176,7 +177,8 @@ class Convocatory extends Controller
             'id_convocatoria'=>$request->session()->get('convocatoria'), 
             'descripcion'=>$request->get('descripcion')
         ]);
-        return view('convocatory.requirements');
+        $requerimients=Requisito::get();
+        return view('convocatory.requirements', compact('requerimients'));
     }
 
     public function importantDatesValid(Request $request){
@@ -199,6 +201,17 @@ class Convocatory extends Controller
     public function requestDelete($id){
         DB::table('requerimiento')->where('id', $id)->delete();
         return redirect()->route('requests');
+    }
+
+    public function requirementUpdate(Request $request){
+        DB::table('requisito')->where('id', $request->input('id-requirement'))->update([
+            'descripcion' => $request->input('descripcion-requirement') ]);
+        return back();
+    }
+
+    public function requirementDelete($id){
+        DB::table('requisito')->where('id', $id)->delete();
+        return back();
     }
     
 
