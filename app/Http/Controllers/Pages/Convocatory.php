@@ -29,7 +29,7 @@ class Convocatory extends Controller
 
     public function titleDescription(Request $request){
         $departamets=Unidad_Academica::get();
-        $convo = DB::table('convocatoria')->where('id', $request->session()->get('convocatoria'));
+        $convo = Convocatoria::where('id', $request->session()->get('convocatoria'))->get();
         return view('convocatory.titleDescription', compact('departamets','convo'));
     }
 
@@ -152,6 +152,7 @@ class Convocatory extends Controller
     }
 
     public function titleDescriptionValid(Request $request){
+
         $this->validate($request, [
             'titulo-conv' => 'required',
             'fecha-ini' => 'before_or_equal:fecha-fin',
@@ -164,8 +165,8 @@ class Convocatory extends Controller
             'fecha_ini' => $request->input('fecha-ini'),
             'fecha_fin' => $request->input('fecha-fin')
         ]);
-        $requests=Requerimiento::get();
-        return view('convocatory.requests', compact('requests'));
+
+        return redirect()->route('requests');
     }
     
     public function requestValid(Request $request){        
