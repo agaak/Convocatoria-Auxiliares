@@ -28,17 +28,19 @@ class Convocatory extends Controller
 
     public function titleDescription(Request $request){
         $departamets=Unidad_Academica::get();
-        $convo = DB::table('convocatoria')->where($request->session()->get('convocatoria'));
+        $convo = DB::table('convocatoria')->where('id', $request->session()->get('convocatoria'));
         return view('convocatory.titleDescription', compact('departamets','convo'));
     }
 
-    public function requests(){
-        $requests=Requerimiento::get();
+    public function requests(Request $request){
+        $requests=DB::table('requerimiento')->where('id_convocatoria', $request->session()->get('convocatoria'))->get();
 
-        return view('convocatory.requests', compact('requests')); //
+        return view('convocatory.requests', compact('requests')); 
     }
-    public function requirements(){
-        $requerimients=Requisito::get();
+    
+    public function requirements(Request $request){
+        $requerimients=DB::table('requisito')->where('id_convocatoria', $request->session()->get('convocatoria'))->get();
+
         return view('convocatory.requirements', compact('requerimients'));
     }
     public function importantDates(){
@@ -231,8 +233,7 @@ class Convocatory extends Controller
     
     public function knowledgeRatingTematicValid(Request $request){
         DB::table('tematica')->insert([
-            'nombre' => $request->input('nombre'),
-            'porcentaje' => $request->input('porcentaje')
+            'tematica' => $request->input('nombre')
         ]);
         return redirect()->route('knowledgeRating');
     }

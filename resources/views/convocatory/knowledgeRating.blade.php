@@ -48,7 +48,7 @@
         @foreach($tematics as $tematic)
           <tr>
             <td class="table-light">{{ $num++ }}</td>
-            <td class="table-light">{{ $tematic->nombre }}</td>
+            <td class="table-light">{{ $tematic->tematica }}</td>
             @foreach($requests as $item)
               <td class="table-light">0</td>
             @endforeach
@@ -144,7 +144,7 @@
                   <div class="form-group col-7">
                     <div class="row">
                       <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica {{ $num++ }}
-                        :<span style="font-weight: normal; margin-left:10px">{{ $tematic->nombre }} </span></label>
+                        :<span style="font-weight: normal; margin-left:10px">{{ $tematic->tematica }} </span></label>
                     </div>
                   </div>
                   <div class="form-group col-4">
