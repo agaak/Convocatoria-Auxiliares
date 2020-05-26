@@ -50,3 +50,5 @@ Route::get('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRating
 Route::post('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRatingTematicValid', 'uses' => 'Pages\Convocatory@knowledgeRatingTematicValid']);
 Route::put('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRatingTematicUpdate', 'uses' => 'Pages\Convocatory@knowledgeRatingTematicUpdate']);
 Route::delete('/convocatoria/calificacion-conocimientos/{id}', ['as' => 'knowledgeRatingTematicDelete', 'uses' => 'Pages\Convocatory@knowledgeRatingTematicDelete']);
+Route::put('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRatingAuxUpdate', 'uses' => 'Pages\Convocatory@knowledgeRatingAuxUpdate']);
+

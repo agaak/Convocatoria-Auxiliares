@@ -132,9 +132,22 @@ class Convocatory extends Controller
     }
 
     public function knowledgeRating(Request $request){
-        $tematics=Tematica::get();
         $requests=DB::table('requerimiento')->where('id_convocatoria', $request->session()->get('convocatoria'))->get();
-        $porcentajes=DB::table('porcentaje')->get();
+       
+        
+        $tematics= Tematica::select('tematica','tematica.id')->join('porcentaje', 'tematica.id', '=', 'porcentaje.id_tematica')
+            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+            ->join('convocatoria', 'convocatoria.id', '=', 'requerimiento.id_convocatoria')
+            ->where('requerimiento.id_convocatoria',$request->session()->get('convocatoria'))
+            ->groupBy('tematica','tematica.id')
+            ->get();
+
+        $porcentajes=Porcentaje::select('id_requerimiento','porcentaje','id_tematica','porcentaje.id')
+            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+            ->join('convocatoria', 'convocatoria.id', '=', 'requerimiento.id_convocatoria')
+            ->where('requerimiento.id_convocatoria',$request->session()->get('convocatoria'))
+            ->groupBy('id_requerimiento','porcentaje','id_tematica','porcentaje.id')
+            ->get();
         return view('convocatory.knowledgeRating', compact('tematics', 'requests','porcentajes'));
     }
 
@@ -252,4 +265,12 @@ class Convocatory extends Controller
         DB::table('tematica')->where('id', $id)->delete();
         return redirect()->route('knowledgeRating');
     }
+
+    public function knowledgeRatingAuxUpdate(Request $request){
+        //DB::table('porcentaje')->where('id', $request->input('id-porcentaje'))->update([
+        //    'porcentaje' => $request->input('porcentaje'),
+        //]);
+        return redirect()->route('knowledgeRating');
+    }
+    
 }

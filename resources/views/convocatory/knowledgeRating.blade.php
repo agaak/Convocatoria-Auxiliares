@@ -21,7 +21,7 @@
       <span class="mx-1">Añadir Tematica</span>
     </a>
     <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
-      data-target="#auxiliaturaModal">
+    data-target="#auxiliaturaModal" >
       <img src="{{ asset('img/pen.png') }}" width="30" height="30">
       <span class="mx-1">Editar Auxiliatura</span>
     </a>
@@ -50,7 +50,9 @@
             <td class="table-light">{{ $num++ }}</td>
             <td class="table-light">{{ $tematic->tematica }}</td>
             @foreach($porcentajes as $item)
-              <td class="table-light">{{$item->porcentaje}}</td>
+              @if ($item->id_tematica == $tematic->id)
+                <td class="table-light">{{$item->porcentaje}}</td>
+              @endif
             @endforeach
             <td class="table-light">
               <a class="options" data-toggle="modal" data-target="#editTematicaModal" data-id="{{ $tematic->id }}"
@@ -121,14 +123,16 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="{{ route('requests') }}">
+          <form method="POST" action="{{ route('knowledgeRatingAuxUpdate') }}" role="form" autocomplete="off">
             {{ csrf_field() }}
+            {{ method_field('PUT') }}
+            <input type="hidden" id="id-aux" name="id-aux">
             <div class="form-group">
               <div class="form-row" style="margin-bottom: 5px">
                 <label class="col-auto col-form-label" for="department-conv">Auxiliatura</label>
                 <div class="col-xl">
-                  <select class="form-control" id="department-conv" name="departamento-ant">
-                    @foreach($requests as $item)
+                  <select class="form-control" id="sec-aux" name="sec-aux">
+                    @foreach($requests as $item) 
                       <option>{{ $item->cod_aux }} - {{ $item->nombre }}</option>
                     @endforeach
                   </select>
@@ -146,8 +150,8 @@
                   <div class="form-group col-4">
                     <div class="row">
                       <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
-                      <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje-merito"
-                        id="porcent-merit" placeholder="30%" min="0" max="100" required>
+                      <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje"
+                        id="porcentaje" min="0" max="100" required>
                     </div>
                   </div>
                 </div>
