@@ -4,7 +4,7 @@
 
 <div class="overflow-auto content">
 
-    <h3 class="text-uppercase text-center">Fechas Importantes</h3>
+    <h3 class="text-uppercase text-center">Eventos Importantes</h3>
 
     <!-- Button trigger modal -->
     <div class="my-3" style="margin-left: 3ch">

@@ -17,11 +17,11 @@ class CreateConvocatoriaTable extends Migration
             $table->increments('id');
             $table->integer('id_unidad_academica')->unsigned();
             $table->foreign('id_unidad_academica')->references('id')->on('unidad_academica')->onDelete('cascade');
-            $table->string('titulo_conv',256);
-            $table->text('descripcion_conv');
-            $table->string('fecha_ini');
-            $table->string('fecha_fin');
-            $table->string('nota');
+            $table->string('titulo_conv',256)->nullable();
+            $table->text('descripcion_conv')->nullable();
+            $table->string('fecha_ini')->nullable();
+            $table->string('fecha_fin')->nullable();
+            $table->string('nota')->nullable();
             $table->timestamps();
         });
     }

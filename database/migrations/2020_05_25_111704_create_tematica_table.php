@@ -24,9 +24,9 @@ class CreateTematicaTable extends Migration
 
         Schema::create('porcentaje', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_requerimiento');
-            $table->integer('id_tematica');
             $table->integer('porcentaje');
+            $table->integer('id_requerimiento')->unsigned();
+            $table->integer('id_tematica')->unsigned();
             $table->foreign('id_requerimiento')->references('id')->on('requerimiento')->onDelete('cascade');
             $table->foreign('id_tematica')->references('id')->on('tematica')->onDelete('cascade');
 
@@ -42,6 +42,7 @@ class CreateTematicaTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('porcentaje');
         Schema::dropIfExists('tematica');
     }
 }

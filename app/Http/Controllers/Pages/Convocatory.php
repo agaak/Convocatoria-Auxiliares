@@ -209,7 +209,7 @@ class Convocatory extends Controller
             'id_convocatoria'=>$request->session()->get('convocatoria'), 
             'descripcion'=>$request->get('descripcion')
         ]);
-        $requerimients=Requisito::get();
+        $requerimients=Requisito::get()->where('id_convocatoria', $request->session()->get('convocatoria'));
         return view('convocatory.requirements', compact('requerimients'));
     }
 

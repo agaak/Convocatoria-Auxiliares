@@ -22,7 +22,7 @@
                     <a class="link-list" href="{{ route('requirement') }}">Requisitos</a>
                 </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/fechas-importantes') }}">
-                    <a class="link-list" href="{{ route('importantDates') }}">Fechas Importantes</a>
+                    <a class="link-list" href="{{ route('importantDates') }}">Eventos importantes</a>
                 </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/calificacion-meritos') }}">
                     <a class="link-list" href="{{ route('meritRating') }}">Calificación de Meritos</a>
