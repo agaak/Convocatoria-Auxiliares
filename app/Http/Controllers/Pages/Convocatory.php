@@ -170,7 +170,7 @@ class Convocatory extends Controller
     }
     
     public function requestValid(Request $request){        
-        $requerimient=Requerimiento::create([
+        Requerimiento::create([
             'id_convocatoria'=>$request->session()->get('convocatoria'),
             'nombre'=>$request->get('nombre'),
             'item'=>$request->get('item'),
@@ -178,8 +178,7 @@ class Convocatory extends Controller
             'horas_mes'=>$request->get('marca'),
             'cod_aux'=>$request->get('precio')
         ]);
-        $requests=Requerimiento::get();
-        return view('convocatory.requests', compact('requests'));
+        return back();
     }
 
     public function requestUpdate(Request $request){
