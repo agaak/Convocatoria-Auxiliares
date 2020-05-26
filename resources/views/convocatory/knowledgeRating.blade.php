@@ -49,8 +49,8 @@
           <tr>
             <td class="table-light">{{ $num++ }}</td>
             <td class="table-light">{{ $tematic->tematica }}</td>
-            @foreach($requests as $item)
-              <td class="table-light">0</td>
+            @foreach($porcentajes as $item)
+              <td class="table-light">{{$item->porcentaje}}</td>
             @endforeach
             <td class="table-light">
               <a class="options" data-toggle="modal" data-target="#editTematicaModal" data-id="{{ $tematic->id }}"
@@ -128,13 +128,9 @@
                 <label class="col-auto col-form-label" for="department-conv">Auxiliatura</label>
                 <div class="col-xl">
                   <select class="form-control" id="department-conv" name="departamento-ant">
-                    @forelse($requests as $item)
-                      <option {{ $item->departament_conv }} value={{ $item->id }}>{{ $item->cod_aux }} -
-                        {{ $item->nombre }}
-                      </option>
-                    @empty
-                      <option {{ valor('NONE') }}>NONE</option>
-                    @endforelse
+                    @foreach($requests as $item)
+                      <option>{{ $item->cod_aux }} - {{ $item->nombre }}</option>
+                    @endforeach
                   </select>
                 </div>
               </div>

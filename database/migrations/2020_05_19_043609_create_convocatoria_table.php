@@ -21,6 +21,7 @@ class CreateConvocatoriaTable extends Migration
             $table->text('descripcion_conv');
             $table->string('fecha_ini');
             $table->string('fecha_fin');
+            $table->string('nota');
             $table->timestamps();
         });
     }

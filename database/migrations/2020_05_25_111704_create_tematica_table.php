@@ -26,6 +26,7 @@ class CreateTematicaTable extends Migration
             $table->increments('id');
             $table->integer('id_requerimiento');
             $table->integer('id_tematica');
+            $table->integer('porcentaje');
             $table->foreign('id_requerimiento')->references('id')->on('requerimiento')->onDelete('cascade');
             $table->foreign('id_tematica')->references('id')->on('tematica')->onDelete('cascade');
 

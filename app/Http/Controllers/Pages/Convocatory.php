@@ -16,6 +16,7 @@ use App\Requerimiento;
 use Illuminate\Support\Facades\DB;
 use App\Requisito;
 use App\Tematica;
+use App\Porcentaje;
 
 
 class Convocatory extends Controller
@@ -130,10 +131,11 @@ class Convocatory extends Controller
         return redirect()->route('meritRating');
     }
 
-    public function knowledgeRating(){
+    public function knowledgeRating(Request $request){
         $tematics=Tematica::get();
-        $requests=Requerimiento::get();
-        return view('convocatory.knowledgeRating', compact('tematics', 'requests'));
+        $requests=DB::table('requerimiento')->where('id_convocatoria', $request->session()->get('convocatoria'))->get();
+        $porcentajes=DB::table('porcentaje')->get();
+        return view('convocatory.knowledgeRating', compact('tematics', 'requests','porcentajes'));
     }
 
     public function titleDescriptionValid(Request $request){
@@ -232,9 +234,15 @@ class Convocatory extends Controller
     }
     
     public function knowledgeRatingTematicValid(Request $request){
-        DB::table('tematica')->insert([
-            'tematica' => $request->input('nombre')
-        ]);
+        $tematic = Tematica::create(['tematica' => $request->input('nombre') ]);
+        $requests=DB::table('requerimiento')->where('id_convocatoria', $request->session()->get('convocatoria'))->get();
+        foreach($requests as $item){
+            Porcentaje::create([
+                'id_requerimiento' => $item->id,
+                'id_tematica' => $tematic->id,
+                'porcentaje' => $request->input('porcentaje')
+            ]);
+        }
         return redirect()->route('knowledgeRating');
     }
     
