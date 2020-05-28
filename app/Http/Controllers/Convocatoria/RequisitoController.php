@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Convocatoria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Convocatoria\RequisitoCreateRequest;
 use App\Requisito;
 class RequisitoController extends Controller
 {
-    public function requirementsValid(Request $request){
+    public function requirementsValid(RequisitoCreateRequest $request){
         Requisito::create([
             'id_convocatoria'=>$request->session()->get('convocatoria'), 
             'descripcion'=>$request->get('descripcion')

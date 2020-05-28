@@ -4,7 +4,7 @@
 
 <div class="overflow-auto content">
 
-    <h3 class="text-uppercase text-center">Calificación de Méritos</h3>
+    <h3 class="text-uppercase text-left">Calificación de Méritos</h3>
 
     {{-- Descripcion del contenido y adjunto un icono para edita esta descripcion en un modal --}}
     <div class="row">
@@ -304,6 +304,7 @@
         </table>
     </div>
     <div class="my-5 text-center">
+        <a href="{{ route('importantDates') }}" type="button" class="btn btn-info my-5">Anterior</a>
         <a href="{{ route('knowledgeRating') }}" type="button" class="btn btn-info my-5">Siguiente</a>
     </div>
 </div>

@@ -4,7 +4,7 @@
 
 <div class="overflow-auto content">
 
-  <h3 class="text-uppercase text-center">Requisitos</h3>
+  <h3 class="text-uppercase text-left">Seccion Requisitos</h3>
 
   <!-- Button trigger modal -->
   <div class="my-3" style="margin-left: 3ch">
@@ -55,7 +55,9 @@
       </div>
     </form>
     <div class="my-5 py-5 text-center">
-      <a href="{{ route('importantDates') }}" class="btn btn-info" tabindex="-1" role="button"
+      <a href="{{ route('requests') }}" class="btn btn-info" tabindex="-1" role="button"
+      aria-disabled="true">Anterior</a>
+      <a href="{{ route('documentos') }}" class="btn btn-info" tabindex="-1" role="button"
         aria-disabled="true">Siguiente</a>
     </div>
   </div>
@@ -78,7 +80,7 @@
               <label for="exampleInputEmail1">Inciso {{ chr($alphas) }}:
               </label>
               <textarea class="form-control" id="descripcion-req" placeholder="Ingrese el requisito"
-                rows="3" name="descripcion"></textarea>
+                rows="3" name="descripcion" minlength="11" required></textarea>
               <small id="emailHelp" class="form-text text-muted">Los requisitos se listan en orden alfabético.</small>
             </div>
             <div class="modal-footer">

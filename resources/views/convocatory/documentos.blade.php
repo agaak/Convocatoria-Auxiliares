@@ -10,7 +10,7 @@
   <div class="my-3" style="margin-left: 3ch">
     <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#requirementsModal">
       <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
-      <span class="mx-1">Añadir requisito</span>
+      <span class="mx-1">Añadir documento</span>
     </a>
   </div>
 
@@ -25,18 +25,18 @@
       </thead>
       <tbody style="background-color: white">
         <div style="visibility: hidden"> {{ $alphas = 65 }}</div> 
-        @foreach($requerimients as $requeriment)
+        @foreach($documentos as $documento)
         <tr>
           <th scope="row">{{ chr($alphas++) }} )</th>
           <td style="text-align: justify;">
-            {{ $requeriment->descripcion }}
+            {{ $documento->descripcion }}
           </td>
           <td style="text-align: center">
-            <a class="options" data-toggle="modal" data-target="#requirementsEditModal" data-id="{{ $requeriment->id }}"
-              data-descripcion="{{ $requeriment->descripcion }}"  data-inc="{{ chr($alphas-1) }}" data-dismiss="modal"><img
+            <a class="options" data-toggle="modal" data-target="#requirementsEditModal" data-id="{{ $documento->id }}"
+              data-descripcion="{{ $documento->descripcion }}"  data-inc="{{ chr($alphas-1) }}" data-dismiss="modal"><img
                 src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
                   
-                <form class="d-inline" action="{{ route('requirementDelete', $requeriment->id) }}" method="POST">
+                <form class="d-inline" action="{{ route('documentoDelete', $documento->id) }}" method="POST">
                   {{ csrf_field() }}
                   {{ method_field('DELETE') }}
                   <button type="submit" class="btn btn-link">
@@ -72,7 +72,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="post" accion="{{ route('requirementValid') }}">
+          <form method="post" accion="{{ route('documentoValid') }}">
             {{ csrf_field() }}
             <div class="form-group">
               <label for="exampleInputEmail1">Inciso {{ chr($alphas) }}:
@@ -103,7 +103,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="{{ route('requirementUpdate') }}" role="form" autocomplete="off">
+          <form method="POST" action="{{ route('documentoUpdate') }}" role="form" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <input type="hidden" id="id-requirement" name="id-requirement">

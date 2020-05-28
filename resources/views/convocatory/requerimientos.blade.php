@@ -4,7 +4,7 @@
 
 <div class="overflow-auto content">
 
-  <h3 class="text-uppercase text-center">Requerimientos</h3>
+  <h3 class="text-uppercase text-left">seccion Requerimientos</h3>
 
   <!-- Button trigger modal -->
   <div class="my-3" style="margin-left: 3ch">
@@ -193,8 +193,9 @@
   </div>
 
         
-
+<!-- Boton siguiente-->
   <div class="my-5 py-5 text-center">
+    
     <a href="{{ route('requirement') }}" class="btn btn-info" tabindex="-1" role="button"
       aria-disabled="true">Siguiente</a>
   </div>

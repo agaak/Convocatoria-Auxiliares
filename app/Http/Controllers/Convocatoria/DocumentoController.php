@@ -14,7 +14,7 @@ class DocumentoController extends Controller
             'descripcion'=>$request->get('descripcion')
         ]);
         $requerimients=Requisito::get()->where('id_convocatoria', $request->session()->get('convocatoria'));
-        return view('convocatory.requirements', compact('requerimients'));
+        return view('convocatory.documentos', compact('requerimients'));
     }
 
     public function documentoUpdate(Request $request){
@@ -28,9 +28,9 @@ class DocumentoController extends Controller
         return back();
     }
 
-    public function documentos(Request $request){
-        $requerimients=DB::table('requisito')->where('id_convocatoria', $request->session()->get('convocatoria'))->get();
+    public function documentos(Request $request){ //Si no funciona comentar where
+        $documentos=DB::table('requisito')->get();//where('id_convocatoria', $request->session()->get('convocatoria'))->get();
 
-        return view('convocatory.requisitos', compact('requerimients'));
+        return view('convocatory.documentos', compact('documentos')); // return $documentos; := carga los datos de la tabla como [] 
     }
 }
