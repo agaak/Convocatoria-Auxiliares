@@ -30,9 +30,9 @@
             {{ csrf_field() }}
             <div class="form-group">
               <label for="nombre">Nombre de Auxiliatura</label>
-              <select class="form-control" id="nombre" name="nombre">
+              <select class="form-control" id="id" name="id">
                 @foreach($auxs as $aux) 
-                  <option>{{ $aux->nombre }}</option>
+                  <option value="{{$aux->id}}">{{ $aux->nombre_aux }}</option>
                 @endforeach
               </select>
               <div class="form-row " style="margin-top: 20px">
@@ -40,7 +40,7 @@
                   <div class="row">
                     <label for="codigo_pro colFormLabelSm" class="col-sm-4 col-form-label">Cantidad</label>
                     <div class="col-sm-8">
-                      <input name="codigo_pro" type="number" class="form-control form-control-sm" id="cantidad"
+                      <input name="cantidad" type="number" class="form-control form-control-sm" id="cantidad"
                         placeholder="3" min="1" max="20" required>
                     </div>
                   </div>
@@ -49,7 +49,7 @@
                   <div class="row">
                     <label for="marca colFormLabelSm" class="col-sm-8 col-form-label">Hrs.Academicas/mes</label>
                     <div class="col-sm-4">
-                      <input name="marca" type="number" class="form-control form-control-sm" id="hr-aca"
+                      <input name="horas" type="number" class="form-control form-control-sm" id="horas"
                         placeholder="80" min="1" max="100" required>
                     </div>
                   </div>
@@ -80,16 +80,17 @@
         </tr>
       </thead>
       <tbody style="background-color: white">
+        <div style="visibility: hidden"> {{ $num = 1 }}</div>
         @foreach($requests as $reques)
-        <tr>
-          <td>{{ $reques->item }}</td>
-          <td>{{ $reques->cantidad }} Aux.</td>
+        <tr> 
+          <td>{{ $num++ }}</td>
+          <td>{{ $reques->cant_aux }} Aux.</td>
           <td>{{ $reques->horas_mes }} hrs/mes</td>
-          <td>{{ $reques->nombre }}</td>
+          <td>{{ $reques->nombre_aux }}</td>
           <td>{{ $reques->cod_aux }}</td>
-          <td><a class="options" data-toggle="modal" data-target="#requestEditModal" data-item="{{ $reques->item }}"
-              data-cantidad="{{ $reques->cantidad }}" data-horas_mes="{{ $reques->horas_mes }}" data-id="{{ $reques->id }}"
-              data-nombre="{{ $reques->nombre }}" data-cod_aux="{{ $reques->cod_aux }}" data-dismiss="modal"><img
+          <td><a class="options" data-toggle="modal" data-target="#requestEditModal"
+              data-cantidad="{{ $reques->cant_aux }}" data-horas_mes="{{ $reques->horas_mes }}" data-id="{{ $reques->id }}"
+              data-nombre="{{ $reques->nombre_aux }}" data-cod_aux="{{ $reques->cod_aux }}" data-dismiss="modal"><img
                 src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
                   
                 <form class="d-inline" action="{{ route('delete', $reques->id) }}" method="POST">

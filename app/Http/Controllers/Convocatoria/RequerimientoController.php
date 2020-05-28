@@ -11,15 +11,13 @@ use App\Requerimiento;
 class RequerimientoController extends Controller
 {
     public function create(RequerimientoCreateRequest $request){  
-        Requerimiento::create([
-            'id_convocatoria'=>4,//$request->session()->get('convocatoria'),
-            'nombre'=>$request->get('nombre'),
-            'item'=>7,
-            'cantidad'=>$request->get('codigo_pro'),
-            'horas_mes'=>$request->get('marca'),
-            'cod_aux'=>56
-        ]);
-        return back();
+        $req = new Requerimiento();
+        $req ->id_convocatoria =  $request->session()->get('convocatoria');
+        $req ->id_auxiliatura = $request->input('id');
+        $req ->horas_mes = $request->input('horas');
+        $req ->cant_aux = $request->input('cantidad');
+        $req -> save();
+        return  back();
     }
 
     public function update(Request $request){
@@ -39,15 +37,16 @@ class RequerimientoController extends Controller
     }
 
     public function requests(Request $request){
-        $requests=DB::table('requerimiento')
-            ->where('id_convocatoria', 4)//$request->session()
-            //->get('convocatoria'))
-            ->get();
+        $tipo = DB::table('convocatoria')->select('id_tipo_convocatoria')->
+                where('id',$request->session()->get('convocatoria'))
+                ->get();
         $auxs=DB::table('auxiliatura')
-            //->where('tipo',$request->session()
-            //->get('tipo'))
-            ->get();//*/
-        //$auxs=['Introduccion a la Progra','Elementos'];
+            ->where('id_unidad_academica',1)
+            ->get();
+        $requests=Requerimiento::select('requerimiento.id','horas_mes','requerimiento.cant_aux','nombre_aux','cod_aux')
+            ->join('auxiliatura','requerimiento.id_auxiliatura', '=','auxiliatura.id')
+            ->where('requerimiento.id_convocatoria',$request->session()->get('convocatoria'))
+            ->get();
         return view('convocatory.requerimientos', compact('requests','auxs')); 
     }
 }

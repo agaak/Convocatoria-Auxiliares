@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Convocatoria;
-use App\Unidad_Academica;
+use App\Tipo;
 use Illuminate\Http\Request;
 
 class ConvocatoriaController extends Controller
@@ -16,7 +16,7 @@ class ConvocatoriaController extends Controller
     public function index()
     {
         $anioActual = date("Y");
-        $tipos = Unidad_Academica::get();
+        $tipos = Tipo::get();
         return view('convocatoria', compact('tipos','anioActual'));
     }
 
@@ -48,11 +48,12 @@ class ConvocatoriaController extends Controller
             'conv-descripcion' => 'required'
         ]);
         $convo = new Convocatoria();
-        $convo->id_unidad_academica = $request->input('conv-tipo');
-        $convo->titulo_conv = $request->input('conv-titulo');
-        $convo->descripcion_conv = $request->input('conv-descripcion');
-        $convo->fecha_ini = $request->input('conv-fecha-ini');
-        $convo->fecha_fin = $request->input('conv-fecha-fin');
+        $convo->id_unidad_academica = 1;
+        $convo->id_tipo_convocatoria = $request->input('conv-tipo');
+        $convo->titulo = $request->input('conv-titulo');
+        $convo->descripcion_convocatoria = $request->input('conv-descripcion');
+        $convo->fecha_inicio = date("Y-m-d", strtotime($request->input('conv-fecha-ini')));
+        $convo->fecha_final = date("Y-m-d", strtotime($request->input('conv-fecha-fin')));
         $convo->save();
 
         session()->put('convocatoria', $convo->id) ;

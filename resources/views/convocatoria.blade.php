@@ -72,7 +72,7 @@
                                     <label for="conv-tipo">Tipo</label>
                                     <select class="form-control" id="conv-tipo" name="conv-tipo">
                                         @foreach ($tipos as $item)
-                                        <option value="{{ $item->id }}">{{ $item->departament_conv }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->nombret_tipo }}</option>
                                         @endforeach
                                     </select>
                                 </div>

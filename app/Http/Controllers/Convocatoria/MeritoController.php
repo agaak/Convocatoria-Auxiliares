@@ -31,7 +31,7 @@ class MeritoController extends Controller
     }
 
     public function meritRating(){
-        $meritList = DB::table('merito')->orderBy('id_merito', 'ASC')->get();
+        $meritList = DB::table('merito')->orderBy('id', 'ASC')->get();
 
         $llenarLista = [];
         $listaInicial = [];
@@ -78,13 +78,15 @@ class MeritoController extends Controller
     public function meritRatingValid(Request $request){
         if ($request->has('merito-o-submerito')) {
             DB::table('merito')->insert([
+                'id_convocatoria' => $request->session()->get('convocatoria'),
                 'id_sub_merito' => $request->input('merito-o-submerito'),
-                'descripcion' => $request->input('descripcion-sub-merito'),
+                'descripcion_merito' => $request->input('descripcion-sub-merito'),
                 'porcentaje' => $request->input('porcentaje-sub-merito')
             ]);
         } else {
             DB::table('merito')->insert([
-                'descripcion' => $request->input('descripcion-merito'),
+                'id_convocatoria' => $request->session()->get('convocatoria'),
+                'descripcion_merito' => $request->input('descripcion-merito'),
                 'porcentaje' => $request->input('porcentaje-merito')
             ]);
         }

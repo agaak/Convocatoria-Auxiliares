@@ -10,10 +10,10 @@ use App\Requisito;
 class RequisitoController extends Controller
 {
     public function requirementsValid(RequisitoCreateRequest $request){
-        Requisito::create([
-            'id_convocatoria'=>$request->session()->get('convocatoria'), 
-            'descripcion'=>$request->get('descripcion')
-        ]);
+        $requisito = new Requisito();
+        $requisito -> id_convocatoria=$request->session()->get('convocatoria');
+        $requisito -> descripcion=$request->get('descripcion');
+        $requisito -> save();
         return back();
     }
 

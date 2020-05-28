@@ -9,5 +9,4 @@ class Requisito extends Model
     //
     protected $table='requisito';
     
-    protected $fillable=['descripcion'];
 }
