@@ -26,22 +26,16 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="{{ route('requestValid') }}" id="request">
+          <form method="POST" action="{{ route('create') }}" id="request">
             {{ csrf_field() }}
             <div class="form-group">
               <label for="nombre">Nombre de Auxiliatura</label>
-              <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="emailHelp" autofocus
-                placeholder="Ingresa el nombre de la auxiliatura" required>
+              <select class="form-control" id="nombre" name="nombre">
+                @foreach($auxs as $aux) 
+                  <option>{{ $aux->nombre }}</option>
+                @endforeach
+              </select>
               <div class="form-row " style="margin-top: 20px">
-                <div class="form-group col-6">
-                  <div class="row">
-                    <label for="nombre colFormLabelSm" class="col-sm-4 col-form-label">Item</label>
-                    <div class="col-sm-8">
-                      <input name="item" type="number" class="form-control form-control-sm" id="item" placeholder="1"
-                        min="1" max="50" required>
-                    </div>
-                  </div>
-                </div>
                 <div class="form-group col-6">
                   <div class="row">
                     <label for="codigo_pro colFormLabelSm" class="col-sm-4 col-form-label">Cantidad</label>
@@ -51,23 +45,12 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="form-row">
                 <div class="form-group col-6">
                   <div class="row">
                     <label for="marca colFormLabelSm" class="col-sm-8 col-form-label">Hrs.Academicas/mes</label>
                     <div class="col-sm-4">
                       <input name="marca" type="number" class="form-control form-control-sm" id="hr-aca"
                         placeholder="80" min="1" max="100" required>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group col-6">
-                  <div class="row">
-                    <label for="precio colFormLabelSm" class="col-sm-6 col-form-label">Codigo Aux.</label>
-                    <div class="col-sm-6">
-                      <input name="precio" type="text" class="form-control form-control-sm" id="cod-aux"
-                        placeholder="LCO-ADM" style="text-transform:uppercase;" required>
                     </div>
                   </div>
                 </div>
@@ -85,7 +68,7 @@
   </div>
   <!-- Table -->
   <div class="table-requests">
-    <table class="table table-bordered" style="text-align: center">
+    <table class="table table-bordered" style="text-align: center" >
       <thead class="thead-dark">
         <tr>
           <th style="font-weight: normal" scope="col">Items</th>
@@ -109,7 +92,7 @@
               data-nombre="{{ $reques->nombre }}" data-cod_aux="{{ $reques->cod_aux }}" data-dismiss="modal"><img
                 src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
                   
-                <form class="d-inline" action="{{ route('requestDelete', $reques->id) }}" method="POST">
+                <form class="d-inline" action="{{ route('delete', $reques->id) }}" method="POST">
                   {{ csrf_field() }}
                   {{ method_field('DELETE') }}
                   <button type="submit" class="btn btn-link">
@@ -133,7 +116,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="{{ route('requestUpdate') }}" role="form" autocomplete="off">
+          <form method="POST" action="{{ route('update') }}" role="form" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <input type="hidden" id="id-request" name="id-request">
