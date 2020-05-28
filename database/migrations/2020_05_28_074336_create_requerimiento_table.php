@@ -14,15 +14,13 @@ class CreateRequerimientoTable extends Migration
     public function up()
     {
         Schema::create('requerimiento', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('id_convocatoria')->unsigned();
-            $table->string('nombre');
-            $table->integer('item');
-            $table->integer('cantidad'); 
+            $table->integer('id_auxiliatura')->unsigned();
             $table->integer('horas_mes');
-            $table->string('cod_aux',9); 
+            $table->integer('cant_aux');
 
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
+            $table->foreign('id_auxiliatura')->references('id')->on('auxiliatura')->onDelete('cascade');
             $table->timestamps();
         });
     }

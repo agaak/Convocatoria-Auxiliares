@@ -14,10 +14,19 @@ class CreateMeritoTable extends Migration
     public function up()
     {
         Schema::create('merito', function (Blueprint $table) {
-            $table->increments('id_merito');
-            $table->integer('id_sub_merito')->nullable();
-            $table->string('descripcion');
+            $table->increments('id');
+            $table->string('descripcion_merito');
             $table->integer('porcentaje');
+
+            $table->timestamps();
+        });
+
+        Schema::create('sub_merito', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('descripcion_sub_merito');
+            $table->integer('sub_porcentaje');
+            
+            $table->timestamps();
         });
     }
 
@@ -28,6 +37,7 @@ class CreateMeritoTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('sub_merito');
         Schema::dropIfExists('merito');
     }
 }
