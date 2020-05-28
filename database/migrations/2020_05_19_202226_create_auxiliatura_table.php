@@ -16,10 +16,10 @@ class CreateAuxiliaturaTable extends Migration
         Schema::create('auxiliatura', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_unidad_academica')->unsigned();
-            $table->text('nombre');
+            $table->foreign('id_unidad_academica')->references('id')->on('unidad_academica')->onDelete('cascade');
+            $table->text('nombre_aux');
             $table->string('cod_aux',12);
 
-            $table->foreign('id_unidad_academica')->references('id')->on('unidad_academica')->onDelete('cascade');
             $table->timestamps();
         });
     }

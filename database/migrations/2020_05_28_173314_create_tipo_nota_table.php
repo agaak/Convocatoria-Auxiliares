@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostulanteTable extends Migration
+class CreateTipoNotaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreatePostulanteTable extends Migration
      */
     public function up()
     {
-        Schema::create('postulante', function (Blueprint $table) {
+        Schema::create('tipo_nota', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre',30);
-            $table->string('apellido',30);
-            $table->integer('celular');
-            $table->string('carrera',30);
-            $table->boolean('habilitado');
+            $table->string('nombre_tipo');
+
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreatePostulanteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('postulante');
+        Schema::dropIfExists('tipo_nota');
     }
 }

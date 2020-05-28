@@ -15,24 +15,22 @@ class CreateTematicaTable extends Migration
     {
         Schema::create('tematica', function (Blueprint $table) {
             $table->increments('id');
-            //$table->integer('id_tipo_examen');
-            $table->string('tematica');
-            //$table->foreign('id_tipo_examen')->references('id')->on('tipo_examen')->onDelete('cascade');
+            $table->string('nombre');
 
             $table->timestamps();
         });
 
         Schema::create('porcentaje', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('porcentaje');
-            $table->integer('id_requerimiento')->unsigned();
-            $table->integer('id_tematica')->unsigned();
+            $table->integer('id_requerimiento');
             $table->foreign('id_requerimiento')->references('id')->on('requerimiento')->onDelete('cascade');
-            $table->foreign('id_tematica')->references('id')->on('tematica')->onDelete('cascade');
+            $table->integer('id_auxiliatura');
+            $table->foreign('id_auxiliatura')->references('id')->on('auxiliatura')->onDelete('cascade');
+            $table->integer('id_tematica');
+            $table->foreign('id_tematica')->references('id')->on('tematica')->onDelete('cascade'); 
+            $table->integer('porncentaje');
 
             $table->timestamps();
         });
-
     }
 
     /**

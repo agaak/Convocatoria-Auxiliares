@@ -9,5 +9,5 @@ class Requerimiento extends Model
     //
     protected $table='requerimiento';
 
-    protected $fillable=['id_convocatoria','nombre','item','cantidad','horas_mes','cod_aux'];    
+    protected $fillable=['horas_mes', 'cant_aux'];
 }

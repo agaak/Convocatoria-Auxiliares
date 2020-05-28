@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAvisoTable extends Migration
+class CreateNotaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateAvisoTable extends Migration
      */
     public function up()
     {
-        Schema::create('aviso', function (Blueprint $table) {
+        Schema::create('nota', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_convocatoria')->unsigned();
-            $table->text('descripcion');
+            $table->integer('id_tipo_nota');
+            $table->integer('id_convocatoria');
+            $table->string('integer');
 
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
+            $table->foreign('id_tipo_nota')->references('id')->on('tipo_nota')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateAvisoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aviso');
+        Schema::dropIfExists('nota');
     }
 }
