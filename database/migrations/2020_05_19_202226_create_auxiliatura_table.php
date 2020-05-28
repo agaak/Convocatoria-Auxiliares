@@ -22,18 +22,6 @@ class CreateAuxiliaturaTable extends Migration
 
             $table->timestamps();
         });
-
-        Schema::create('porcentaje', function (Blueprint $table) {
-            $table->integer('id_convocatoria');
-            $table->integer('id_auxliatura');
-            $table->integer('id_tematica');
-            $table->integer('porncentaje');
-
-            $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
-            $table->foreign('id_auxliatura')->references('id')->on('auxliatura')->onDelete('cascade');
-            $table->foreign('id_tematica')->references('id')->on('tematica')->onDelete('cascade');            
-            $table->timestamps();
-        });
     }
 
     /**
@@ -43,7 +31,6 @@ class CreateAuxiliaturaTable extends Migration
      */
     public function down()
     {   
-        Schema::dropIfExists('porcentaje');
         Schema::dropIfExists('auxiliatura');
     }
 }
