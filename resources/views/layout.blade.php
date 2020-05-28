@@ -50,7 +50,7 @@
                     <div class="collapse navbar-collapse navbar-collapse-color" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link {{ activeMenu('convocatoria') }}" href="{{ route('convocatory') }}">Convocatorias</a>
+                                <a class="nav-link {{ activeMenu('convocatoria') }}" href="{{ route('convocatoria.index') }}">Convocatorias</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ activeMenu('resultados') }}" href="{{ route('results') }}">Resultados</a>

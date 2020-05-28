@@ -14,17 +14,16 @@
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 
-Route::get('/', ['as' => 'home', 'uses' => 'NavbarPages@home']);
+Route::get('/', ['as' => 'home', 'uses' => 'NavbarController@home']);
 
-Route::get('/convocatoria', ['as' => 'convocatory', 'uses' => 'NavbarPages@convocatory']);
+Route::get('/convocatoria', ['as' => 'convocatoria', 'uses' => 'NavbarController@convocatory']);
 
-Route::get('/resultados', ['as' => 'results', 'uses' => 'NavbarPages@results']);
+Route::get('/resultados', ['as' => 'results', 'uses' => 'NavbarController@results']);
 
-Route::get('/tramites-documentos', ['as' => 'proceduresDocs', 'uses' => 'NavbarPages@proceduresDocs']);
+Route::get('/tramites-documentos', ['as' => 'proceduresDocs', 'uses' => 'NavbarController@proceduresDocs']);
 
-Route::get('/convocatoria/titulo-descripcion', ['as' => 'titleDescription', 'uses' => 'Convocatoria@titleDescription']);
-Route::put('/convocatoria/titulo-descripcion', ['as' => 'titleDescriptionValid', 'uses' => 'Convocatoria@titleDescriptionValid']);
-Route::get('/convocatoria/titulo-descripcionGet', ['as' => 'titleDescriptionGet', 'uses' => 'Convocatoria@titleDescriptionGet']);
+Route::get('/convocatoria', 'ConvocatoriaController@index')->name('convocatoria.index');
+Route::post('/convocatoria', 'ConvocatoriaController@store')->name('convocatoria.store');
 
 Route::get('/convocatoria/requerimientos', ['as' => 'requests', 'uses' => 'Convocatoria\RequerimientoController@requests']);
 Route::post('/convocatoria/requerimientos', ['as' => 'create', 'uses' => 'Convocatoria\RequerimientoController@create']);

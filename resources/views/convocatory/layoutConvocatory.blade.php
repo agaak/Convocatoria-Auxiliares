@@ -12,9 +12,6 @@
             @endphp
             <h2 class="text-uppercase title-navbar">nueva convocatoria</h2>
             <ul class="container-list">
-                <li class="navbar-item {{ activeMenuConten('convocatoria/titulo-descripcion') }}">
-                    <a class="link-list" href="{{ route('titleDescription') }}">Título y Descripción</span></a>
-                </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/requerimientos') }}">
                     <a class="link-list" href="{{ route('requests') }}">Requerimientos</a>
                 </li>
