@@ -1,4 +1,4 @@
-@extends('convocatory.layoutConvocatory')
+{{-- @extends('convocatory.layoutConvocatory')
 
 @section('content-convocatory')
 
@@ -57,4 +57,4 @@
         </div>
     </form>
 </div>
-@endsection
+@endsection --}}
