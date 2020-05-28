@@ -27,9 +27,9 @@ Route::put('/convocatoria/titulo-descripcion', ['as' => 'titleDescriptionValid',
 Route::get('/convocatoria/titulo-descripcionGet', ['as' => 'titleDescriptionGet', 'uses' => 'Convocatoria@titleDescriptionGet']);
 
 Route::get('/convocatoria/requerimientos', ['as' => 'requests', 'uses' => 'Convocatoria\RequerimientoController@requests']);
-Route::post('/convocatoria/requerimientos', ['as' => 'requestValid', 'uses' => 'Convocatoria\RequerimientoController@requestValid']);
-Route::put('/convocatoria/requerimientos', ['as' => 'requestUpdate', 'uses' => 'Convocatoria\RequerimientoController@requestUpdate']);
-Route::delete('/convocatoria/requerimientos/{id}', ['as' => 'requestDelete', 'uses' => 'Convocatoria\RequerimientoController@requestDelete']);
+Route::post('/convocatoria/requerimientos', ['as' => 'create', 'uses' => 'Convocatoria\RequerimientoController@create']);
+Route::put('/convocatoria/requerimientos', ['as' => 'update', 'uses' => 'Convocatoria\RequerimientoController@update']);
+Route::delete('/convocatoria/requerimientos/{id}', ['as' => 'delete', 'uses' => 'Convocatoria\RequerimientoController@delete']);
 
 Route::get('/convocatoria/requisitos', ['as' => 'requirement', 'uses' => 'Convocatoria\RequisitoController@requirements']);
 Route::post('/convocatoria/requisitos', ['as' => 'requirementValid', 'uses' => 'Convocatoria\RequisitoController@requirementsValid']);
