@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Requisito extends Model
 {
     //
-    protected $table= "requisito";
-
-    protected $fillable= ['id_convocatoria', 'descripcion'];
+    protected $table='requisito';
+    
+    protected $fillable=['descripcion'];
 }
