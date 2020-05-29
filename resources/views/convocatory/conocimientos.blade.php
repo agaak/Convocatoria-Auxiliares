@@ -45,13 +45,13 @@
       </thead>
       <tbody>
         <div style="visibility: hidden"> {{ $num = 1 }}</div>
-        @foreach($tematics as $tematic)
+        @foreach($tems as $tem)
           <tr>
             <td class="table-light">{{ $num++ }}</td>
-            <td class="table-light">{{ $tematic->tematica }}</td>
+            <td class="table-light">{{ $tem->nombre }}</td>
             @foreach($porcentajes as $item)
-              @if ($item->id_tematica == $tematic->id)
-                <td class="table-light">{{$item->porcentaje}}</td>
+              @if ($item->id_tematica == $tem->id)
+                <td class="table-light">{{$item->porncentaje}}</td>
               @endif
             @endforeach
             <td class="table-light">
@@ -89,10 +89,13 @@
             {{ csrf_field() }}
             <div class="form-group">
               <label for="nombre">Nombre de la Tematica</label>
-              <input name="nombre" type="text" class="form-control" id="nombre" aria-describedby="emailHelp"
-                placeholder="Linux Avanzado" required>
+              <select class="form-control" id="id-tem" name="id-tem">
+                @foreach($tematics as $tematic) 
+                  <option value={{$tematic->id}}>{{ $tematic->nombre }}</option>
+                @endforeach
+              </select>
               <div class="form-row " style="margin-top: 20px">
-                <div class="form-group col-6">
+                <div class="form-group col-6"> 
                   <div class="row">
                     <label class="col-8 col-form-label" for="porcent-merit">Valor por defecto:</label>
                     <input type="number" class="form-control col-sm-4" name="porcentaje" id="porcentaje" value="30"
@@ -133,7 +136,7 @@
                 <div class="col-xl">
                   <select class="form-control" id="sec-aux" name="sec-aux">
                     @foreach($requests as $item) 
-                      <option>{{ $item->cod_aux }} - {{ $item->nombre }}</option>
+                      <option>{{ $item->cod_aux }} - {{ $item->nombre_aux }}</option>
                     @endforeach
                   </select>
                 </div>

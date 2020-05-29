@@ -24,7 +24,8 @@ class RequerimientoCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|unique:auxiliatura,nombre_aux'
+            'cantidad' => 'required'
+            ,'horas' => 'required'
         ];
     }
 }

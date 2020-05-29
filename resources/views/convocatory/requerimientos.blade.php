@@ -30,9 +30,9 @@
             {{ csrf_field() }}
             <div class="form-group">
               <label for="nombre">Nombre de Auxiliatura</label>
-              <select class="form-control" id="id" name="id">
+              <select class="form-control" id="id-aux" name="id-aux">
                 @foreach($auxs as $aux) 
-                  <option value="{{$aux->id}}">{{ $aux->nombre_aux }}</option>
+                  <option value="{{$aux->nombre_aux}}|{{$aux->id}}">{{ $aux->nombre_aux }}</option>
                 @endforeach
               </select>
               <div class="form-row " style="margin-top: 20px">
@@ -89,7 +89,7 @@
           <td>{{ $reques->nombre_aux }}</td>
           <td>{{ $reques->cod_aux }}</td>
           <td><a class="options" data-toggle="modal" data-target="#requestEditModal"
-              data-cantidad="{{ $reques->cant_aux }}" data-horas_mes="{{ $reques->horas_mes }}" data-id="{{ $reques->id }}"
+              data-cantidad="{{ $reques->cant_aux }}" data-horas_mes="{{ $reques->horas_mes }}" data-id="{{ $reques->id }}" data-id_auxiliatura="{{ $reques->id_auxiliatura }}"
               data-nombre="{{ $reques->nombre_aux }}" data-cod_aux="{{ $reques->cod_aux }}" data-dismiss="modal"><img
                 src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
                   
@@ -123,44 +123,27 @@
             <input type="hidden" id="id-request" name="id-request">
             <div class="form-group">
               <label for="nombre">Nombre de Auxiliatura</label>
-              <input name="nombre-request" type="text" class="form-control" id="nombre-request" aria-describedby="emailHelp" autofocus
-              value="{{ old('nombre') }}" required>
+              <select class="form-control" id="id-aux-request" name="id-aux-request">
+                @foreach($auxs as $aux) 
+                  <option value="{{$aux->id}}">{{ $aux->nombre_aux }}</option>
+                @endforeach
+              </select>
               <div class="form-row " style="margin-top: 20px">
-                <div class="form-group col-6">
-                  <div class="row">
-                    <label for="nombre colFormLabelSm" class="col-sm-4 col-form-label">Item</label>
-                    <div class="col-sm-8">
-                      <input name="item-request" type="number" class="form-control form-control-sm" id="item-request"
-                        min="1" max="50" required>
-                    </div>
-                  </div>
-                </div>
                 <div class="form-group col-6">
                   <div class="row">
                     <label for="codigo_pro colFormLabelSm" class="col-sm-4 col-form-label">Cantidad</label>
                     <div class="col-sm-8">
                       <input name="cantidad-request" type="number" class="form-control form-control-sm" id="cantidad-request"
-                        min="1" max="20" required>
+                        placeholder="3" min="1" max="20" required>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="form-row">
                 <div class="form-group col-6">
                   <div class="row">
                     <label for="marca colFormLabelSm" class="col-sm-8 col-form-label">Hrs.Academicas/mes</label>
                     <div class="col-sm-4">
                       <input name="horas_mes-request" type="number" class="form-control form-control-sm" id="horas_mes-request"
-                        min="1" max="100" required>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group col-6">
-                  <div class="row">
-                    <label for="precio colFormLabelSm" class="col-sm-6 col-form-label">Codigo Aux.</label>
-                    <div class="col-sm-6">
-                      <input name="cod_aux-request" type="text" class="form-control form-control-sm" id="cod_aux-request"
-                        style="text-transform:uppercase;" required>
+                        placeholder="80" min="1" max="100" required>
                     </div>
                   </div>
                 </div>

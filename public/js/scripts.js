@@ -39,18 +39,14 @@ function editDatesList(listDates) {
 $('#requestEditModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     var mid = button.data('id')
-    var mnombre = button.data('nombre')
-    var mitem = button.data('item')
     var mcantidad = button.data('cantidad')
     var mhoras_mes = button.data('horas_mes')
-    var mcod_aux = button.data('cod_aux')
+    var mid_aux = button.data('id_auxiliatura')
     var modal = $(this)
     modal.find('.modal-body #id-request').val(mid);
-    modal.find('.modal-body #nombre-request').val(mnombre);
-    modal.find('.modal-body #item-request').val(mitem);
     modal.find('.modal-body #cantidad-request').val(mcantidad);
     modal.find('.modal-body #horas_mes-request').val(mhoras_mes);
-    modal.find('.modal-body #cod_aux-request').val(mcod_aux);
+    modal.find('.modal-body #id-aux-request').val(mid_aux);
     })
 
 $(document).ready(function(){
