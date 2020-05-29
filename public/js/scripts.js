@@ -99,3 +99,10 @@ function disableOpcion(dato) {
     document.getElementById('id-option-' + dato).setAttribute('disabled','');
 }
 
+$('#convocatoriaModal').on('hidden.bs.modal', () => {
+    $("#conv-titulo").val("");
+    $("#conv-descripcion").val("");
+    $("#conv-fecha-ini").val("");
+    $("#conv-fecha-fin").val("");
+    document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
+});

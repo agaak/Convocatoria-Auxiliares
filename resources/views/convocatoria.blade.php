@@ -29,13 +29,13 @@
                             <label for="conv-titulo">Título</label>
                             <textarea class="form-control" name="conv-titulo" id="conv-titulo"
                                 rows="2" placeholder="Ingrese el título de la convocatoria" required minlength="30" maxlength="150">{{ old('conv-titulo') }}</textarea>
-                            {{ $errors->first('conv-titulo') }}
+                            {!! $errors->first('conv-titulo', '<strong class="message-error text-danger">:message</strong>') !!}
                         </div>
                         <div class="form-group">
                             <label for="conv-descripcion">Descripción</label>
                             <textarea class="form-control" name="conv-descripcion" id="conv-descripcion"
                                 rows="3" placeholder="Ingrese el título de la convocatoria" required minlength="10">{{ old('conv-descripcion') }}</textarea>
-                            {{ $errors->first('conv-descripcion') }}
+                            {!! $errors->first('conv-descripcion', '<strong class="text-danger">:message</strong>') !!}
                         </div>
                         <div class="form-row mb-3">
                             <div class="col-sm-6 text-center">
@@ -43,27 +43,28 @@
                                 <div class="input-group date">
                                     <input type="text" class="form-control" name="conv-fecha-ini"
                                         id="conv-fecha-ini" placeholder="Mes/Día/Año"
-                                        value="{{ old('conv-fecha-ini') }}" required readonly>
+                                        value="{{ old('conv-fecha-ini') }}" readonly>
                                     <span class="input-group-addon">
                                         <img class="center-y-icon"
                                             src="{{ asset('img/calendar.png') }}" width="34"
                                             height="34" alt="icon-calendar">
                                     </span>
                                 </div>
-                                {{ $errors->first('conv-fecha-ini') }}
+                                {!! $errors->first('conv-fecha-ini', '<strong class="message-error text-danger">:message</strong>') !!}
                             </div>
                             <div class="col-sm-6 text-center">
                                 <label for="conv-fecha-fin">Fecha Final</label>
                                 <div class="input-group date">
                                     <input type="text" class="form-control" name="conv-fecha-fin"
                                         id="conv-fecha-fin" placeholder="Mes/Día/Año"
-                                        value="{{ old('conv-fecha-fin') }}" required readonly>
+                                        value="{{ old('conv-fecha-fin') }}" readonly>
                                     <span class="input-group-addon">
                                         <img class="center-y-icon"
                                             src="{{ asset('img/calendar.png') }}" width="34"
                                             height="34" alt="icon-calendar">
                                     </span>
                                 </div>
+                                {!! $errors->first('conv-fecha-fin', '<strong class="message-error text-danger">:message</strong>') !!}
                             </div>
                         </div>
                         <div class="form-row text-center">
@@ -72,7 +73,7 @@
                                     <label for="conv-tipo">Tipo</label>
                                     <select class="form-control" id="conv-tipo" name="conv-tipo">
                                         @foreach ($tipos as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nombret_tipo }}</option>
+                                        <option value="{{ $item->id }}" {{ old('conv-tipo') == $item->id? 'selected': ''}}>{{ $item->nombret_tipo }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -81,13 +82,19 @@
                                 <div class="form-group">
                                     <label for="conv-gestion">Gestion</label>
                                     <select name="conv-gestion" id="conv-gestion" class="form-control">
-                                        <option>{{ $anioActual }}</option>
-                                        <option>{{ $anioActual+1 }}</option>
+                                        <option value="op-1" {{ old('conv-gestion') === 'op-1'? 'selected': '' }}>{{ $anioActual }}</option>
+                                        <option value="op-2" {{ old('conv-gestion') === 'op-2'? 'selected': '' }}>{{ $anioActual+1 }}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        
+                        @if ($errors->any())
+                        <script>
+                            window.onload = () => {
+                                $('#convocatoriaModal').modal('show');
+                            }
+                        </script>
+                        @endif
                     </form>
 
                 </div>

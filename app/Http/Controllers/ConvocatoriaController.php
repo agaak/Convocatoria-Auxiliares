@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Convocatoria;
+use App\Http\Requests\ConvocatoriaRequest;
 use App\Tipo;
 use Illuminate\Http\Request;
 
@@ -36,27 +37,18 @@ class ConvocatoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ConvocatoriaRequest $request)
     {
-        $fecha = date("m/d/Y");
-        $this->validate($request, [
-            'conv-titulo' => 'required',
-            'conv-fecha-ini' => 'required|before_or_equal:conv-fecha-fin|after_or_equal:'.$fecha,
-            'conv-fecha-fin' => 'required',
-            'conv-tipo' => 'required',
-            'conv-gestion' => 'required',
-            'conv-descripcion' => 'required'
-        ]);
-        $convo = new Convocatoria();
-        $convo->id_unidad_academica = 1;
-        $convo->id_tipo_convocatoria = $request->input('conv-tipo');
-        $convo->titulo = $request->input('conv-titulo');
-        $convo->descripcion_convocatoria = $request->input('conv-descripcion');
-        $convo->fecha_inicio = date("Y-m-d", strtotime($request->input('conv-fecha-ini')));
-        $convo->fecha_final = date("Y-m-d", strtotime($request->input('conv-fecha-fin')));
-        $convo->save();
+        $conv = new Convocatoria();
+        $conv->id_unidad_academica = 1;
+        $conv->id_tipo_convocatoria = $request->input('conv-tipo');
+        $conv->titulo = $request->input('conv-titulo');
+        $conv->descripcion_convocatoria = $request->input('conv-descripcion');
+        $conv->fecha_inicio = date("Y-m-d", strtotime($request->input('conv-fecha-ini')));
+        $conv->fecha_final = date("Y-m-d", strtotime($request->input('conv-fecha-fin')));
+        $conv->save();
 
-        session()->put('convocatoria', $convo->id) ;
+        session()->put('convocatoria', $conv->id) ;
         return redirect()->route('requests');
     }
 

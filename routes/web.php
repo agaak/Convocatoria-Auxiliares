@@ -16,19 +16,15 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 Route::get('/', ['as' => 'home', 'uses' => 'NavbarController@home']);
 
-Route::get('/convocatoria', ['as' => 'convocatoria', 'uses' => 'NavbarController@convocatory']);
-
 Route::get('/resultados', ['as' => 'results', 'uses' => 'NavbarController@results']);
 
 Route::get('/tramites-documentos', ['as' => 'proceduresDocs', 'uses' => 'NavbarController@proceduresDocs']);
-
-Route::get('/convocatoria', 'ConvocatoriaController@index')->name('convocatoria.index');
-Route::post('/convocatoria', 'ConvocatoriaController@store')->name('convocatoria.store');
 
 Route::get('/convocatoria/requerimientos', ['as' => 'requests', 'uses' => 'Convocatoria\RequerimientoController@requests']);
 Route::post('/convocatoria/requerimientos', ['as' => 'create', 'uses' => 'Convocatoria\RequerimientoController@create']);
 Route::put('/convocatoria/requerimientos', ['as' => 'update', 'uses' => 'Convocatoria\RequerimientoController@update']);
 Route::delete('/convocatoria/requerimientos/{id}', ['as' => 'delete', 'uses' => 'Convocatoria\RequerimientoController@delete']);
+
 
 Route::get('/convocatoria/requisitos', ['as' => 'requirement', 'uses' => 'Convocatoria\RequisitoController@requirements']);
 Route::post('/convocatoria/requisitos', ['as' => 'requirementValid', 'uses' => 'Convocatoria\RequisitoController@requirementsValid']);
@@ -56,3 +52,4 @@ Route::put('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRating
 Route::delete('/convocatoria/calificacion-conocimientos/{id}', ['as' => 'knowledgeRatingTematicDelete', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingTematicDelete']);
 Route::put('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRatingAuxUpdate', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingAuxUpdate']);
 
+Route::resource('convocatoria', 'ConvocatoriaController');
