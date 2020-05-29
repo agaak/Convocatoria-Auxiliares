@@ -4,7 +4,7 @@
 
 <div class="overflow-auto content">
 
-  <h3 class="text-uppercase text-center">Calificacion de Conocimientos</h3>
+  <h3 class="text-uppercase">Calificacion de Conocimientos</h3>
 
   <div class="card border-dark mb-3">
     <div class="card-body">
@@ -45,22 +45,22 @@
       </thead>
       <tbody>
         <div style="visibility: hidden"> {{ $num = 1 }}</div>
-        @foreach($tems as $tem)
+        @foreach($tems as $tematic)
           <tr>
             <td class="table-light">{{ $num++ }}</td>
-            <td class="table-light">{{ $tem->nombre }}</td>
+            <td class="table-light">{{ $tematic->nombre }}</td>
             @foreach($porcentajes as $item)
-              @if ($item->id_tematica == $tem->id)
-                <td class="table-light">{{$item->porncentaje}}</td>
+              @if ($item->id_tematica == $tematic->id_tematica)
+                <td class="table-light">{{$item->porcentaje}}</td>
               @endif
             @endforeach
             <td class="table-light">
-              <a class="options" data-toggle="modal" data-target="#editTematicaModal" data-id="{{ $tematic->id }}"
-                data-porcentaje="{{ $tematic->porcentaje }}" data-nombre="{{ $tematic->nombre }}"
+              <a class="options" data-toggle="modal" data-target="#editTematicaModal" data-id="{{ $tematic->id_tematica }}"
+                data-porcentaje="30" data-nombre="{{ $tematic->nombre }}"
                 data-dismiss="modal"><img src="{{ asset('img/pen.png') }}" width="25"
                   height="25"></a>
               <form class="d-inline"
-                action="{{ route('knowledgeRatingTematicDelete', $tematic->id) }}" method="POST">
+                action="{{ route('knowledgeRatingTematicDelete', $tematic->id_tematica) }}" method="POST">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
                 <button type="submit" class="btn btn-link">
@@ -88,6 +88,7 @@
           <form method="POST" action="{{ route('knowledgeRatingTematicValid') }}">
             {{ csrf_field() }}
             <div class="form-group">
+              <input type="hidden" id="nombre-tem" name="nombre-tem" value="{{ $tematic->nombre }}">
               <label for="nombre">Nombre de la Tematica</label>
               <select class="form-control" id="id-tem" name="id-tem">
                 @foreach($tematics as $tematic) 
@@ -170,6 +171,8 @@
     </div>
   </div>
   <div class="my-5 py-5 text-center">
+    <a href="{{ route('meritRating') }}" class="btn btn-info" tabindex="-1" role="button"
+      aria-disabled="true">Anterior</a>
     <a href="{{ route('knowledgeRating') }}" class="btn btn-info" tabindex="-1" role="button"
       aria-disabled="true">Finalizar</a>
   </div>

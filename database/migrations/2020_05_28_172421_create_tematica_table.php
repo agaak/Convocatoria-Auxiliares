@@ -27,7 +27,7 @@ class CreateTematicaTable extends Migration
             $table->foreign('id_auxiliatura')->references('id')->on('auxiliatura')->onDelete('cascade');
             $table->integer('id_tematica');
             $table->foreign('id_tematica')->references('id')->on('tematica')->onDelete('cascade'); 
-            $table->integer('porncentaje');
+            $table->integer('porcentaje');
 
             $table->timestamps();
         });

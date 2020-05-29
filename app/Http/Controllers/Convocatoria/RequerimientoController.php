@@ -11,7 +11,7 @@ class RequerimientoController extends Controller
 {
     public function create(RequerimientoCreateRequest $request){  
         $aux = explode('|', $request->get('id-aux'));
-        $res = DB::table('auxiliatura')//->select('auxiliatura.nombre_aux')
+        $res = DB::table('auxiliatura')
             ->join('requerimiento', 'auxiliatura.id','=','requerimiento.id_auxiliatura')
             ->where('requerimiento.id_convocatoria','=',$request->session()->get('convocatoria'))
             ->where('auxiliatura.nombre_aux',$aux[0])->get();
