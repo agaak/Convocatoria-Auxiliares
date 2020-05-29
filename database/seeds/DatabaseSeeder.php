@@ -12,18 +12,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->truncateTables(['unidad_academica']);
+        $this->truncateTables(['unidad_academica','tipo_convocatoria']);
         // $this->call(UsersTableSeeder::class);
         $this->call(UnidadAcademicaSeeder::class);
+        $this->call(TipoConvocatoriaSeeder::class);
     }
 
     protected function truncateTables(array $tables){
-        DB::statement('SET FOREIGN_KEY_CHECKS =0;');
-
+        
+        // DB::statement('SET FOREIGN_KEY_CHECKS =0;');
+        // DB::statement('TRUNCATE users CASCAD E');
         foreach($tables as $table){
-            DB::table($table)->truncate();
+            DB::table($table);
         }
 
-        DB::statement('SET FOREIGN_KEY_CHECKS =1;');
+        // DB::statement('SET FOREIGN_KEY_CHECKS =1;');
     }
 }

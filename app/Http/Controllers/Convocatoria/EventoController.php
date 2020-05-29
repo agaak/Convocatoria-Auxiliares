@@ -40,8 +40,11 @@ class EventoController extends Controller
         return back();
     }
 
-    public function importantDates(){
-        $importantDatesList = EventosImportantes::orderBy('id_eventos_importantes', 'ASC')->get();
+    public function importantDates(Request $request){
+        // $importantDatesList = EventosImportantes::orderBy('id_eventos_importantes', 'ASC')->get();
+        $importantDatesList=DB::table('evento')->
+            where('id_convocatoria', $request->session()->get('convocatoria'))
+            ->get();
         return view('convocatory.eventos', compact('importantDatesList'));
     }
 }
