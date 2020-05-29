@@ -25,15 +25,15 @@
                     <a class="link-list" href="{{ route('importantDates') }}">Eventos importantes</a>
                 </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/calificacion-meritos') }}">
-                    <a class="link-list" href="{{ route('meritRating') }}">Calificación de Meritos</a>
+                    <a class="link-list" href="{{ route('calificacion-meritos.index') }}">Calificación de Meritos</a>
                 </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/calificacion-conocimientos') }}">
                     <a class="link-list" href="{{ route('knowledgeRating') }}">Calificación de Conocimientos</a>
                 </li>
             </ul>
         </nav>
-        
+
         @yield('content-convocatory')
-                
+
     </div>
 @endsection

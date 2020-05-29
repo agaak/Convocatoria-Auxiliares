@@ -28,7 +28,7 @@ $('.timepicker').click(function() {
 
 function editDatesList(listDates) {
     $('#id-important-events').val(listDates['id_eventos_importantes']);
-    $('#title-event').val(listDates['titulo_evento']);      
+    $('#title-event').val(listDates['titulo_evento']);
     $('#place-event').val(listDates['lugar_evento']);
     $('#place-event-date-ini').val(listDates['fecha_inicio']);
     $('#place-event-date-end').val(listDates['fecha_final']);
@@ -54,7 +54,7 @@ $('#requestEditModal').on('show.bs.modal', function (event) {
     })
 
 $(document).ready(function(){
-    $("#deleteDates").click(function(){        
+    $("#deleteDates").click(function(){
         $("#important-dates-delete").submit(); // Submit the form
     });
 });
@@ -104,5 +104,11 @@ $('#convocatoriaModal').on('hidden.bs.modal', () => {
     $("#conv-descripcion").val("");
     $("#conv-fecha-ini").val("");
     $("#conv-fecha-fin").val("");
+    document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
+});
+
+$('#meritModal').on('hidden.bs.modal', () => {
+    $("#merit-descripcion").val("");
+    $("#merit-porcentaje").val("");
     document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
 });

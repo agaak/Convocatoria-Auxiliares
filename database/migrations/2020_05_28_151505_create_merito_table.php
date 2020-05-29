@@ -19,14 +19,14 @@ class CreateMeritoTable extends Migration
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
             $table->string('descripcion_merito');
             $table->integer('porcentaje');
-            
+
             $table->timestamps();
         });
 
         Schema::create('tipo_sub_merito', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion_sub_merito');
-            
+
             $table->timestamps();
         });
 
@@ -38,7 +38,7 @@ class CreateMeritoTable extends Migration
             $table->foreign('id_tipo')->references('id')->on('tipo_sub_merito')->onDelete('cascade');
             $table->string('descripcion_sub_merito');
             $table->integer('sub_porcentaje');
-            
+
             $table->timestamps();
         });
     }

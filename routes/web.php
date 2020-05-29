@@ -41,10 +41,10 @@ Route::post('/convocatoria/fechas-importantes', ['as' => 'importantDatesValid', 
 Route::put('/convocatoria/fechas-importantes', ['as' => 'importantDateSave', 'uses' => 'Convocatoria\EventoController@importantDateSave']);
 Route::delete('/convocatoria/fechas-importantes/{id}', ['as' => 'importantDatesDelete', 'uses' => 'Convocatoria\EventoController@importantDatesDelete']);
 
-Route::get('/convocatoria/calificacion-meritos', ['as' => 'meritRating', 'uses' => 'Convocatoria\MeritoController@meritRating']);
-Route::post('/convocatoria/calificacion-meritos', ['as' => 'meritRatingValid', 'uses' => 'Convocatoria\MeritoController@meritRatingValid']);
-Route::put('/convocatoria/calificacion-meritos', ['as' => 'meritRatingUpdate', 'uses' => 'Convocatoria\MeritoController@meritRatingUpdate']);
-Route::delete('/convocatoria/calificacion-meritos/{id}', ['as' => 'meritRatingDelete', 'uses' => 'Convocatoria\MeritoController@meritRatingDelete']);
+// Route::get('/convocatoria/calificacion-meritos', ['as' => 'meritRating', 'uses' => 'Convocatoria\MeritoController@meritRating']);
+// Route::post('/convocatoria/calificacion-meritos', ['as' => 'meritRatingValid', 'uses' => 'Convocatoria\MeritoController@meritRatingValid']);
+// Route::put('/convocatoria/calificacion-meritos', ['as' => 'meritRatingUpdate', 'uses' => 'Convocatoria\MeritoController@meritRatingUpdate']);
+// Route::delete('/convocatoria/calificacion-meritos/{id}', ['as' => 'meritRatingDelete', 'uses' => 'Convocatoria\MeritoController@meritRatingDelete']);
 
 Route::get('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRating', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRating']);
 Route::post('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRatingTematicValid', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingTematicValid']);
@@ -52,4 +52,5 @@ Route::put('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRating
 Route::delete('/convocatoria/calificacion-conocimientos/{id}', ['as' => 'knowledgeRatingTematicDelete', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingTematicDelete']);
 Route::put('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRatingAuxUpdate', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingAuxUpdate']);
 
+Route::resource('convocatoria/calificacion-meritos', 'Convocatoria\MeritoController');
 Route::resource('convocatoria', 'ConvocatoriaController');
