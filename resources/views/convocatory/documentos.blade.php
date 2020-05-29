@@ -4,16 +4,16 @@
 
 <div class="overflow-auto content">
 
-  <h3 class="text-uppercase text-center">Documentos</h3>
+  <h3 class="text-uppercase text-left">Documentos</h3>
 
   <!-- Button trigger modal -->
   <div class="my-3" style="margin-left: 3ch">
-    <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#requirementsModal">
+    <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#documentosModal">
       <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
       <span class="mx-1">Añadir documento</span>
     </a>
   </div>
-
+  
   <div class="table-requests">
     <table class="table table-bordered">
       <thead class="thead-dark">
@@ -55,18 +55,20 @@
       </div>
     </form>
     <div class="my-5 py-5 text-center">
+      <a href="{{ route('requirement') }}" class="btn btn-info" tabindex="-1" role="button"
+        aria-disabled="true">Anterior</a>
       <a href="{{ route('importantDates') }}" class="btn btn-info" tabindex="-1" role="button"
         aria-disabled="true">Siguiente</a>
     </div>
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="requirementsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  <div class="modal fade" id="documentosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Requisito</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Documento</h5>
           <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -75,11 +77,10 @@
           <form method="post" accion="{{ route('documentoValid') }}">
             {{ csrf_field() }}
             <div class="form-group">
-              <label for="exampleInputEmail1">Inciso {{ chr($alphas) }}:
+              <label for="exampleInputEmail1">Documento {{ chr($alphas) }}:
               </label>
-              <textarea class="form-control" id="descripcion-req" placeholder="Ingrese el requisito"
-                rows="3" name="descripcion"></textarea>
-              <small id="emailHelp" class="form-text text-muted">Los requisitos se listan en orden alfabético.</small>
+              <textarea class="form-control" id="descripcion-req" placeholder="Especifique el documento"
+                rows="3" name="descripcion"  minlength="11" required></textarea>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
