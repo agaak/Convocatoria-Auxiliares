@@ -21,6 +21,7 @@ class CreateTematicaTable extends Migration
         });
 
         Schema::create('porcentaje', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('id_requerimiento');
             $table->foreign('id_requerimiento')->references('id')->on('requerimiento')->onDelete('cascade');
             $table->integer('id_auxiliatura');

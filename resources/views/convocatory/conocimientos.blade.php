@@ -88,13 +88,13 @@
           <form method="POST" action="{{ route('knowledgeRatingTematicValid') }}">
             {{ csrf_field() }}
             <div class="form-group">
-              <input type="hidden" id="nombre-tem" name="nombre-tem" value="{{ $tematic->nombre }}">
               <label for="nombre">Nombre de la Tematica</label>
               <select class="form-control" id="id-tem" name="id-tem">
                 @foreach($tematics as $tematic) 
                   <option value={{$tematic->id}}>{{ $tematic->nombre }}</option>
                 @endforeach
               </select>
+              
               <div class="form-row " style="margin-top: 20px">
                 <div class="form-group col-6"> 
                   <div class="row">
@@ -171,7 +171,7 @@
     </div>
   </div>
   <div class="my-5 py-5 text-center">
-    <a href="{{ route('meritRating') }}" class="btn btn-info" tabindex="-1" role="button"
+    <a href="{{ route('calificacion-meritos.index') }}" class="btn btn-info" tabindex="-1" role="button"
       aria-disabled="true">Anterior</a>
     <a href="{{ route('knowledgeRating') }}" class="btn btn-info" tabindex="-1" role="button"
       aria-disabled="true">Finalizar</a>
