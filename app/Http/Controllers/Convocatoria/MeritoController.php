@@ -37,7 +37,7 @@ class MeritoController extends Controller
     public function store()
     {
         $convActual = request()->session()->get('convocatoria');
-        $total = Merito::where('id_convocatoria', $convActual)->sum('porcentaje');
+        $total = Merito::where('id_convocatoria', $convActual)->where('id_submerito', null)->sum('porcentaje');
         $total = 100 - $total;
         request()->validate([
             'merit-descripcion' => 'required|unique:merito,descripcion_merito',
