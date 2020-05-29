@@ -112,3 +112,9 @@ $('#meritModal').on('hidden.bs.modal', () => {
     $("#merit-porcentaje").val("");
     document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
 });
+
+$('#subMeritModal').on('hidden.bs.modal', () => {
+    $("#submerit-descripcion").val("");
+    $("#submerit-porcentaje").val("");
+    document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
+});

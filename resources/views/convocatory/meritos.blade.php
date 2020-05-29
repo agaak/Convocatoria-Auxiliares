@@ -62,18 +62,24 @@
             </div>
         </div>
     </div> --}}
-    {{-- Botones para añadir merito y submerito que ademas abren el modal respectivo --}}
+
+    {{-- Botones para añadir merito y submerito que ademas abren los modales respectivos --}}
     <div class="row my-3" style="margin-left: 3ch">
         <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#meritModal">
             <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
             <span class="mx-1">Añadir mérito</span>
         </a>
-        {{-- <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
+        <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
             data-target="#subMeritModal">
             <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
             <span class="mx-1">Añadir submérito</span>
-        </a> --}}
+        </a>
     </div>
+    @if ($errors->any())
+    <div class="text-center">
+        <strong class="message-error text-danger">Se encontro uno o mas errores, para mas información revise los campos donde ingresó información</strong>
+    </div>
+    @endif
     {{-- Modal de editar merito --}}
     {{-- <div class="modal fade" id="meritModalEdit" tabindex="-1" role="dialog" aria-labelledby="meritModalTitleEdit"
         aria-hidden="true">
@@ -112,6 +118,7 @@
             </div>
         </div>
     </div> --}}
+
     {{-- Modal del añadir merito --}}
     <div class="modal fade" id="meritModal" tabindex="-1" role="dialog" aria-labelledby="meritModalTitle"
         aria-hidden="true">
@@ -126,29 +133,9 @@
                 <div class="modal-body">
                     <form method="POST" action="{{ route('calificacion-meritos.store') }}" id="merit-form">
                         {{ csrf_field() }}
-                        <div class="form-row my-2">
-                            <label class="col-3" for="merit-descripcion">Descripción:</label>
-                            <textarea class="form-control col-sm" name="merit-descripcion" id="merit-descripcion"
-                                rows="3" placeholder="Ingrese la descripción del mérito" required minlength="10">{{ old('merit-descripcion') }}</textarea>
-                        </div>
-                        {!! $errors->first('merit-descripcion', '<strong class="message-error text-danger">:message</strong>') !!}
-                        <div class="form-row my-2">
-                            <label class="col-3 col-form-label" for="merit-porcentaje">Porcentaje:</label>
-                            <input type="number" class="form-control col-sm-3" name="merit-porcentaje"
-                                id="merit-porcentaje" placeholder="%" value="{{ old('merit-porcentaje') }}" min="1" max="100" required>
-                        </div>
-                        {!! $errors->first('merit-porcentaje', '<strong class="message-error text-danger">:message</strong>') !!}
-                        @if ($errors->any())
-                        <script>
-                            window.onload = () => {
-                                $('#meritModal').modal('show');
-                            }
-                        </script>
-                        @endif
+                        @include('formularios._formMerito')
                     </form>
-
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-info" form="merit-form">Guardar</button>
@@ -156,6 +143,7 @@
             </div>
         </div>
     </div>
+
     {{-- Modal para editar submerito --}}
     {{-- <div class="modal fade" id="subMeritModalEdit" tabindex="-1" role="dialog" aria-labelledby="subMeritModalTitleEdit"
         aria-hidden="true">
@@ -208,7 +196,7 @@
         </div>
     </div> --}}
     {{-- Modal del añadir submerito --}}
-    {{-- <div class="modal fade" id="subMeritModal" tabindex="-1" role="dialog" aria-labelledby="subMeritModalTitle"
+    <div class="modal fade" id="subMeritModal" tabindex="-1" role="dialog" aria-labelledby="subMeritModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -219,43 +207,28 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="" id="sub-merit-form">
+                    <form method="POST" action="{{ route('calificacion-meritos.store') }}" id="submerit-form">
                         {{ csrf_field() }}
                         <div class="form-row my-2">
-                            <label class="col-3" for="merit-sub-merit">Mértio / submérito</label>
+                            <label class="col-3" for="merit-submerit">Mértio / submérito</label>
                             <div class="col-sm">
-                                <select class="form-control" id="merit-sub-merit" name="merito-o-submerito">
+                                <select class="form-control" id="merit-submerit" name="merit-submerit">
                                     @foreach ($listaOrdenada as $item)
-                                    <option value="{{ $item[3] }}"> {{ $item[1] }}</option>
+                                    <option value="{{ $item[3] }}" {{ old('merit-submerit') == $item[3]? 'selected': ''}}> {{ $item[1] }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="form-row my-2">
-                            <label class="col-3" for="description-sub-merit">Descripción:</label>
-                            <textarea class="form-control col-sm" name="descripcion-sub-merito"
-                                id="description-sub-merit" rows="3" placeholder="Ingrese la descripción del mérito"
-                                required>
-                            </textarea>
-                        </div>
-                        {{ $errors->first('descripcion-sub-merito') }}
-                        <div class="form-row my-2">
-                            <label class="col-3 col-form-label" for="porcent-sub-merit">Porcentaje:</label>
-                            <input type="number" class="form-control col-sm-3" name="porcentaje-sub-merito"
-                                id="porcent-sub-merit" placeholder="%" required min="0" max="100">
-                        </div>
-                        {{ $errors->first('porcentaje-sub-merito') }}
+                        @include('formularios._formSubMerito')
                     </form>
-
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <input type="submit" class="btn btn-info" value="Guardar" form="sub-merit-form">
+                    <input type="submit" class="btn btn-info" value="Guardar" form="submerit-form">
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
     {{-- Tabla de merito y submeritos --}}
 
     {{-- @php
