@@ -17,7 +17,7 @@ class CreateDocumentoTable extends Migration
             $table->increments('id');
             $table->integer('id_convocatoria');
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
-            $table->integer('descripcion');
+            $table->string('descripcion');
             $table->timestamps();
         });
     }
