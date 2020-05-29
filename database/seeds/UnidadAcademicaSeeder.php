@@ -1,5 +1,5 @@
 <?php
-use App\Unidad_Academica;
+use App\UnidadAcademica;
 use Illuminate\Database\Seeder;
 
 class UnidadAcademicaSeeder extends Seeder
@@ -12,20 +12,20 @@ class UnidadAcademicaSeeder extends Seeder
     public function run()
     {
         //
-        Unidad_Academica::create([
-            'departament_conv' => 'Informática-Sistemas'
+        UnidadAcademica::create([
+            'nombre' => 'Informática-Sistemas'
         ]);
         
-        Unidad_Academica::create([
-            'departament_conv' => 'Matemáticas '
+        UnidadAcademica::create([
+            'nombre' => 'Matemáticas '
         ]);
         
-        Unidad_Academica::create([
-            'departament_conv' => 'Química '
+        UnidadAcademica::create([
+            'nombre' => 'Química '
         ]);
         
-        Unidad_Academica::create([
-            'departament_conv' => 'Física'
+        UnidadAcademica::create([
+            'nombre' => 'Física'
         ]);
     }
 }

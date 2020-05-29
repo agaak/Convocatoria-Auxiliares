@@ -18,12 +18,13 @@ class DatabaseSeeder extends Seeder
     }
 
     protected function truncateTables(array $tables){
-        DB::statement('SET FOREIGN_KEY_CHECKS =0;');
-
+        
+        // DB::statement('SET FOREIGN_KEY_CHECKS =0;');
+        // DB::statement('TRUNCATE users CASCAD E');
         foreach($tables as $table){
-            DB::table($table)->truncate();
+            DB::table($table);
         }
 
-        DB::statement('SET FOREIGN_KEY_CHECKS =1;');
+        // DB::statement('SET FOREIGN_KEY_CHECKS =1;');
     }
 }
