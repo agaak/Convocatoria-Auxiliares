@@ -6,7 +6,7 @@ use App\Merito;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Factory as ValidacionPersonal;
 
-class MeritoRequest extends FormRequest
+class MeritoEditRequest extends FormRequest
 {
     function __construct(ValidacionPersonal $validacion)
     {
@@ -39,35 +39,36 @@ class MeritoRequest extends FormRequest
         $convActual = request()->session()->get('convocatoria');
         if (request()->has('merit-submerit')) {
             $merito = Merito::where('id_convocatoria', $convActual)->where('id', request()->input('merit-submerit'))->value('porcentaje');
-            $subMeritos = Merito::where('id_convocatoria', $convActual)->where('id_submerito', request()->input('merit-submerit'))->sum('porcentaje');
+            $subMeritos = Merito::where('id_convocatoria', $convActual)
+                ->where('id_submerito', request()->input('merit-submerit'))
+                ->where('id', '<>', request()->input('submerit-id'))->sum('porcentaje');
             $total = $merito - $subMeritos;
             return [
-                'submerit-descripcion' => 'required|unique:merito,descripcion_merito',
-                'submerit-porcentaje' => 'required|maximo:'.$total,
+                'submerit-porcentaje-edit' => 'required|maximo:'.$total,
             ];
         } else {
-            $total = Merito::where('id_convocatoria', $convActual)->where('id_submerito', null)->sum('porcentaje');
+            $total = Merito::where('id_convocatoria', $convActual)->where('id_submerito', null)
+                ->where('id', '<>', request()->input('merit-id'))->sum('porcentaje');
             $total = 100 - $total;
-
+    
             return [
-                'merit-descripcion' => 'required|unique:merito,descripcion_merito',
-                'merit-porcentaje' => 'required|maximo:'.$total
+                'merit-porcentaje-edit' => 'required|maximo:'.$total
             ];
         }
+        
     }
 
     public function messages()
     {
         if (request()->has('merit-submerit')) {
             return [
-                'submerit-descripcion.unique' => 'El campo Descripción debe ser único.',
-                'submerit-porcentaje.maximo' => 'El Porcentaje ingresado mas la suma de los otros sub meritos excede el limite.'
+                'submerit-porcentaje-edit.maximo' => 'El Porcentaje ingresado mas la suma de los otros sub meritos excede el limite.'
             ];
         } else {
             return [
-                'merit-descripcion.unique' => 'El campo Descripción debe ser único.',
-                'merit-porcentaje.maximo' => 'El Porcentaje ingresado mas la suma de los otros supera los 100.'
+                'merit-porcentaje-edit.maximo' => 'El Porcentaje ingresado mas la suma de los otros supera los 100.'
             ];
         }
+        
     }
 }

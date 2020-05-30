@@ -77,13 +77,10 @@
             <span class="mx-1">Añadir submérito</span>
         </a>
     </div>
-    @if ($errors->any())
-    <div class="text-center">
-        <strong class="message-error text-danger">Se encontro uno o mas errores, para mas información revise los campos donde ingresó información</strong>
-    </div>
-    @endif
+
     {{-- Modal de editar merito --}}
-    {{-- <div class="modal fade" id="meritModalEdit" tabindex="-1" role="dialog" aria-labelledby="meritModalTitleEdit"
+
+    <div class="modal fade" id="meritModalEdit" tabindex="-1" role="dialog" aria-labelledby="meritModalTitleEdit"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -94,32 +91,34 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="" id="merit-form-update">
+                    <form method="POST" action="{{ route('calificacion-meritos.update', 'actualizar') }}" id="merit-form-update">
+
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
 
-                        <input type="hidden" name="id-merito" id="id-merit-input" value="">
+                        <input type="hidden" name="merit-id" id="merit-id" value="">
                         <div class="form-row my-2">
-                            <label class="col-3" for="description-merit-edit">Descripción:</label>
-                            <textarea class="form-control col-sm" name="descripcion-merito" id="description-merit-edit"
+                            <label class="col-3" for="merit-descripcion-edit">Descripción:</label>
+                            <textarea class="form-control col-sm" name="merit-descripcion-edit" id="merit-descripcion-edit"
                                 rows="3" placeholder="Ingrese la descripción del mérito" required></textarea>
                         </div>
                         <div class="form-row my-2">
-                            <label class="col-3 col-form-label" for="porcent-merit-edit">Porcentaje:</label>
-                            <input type="number" class="form-control col-sm-3" name="porcentaje-merito"
-                                id="porcent-merit-edit" placeholder="%" min="0" max="100" required>
+                            <label class="col-3 col-form-label" for="merit-porcentaje-edit">Porcentaje:</label>
+                            <input type="number" class="form-control col-sm-3" name="merit-porcentaje-edit"
+                                id="merit-porcentaje-edit" value="{{ old('merit-porcentaje-edit') }}" placeholder="%" min="0" max="100" required>
                         </div>
+                        {!! $errors->first('merit-porcentaje-edit', '<strong class="message-error text-danger">:message</strong>') !!}
                     </form>
 
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <input type="submit" class="btn btn-info" value="Guardar" form="merit-form-update">
+                    <button type="submit" form="merit-form-update" class="btn btn-info" id="limpiar-espacio">Guardar</button>
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     {{-- Modal del añadir merito --}}
     <div class="modal fade" id="meritModal" tabindex="-1" role="dialog" aria-labelledby="meritModalTitle"
@@ -147,7 +146,7 @@
     </div>
 
     {{-- Modal para editar submerito --}}
-    {{-- <div class="modal fade" id="subMeritModalEdit" tabindex="-1" role="dialog" aria-labelledby="subMeritModalTitleEdit"
+    <div class="modal fade" id="subMeritModalEdit" tabindex="-1" role="dialog" aria-labelledby="subMeritModalTitleEdit"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -158,17 +157,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="" id="sub-merit-form-edit">
+                    <form method="POST" action="{{ route('calificacion-meritos.update', 'actualizar') }}" id="submerit-form-edit">
 
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
 
-                        <input type="hidden" id="id-sub-merit-input" name="id-submerito">
+                        <input type="hidden" id="submerit-id" name="submerit-id">
 
                         <div class="form-row my-2">
-                            <label class="col-3" for="merit-sub-merit">Mértio / submérito</label>
+                            <label class="col-3" for="merit-submerit">Mértio / submérito</label>
                             <div class="col-sm">
-                                <select class="form-control" id="merit-sub-merit" name="merito-o-submerito">
+                                <select class="form-control" id="merit-submerit" name="merit-submerit">
                                     @foreach ($listaOrdenada as $item)
                                     <option value="{{ $item[3] }}" id="id-option-{{$item[3]}}"> {{ $item[1] }}</option>
                                     @endforeach
@@ -176,27 +175,29 @@
                             </div>
                         </div>
                         <div class="form-row my-2">
-                            <label class="col-3" for="description-sub-merit">Descripción:</label>
-                            <textarea class="form-control col-sm" name="descripcion-sub-merito"
-                                id="description-sub-merit" rows="3" placeholder="Ingrese la descripción del mérito"
+                            <label class="col-3" for="submerit-descripcion-edit">Descripción:</label>
+                            <textarea class="form-control col-sm" name="submerit-descripcion-edit"
+                                id="submerit-descripcion-edit" rows="3" placeholder="Ingrese la descripción del mérito"
                                 required></textarea>
                         </div>
                         <div class="form-row my-2">
-                            <label class="col-3 col-form-label" for="porcent-sub-merit">Porcentaje:</label>
-                            <input type="number" class="form-control col-sm-3" name="porcentaje-sub-merito"
-                                id="porcent-sub-merit" placeholder="%" required min="0" max="100">
+                            <label class="col-3 col-form-label" for="submerit-porcentaje-edit">Porcentaje:</label>
+                            <input type="number" class="form-control col-sm-3" name="submerit-porcentaje-edit"
+                                id="submerit-porcentaje-edit" placeholder="%" required min="0" max="100">
                         </div>
+                        {!! $errors->first('submerit-porcentaje-edit', '<strong class="message-error text-danger">:message</strong>') !!}
                     </form>
 
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <input type="submit" class="btn btn-info" value="Guardar" form="sub-merit-form-edit">
+                    <button type="submit" class="btn btn-info" form="submerit-form-edit">Guardar</button>
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
+    
     {{-- Modal del añadir submerito --}}
     <div class="modal fade" id="subMeritModal" tabindex="-1" role="dialog" aria-labelledby="subMeritModalTitle"
         aria-hidden="true">
@@ -232,7 +233,7 @@
         </div>
     </div>
 
-    {{-- Tabla de merito y submeritos --}}
+    {{-- Funcion ayuda para la tabulacion mostrada en la tabla de meritos y submeritos --}}
 
     @php
         function espacios($cadena) {
@@ -247,6 +248,24 @@
             return json_encode($arreglo);
         }
     @endphp
+
+    {{-- Tabla de merito y submeritos --}}
+    @if ($errors->has('merit-descripcion-edit') || $errors->has('merit-porcentaje-edit'))
+    <div class="text-center">
+        <strong class="text-danger">
+            Se econtro un error al editar los datos, para mas detalles revise el 
+            formulario del merito que editaba.
+        </strong>
+    </div>
+    @endif
+    @if ($errors->has('submerit-descripcion-edit') || $errors->has('submerit-porcentaje-edit'))
+    <div class="text-center">
+        <strong class="text-danger">
+            Se econtro un error al editar los datos, para mas detalles revise el 
+            formulario del sub merito que editaba.
+        </strong>
+    </div>
+    @endif
     <div class="table-requests">
         <table class="table table-bordered">
             <thead class="thead-dark">
@@ -257,6 +276,7 @@
                 </tr>
             </thead>
             <tbody class="bg-white">
+
                 @foreach($listaOrdenada  as $item)
                     <tr>
                         <td class="{{ $item[0] === null? 'text-uppercase font-weight-bold': 'text-lowercase' }}"
@@ -273,7 +293,7 @@
                                 <img src="{{ asset('img/pen.png') }}" width="30" height="30">
                             </a>
                             @endif
-                            <form class="d-inline" action="" method="POST" id="merit-delete">
+                            <form class="d-inline" action="{{ route('calificacion-meritos.destroy', $item[3]) }}" method="POST">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                                 <button type="submit" class="btn btn-link">
@@ -287,9 +307,9 @@
             </tbody>
         </table>
     </div>
-    {{-- <div class="my-5 text-center">
-        <a href="" type="button" class="btn btn-info my-5">Anterior</a>
-        <a href="" type="button" class="btn btn-info my-5">Siguiente</a>
-    </div> --}}
+    <div class="my-5 text-center">
+        <a href=" {{ route('importantDates') }} " type="button" class="btn btn-info my-5">Anterior</a>
+        <a href=" {{ route('knowledgeRating') }} " type="button" class="btn btn-info my-5">Siguiente</a>
+    </div>
 </div>
 @endsection

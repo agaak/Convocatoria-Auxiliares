@@ -10,3 +10,11 @@
         id="merit-porcentaje" placeholder="%" value="{{ old('merit-porcentaje') }}" min="1" max="100" required>
 </div>
 {!! $errors->first('merit-porcentaje', '<strong class="message-error text-danger">:message</strong>') !!}
+
+@if ($errors->has('merit-descripcion') || $errors->has('merit-porcentaje'))
+<script>
+    window.onload = () => {
+        $('#meritModal').modal('show');
+    }
+</script>
+@endif

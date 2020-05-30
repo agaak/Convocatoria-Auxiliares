@@ -59,9 +59,9 @@ $(document).ready(function(){
 function editMeritModal(lista) {
     formaterar = lista[1].split(' ')
     formaterar.splice(0, 1);
-    $('#description-merit-edit').val(formaterar.join(" "));
-    $('#porcent-merit-edit').val(lista[2]);
-    $('#id-merit-input').val(lista[3]);
+    $('#merit-descripcion-edit').val(formaterar.join(" "));
+    $('#merit-porcentaje-edit').val(lista[2]);
+    $('#merit-id').val(lista[3]);
 }
 
 
@@ -81,9 +81,9 @@ function editSubMeritModal(lista) {
     formaterar.splice(0, 1);
     seleccionarOpcion(lista[0]);
     disableOpcion(lista[3]);
-    $('#description-sub-merit').val(formaterar.join(" "));
-    $('#porcent-sub-merit').val(lista[2]);
-    $('#id-sub-merit-input').val(lista[3]);
+    $('#submerit-descripcion-edit').val(formaterar.join(" "));
+    $('#submerit-porcentaje-edit').val(lista[2]);
+    $('#submerit-id').val(lista[3]);
 }
 
 function seleccionarOpcion(dato) {
@@ -112,5 +112,13 @@ $('#meritModal').on('hidden.bs.modal', () => {
 $('#subMeritModal').on('hidden.bs.modal', () => {
     $("#submerit-descripcion").val("");
     $("#submerit-porcentaje").val("");
+    document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
+});
+
+$('#meritModalEdit').on('hidden.bs.modal', () => {
+    document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
+});
+
+$('#subMeritModalEdit').on('hidden.bs.modal', () => {
     document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
 });

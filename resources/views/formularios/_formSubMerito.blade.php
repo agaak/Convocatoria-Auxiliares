@@ -10,3 +10,11 @@
         id="submerit-porcentaje" placeholder="%" value="{{ old('submerit-porcentaje') }}" min="1" max="100" required>
 </div>
 {!! $errors->first('submerit-porcentaje', '<strong class="message-error text-danger">:message</strong>') !!}
+
+@if ($errors->has('submerit-descripcion') || $errors->has('submerit-porcentaje'))
+<script>
+    window.onload = () => {
+        $('#subMeritModal').modal('show');
+    }
+</script>
+@endif

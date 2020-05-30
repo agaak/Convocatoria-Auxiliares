@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Convocatoria;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MeritoEditRequest;
 use App\Http\Requests\MeritoRequest;
 use App\Merito;
 use Illuminate\Http\Request;
@@ -124,9 +125,22 @@ class MeritoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(MeritoEditRequest $request)
+    {  
+        if (request()->has('merit-submerit')) {
+            Merito::where('id', $request->input('submerit-id'))->update([
+                'id_submerito' => $request->input('merit-submerit'),
+                'descripcion_merito' => $request->input('submerit-descripcion-edit'),
+                'porcentaje' => $request->input('submerit-porcentaje-edit')
+            ]);
+        } else {
+            Merito::where('id', $request->input('merit-id'))->update([
+                'descripcion_merito' => $request->input('merit-descripcion-edit'),
+                'porcentaje' => $request->input('merit-porcentaje-edit')
+            ]);
+        }
+
+        return redirect()->route('calificacion-meritos.index');
     }
 
     /**
@@ -137,7 +151,8 @@ class MeritoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Merito::where('id', $id)->delete();
+        return redirect()->route('calificacion-meritos.index');
     }
 }
 
