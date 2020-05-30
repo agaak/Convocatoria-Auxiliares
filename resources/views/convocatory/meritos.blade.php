@@ -4,7 +4,7 @@
 
 <div class="overflow-auto content">
 
-    {{-- <h3 class="text-uppercase text-left">Calificación de Méritos</h3> --}}
+    <h3 class="text-uppercase text-left">Calificación de Méritos</h3>
 
     {{-- Descripcion del contenido y adjunto un icono para edita esta descripcion en un modal --}}
     {{-- <div class="row">
@@ -20,7 +20,9 @@
             <img src="{{ asset('img/pen.png') }}" width="30" height="30">
         </a>
     </div> --}}
+
     {{-- Modal de la descripcion del contenido para cambiar dato nota y porcentaje --}}
+
    {{--  <div class="modal fade" id="porcentageModal" tabindex="-1" role="dialog" aria-labelledby="porcentageMeritModal"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -229,9 +231,10 @@
             </div>
         </div>
     </div>
+
     {{-- Tabla de merito y submeritos --}}
 
-    {{-- @php
+    @php
         function espacios($cadena) {
             $contar = 0;
             for ($i=0; $i < strlen($cadena) ; $i++) {
@@ -284,7 +287,7 @@
             </tbody>
         </table>
     </div>
-    <div class="my-5 text-center">
+    {{-- <div class="my-5 text-center">
         <a href="" type="button" class="btn btn-info my-5">Anterior</a>
         <a href="" type="button" class="btn btn-info my-5">Siguiente</a>
     </div> --}}
