@@ -16,7 +16,10 @@ class CreateTematicaTable extends Migration
         Schema::create('tematica', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-
+            $table->integer('id_unidad_academica')->unsigned();
+            $table->foreign('id_unidad_academica')->references('id')->on('unidad_academica')->onDelete('cascade');
+            $table->integer('id_tipo_convocatoria')->unsigned();
+            $table->foreign('id_tipo_convocatoria')->references('id')->on('tipo_convocatoria')->onDelete('cascade');
             $table->timestamps();
         });
 

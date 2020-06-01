@@ -48,6 +48,15 @@ $('#requestEditModal').on('show.bs.modal', function (event) {
     modal.find('.modal-body #horas_mes-request').val(mhoras_mes);
     modal.find('.modal-body #id-aux-request').val(mid_aux);
     })
+    
+$('#tematicaEditModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var mid = button.data('id')
+        var mnombre = button.data('nombre')
+        var modal = $(this)
+        modal.find('.modal-body #id-tem').val(mid);
+        modal.find('.modal-body #nombre-tem').val(mnombre);
+        })
 
 $(document).ready(function(){
     $("#deleteDates").click(function(){
