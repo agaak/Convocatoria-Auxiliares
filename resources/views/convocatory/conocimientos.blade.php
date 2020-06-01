@@ -55,8 +55,8 @@
               @endif
             @endforeach
             <td class="table-light">
-              <a class="options" data-toggle="modal" data-target="#editTematicaModal" data-id="{{ $tematic->id_tematica }}"
-                data-porcentaje="30" data-nombre="{{ $tematic->nombre }}"
+              <a class="options" data-toggle="modal" data-target="#tematicaEditModal" data-id="{{ $tematic->id_tematica }}"
+                data-nombre="{{ $tematic->nombre }}"
                 data-dismiss="modal"><img src="{{ asset('img/pen.png') }}" width="25"
                   height="25"></a>
               <form class="d-inline"
@@ -143,12 +143,12 @@
                 </div>
               </div>
               <div style="visibility: hidden"> {{ $num = 1 }}</div>
-              @foreach($tematics as $tematic)
+              @foreach($tems as $tematic)
                 <div class="form-row">
                   <div class="form-group col-7">
                     <div class="row">
                       <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica {{ $num++ }}
-                        :<span style="font-weight: normal; margin-left:10px">{{ $tematic->tematica }} </span></label>
+                        :<span style="font-weight: normal; margin-left:10px">{{ $tematic->nombre }} </span></label>
                     </div>
                   </div>
                   <div class="form-group col-4">
@@ -167,6 +167,40 @@
           <input class="btn btn-info" type="submit" value="Guardar">
         </div>
         </form>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Edit Tematica-->
+  <div class="modal fade" id="tematicaEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Tematica</h5>
+          <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{{ route('knowledgeRatingTematicUpdate','2' ) }}" role="form" autocomplete="off">
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+            <input type="hidden" id="id-tem" name="id-tem">
+            <div class="form-group">
+              <label for="nombre">Nombre de la Tematica</label>
+              <select class="form-control" id="nombre-tem" name="nombre-tem">
+                @foreach($tematics as $tematic)
+                  <option value={{$tematic->id}}>{{ $tematic->nombre }}</option>
+                @endforeach
+              </select>
+              </fieldset>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <input class="btn btn-info" type="submit" value="Guardar">
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

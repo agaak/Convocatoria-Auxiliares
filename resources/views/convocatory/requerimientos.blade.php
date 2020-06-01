@@ -12,7 +12,7 @@
       <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
       <span class="mx-1">Añadir requerimiento</span>
     </a>
-  </div>
+  </div> 
 
   <!-- Modal -->
   <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestTitle"

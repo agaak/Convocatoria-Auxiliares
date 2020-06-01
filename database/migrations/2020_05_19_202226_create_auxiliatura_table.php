@@ -17,6 +17,8 @@ class CreateAuxiliaturaTable extends Migration
             $table->increments('id');
             $table->integer('id_unidad_academica')->unsigned();
             $table->foreign('id_unidad_academica')->references('id')->on('unidad_academica')->onDelete('cascade');
+            $table->integer('id_tipo_convocatoria')->unsigned();
+            $table->foreign('id_tipo_convocatoria')->references('id')->on('tipo_convocatoria')->onDelete('cascade');
             $table->text('nombre_aux');
             $table->string('cod_aux',12);
 

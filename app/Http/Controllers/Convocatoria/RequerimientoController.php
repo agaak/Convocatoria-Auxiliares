@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Convocatoria;
 
+use App\Convocatoria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Convocatoria\RequerimientoCreateRequest;
@@ -41,16 +42,21 @@ class RequerimientoController extends Controller
     }
 
     public function requests(Request $request){
-        $tipo = DB::table('convocatoria')->select('id_tipo_convocatoria')->
-                where('id',$request->session()->get('convocatoria'))
-                ->get();
-        $auxs=DB::table('auxiliatura')
-            ->where('id_unidad_academica',1)
-            ->get();
-        $requests=Requerimiento::select('requerimiento.id','horas_mes','requerimiento.cant_aux','nombre_aux','cod_aux','requerimiento.id_auxiliatura')
+        $id_conv = $request->session()->get('convocatoria');
+        $tipo = DB::table('convocatoria')->where('id',$id_conv)
+            ->value('id_tipo_convocatoria');
+        $requests=Requerimiento::select('requerimiento.*','nombre_aux','cod_aux')
             ->join('auxiliatura','requerimiento.id_auxiliatura', '=','auxiliatura.id')
-            ->where('requerimiento.id_convocatoria',$request->session()->get('convocatoria'))
+            ->where('requerimiento.id_convocatoria',$id_conv)
             ->get();
+        $auxs_res = [];
+        foreach($requests as $aux){
+            array_push($auxs_res, $aux->id_auxiliatura);    
+        }
+        $auxs=DB::table('auxiliatura')->where('id_unidad_academica',1)
+            ->where('id_tipo_convocatoria',$tipo)
+            ->whereNotIn('id', $auxs_res)->get();
+        
         return view('convocatory.requerimientos', compact('requests','auxs')); 
     }
 }
