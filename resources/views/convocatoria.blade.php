@@ -10,6 +10,8 @@
             </a>
         </div>
     </div>
+
+    <a href="{{ route('admConvocatoria') }}">Ir a la administracion</a>
     {{-- Moadal pra crear nueva convocatoria --}}
     {{-- conv = convocatoria --}}
     <div class="modal fade" id="convocatoriaModal" tabindex="-1" role="dialog" aria-labelledby="convModalTitle"
