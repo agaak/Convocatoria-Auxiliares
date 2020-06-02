@@ -88,13 +88,15 @@
           <form method="POST" action="{{ route('knowledgeRatingTematicValid') }}">
             {{ csrf_field() }}
             <div class="form-group">
+              @if($tematics->isEmpty())
+                  <label for="nombre">No hay tematicas para añadir</label>
+              @else
               <label for="nombre">Nombre de la Tematica</label>
               <select class="form-control" id="id-tem" name="id-tem">
                 @foreach($tematics as $tematic) 
                   <option value={{$tematic->id}}>{{ $tematic->nombre }}</option>
                 @endforeach
               </select>
-              
               <div class="form-row " style="margin-top: 20px">
                 <div class="form-group col-6"> 
                   <div class="row">
@@ -104,7 +106,7 @@
                   </div>
                 </div>
               </div>
-              </fieldset>
+              @endif
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -187,13 +189,16 @@
             {{ method_field('PUT') }}
             <input type="hidden" id="id-tem" name="id-tem">
             <div class="form-group">
-              <label for="nombre">Nombre de la Tematica</label>
-              <select class="form-control" id="nombre-tem" name="nombre-tem">
-                @foreach($tematics as $tematic)
-                  <option value={{$tematic->id}}>{{ $tematic->nombre }}</option>
-                @endforeach
-              </select>
-              </fieldset>
+              @if($tematics->isEmpty())
+                  <label for="nombre">No hay tematicas para cambiar</label>
+              @else
+                  <label for="nombre">Nombre de la Tematica</label>   
+                  <select class="form-control" id="nombre-tem" name="nombre-tem">
+                    @foreach($tematics as $tematic)
+                      <option value={{$tematic->id}}>{{ $tematic->nombre }}</option>
+                    @endforeach
+                  </select> 
+              @endif
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
