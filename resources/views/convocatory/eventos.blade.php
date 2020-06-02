@@ -149,9 +149,8 @@
                                     class="message-error text-danger">:message</strong>') !!}
                             </div>
                         </div>
-                        <blade
-                            if|%20(%24errors-%3Ehas(%26%2339%3Bfecha-fin-evento-edit%26%2339%3B)%7C%7C%24errors-%3Ehas(%26%2339%3Bfecha-ini-evento-edit%26%2339%3B)%0D>
-                            ||$errors->has('titulo-evento-edit')||$errors->has('lugar-evento-edit'))
+                        @if ($errors->has('fecha-fin-evento-edit')||$errors->has('fecha-ini-evento-edit')
+                                ||$errors->has('titulo-evento-edit')||$errors->has('lugar-evento-edit'))
                             <script>
                                 window.onload = () => {
                                     $('#importantDatesModalUpdate').modal('show');
