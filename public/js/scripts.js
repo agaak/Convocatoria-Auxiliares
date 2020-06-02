@@ -27,13 +27,12 @@ $('.timepicker').click(function() {
 });
 
 function editDatesList(listDates) {
-    $('#id-important-events').val(listDates['id_eventos_importantes']);
-    $('#title-event').val(listDates['titulo_evento']);
-    $('#place-event').val(listDates['lugar_evento']);
-    $('#place-event-date-ini').val(listDates['fecha_inicio']);
-    $('#place-event-date-end').val(listDates['fecha_final']);
-    $('#time-event-ini').val(listDates['hora_inicio']);
-    $('#time-event-end').val(listDates['hora_final']);
+    // date_create_from_format('d/m/Y:H:i:s', );
+    $('#id-datos-edit').val(listDates['id']);
+    $('#titulo-evento-edit').val(listDates['titulo_evento']);
+    $('#lugar-evento-edit').val(listDates['lugar_evento']);
+    $('#fecha-ini-evento-edit').val(listDates['fecha_inicio'].replace(" ", "T"));
+    $('#fecha-fin-evento-edit').val(listDates['fecha_final'].replace(" ", "T"));
 }
 
 $('#requestEditModal').on('show.bs.modal', function (event) {
