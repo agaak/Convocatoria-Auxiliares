@@ -50,11 +50,9 @@ class CreateUnidadAcademicaTable extends Migration
             $table->integer('id_convocatoria');
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
             $table->string('titulo_evento');
-            $table->date('fecha_inicio');
-            $table->date('fecha_final');
-            $table->time('hora_inicio');
-            $table->time('hora_final');
-
+            $table->string('lugar_evento');
+            $table->dateTime('fecha_inicio');
+            $table->dateTime('fecha_final');
             $table->timestamps();
         });
     }
