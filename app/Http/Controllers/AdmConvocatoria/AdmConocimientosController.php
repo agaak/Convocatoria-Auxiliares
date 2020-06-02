@@ -11,4 +11,8 @@ class AdmConocimientosController extends Controller
     {
         return view('admConvocatoria.admConocimientos');
     }
+
+    public function store() {
+        return request();
+    }
 }
