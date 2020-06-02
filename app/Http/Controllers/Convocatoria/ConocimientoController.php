@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Convocatoria\ConocimientoCreateRequest;
 use App\Tematica;
 use App\Porcentaje;
+use App\Http\Requests\Convocatoria\TematicaEditRequest;
 
 class ConocimientoController extends Controller
 {
@@ -62,20 +63,18 @@ class ConocimientoController extends Controller
         return back();
     }
 
-    public function knowledgeRatingTematicUpdate(Request $request, $id){
+    public function knowledgeRatingTematicUpdate(TematicaEditRequest $request, $id){
         $id_conv = $request->session()->get('convocatoria');
-        $porcentaje = Porcentaje:://select('id_requerimiento','porcentaje','id_tematica','id_requerimiento','tematica.nombre')
-            join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+        $porcentaje = Porcentaje::select('porcentaje.id')
+            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
             ->where('requerimiento.id_convocatoria',$id_conv)
-            //->join('tematica','porcentaje.id_tematica','=','tematica.id')
-            ->where('id_tematica',$request->get('id-tem'))->get();
-        /*foreach($porcentaje as $item){
-            Porcentaje::where('id', $item->id)->update([
+            ->where('id_tematica', $request->input('id-tem'))->get();
+        foreach($porcentaje as $item){
+            DB::table('porcentaje')->where('id', $item->id)->update([
                 'id_tematica' => $request->input('nombre-tem')
             ]);
-        }*/ 
-        $var = $request->get('id-tem');
-        return $var;//$porcentaje;//back();
+        }  
+        return back();
     }
 
     public function knowledgeRatingAuxUpdate(Request $request){

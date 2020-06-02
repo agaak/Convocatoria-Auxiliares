@@ -41,22 +41,29 @@ $('#requestEditModal').on('show.bs.modal', function (event) {
     var mid = button.data('id')
     var mcantidad = button.data('cantidad')
     var mhoras_mes = button.data('horas_mes')
+    var mnombre = button.data('nombre')
     var mid_aux = button.data('id_auxiliatura')
     var modal = $(this)
+    var sel = document.getElementById("id-aux-request");
+    sel.remove(sel.selectedIndex);
+    var opt = document.createElement("option");
+    opt.value = mid_aux;
+    opt.text = mnombre;
+    sel.add(opt, null);
+    $("#id-aux-request").val(mid_aux);
     modal.find('.modal-body #id-request').val(mid);
     modal.find('.modal-body #cantidad-request').val(mcantidad);
     modal.find('.modal-body #horas_mes-request').val(mhoras_mes);
-    modal.find('.modal-body #id-aux-request').val(mid_aux);
-    })
+    
+})
+
     
 $('#tematicaEditModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var mid = button.data('id')
-        var mnombre = button.data('nombre')
         var modal = $(this)
         modal.find('.modal-body #id-tem').val(mid);
-        modal.find('.modal-body #nombre-tem').val(mnombre);
-        })
+})
 
 $(document).ready(function(){
     $("#deleteDates").click(function(){

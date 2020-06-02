@@ -29,6 +29,9 @@
           <form method="POST" action="{{ route('create') }}" id="request">
             {{ csrf_field() }}
             <div class="form-group">
+              @if($auxs->isEmpty())
+              <label for="nombre">No hay auxiliaturas para añadir</label>
+              @else
               <label for="nombre">Nombre de Auxiliatura</label>
               <select class="form-control" id="id-aux" name="id-aux">
                 @foreach($auxs as $aux) 
@@ -55,6 +58,7 @@
                   </div>
                 </div>
               </div>
+              @endif
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -92,7 +96,6 @@
               data-cantidad="{{ $reques->cant_aux }}" data-horas_mes="{{ $reques->horas_mes }}" data-id="{{ $reques->id }}" data-id_auxiliatura="{{ $reques->id_auxiliatura }}"
               data-nombre="{{ $reques->nombre_aux }}" data-cod_aux="{{ $reques->cod_aux }}" data-dismiss="modal"><img
                 src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
-                  
                 <form class="d-inline" action="{{ route('delete', $reques->id) }}" method="POST">
                   {{ csrf_field() }}
                   {{ method_field('DELETE') }}

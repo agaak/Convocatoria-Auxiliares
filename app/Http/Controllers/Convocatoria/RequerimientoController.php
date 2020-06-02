@@ -8,21 +8,37 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Convocatoria\RequerimientoCreateRequest;
 use Illuminate\Support\Facades\DB;
 use App\Requerimiento;
+use App\Porcentaje;
+
 class RequerimientoController extends Controller
 {
     public function create(RequerimientoCreateRequest $request){  
+        $id_conv = $request->session()->get('convocatoria');
         $aux = explode('|', $request->get('id-aux'));
         $res = DB::table('auxiliatura')
             ->join('requerimiento', 'auxiliatura.id','=','requerimiento.id_auxiliatura')
-            ->where('requerimiento.id_convocatoria','=',$request->session()->get('convocatoria'))
+            ->where('requerimiento.id_convocatoria','=',$id_conv)
             ->where('auxiliatura.nombre_aux',$aux[0])->get();
         if(count($res)==0){
             $req = new Requerimiento();
-            $req ->id_convocatoria =  $request->session()->get('convocatoria');
+            $req ->id_convocatoria =  $id_conv;
             $req ->id_auxiliatura = $aux[1];
             $req ->horas_mes = $request->get('horas');
             $req ->cant_aux = $request->get('cantidad');
             $req -> save();
+            $porcen = Porcentaje::select('id_tematica')
+            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+            ->where('requerimiento.id_convocatoria',$id_conv)
+            ->join('tematica','porcentaje.id_tematica','=','tematica.id')
+            ->groupBy('id_tematica')->get();
+                foreach($porcen as $porcentaje){
+                    $por = new Porcentaje(); 
+                    $por -> id_requerimiento = $req->id;
+                    $por -> id_auxiliatura =  $aux[1];
+                    $por -> id_tematica = $porcentaje->id_tematica; 
+                    $por -> porcentaje = 0; 
+                    $por -> save();
+                }
         }
         return back();
     }
