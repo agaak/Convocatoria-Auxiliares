@@ -109,7 +109,8 @@
                         <div class="form-group">
                             <label for="title-event">Titulo de evento</label>
                             <input type="text" class="form-control" name="titulo-evento-edit" id="titulo-evento-edit"
-                                placeholder="Ingrese el titulo del evento" required>
+                                placeholder="Ingrese el titulo del evento" required
+                                value="{{ old('titulo-evento-edit') }}">
                             <div>
                                 {!! $errors->first('titulo-evento-edit', '<strong
                                     class="message-error text-danger">:message</strong>') !!}
@@ -119,7 +120,7 @@
                             <label for="place-event">Lugar de evento</label>
                             <input type="text" class="form-control" name="lugar-evento-edit" id="lugar-evento-edit"
                                 placeholder="Ingrese el lugar del evento" required minlength="10"
-                                value="{{ old('lugar-evento-edit') }}">
+                                value="{{ old('lugar-evento-edit') }}" required>
                             <div>
                                 {!! $errors->first('lugar-evento-edit', '<strong
                                     class="message-error text-danger">:message</strong>') !!}
