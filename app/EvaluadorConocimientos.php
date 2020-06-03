@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Evaluador_conocimientos extends Model
+class EvaluadorConocimientos extends Model
 {
     //
     protected $table='evaluador_conocimientos';

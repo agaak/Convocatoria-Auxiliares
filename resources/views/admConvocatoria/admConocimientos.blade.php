@@ -5,8 +5,7 @@
 
     <h3 class="text-uppercase text-center">Comision de evaluacion de conocimientos</h3>
     <!-- Trigger modal -->
-    <button type="button" class="btn btn-dark" data-toggle="modal" 
-    data-target="#exampleModal" >Registrar nuevo evaluador</button>
+    <button class="pl-4 pr-4 btn btn-dark" type="button" data-toggle="modal" data-target="#admConoModal">Registrar Evaluador</button>
 
     <!-- Table -->
     <div class="table-requests1">
@@ -50,10 +49,10 @@
     </div>
 
 
-    <button class="pl-4 pr-4 btn btn-dark" type="button" data-toggle="modal" data-target="#admConoModal">Registrar Evaluador</button>
+    
 
 </div>
-
+{{-- Modal para crear nuevo evaluador de conocimientos --}}
 <div class="modal fade" id="admConoModal" tabindex="-1" role="dialog" aria-labelledby="admConoModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -83,8 +82,9 @@
                             <label for="adm-cono-ci">CI:</label>
                             <div class="row m-auto">
                                 <input type="number" name="adm-cono-ci" placeholder="Ingrese 76446636 para prueba" class="form-control col-sm-7" id="adm-cono-ci" value="{{ old('adm-cono-ci') }}" required>
-                                <button type="button" class="btn btn-primary col-sm-5" id="adm-cono-btn">Comprobar Existencia</button>
+                                <button type="button" class="btn btn-primary col-sm-5" onclick="comprobar({{ $listaCi }})">Comprobar Existencia</button>
                             </div>
+                            {!! $errors->first('adm-cono-ci', '<strong class="message-error text-danger">:message</strong>') !!}
                         </div>
                         <div class="d-none text-center" id="ci-no-existe">
                             <strong class="text-danger">El CI ingresado ya exite</strong>
@@ -92,21 +92,21 @@
                         <div class="d-none text-center" id="ci-existe">
                             <strong class="text-success">El CI ingresado aun no existe</strong>
                         </div>
-                        {{ $errors->first('adm-cono-ci') }}
                         <div class="form-group">
                             <label for="adm-cono-nombre">Nombre:</label>
-                            <input type="text" name="adm-cono-nombre" class="form-control" value="{{ old('adm-cono-nombre') }}" required>
+                            <input type="text" name="adm-cono-nombre" minlength="3" class="form-control" value="{{ old('adm-cono-nombre') }}" required>
+                            {!! $errors->first('adm-cono-nombre', '<strong class="message-error text-danger">:message</strong>') !!}
                         </div>
-                        {{ $errors->first('adm-cono-nombre') }}
                         <div class="form-group">
                             <label for="adm-cono-apellidos">Apellidos:</label>
-                            <input type="text" name="adm-cono-apellidos" class="form-control" value="{{ old('adm-cono-apellidos') }}" required>
+                            <input type="text" name="adm-cono-apellidos" minlength="3" class="form-control" value="{{ old('adm-cono-apellidos') }}" required>
+                            {!! $errors->first('adm-cono-apellidos', '<strong class="message-error text-danger">:message</strong>') !!}
                         </div>
                         <div class="form-group">
                             <label for="adm-cono-correo">Correo:</label>
                             <input type="email" name="adm-cono-correo" class="form-control" value="{{ old('adm-cono-correo') }}" required>
+                            {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger">:message</strong>') !!}
                         </div>
-                        {{ $errors->first('adm-cono-correo') }}
                         @if ($errors->any())
                             <script>
                                 window.onload = () => {
