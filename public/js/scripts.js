@@ -101,10 +101,8 @@ function editSubMeritModal(lista) {
     $('#submerit-id').val(lista[3]);
 }
 
-$('#auxiliaturaModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget)
-    var mporcentajes = button.data('porcent')
-    var mtematicas = button.data('temat')
+
+function selectAuxiliaturaModal(mporcentajes,mtematicas) {
     var selecte = document.getElementById("id-req");
     var mid_req = selecte.options[selecte.selectedIndex].value;
     console.log(mporcentajes);
@@ -118,8 +116,7 @@ $('#auxiliaturaModal').on('show.bs.modal', function (event) {
                 cont++; 
         }
     }
-    
-})
+}
 
 function seleccionarOpcion(dato) {
     document.getElementById('id-option-' + dato).setAttribute('selected','');

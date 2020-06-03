@@ -21,7 +21,7 @@
       <span class="mx-1">Añadir Tematica</span>
     </a>
     <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
-      data-target="#auxiliaturaModal" data-porcent="{{ json_encode($porcentajes) }}" data-temat="{{ json_encode($tems) }}">
+      data-target="#auxiliaturaModal" onclick="selectAuxiliaturaModal({{ json_encode($porcentajes)}}, {{json_encode($tems) }})">
       <img src="{{ asset('img/pen.png') }}" width="30" height="30">
       <span class="mx-1">Editar Auxiliatura</span>
     </a>
@@ -135,7 +135,7 @@
               <div class="form-row" style="margin-bottom: 5px">
                 <label class="col-auto col-form-label" for="department-conv">Auxiliatura</label>
                 <div class="col-xl">
-                  <select class="form-control" id="id-req" name="id-req">
+                  <select onchange="selectAuxiliaturaModal({{ json_encode($porcentajes)}}, {{json_encode($tems) }})" class="form-control" id="id-req" name="id-req">
                     @foreach($requests as $item)
                       <option value="{{ $item->id }}">{{ $item->cod_aux }} - {{ $item->nombre_aux }}</option>
                     @endforeach

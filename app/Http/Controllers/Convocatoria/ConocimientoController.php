@@ -79,13 +79,15 @@ class ConocimientoController extends Controller
 
     public function knowledgeRatingAuxUpdate(Request $request){
         $tematics = collect($request->input('id-tem'));
-        $porcentaje = $request->input('porcentaje');
-        foreach($porcentaje as $por){
-            DB::table('porcentaje')->where([['id_requerimiento', $request->input('id-req')],['id_tematica', $tematics->shift()]])
-                ->update([
-                'porcentaje' => $por,
-            ]);
-        }
+        $porcentaje = $request->input('porcentaje-aux');
+        if(collect($request->input('porcentaje-aux'))->sum()==100){
+            foreach($porcentaje as $por){
+                DB::table('porcentaje')->where([['id_requerimiento', $request->input('id-req')],
+                    ['id_tematica', $tematics->shift()]])->update([
+                    'porcentaje' => $por,
+                ]);
+            }
+        } //false msg error en la cantidad
         return back();
     }
     
@@ -106,6 +108,6 @@ class ConocimientoController extends Controller
         if($porcen_min->isEmpty() && $porcen_max->isEmpty()){
             return redirect()->route('convocatoria.index');   
         }
-        return back(); //Ccorregir los datos
+        return back(); // msg Ccorregir los datos
     }
 }
