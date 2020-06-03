@@ -16,7 +16,7 @@ class ConocimientoController extends Controller
         $id_conv = $request->session()->get('convocatoria');
         $tipo = DB::table('convocatoria')->where('id',$id_conv)
             ->value('id_tipo_convocatoria');
-        $requests =DB::table('requerimiento')->select('auxiliatura.nombre_aux','auxiliatura.cod_aux')
+        $requests =DB::table('requerimiento')->select('auxiliatura.nombre_aux','auxiliatura.cod_aux','requerimiento.id')
             ->where('id_convocatoria',$id_conv)
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id') ->get();    
         $porcen = Porcentaje::select('id_requerimiento','porcentaje','id_tematica','id_requerimiento','tematica.nombre')
@@ -78,10 +78,34 @@ class ConocimientoController extends Controller
     }
 
     public function knowledgeRatingAuxUpdate(Request $request){
-        //DB::table('porcentaje')->where('id', $request->input('id-porcentaje'))->update([
-        //    'porcentaje' => $request->input('porcentaje'),
-        //]);
+        $tematics = collect($request->input('id-tem'));
+        $porcentaje = $request->input('porcentaje');
+        foreach($porcentaje as $por){
+            DB::table('porcentaje')->where([['id_requerimiento', $request->input('id-req')],['id_tematica', $tematics->shift()]])
+                ->update([
+                'porcentaje' => $por,
+            ]);
+        }
         return back();
     }
     
+    public function knowledgeRatingFinish(){
+        $id_conv = session()->get('convocatoria');
+        $porcen_max = Porcentaje::select(DB::raw('sum(porcentaje) as porc_count, requerimiento.id_auxiliatura'))
+            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+            ->where('requerimiento.id_convocatoria',$id_conv)
+            ->groupBy('requerimiento.id_auxiliatura')
+            ->groupBy('requerimiento.id_auxiliatura')
+            ->havingRaw('SUM(porcentaje) > 100')->get();
+        $porcen_min = Porcentaje::select(DB::raw('sum(porcentaje) as porc_count, requerimiento.id_auxiliatura'))
+            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+            ->where('requerimiento.id_convocatoria',$id_conv)
+            ->groupBy('requerimiento.id_auxiliatura')
+            ->groupBy('requerimiento.id_auxiliatura')
+            ->havingRaw('SUM(porcentaje) < 100')->get();
+        if($porcen_min->isEmpty() && $porcen_max->isEmpty()){
+            return redirect()->route('convocatoria.index');   
+        }
+        return back(); //Ccorregir los datos
+    }
 }

@@ -45,7 +45,8 @@ Route::get('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRating
 Route::post('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRatingTematicValid', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingTematicValid']);
 Route::put('/convocatoria/calificacion-conocimientos/{id}', ['as' => 'knowledgeRatingTematicUpdate', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingTematicUpdate']);
 Route::delete('/convocatoria/calificacion-conocimientos/{id}', ['as' => 'knowledgeRatingTematicDelete', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingTematicDelete']);
-Route::put('/convocatoria/calificacion-conocimientos', ['as' => 'knowledgeRatingAuxUpdate', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingAuxUpdate']);
+Route::post('/convocatoria/calificacion-conocimientos/aux', ['as' => 'knowledgeRatingAuxUpdate', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingAuxUpdate']);
+Route::get('/convocatoria/calificacion-conocimientos/finalizar', ['as' => 'knowledgeRatingFinish', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingFinish']);
 
 // Controladores de la administracion de convocatoria
 Route::get('convocatoria/adm-convocatoria', 'AdmConvocatoria\AdmConvocatoriaController@index')->name('admConvocatoria');

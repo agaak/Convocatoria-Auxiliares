@@ -21,7 +21,7 @@
       <span class="mx-1">Añadir Tematica</span>
     </a>
     <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
-    data-target="#auxiliaturaModal" >
+      data-target="#auxiliaturaModal" data-porcent="{{ json_encode($porcentajes) }}" data-temat="{{ json_encode($tems) }}">
       <img src="{{ asset('img/pen.png') }}" width="30" height="30">
       <span class="mx-1">Editar Auxiliatura</span>
     </a>
@@ -50,17 +50,17 @@
             <td class="table-light">{{ $num++ }}</td>
             <td class="table-light">{{ $tematic->nombre }}</td>
             @foreach($porcentajes as $item)
-              @if ($item->id_tematica == $tematic->id_tematica)
-                <td class="table-light">{{$item->porcentaje}}</td>
+              @if($item->id_tematica == $tematic->id_tematica)
+                <td class="table-light">{{ $item->porcentaje }}</td>
               @endif
             @endforeach
             <td class="table-light">
-              <a class="options" data-toggle="modal" data-target="#tematicaEditModal" data-id="{{ $tematic->id_tematica }}"
-                data-nombre="{{ $tematic->nombre }}"
-                data-dismiss="modal"><img src="{{ asset('img/pen.png') }}" width="25"
-                  height="25"></a>
+              <a class="options" data-toggle="modal" data-target="#tematicaEditModal"
+                data-id="{{ $tematic->id_tematica }}" data-nombre="{{ $tematic->nombre }}" data-dismiss="modal"><img
+                  src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
               <form class="d-inline"
-                action="{{ route('knowledgeRatingTematicDelete', $tematic->id_tematica) }}" method="POST">
+                action="{{ route('knowledgeRatingTematicDelete', $tematic->id_tematica) }}"
+                method="POST">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
                 <button type="submit" class="btn btn-link">
@@ -89,23 +89,23 @@
             {{ csrf_field() }}
             <div class="form-group">
               @if($tematics->isEmpty())
-                  <label for="nombre">No hay tematicas para añadir</label>
+                <label for="nombre">No hay tematicas para añadir</label>
               @else
-              <label for="nombre">Nombre de la Tematica</label>
-              <select class="form-control" id="id-tem" name="id-tem">
-                @foreach($tematics as $tematic) 
-                  <option value={{$tematic->id}}>{{ $tematic->nombre }}</option>
-                @endforeach
-              </select>
-              <div class="form-row " style="margin-top: 20px">
-                <div class="form-group col-6"> 
-                  <div class="row">
-                    <label class="col-8 col-form-label" for="porcent-merit">Valor por defecto:</label>
-                    <input type="number" class="form-control col-sm-4" name="porcentaje" id="porcentaje" value="30"
-                      min="0" max="100" required>
+                <label for="nombre">Nombre de la Tematica</label>
+                <select class="form-control" id="id-tem" name="id-tem">
+                  @foreach($tematics as $tematic)
+                    <option value={{ $tematic->id }}>{{ $tematic->nombre }}</option>
+                  @endforeach
+                </select>
+                <div class="form-row " style="margin-top: 20px">
+                  <div class="form-group col-6">
+                    <div class="row">
+                      <label class="col-8 col-form-label" for="porcent-merit">Valor por defecto:</label>
+                      <input type="number" class="form-control col-sm-4" name="porcentaje" id="porcentaje" value="30"
+                        min="0" max="100" required>
+                    </div>
                   </div>
                 </div>
-              </div>
               @endif
             </div>
             <div class="modal-footer">
@@ -129,35 +129,38 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="{{ route('knowledgeRatingAuxUpdate') }}" role="form" autocomplete="off">
+          <form method="POST" action="{{ route('knowledgeRatingAuxUpdate') }}" role="form">
             {{ csrf_field() }}
-            {{ method_field('PUT') }}
-            <input type="hidden" id="id-aux" name="id-aux">
             <div class="form-group">
               <div class="form-row" style="margin-bottom: 5px">
                 <label class="col-auto col-form-label" for="department-conv">Auxiliatura</label>
                 <div class="col-xl">
-                  <select class="form-control" id="sec-aux" name="sec-aux">
-                    @foreach($requests as $item) 
-                      <option>{{ $item->cod_aux }} - {{ $item->nombre_aux }}</option>
+                  <select class="form-control" id="id-req" name="id-req">
+                    @foreach($requests as $item)
+                      <option value="{{ $item->id }}">{{ $item->cod_aux }} - {{ $item->nombre_aux }}</option>
                     @endforeach
                   </select>
                 </div>
               </div>
               <div style="visibility: hidden"> {{ $num = 1 }}</div>
               @foreach($tems as $tematic)
+                <input type="hidden" id="id-tem" name="id-tem[]" value="{{ $tematic->id_tematica }}">
                 <div class="form-row">
                   <div class="form-group col-7">
                     <div class="row">
-                      <label for="marca colFormLabelSm" class="col-sm-12 col-form-label">Tematica {{ $num++ }}
-                        :<span style="font-weight: normal; margin-left:10px">{{ $tematic->nombre }} </span></label>
+                      <label class="col-sm-5 col-form-label">Tematica
+                        {{ $num++ }}{{ ":" }}</label>
+                      <label class="col-sm-7 col-form-label"><span style="font-weight: normal;">{{ $tematic->nombre }}
+                        </span></label>
                     </div>
                   </div>
                   <div class="form-group col-4">
                     <div class="row">
                       <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
-                      <input type="number" class="form-control form-control-sm col-sm-5" name="porcentaje"
-                        id="porcentaje" min="0" max="100" required>
+                      
+                        <input type="number" class="form-control form-control-sm col-sm-5 porcentaje-aux" name="porcentaje-aux[]"
+                              id="porcentaje-aux"  min="0" max="100" required>
+                        
                     </div>
                   </div>
                 </div>
@@ -184,20 +187,22 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="{{ route('knowledgeRatingTematicUpdate','2' ) }}" role="form" autocomplete="off">
+          <form method="POST"
+            action="{{ route('knowledgeRatingTematicUpdate','2' ) }}"
+            role="form" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <input type="hidden" id="id-tem" name="id-tem">
             <div class="form-group">
               @if($tematics->isEmpty())
-                  <label for="nombre">No hay tematicas para cambiar</label>
+                <label for="nombre">No hay tematicas para cambiar</label>
               @else
-                  <label for="nombre">Nombre de la Tematica</label>   
-                  <select class="form-control" id="nombre-tem" name="nombre-tem">
-                    @foreach($tematics as $tematic)
-                      <option value={{$tematic->id}}>{{ $tematic->nombre }}</option>
-                    @endforeach
-                  </select> 
+                <label for="nombre">Nombre de la Tematica</label>
+                <select class="form-control" id="nombre-tem" name="nombre-tem">
+                  @foreach($tematics as $tematic)
+                    <option value={{ $tematic->id }}>{{ $tematic->nombre }}</option>
+                  @endforeach
+                </select>
               @endif
             </div>
             <div class="modal-footer">
@@ -210,9 +215,9 @@
     </div>
   </div>
   <div class="my-5 py-5 text-center">
-    <a href="{{ route('calificacion-meritos.index') }}" class="btn btn-info" tabindex="-1" role="button"
-      aria-disabled="true">Anterior</a>
-    <a href="{{ route('knowledgeRating') }}" class="btn btn-info" tabindex="-1" role="button"
+    <a href="{{ route('calificacion-meritos.index') }}" class="btn btn-info" tabindex="-1"
+      role="button" aria-disabled="true">Anterior</a>
+    <a href="{{ route('knowledgeRatingFinish') }}" class="btn btn-info" tabindex="-1" role="button"
       aria-disabled="true">Finalizar</a>
   </div>
 </div>

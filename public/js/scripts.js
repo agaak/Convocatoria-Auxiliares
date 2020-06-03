@@ -101,6 +101,26 @@ function editSubMeritModal(lista) {
     $('#submerit-id').val(lista[3]);
 }
 
+$('#auxiliaturaModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var mporcentajes = button.data('porcent')
+    var mtematicas = button.data('temat')
+    var selecte = document.getElementById("id-req");
+    var mid_req = selecte.options[selecte.selectedIndex].value;
+    console.log(mporcentajes);
+    console.log(mtematicas);
+    var x = document.getElementsByClassName('porcentaje-aux');
+    var cont = 0;
+    for(i = 0; i < mporcentajes.length; i++) {
+        if(mporcentajes[i].id_requerimiento == mid_req && 
+            mporcentajes[i].id_tematica == mtematicas[mtematicas.length-cont-1].id_tematica){
+                x[mtematicas.length-cont-1].value = mporcentajes[i].porcentaje;    
+                cont++; 
+        }
+    }
+    
+})
+
 function seleccionarOpcion(dato) {
     document.getElementById('id-option-' + dato).setAttribute('selected','');
 }
