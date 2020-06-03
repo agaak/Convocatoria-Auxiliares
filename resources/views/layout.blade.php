@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }} ">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.standalone.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery.timepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
@@ -82,6 +83,8 @@
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.es.min.js') }}"></script>
     <script src="{{ asset('js/jquery.timepicker.js') }}"></script>
+    <script src="{{ asset('js/select2.js') }}"></script>
+    <script src="{{ asset('js/es.js') }}"></script>
     <script src="{{ asset('js/scripts.js') }}"></script>
 </body>
 

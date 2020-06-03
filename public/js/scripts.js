@@ -157,3 +157,25 @@ $('#meritModalEdit').on('hidden.bs.modal', () => {
 $('#subMeritModalEdit').on('hidden.bs.modal', () => {
     document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
 });
+
+$(document).ready(function() {
+    $('.select2').select2({
+        width: "100%",
+        language: "es",
+        allowClear: true
+    });
+});
+
+$('#adm-cono-btn').click(() => {
+    if($('#adm-cono-ci').val() == 76446636) {
+        $('#ci-existe').removeClass('d-none');
+        setTimeout(() => {
+            $('#ci-existe').addClass('d-none');
+        }, 5000);
+    } else {
+        $('#ci-no-existe').removeClass('d-none');
+        setTimeout(() => {
+            $('#ci-no-existe').addClass('d-none');
+        }, 5000);
+    }
+});
