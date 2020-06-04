@@ -6,6 +6,7 @@ use App\Convocatoria;
 use App\Http\Requests\ConvocatoriaRequest;
 use App\Tipo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ConvocatoriaController extends Controller
 {
@@ -48,6 +49,8 @@ class ConvocatoriaController extends Controller
         $conv->descripcion_convocatoria = $request->input('conv-descripcion');
         $conv->fecha_inicio = date("Y-m-d", strtotime($request->input('conv-fecha-ini')));
         $conv->fecha_final = date("Y-m-d", strtotime($request->input('conv-fecha-fin')));
+        $conv->publicado = false;
+        $conv->creado = false;
         $conv->save();
 
         session()->put('convocatoria', $conv->id) ;
@@ -62,7 +65,10 @@ class ConvocatoriaController extends Controller
      */
     public function show($id)
     {
-        //
+        Convocatoria::where('id', $id)->update([
+            'publicado' => true
+        ]);
+        return back();
     }
 
     /**
@@ -86,8 +92,8 @@ class ConvocatoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //session()->put('convocatoria', $id) ;
-        return redirect()->route('requests');
+        
+        return back();
     }
 
     /**
@@ -98,6 +104,7 @@ class ConvocatoriaController extends Controller
      */
     public function destroy($id)
     {
+        Storage::delete(Convocatoria::find($id)->ruta_pdf);
         Convocatoria::find($id)->delete();
         return back();
     }

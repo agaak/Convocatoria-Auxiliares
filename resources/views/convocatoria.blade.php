@@ -149,60 +149,99 @@
                                                 height="29">
                                         </button>
                                     </form>
-                                    <a href="{{ route('convocatoria.edit',$convo->id ) }}"
-                                        style="color:white;" class="btn btn-secondary btn-sm">{{ csrf_field() }}Editar</a>
-                                    <a href="{{ route('admConvocatoria',$convo->id ) }}"
-                                        style="background-color:#2F2D4A; color:white;"
-                                        class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        @else
-            <div class="container text-center my-3">
-                <div class="row mx-auto my-auto">
-                    <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-                        <div class="carousel-inner w-100" role="listbox">
-                            <div style="visibility: hidden"> {{ $num = 0 }}</div>
-                            @foreach($convos as $convo)
-                                @if($num++ == 0)
-                                    <div class="carousel-item active">
-                                    @else
-                                        <div class="carousel-item">
-                                @endif
-                                <div class="col-md-4">
-                                    <div class="card text-center" style="height: 300px">
-                                        <div class="card-header"
-                                            style="font-size:16px; background: #0A091B; color: white; height: 65px;">
-                                            {{ $convo->titulo }}
-                                        </div>
-                                        <div class="card-body overflow-auto" data-spy="scroll" style="height: 100px">
-                                            <p class="card-text">{{ $convo->descripcion_convocatoria }}</p>
-                                        </div>
-                                        <div class="card-footer text-muted">
-                                            <form class="d-inline"
-                                                action="{{ route('convocatoria.destroy', $convo->id) }}"
-                                                method="POST">
-                                                {{ method_field('DELETE') }}
-                                                {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-link btn-sm">
-                                                    <img src="{{ asset('img/trash2.png') }}"
-                                                        width="37" height="29">
-                                                </button>
-                                            </form>
-                                            <a href="{{ route('convocatoria.edit',$convo->id ) }}"
-                                                style="color:white;"
-                                                class="btn btn-secondary btn-sm">{{ csrf_field() }}Editar</a>
+                                    @if($convo->creado)
+                                        @if($convo->publicado)
                                             <a href="{{ route('admConvocatoria',$convo->id ) }}"
                                                 style="background-color:#2F2D4A; color:white;"
                                                 class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
-                                        </div>
-                                    </div>
+                                            <a href="#" style="color:white;" class="btn btn-info btn-sm">Visualizar</a>
                                 </div>
+                                <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta convocatoria esta en curso.</div>
+                            @else
+                                <a href="{{ route('admConvocatoria',$convo->id ) }}"
+                                    style="background-color:#2F2D4A; color:white;"
+                                    class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
+                                <a href="{{ route('convocatoria.show',$convo->id ) }}"
+                                    style="color:white;" class="btn btn-success btn-sm">{{ csrf_field() }}Publicar</a>
+                            </div>
+                            <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta convocatoria esta lista para publicarse.</div>
+                    @endif
+                @else
+                    <a href="{{ route('convocatoria.edit',$convo->id ) }}"
+                        style="color:white;" class="btn btn-secondary btn-sm">{{ csrf_field() }}Editar</a>
+                    <a href="#" style="background-color:#2F2D4A; color:white;" class="btn btn-primary btn-sm"
+                        type="button" disabled>Administrarr</a>
+                    <a href="{{ Storage::url($convo -> ruta_pdf) }}" class="btn-descargar" target="_blank">
+                        <i class="fas fa-download"></i></a>
+                </div>
+                <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta convocatoria se encuentra incompleta.</div>
+        @endif
+</div>
+</div>
+@endforeach
+</div>
+</div>
+@else
+<div class="container text-center my-3">
+    <div class="row mx-auto my-auto">
+        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+            <div class="carousel-inner w-100" role="listbox">
+                <div style="visibility: hidden"> {{ $num = 0 }}</div>
+                @foreach($convos as $convo)
+                    @if($num++ == 0)
+                        <div class="carousel-item active">
+                        @else
+                            <div class="carousel-item">
+                    @endif
+                    <div class="col-md-4">
+                        <div class="card text-center" style="height: 350px">
+                            <div class="card-header"
+                                style="font-size:16px; background: #0A091B; color: white; height: 65px;">
+                                {{ $convo->titulo }}
+                            </div>
+                            <div class="card-body overflow-auto" data-spy="scroll" style="height: 100px">
+                                <p class="card-text">{{ $convo->descripcion_convocatoria }}</p>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <form class="d-inline"
+                                    action="{{ route('convocatoria.destroy', $convo->id) }}"
+                                    method="POST">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-link btn-sm">
+                                        <img src="{{ asset('img/trash2.png') }}" width="37"
+                                            height="29">
+                                    </button>
+                                </form>
+                                @if($convo->creado)
+                                    @if($convo->publicado)
+                                        <a href="{{ route('admConvocatoria',$convo->id ) }}"
+                                            style="background-color:#2F2D4A; color:white;"
+                                            class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
+                                        <a href="#" style="color:white;" class="btn btn-info btn-sm">Visualizar</a>
+                            </div>
+                            <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta convocatoria esta en curso.</div>
+                        @else
+                            <a href="{{ route('admConvocatoria',$convo->id ) }}"
+                                style="background-color:#2F2D4A; color:white;"
+                                class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
+                            <a href="{{ route('convocatoria.show',$convo->id ) }}"
+                                style="color:white;" class="btn btn-success btn-sm">{{ csrf_field() }}Publicar</a>
                         </div>
-        @endforeach
+                        <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta convocatoria esta lista para publicarse.</div>
+                @endif
+            @else
+                <a href="{{ route('convocatoria.edit',$convo->id ) }}" style="color:white;"
+                    class="btn btn-secondary btn-sm">{{ csrf_field() }}Editar</a>
+                <a href="#" style="background-color:#2F2D4A; color:white;" class="btn btn-primary btn-sm" type="button"
+                    disabled>Administrarr</a>
+            </div>
+            <div class="card-footer text-muted" style="height: 50px; font-size:14px;">Esta convocatoria se encuentra incompleta.</div>
+            @endif
+        </div>
+    </div>
+</div>
+@endforeach
 </div>
 <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"

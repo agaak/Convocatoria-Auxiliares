@@ -21,7 +21,8 @@
       <span class="mx-1">Añadir Tematica</span>
     </a>
     <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
-      data-target="#auxiliaturaModal" onclick="selectAuxiliaturaModal({{ json_encode($porcentajes)}}, {{json_encode($tems) }})">
+      data-target="#auxiliaturaModal"
+      onclick="selectAuxiliaturaModal({{ json_encode($porcentajes) }}, {{ json_encode($tems) }})">
       <img src="{{ asset('img/pen.png') }}" width="30" height="30">
       <span class="mx-1">Editar Auxiliatura</span>
     </a>
@@ -55,8 +56,8 @@
               @endif
             @endforeach
             <td class="table-light">
-              <a class="options" data-toggle="modal" data-target="#tematicaEditModal"
-                data-id="{{ $tematic->id }}" data-nombre="{{ $tematic->nombre }}" data-dismiss="modal"><img
+              <a class="options" data-toggle="modal" data-target="#tematicaEditModal" data-id="{{ $tematic->id }}"
+                data-nombre="{{ $tematic->nombre }}" data-dismiss="modal"><img
                   src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
               <form class="d-inline"
                 action="{{ route('knowledgeRatingTematicDelete', $tematic->id) }}"
@@ -135,7 +136,8 @@
               <div class="form-row" style="margin-bottom: 5px">
                 <label class="col-auto col-form-label" for="department-conv">Auxiliatura</label>
                 <div class="col-xl">
-                  <select onchange="selectAuxiliaturaModal({{ json_encode($porcentajes)}}, {{json_encode($tems) }})" class="form-control" id="id-req" name="id-req">
+                  <select onchange="selectAuxiliaturaModal({{ json_encode($porcentajes) }}, {{ json_encode($tems) }})"
+                    class="form-control" id="id-req" name="id-req">
                     @foreach($requests as $item)
                       <option value="{{ $item->id }}">{{ $item->cod_aux }} - {{ $item->nombre_aux }}</option>
                     @endforeach
@@ -157,10 +159,10 @@
                   <div class="form-group col-4">
                     <div class="row">
                       <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
-                      
-                        <input type="number" class="form-control form-control-sm col-sm-5 porcentaje-aux" name="porcentaje-aux[]"
-                               min="0" max="100" required>
-                        
+
+                      <input type="number" class="form-control form-control-sm col-sm-5 porcentaje-aux"
+                        name="porcentaje-aux[]" min="0" max="100" required>
+
                     </div>
                   </div>
                 </div>
@@ -214,9 +216,21 @@
       </div>
     </div>
   </div>
+
   <div class="my-5 py-5 text-center">
-    <a href="{{ route('knowledgeRatingFinish') }}" class="btn btn-info" tabindex="-1" role="button"
-      aria-disabled="true">Finalizar</a>
+    <form action="{{ route('knowledgeRatingFinish') }}" enctype="multipart/form-data" method="POST" accept-charset="UTF-8">
+      {{ csrf_field() }}
+      <div class="custom-file col-sm-4" lang="es">
+        <input type="file" class="custom-file-input" id="upload-pdf" name="upload-pdf" lang="es" required>
+        <label class="custom-file-label" style="text-align: left;" for="customFileLang">Seleccionar Archivo</label>
+      </div>
+      <button type="submit" class="btn btn-info mx-3" tabindex="-1" role="button" aria-disabled="true">
+        Finalizar
+      </button>
+    </form>
   </div>
 </div>
+<script>
+
+</script>
 @endsection

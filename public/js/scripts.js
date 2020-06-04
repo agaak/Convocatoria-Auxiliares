@@ -213,5 +213,11 @@ $('#recipeCarousel').carousel({
           next.children(':first-child').clone().appendTo($(this));
         }
   });
-    
 
+  $('#upload-pdf').on('change', function () {
+    //get the file name
+    var fileName = $(this).val();
+    //replace the "Choose a file" label
+    $(this).next('.custom-file-label').html(fileName);
+  })
+ 

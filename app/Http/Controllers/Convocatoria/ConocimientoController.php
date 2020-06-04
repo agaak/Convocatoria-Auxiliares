@@ -95,7 +95,7 @@ class ConocimientoController extends Controller
         return back();
     }
     
-    public function knowledgeRatingFinish(){
+    public function knowledgeRatingFinish(Request $request){
         $id_conv = session()->get('convocatoria');
         $porcen_max = Porcentaje::select(DB::raw('sum(porcentaje) as porc_count, requerimiento.id_auxiliatura'))
             ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
@@ -110,8 +110,21 @@ class ConocimientoController extends Controller
             ->groupBy('requerimiento.id_auxiliatura')
             ->havingRaw('SUM(porcentaje) < 100')->get();
         if($porcen_min->isEmpty() && $porcen_max->isEmpty()){
-            return redirect()->route('convocatoria.index');   
+            DB::table('convocatoria')->where('id', $id_conv)->update([
+                'ruta_pdf' => $request -> file('upload-pdf') -> store('public'),
+                'creado' => true
+            ]);  
+            return redirect()->route('convocatoria.index'); 
         }
-        return back(); // msg Ccorregir los datos
+        return back(); // msg Ccorregir los datos 
+    }
+
+    public function knowledgeRatingPdf(Request $request){
+        $id_conv = session()->get('convocatoria');
+        DB::table('convocatoria')->where('id', $id_conv)->update([
+            'ruta_pdf' => $request -> file('documento') -> store('public/')
+        ]);
+        
+        return back();
     }
 }
