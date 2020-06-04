@@ -159,23 +159,33 @@ $(document).ready(function() {
     $('.select2').select2({
         width: "100%",
         language: "es",
-        allowClear: true
+        allowClear: true,
+        theme: "classic",
+        placeholder: "Selecciona tus opciones"
     });
 });
 
-$('#adm-cono-btn').click(() => {
-    if($('#adm-cono-ci').val() == 76446636) {
+function comprobar(listaCi) {
+    let existe = true;
+    for (const item of listaCi) {
+        if($('#adm-cono-ci').val() == item['ci']) {
+            existe = false;
+            $('#ci-no-existe').removeClass('d-none');
+            $('#ci-existe').addClass('d-none');
+            setTimeout(() => {
+                $('#ci-no-existe').addClass('d-none');
+            }, 5000);
+        }
+    }
+
+    if (existe) {
         $('#ci-existe').removeClass('d-none');
+        $('#ci-no-existe').addClass('d-none');
         setTimeout(() => {
             $('#ci-existe').addClass('d-none');
         }, 5000);
-    } else {
-        $('#ci-no-existe').removeClass('d-none');
-        setTimeout(() => {
-            $('#ci-no-existe').addClass('d-none');
-        }, 5000);
     }
-});
+}
 
 
 $('#recipeCarousel').carousel({
@@ -199,4 +209,5 @@ $('#recipeCarousel').carousel({
           next.children(':first-child').clone().appendTo($(this));
         }
   });
-  
+    
+
