@@ -24,6 +24,7 @@ class AdmConocimientosRequest extends FormRequest
     public function rules()
     {
         return [
+            'adm-cono-tipo' => 'required',
             'adm-cono-ci' => 'min:4|unique:evaluador_conocimientos,ci',
             'adm-cono-nombre' => 'regex:/^[a-zA-Z\s]*$/',
             'adm-cono-apellidos' => 'regex:/^[\pL\s\-]+$/u',
@@ -34,6 +35,7 @@ class AdmConocimientosRequest extends FormRequest
     public function messages()
     {
         return [
+            'adm-cono-tipo.required' => 'Este Campo es requerido.', 
             'adm-cono-ci.min' => 'El campo CI contiene como minimo 4 carácteres.',
             'adm-cono-ci.unique' => 'El dato ingresado ya existe.',
             'adm-cono-nombre.regex' => 'El campo Nombre solo permite letras y espacios en blanco.',

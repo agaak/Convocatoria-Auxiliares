@@ -69,14 +69,11 @@
                         <div class="form-group">
                             <label for="adm-cono-tipo">Auxiliatura:</label>
                             <select id="adm-cono-tipo" name="adm-cono-tipo[]" class="select2" multiple="multiple">
-                                <option value="dato1">DATO 1</option>
-                                <option value="dato2">DATO 2</option>
-                                <option value="dato3">DATO 3</option>
-                                <option value="dato4">DATO 4</option>
-                                <option value="dato5">DATO 5</option>
-                                <option value="dato6">DATO 6</option>
-                                <option value="dato7">DATO 7</option>
+                                @foreach ($listaMultiselect as $item)
+                                    <option value="{{ $item->id_unico }}">{{ $item->nombre }}</option>
+                                @endforeach
                             </select>
+                            {!! $errors->first('adm-cono-tipo', '<strong class="message-error text-danger">:message</strong>') !!}
                         </div>
                         <div class="form-group">
                             <label for="adm-cono-ci">CI:</label>

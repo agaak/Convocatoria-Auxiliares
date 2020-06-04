@@ -25,7 +25,7 @@ class CreateEvaluadorConocimientosTable extends Migration
         Schema::create('evaluador_conovocatoria', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_evaluador');
-            $table->foreign('id_evaluador')->references('id')->on('postulante')->onDelete('cascade');
+            $table->foreign('id_evaluador')->references('id')->on('evaluador_conocimientos')->onDelete('cascade');
             $table->integer('id_convocatoria');
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
             
@@ -35,7 +35,7 @@ class CreateEvaluadorConocimientosTable extends Migration
         Schema::create('evaluador_tematica', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_evaluador');
-            $table->foreign('id_evaluador')->references('id')->on('postulante')->onDelete('cascade');
+            $table->foreign('id_evaluador')->references('id')->on('evaluador_conocimientos')->onDelete('cascade');
             $table->integer('id_tematica');
             $table->foreign('id_tematica')->references('id')->on('tematica')->onDelete('cascade');
             
@@ -45,7 +45,7 @@ class CreateEvaluadorConocimientosTable extends Migration
         Schema::create('evaluador_auxiliatura', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_evaluador');
-            $table->foreign('id_evaluador')->references('id')->on('postulante')->onDelete('cascade');
+            $table->foreign('id_evaluador')->references('id')->on('evaluador_conocimientos')->onDelete('cascade');
             $table->integer('id_auxiliatura');
             $table->foreign('id_auxiliatura')->references('id')->on('auxiliatura')->onDelete('cascade');
             
