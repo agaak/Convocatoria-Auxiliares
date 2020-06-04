@@ -134,11 +134,10 @@
                 @endif
                 <div class="col-md-4">
                         <div class="card text-center" style="height: 300px">
-                            <div class="card-header" style="font-size:13px">
-                              {{--$convo->titulo--}}Esta convocatoria se encuentra incompleta.
+                            <div class="card-header" style="font-size:16px; background: #0A091B; color: white; height: 65px;">
+                              {{$convo->titulo}}
                             </div>
                             <div class="card-body">
-                              <h5 class="card-title">{{$convo->titulo}}</h5>
                               <p class="card-text">{{ $convo->descripcion_convocatoria }}</p>
                             </div>
                             <div class="card-footer text-muted">
@@ -161,12 +160,12 @@
             </div>
             <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle"
-                    aria-hidden="true"></span>
+                    aria-hidden="true"  style="height: 40px; width: 40px;"></span>
                 <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
                 <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle"
-                    aria-hidden="true"></span>
+                    aria-hidden="true" style="height: 40px; width: 40px;"></span>
                 <span class="sr-only">Next</span>
             </a>
         </div>
