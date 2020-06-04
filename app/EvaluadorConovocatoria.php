@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Evaluador_conovocatoria extends Model
+class EvaluadorConovocatoria extends Model
 {
     //
     protected $table='evaluador_conovocatoria';
