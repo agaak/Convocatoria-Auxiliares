@@ -18,16 +18,17 @@ class AdmConocimientosController extends Controller
 {
     public function index()
     {
-        $tipoConvocatoria = Tipo::select('nombret_tipo')->where('id', Convocatoria::select('id_tipo_convocatoria')->where('id', 1)->value('id_tipo_convocatoria'))->value('nombret_tipo');
+        $id_conv = session()->get('convocatoria');
+        $tipoConvocatoria = Tipo::select('nombret_tipo')->where('id', Convocatoria::select('id_tipo_convocatoria')->where('id', $id_conv)->value('id_tipo_convocatoria'))->value('nombret_tipo');
         $listaMultiselect;
         if (strcmp($tipoConvocatoria, 'Conv. Docencia') === 0) {
             $listaMultiselect = Requerimiento::select('auxiliatura.nombre_aux as nombre', 'requerimiento.id as id_unico')
-            ->where('id_convocatoria', 1)
+            ->where('id_convocatoria', $id_conv)
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')->get();
         } else {
             $listaMultiselect = Porcentaje::select('id_tematica as id_unico', 'tematica.nombre')
             ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
-            ->where('requerimiento.id_convocatoria', 1)
+            ->where('requerimiento.id_convocatoria', $id_conv)
             ->join('tematica','porcentaje.id_tematica','=','tematica.id')->groupBy('tematica.nombre','id_tematica')->get();
         }
         
@@ -36,8 +37,10 @@ class AdmConocimientosController extends Controller
     }
 
     public function store(AdmConocimientosRequest $request) {
-
-        $tipoConvocatoria = Tipo::select('nombret_tipo')->where('id', Convocatoria::select('id_tipo_convocatoria')->where('id', 1)->value('id_tipo_convocatoria'))->value('nombret_tipo');
+        $id_conv = session()->get('convocatoria');
+        $tipoConvocatoria = Tipo::select('nombret_tipo')
+            ->where('id', Convocatoria::select('id_tipo_convocatoria')
+            ->where('id', $id_conv)->value('id_tipo_convocatoria'))->value('nombret_tipo');
         
         $evaluador = new EvaluadorConocimientos();
         $evaluador->ci = $request->input('adm-cono-ci');
@@ -50,7 +53,7 @@ class AdmConocimientosController extends Controller
 
         EvaluadorConovocatoria::create([
             'id_evaluador' => $idEvaluador, 
-            'id_convocatoria' => 1
+            'id_convocatoria' => $id_conv
         ]);
 
         $arreglo = $request->input('adm-cono-tipo');
@@ -64,7 +67,7 @@ class AdmConocimientosController extends Controller
 
             $jsonTematicas = Porcentaje::select('id_tematica as id_unico')
             ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
-            ->where('requerimiento.id_convocatoria', 1)
+            ->where('requerimiento.id_convocatoria', $id_conv)
             ->join('tematica','porcentaje.id_tematica','=','tematica.id')->groupBy('tematica.nombre','id_tematica')->get();
 
             foreach($jsonTematicas as $item){
@@ -83,7 +86,7 @@ class AdmConocimientosController extends Controller
             }
 
             $jsonAuxiliaturas = Requerimiento::select('requerimiento.id as id_unico')
-            ->where('id_convocatoria', 1)
+            ->where('id_convocatoria', $id_conv)
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')->get();
 
             foreach($jsonAuxiliaturas as $item){
