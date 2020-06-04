@@ -7,7 +7,13 @@ use App\Http\Controllers\Controller;
 
 class AdmConvocatoriaController extends Controller
 {
-    public function index($id)
+    public function index()
+    {   
+        
+        return view('admConvocatoria.admConvocatoria');
+    }
+
+    public function inicio($id)
     {   
         session()->put('convocatoria', $id) ;
         return view('admConvocatoria.admConvocatoria');

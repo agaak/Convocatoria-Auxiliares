@@ -137,20 +137,18 @@
                             <div class="card-header" style="font-size:16px; background: #0A091B; color: white; height: 65px;">
                               {{$convo->titulo}}
                             </div>
-                            <div class="card-body">
+                            <div class="card-body overflow-auto" data-spy="scroll" style="height: 100px">
                               <p class="card-text">{{ $convo->descripcion_convocatoria }}</p>
                             </div>
                             <div class="card-footer text-muted">
-                                <form class="d-inline" action="{{ route('deleteConvocatoria', $convo->id) }}" method="POST">
+                                <form class="d-inline" action="{{ route('convocatoria.destroy', $convo->id) }}" method="POST">
                                    {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <button type="submit"  class="btn btn-link btn-sm">
                                         <img src="{{ asset('img/trash2.png') }}" width="37" height="29">
                                     </button>    
                                 </form>
-                                <a type="button" style="background-color:#2F2D4A; color:white;" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#convoEditModal" data-id="{{ $convo->id }}"
-                                    data-id_tipo="{{ $convo->id_tipo_convocatoria }}" data-descripcion="{{ $convo->descripcion_convocatoria }}" 
-                                    data-fecha_ini="{{ $convo->fecha_inicio }}" data-fecha_fin="{{ $convo->fecha_final }}" >Editar</a>
+                                <a href="{{ route('convocatoria.edit',$convo->id ) }}" style="color:white;" class="btn btn-secondary btn-sm">{{ csrf_field() }}Editar</a>
                                 <a href="{{ route('admConvocatoria',$convo->id ) }}" style="background-color:#2F2D4A; color:white;" class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
                             </div>
                           </div>

@@ -73,7 +73,8 @@ class ConvocatoriaController extends Controller
      */
     public function edit($id)
     {
-        //
+        session()->put('convocatoria', $id) ;
+        return redirect()->route('requests');
     }
 
     /**
@@ -85,7 +86,8 @@ class ConvocatoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //session()->put('convocatoria', $id) ;
+        return redirect()->route('requests');
     }
 
     /**
