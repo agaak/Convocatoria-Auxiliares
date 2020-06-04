@@ -61,7 +61,7 @@ $('#tematicaEditModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var mid = button.data('id')
         var modal = $(this)
-        modal.find('.modal-body #id-tem').val(mid);
+        modal.find('.modal-body #id-tematica-edit').val(mid);
 })
 
 $(document).ready(function(){
@@ -107,13 +107,17 @@ function selectAuxiliaturaModal(mporcentajes,mtematicas) {
     var mid_req = selecte.options[selecte.selectedIndex].value;
     console.log(mporcentajes);
     console.log(mtematicas);
+    console.log(mid_req);
     var x = document.getElementsByClassName('porcentaje-aux');
     var cont = 0;
     for(i = 0; i < mporcentajes.length; i++) {
-        if(mporcentajes[i].id_requerimiento == mid_req && 
-            mporcentajes[i].id_tematica == mtematicas[mtematicas.length-cont-1].id_tematica){
-                x[mtematicas.length-cont-1].value = mporcentajes[i].porcentaje;    
-                cont++; 
+        if(mporcentajes[i].id_requerimiento == mid_req){
+            for(j = 0; j < mtematicas.length; j++){
+                if(mporcentajes[i].id_tematica == mtematicas[j].id){
+                    x[cont].value = mporcentajes[i].porcentaje;    
+                    cont++; 
+                }
+            }
         }
     }
 }

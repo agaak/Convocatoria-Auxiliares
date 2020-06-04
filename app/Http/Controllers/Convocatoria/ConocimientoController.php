@@ -18,18 +18,22 @@ class ConocimientoController extends Controller
             ->value('id_tipo_convocatoria');
         $requests =DB::table('requerimiento')->select('auxiliatura.nombre_aux','auxiliatura.cod_aux','requerimiento.id')
             ->where('id_convocatoria',$id_conv)
-            ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id') ->get();    
-        $porcen = Porcentaje::select('id_requerimiento','porcentaje','id_tematica','id_requerimiento','tematica.nombre')
+            ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')->orderBy('requerimiento.id','ASC')->get();    
+        $porcentajes = Porcentaje::select('id_requerimiento','porcentaje.porcentaje','porcentaje.id_auxiliatura','id_tematica','tematica.nombre')
             ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+            ->where('requerimiento.id_convocatoria',$id_conv)->orderBy('id_requerimiento','ASC')
+            ->join('tematica','porcentaje.id_tematica','=','tematica.id')
+            ->orderBy('tematica.nombre','ASC')->get();
+        $tems = Tematica::select('tematica.nombre','tematica.id')
+            ->join('porcentaje','tematica.id','=','porcentaje.id_tematica')
+            ->join('requerimiento','porcentaje.id_requerimiento', '=', 'requerimiento.id')
             ->where('requerimiento.id_convocatoria',$id_conv)
-            ->join('tematica','porcentaje.id_tematica','=','tematica.id');
-        $porcentajes = $porcen->get();
-        $tems = $porcen->select('nombre','id_tematica')->groupBy('nombre','id_tematica')->get();
+            ->groupBy('tematica.nombre','tematica.id')->orderBy('nombre','ASC')->get();
         $tem_res = [];
         foreach($tems as $tem){
-            array_push($tem_res, $tem->id_tematica);    
+            array_push($tem_res, $tem->id);    
         }
-        $tematics=DB::table('tematica')->where('id_unidad_academica',1)
+        $tematics=Tematica::where('id_unidad_academica',1)
             ->where('id_tipo_convocatoria',$tipo)
             ->whereNotIn('id', $tem_res)->get();
         return view('convocatory.conocimientos', compact('tematics', 'requests','porcentajes','tems'));
@@ -37,7 +41,7 @@ class ConocimientoController extends Controller
 
     public function knowledgeRatingTematicValid(ConocimientoCreateRequest $request){
         $res = DB::table('tematica')
-            ->where('tematica.id',$request->get('id-tem')) 
+            ->where('tematica.id',$request->get('id-tematica')) 
             ->join('porcentaje', 'tematica.id','=','porcentaje.id_tematica')
             ->join('requerimiento','porcentaje.id_requerimiento','=','requerimiento.id')
             ->where('requerimiento.id_convocatoria','=',$request->session()->get('convocatoria'))
@@ -48,7 +52,7 @@ class ConocimientoController extends Controller
             $por = new Porcentaje(); 
             $por -> id_requerimiento = $item->id;
             $por -> id_auxiliatura =  $item->id_auxiliatura;
-            $por -> id_tematica = $request->get('id-tem'); 
+            $por -> id_tematica = $request->get('id-tematica'); 
             $por -> porcentaje = $request->get('porcentaje'); 
             $por -> save();
             }
@@ -68,7 +72,7 @@ class ConocimientoController extends Controller
         $porcentaje = Porcentaje::select('porcentaje.id')
             ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
             ->where('requerimiento.id_convocatoria',$id_conv)
-            ->where('id_tematica', $request->input('id-tem'))->get();
+            ->where('id_tematica', $request->input('id-tematica-edit'))->get();
         foreach($porcentaje as $item){
             DB::table('porcentaje')->where('id', $item->id)->update([
                 'id_tematica' => $request->input('nombre-tem')

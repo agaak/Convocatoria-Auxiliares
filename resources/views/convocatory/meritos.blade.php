@@ -307,9 +307,5 @@
             </tbody>
         </table>
     </div>
-    <div class="my-5 text-center">
-        <a href=" {{ route('importantDates') }} " type="button" class="btn btn-info my-5">Anterior</a>
-        <a href=" {{ route('knowledgeRating') }} " type="button" class="btn btn-info my-5">Siguiente</a>
-    </div>
 </div>
 @endsection

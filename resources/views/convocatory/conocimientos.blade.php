@@ -50,16 +50,16 @@
             <td class="table-light">{{ $num++ }}</td>
             <td class="table-light">{{ $tematic->nombre }}</td>
             @foreach($porcentajes as $item)
-              @if($item->id_tematica == $tematic->id_tematica)
+              @if($item->id_tematica == $tematic->id)
                 <td class="table-light">{{ $item->porcentaje }}</td>
               @endif
             @endforeach
             <td class="table-light">
               <a class="options" data-toggle="modal" data-target="#tematicaEditModal"
-                data-id="{{ $tematic->id_tematica }}" data-nombre="{{ $tematic->nombre }}" data-dismiss="modal"><img
+                data-id="{{ $tematic->id }}" data-nombre="{{ $tematic->nombre }}" data-dismiss="modal"><img
                   src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
               <form class="d-inline"
-                action="{{ route('knowledgeRatingTematicDelete', $tematic->id_tematica) }}"
+                action="{{ route('knowledgeRatingTematicDelete', $tematic->id) }}"
                 method="POST">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
@@ -92,7 +92,7 @@
                 <label for="nombre">No hay tematicas para añadir</label>
               @else
                 <label for="nombre">Nombre de la Tematica</label>
-                <select class="form-control" id="id-tem" name="id-tem">
+                <select class="form-control" id="id-tematica" name="id-tematica">
                   @foreach($tematics as $tematic)
                     <option value={{ $tematic->id }}>{{ $tematic->nombre }}</option>
                   @endforeach
@@ -144,7 +144,7 @@
               </div>
               <div style="visibility: hidden"> {{ $num = 1 }}</div>
               @foreach($tems as $tematic)
-                <input type="hidden" id="id-tem" name="id-tem[]" value="{{ $tematic->id_tematica }}">
+                <input type="hidden" name="id-tem[]" value="{{ $tematic->id }}">
                 <div class="form-row">
                   <div class="form-group col-7">
                     <div class="row">
@@ -159,7 +159,7 @@
                       <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
                       
                         <input type="number" class="form-control form-control-sm col-sm-5 porcentaje-aux" name="porcentaje-aux[]"
-                              id="porcentaje-aux"  min="0" max="100" required>
+                               min="0" max="100" required>
                         
                     </div>
                   </div>
@@ -192,7 +192,7 @@
             role="form" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
-            <input type="hidden" id="id-tem" name="id-tem">
+            <input type="hidden" id="id-tematica-edit" name="id-tematica-edit">
             <div class="form-group">
               @if($tematics->isEmpty())
                 <label for="nombre">No hay tematicas para cambiar</label>
@@ -215,8 +215,6 @@
     </div>
   </div>
   <div class="my-5 py-5 text-center">
-    <a href="{{ route('calificacion-meritos.index') }}" class="btn btn-info" tabindex="-1"
-      role="button" aria-disabled="true">Anterior</a>
     <a href="{{ route('knowledgeRatingFinish') }}" class="btn btn-info" tabindex="-1" role="button"
       aria-disabled="true">Finalizar</a>
   </div>

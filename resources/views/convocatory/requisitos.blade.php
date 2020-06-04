@@ -54,12 +54,6 @@
           rows="3"></textarea>
       </div>
     </form>
-    <div class="my-5 py-5 text-center">
-      <a href="{{ route('requests') }}" class="btn btn-info" tabindex="-1" role="button"
-      aria-disabled="true">Anterior</a>
-      <a href="{{ route('documentos') }}" class="btn btn-info" tabindex="-1" role="button"
-        aria-disabled="true">Siguiente</a>
-    </div>
   </div>
 
   <!-- Modal -->

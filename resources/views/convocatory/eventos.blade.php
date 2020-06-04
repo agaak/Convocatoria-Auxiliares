@@ -215,11 +215,5 @@
             </tbody>
         </table>
     </div>
-    <div class="my-5 py-5 text-center">
-        <a href="{{ route('documentos') }}" class="btn btn-info" tabindex="-1" role="button"
-            aria-disabled="true">Anterior</a>
-        <a href="{{ route('calificacion-meritos.index') }}" class="btn btn-info" tabindex="-1"
-            role="button" aria-disabled="true">Siguiente</a>
-    </div>
 </div>
 @endsection
