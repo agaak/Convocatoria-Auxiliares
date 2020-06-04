@@ -18,7 +18,9 @@ class ConvocatoriaController extends Controller
     {
         $anioActual = date("Y");
         $tipos = Tipo::get();
-        return view('convocatoria', compact('tipos','anioActual'));
+        $convos = Convocatoria::where('id_unidad_academica',1)->get();
+
+        return view('convocatoria', compact('tipos','anioActual','convos'));
     }
 
     /**
@@ -94,6 +96,7 @@ class ConvocatoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Convocatoria::find($id)->delete();
+        return back();
     }
 }
