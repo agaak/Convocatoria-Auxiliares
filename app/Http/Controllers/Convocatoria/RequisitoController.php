@@ -32,6 +32,12 @@ class RequisitoController extends Controller
         $requerimients=DB::table('requisito')->
             where('id_convocatoria', $request->session()->get('convocatoria'))
             ->get();
-        return view('convocatory.requisitos', compact('requerimients'));
+        $convActual = request()->session()->get('convocatoria');
+        $notaActual = DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 1)->exists();
+        $datoNota = null;
+        if ($notaActual) {
+            $datoNota = DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 1)->get()[0];
+        }
+        return view('convocatory.requisitos', compact('requerimients', 'datoNota'));
     }
 }

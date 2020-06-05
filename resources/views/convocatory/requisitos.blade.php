@@ -47,13 +47,17 @@
         </tr>@endforeach
       </tbody>
     </table>
-    <form method="post" class="my-5" accion= >
+  </div>
+
+  {{-- Nota Requisitos --}}
+  <div class="table-requests">
+    <form method="POST" class="my-5" action="{{ route('requisitoNota') }}">
+      {{ csrf_field() }}
       <div class="form-group">
-        <label for="exampleInputEmail1">Nota(*)</label>
-        {{ csrf_field() }}
+        <label for="nota-requisito">Nota(*)</label>
         <input class="btn btn-info btn-sm mx-3" type="submit" value="Guardar nota">
-        <textarea class="form-control my-2" id="exampleFormControlTextarea1" name="" placeholder="Ingrese la nota respectiva"
-          rows="3"></textarea>
+        <textarea class="form-control my-2" id="nota-requisito" name="nota-requisito" placeholder="Ingrese la nota respectiva"
+          rows="3">{{ $datoNota === null? '': $datoNota->integer }}</textarea>
       </div>
     </form>
   </div>
