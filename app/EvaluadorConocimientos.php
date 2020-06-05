@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class EvaluadorConocimientos extends Model
 {
     //
-    protected $table='evaluador_conocimientos';
+    protected $table='evaluador';
 
     protected $fillable=['ci', 'nombre', 'apellido', 'correo'];
 }
