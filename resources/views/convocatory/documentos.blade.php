@@ -56,7 +56,7 @@
         <label for="nota-doc">Nota(*)</label>
         <input class="btn btn-info btn-sm mx-3" type="submit" value="Guardar nota">
         <textarea class="form-control my-2" id="nota-doc" name="nota-doc" placeholder="Ingrese la nota respectiva"
-          rows="3">{{ $datoNotaDoc === null? '': $datoNotaDoc->integer }}</textarea>
+          rows="3">{{ $datoNotaDoc === null? '': $datoNotaDoc->descripcion }}</textarea>
       </div>
     </form>
   </div>

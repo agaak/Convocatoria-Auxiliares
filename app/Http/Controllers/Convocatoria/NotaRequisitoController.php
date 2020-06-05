@@ -15,11 +15,11 @@ class NotaRequisitoController extends Controller
         if (DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 1)->exists()) {
             if (request()->input('nota-requisito') === null) {
                 DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 1)->update([
-                    'integer' => ''
+                    'descripcion' => ''
                 ]);
             } else {
                 DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 1)->update([
-                    'integer' => request()->input('nota-requisito')
+                    'descripcion' => request()->input('nota-requisito')
                 ]);
             }
             
@@ -27,7 +27,7 @@ class NotaRequisitoController extends Controller
             DB::table('nota')->insert([
                 'id_tipo_nota' => 1,
                 'id_convocatoria' => $convActual,
-                'integer' => request()->input('nota-requisito')
+                'descripcion' => request()->input('nota-requisito')
             ]);
         }
 

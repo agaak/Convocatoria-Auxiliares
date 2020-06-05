@@ -57,7 +57,7 @@
         <label for="nota-requisito">Nota(*)</label>
         <input class="btn btn-info btn-sm mx-3" type="submit" value="Guardar nota">
         <textarea class="form-control my-2" id="nota-requisito" name="nota-requisito" placeholder="Ingrese la nota respectiva"
-          rows="3">{{ $datoNota === null? '': $datoNota->integer }}</textarea>
+          rows="3">{{ $datoNota === null? '': $datoNota->descripcion }}</textarea>
       </div>
     </form>
   </div>

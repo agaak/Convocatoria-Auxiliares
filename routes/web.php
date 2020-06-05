@@ -70,7 +70,7 @@ Route::get('convocatoria/adm-resultados', 'AdmConvocatoria\AdmResultadosControll
 
 
 
-Route::get('convocatoria/{id}', 'ConvocatoriaController@download')->name('convocatoria.download');
+Route::get('convocatoria/download/{id}', 'ConvocatoriaController@download')->name('convocatoria.download');
 
 
 

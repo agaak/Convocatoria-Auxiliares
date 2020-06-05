@@ -14,11 +14,11 @@ class NotaDocController extends Controller
         if (DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 2)->exists()) {
             if (request()->input('nota-doc') === null) {
                 DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 2)->update([
-                    'integer' => ''
+                    'descripcion' => ''
                 ]);
             } else {
                 DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 2)->update([
-                    'integer' => request()->input('nota-doc')
+                    'descripcion' => request()->input('nota-doc')
                 ]);
             }
             
@@ -26,7 +26,7 @@ class NotaDocController extends Controller
             DB::table('nota')->insert([
                 'id_tipo_nota' => 2,
                 'id_convocatoria' => $convActual,
-                'integer' => request()->input('nota-doc')
+                'descripcion' => request()->input('nota-doc')
             ]);
         }
 

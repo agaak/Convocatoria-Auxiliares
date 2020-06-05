@@ -141,7 +141,7 @@
                                     @endif
                                 @endif
                                 <div class="col-md-4">
-                                    <div class="card text-center" style="height: 350px">
+                                    <div class="card text-center" style="height: 375px">
                                         <div class="card-header"
                                             style="font-size:16px; background: #0A091B; color: white; height: 65px;">
                                             {{ $convo->titulo }}
@@ -157,14 +157,14 @@
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-link btn-sm">
                                                     <img src="{{ asset('img/trash2.png') }}"
-                                                        width="37" height="29">
+                                                        width="36" height="29">
                                                 </button>
                                             </form>
                                             @if($convo->creado)
                                                 @if($convo->publicado)
                                                     <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                                         style="background-color:#2F2D4A; color:white;"
-                                                        class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
+                                                        class="btn btn-sm">{{ csrf_field() }}Administrar</a>
                                                     <a href="{{ route('convocatoria.download',$convo->id ) }}" style="color:white;"
                                                         class="btn btn-info btn-sm">Visualizar PDF</a>
                                                 </div>
@@ -173,20 +173,20 @@
                                                 @else
                                                 <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                                 style="background-color:#2F2D4A; color:white;"
-                                                class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
-                                                <a href="{{ route('convocatoria.show',$convo->id ) }}"
-                                                style="color:white;"
-                                                class="btn btn-success btn-sm">{{ csrf_field() }}Publicar</a>
+                                                class="btn btn-sm">{{ csrf_field() }}Administrar</a>
+                                                <a href="{{ route('convocatoria.show',$convo->id ) }}" 
+                                                style="background-color:#61DE4D;color:rgb(255, 255, 255);"
+                                                class="btn btn-sm">{{ csrf_field() }}Publicar</a>
                                                 </div>
                                                 <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
                                                 convocatoria esta lista para publicarse.</div>
                                                 @endif
                                             @else
                                                 <a href="{{ route('convocatoria.edit',$convo->id ) }}"
-                                                style="color:white;"
-                                                class="btn btn-secondary btn-sm">{{ csrf_field() }}Editar</a>
-                                                <button style="color:white;" class="btn btn-info btn-sm"
-                                                type="button" disabled>Administrarr</button>
+                                                style="background-color:#2F2D4A; color:white;"
+                                                class="btn btn-sm">{{ csrf_field() }}Editar</a>
+                                                <button style="background-color:#9C9C9C; color:white;" class="btn btn-sm"
+                                                type="button" disabled>Publicar</button>
                                                 </div>
                                                 <div class="card-footer text-muted" style="height: 50px; font-size:14px;">Esta convocatoria se
                                                 encuentra incompleta.</div>
