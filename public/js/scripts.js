@@ -35,6 +35,14 @@ function editDatesList(listDates) {
     $('#fecha-fin-evento-edit').val(listDates['fecha_final'].replace(" ", "T"));
 }
 
+function editEvaluadorMeritos(evaluadorMeritos) {
+    $('#id-dato-edit').val(evaluadorMeritos['id']);
+    $('#adm-meritos-ci-edit').val(evaluadorMeritos['ci']);
+    $('#adm-meritos-nombre-edit').val(evaluadorMeritos['nombre']);
+    $('#adm-meritos-apellidos-edit').val(evaluadorMeritos['apellido']);
+    $('#adm-meritos-correo-edit').val(evaluadorMeritos['correo']);
+}
+
 $('#requestEditModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     var mid = button.data('id')
