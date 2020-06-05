@@ -57,6 +57,11 @@ Route::get('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosCo
 Route::post('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosController@store')->name('admConoStore');
 
 Route::get('convocatoria/adm-meritos', 'AdmConvocatoria\AdmMeritosController@index')->name('admMeritos');
+Route::post('convocatoria/adm-meritos','AdmConvocatoria\AdmMeritosController@create')->name('admMeritosCreate');
+Route::put('convocatoria/adm-meritos', 'AdmConvocatoria\AdmMeritosController@update')->name('admMeritosUpdate');
+Route::delete('convocatoria/adm-meritos/{id}', 'AdmConvocatoria\AdmMeritosController@delete')->name('admMeritosDelete');
+
+
 Route::get('convocatoria/adm-resultados', 'AdmConvocatoria\AdmResultadosController@index')->name('admResultados');
 
 
