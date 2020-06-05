@@ -151,14 +151,14 @@
                                     </form>
                                     @if($convo->creado)
                                         @if($convo->publicado)
-                                            <a href="{{ route('admConvocatoria',$convo->id ) }}"
+                                            <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                                 style="background-color:#2F2D4A; color:white;"
                                                 class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
                                             <a href="#" style="color:white;" class="btn btn-info btn-sm">Visualizar</a>
                                 </div>
                                 <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta convocatoria esta en curso.</div>
                             @else
-                                <a href="{{ route('admConvocatoria',$convo->id ) }}"
+                                <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                     style="background-color:#2F2D4A; color:white;"
                                     class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
                                 <a href="{{ route('convocatoria.show',$convo->id ) }}"
@@ -215,14 +215,14 @@
                                 </form>
                                 @if($convo->creado)
                                     @if($convo->publicado)
-                                        <a href="{{ route('admConvocatoria',$convo->id ) }}"
+                                        <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                             style="background-color:#2F2D4A; color:white;"
                                             class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
                                         <a href="#" style="color:white;" class="btn btn-info btn-sm">Visualizar</a>
                             </div>
                             <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta convocatoria esta en curso.</div>
                         @else
-                            <a href="{{ route('admConvocatoria',$convo->id ) }}"
+                            <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                 style="background-color:#2F2D4A; color:white;"
                                 class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
                             <a href="{{ route('convocatoria.show',$convo->id ) }}"

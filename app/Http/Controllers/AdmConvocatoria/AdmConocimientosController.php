@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\AdmConvocatoria;
 
-
+use App\Auxiliatura;
 use App\Convocatoria;
 use App\EvaluadorAuxiliatura;
 use App\EvaluadorConocimientos;
@@ -19,9 +19,9 @@ class AdmConocimientosController extends Controller
     public function index()
     {
         $id_conv = session()->get('convocatoria');
-        $tipoConvocatoria = Tipo::select('nombret_tipo')->where('id', Convocatoria::select('id_tipo_convocatoria')->where('id', $id_conv)->value('id_tipo_convocatoria'))->value('nombret_tipo');
-        $listaMultiselect;
-        if (strcmp($tipoConvocatoria, 'Conv. Docencia') === 0) {
+        $listaMultiselect = [];
+        $tipoConvocatoria  = Convocatoria::where('id',$id_conv)->value('id_tipo_convocatoria');
+        if ($tipoConvocatoria  === 2) {
             $listaMultiselect = Requerimiento::select('auxiliatura.nombre_aux as nombre', 'requerimiento.id as id_unico')
             ->where('id_convocatoria', $id_conv)
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')->get();
@@ -31,17 +31,35 @@ class AdmConocimientosController extends Controller
             ->where('requerimiento.id_convocatoria', $id_conv)
             ->join('tematica','porcentaje.id_tematica','=','tematica.id')->groupBy('tematica.nombre','id_tematica')->get();
         }
-        
+
         $listaCi = EvaluadorConocimientos::select('ci')->get();
+        $evalua = EvaluadorConocimientos::select('evaluador_conocimientos.*')
+            ->join('evaluador_conovocatoria','evaluador_conocimientos.id','=','evaluador_conovocatoria.id_evaluador')
+            ->where('evaluador_conovocatoria.id_convocatoria',$id_conv);
+        $evaluadores = $evalua->get();
+        $auxs = $evalua->select('auxiliatura.nombre_aux','auxiliatura.cod_aux','evaluador_conocimientos.id') 
+            ->join('evaluador_auxiliatura','evaluador_conocimientos.id','=','evaluador_auxiliatura.id_evaluador')  
+            ->join('auxiliatura','evaluador_auxiliatura.id_auxiliatura','=','auxiliatura.id')
+            ->get();
+            //->join('evaluador_tematica','evaluador_conocimientos.id','=','evaluador_tematica.id_evaluador') 
+            //->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')
+            //->groupBy('evaluador_conocimientos.id','tematica.nombre')->orderBy('evaluador_conocimientos.id','ASC')
+            //->get();
+        $prueba = [];
+        foreach($evaluadores as $eva){    
+            $prueba = collect($eva)->all();//flatten();//->pluck('nombre_tematica')->unique();
+        }
         return view('admConvocatoria.admConocimientos', compact('listaCi', 'listaMultiselect'));
+    }
+
+    public function inicio($id) {
+        session()->put('convocatoria', $id) ;
+        return redirect()->route('admConvocatoria');
     }
 
     public function store(AdmConocimientosRequest $request) {
         $id_conv = session()->get('convocatoria');
-        $tipoConvocatoria = Tipo::select('nombret_tipo')
-            ->where('id', Convocatoria::select('id_tipo_convocatoria')
-            ->where('id', $id_conv)->value('id_tipo_convocatoria'))->value('nombret_tipo');
-        
+        $tipoConvocatoria  = Convocatoria::where('id',$id_conv)->value('id_tipo_convocatoria');
         $evaluador = new EvaluadorConocimientos();
         $evaluador->ci = $request->input('adm-cono-ci');
         $evaluador->nombre = $request->input('adm-cono-nombre');

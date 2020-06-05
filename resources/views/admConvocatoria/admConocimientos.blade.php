@@ -12,8 +12,11 @@
         <table class="table table-bordered" style="text-align:Left"  >
         <thead class="thead-dark">
             <tr>
-            <th style="font-weight: normal" scope="col" >Cod.Aux</th> 
-            <th style="font-weight: normal" scope="col">Tematica</th>
+                @if (2==2)
+                <th style="font-weight: normal" scope="col" >Cod.Aux</th>
+                @else
+                <th style="font-weight: normal" scope="col">Tematica</th>
+                @endif 
             <th style="font-weight: normal" scope="col">CI</th>
             <th style="font-weight: normal" scope="col">Nombres</th>
             <th style="font-weight: normal" scope="col">Apellidos</th>
@@ -24,21 +27,28 @@
         <tbody style="background-color: white">
             <div style="visibility: hidden"> {{ $num = 1 }}</div>
             <tr>
-            <th style="font-weight: normal">Introd1</th> 
-            <th style="font-weight: normal"> Examen escrito</th>
-            <th style="font-weight: normal">9999999</th>
-            <th style="font-weight: normal">Constantine Bennedict </th>
-            <th style="font-weight: normal">Papadopolis Vasilievich</th>
-            <th style="font-weight: normal">correocreadfullpro@hotmail.com</th>
-            <th>
-                <button type="submit" class="btn btn-link">
-                <img src="{{ asset('img/pen.png') }}" width="26" height="26">
-                </button> 
-                <button type="submit" class="btn btn-link">
-                <img src="{{ asset('img/trash.png') }}" width="26" height="26">
-                </button>    
-            </th>
+            <td scope="col">Introd1</td>
+            
+            <td scope="col" rowspan="3">9999999</td>
+            <td scope="col" rowspan="3">Constantine Bennedict </td>
+            <td scope="col" rowspan="3">Papadopolis Vasilievich</td>
+            <td scope="col" rowspan="3">correocreadfullpro@hotmail.com</td>
+                <td class="table-light" scope="col" rowspan="3">
+                    <a class="options" data-toggle="modal" data-target="#tematicaEditModal" 
+                    data-dismiss="modal"><img src="{{ asset('img/pen.png') }}" width="20" height="25"></a>
+                    <form class="d-inline"
+                      action="#"
+                      method="POST">
+                      {{ csrf_field() }}
+                      {{ method_field('DELETE') }}
+                      <button type="submit" class="btn btn-link">
+                        <img src="{{ asset('img/trash.png') }}" width="20" height="25">
+                      </button>
+                    </form>
+                  </td>  
             </tr>
+            <tr><td scope="col">Introd1</td></tr>
+            <tr><td scope="col">Introd1</td></tr>
         </tbody>
         </table>
     </div>

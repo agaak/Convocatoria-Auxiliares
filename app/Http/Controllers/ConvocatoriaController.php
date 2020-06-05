@@ -20,7 +20,8 @@ class ConvocatoriaController extends Controller
         $anioActual = date("Y");
         $tipos = Tipo::get();
         $convos = Convocatoria::where('id_unidad_academica',1)->get();
-
+        session()->flush();
+        session()->regenerate();
         return view('convocatoria', compact('tipos','anioActual','convos'));
     }
 
