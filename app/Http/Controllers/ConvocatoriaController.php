@@ -65,10 +65,12 @@ class ConvocatoriaController extends Controller
      */
     public function show($id)
     {
-        Convocatoria::where('id', $id)->update([
-            'publicado' => true
-        ]);
-        return back();
+        $file = Convocatoria::where('id', $id)->value('ruta_pdf');
+        //Convocatoria::where('id', $id)->update([
+        //    'publicado' => true
+        //]);
+        $pathToFile = Storage::get($file);
+        return response()->download($file);//back();
     }
 
     /**
@@ -104,7 +106,7 @@ class ConvocatoriaController extends Controller
      */
     public function destroy($id)
     {
-        //Storage::delete(Convocatoria::find($id)->ruta_pdf);
+        Storage::delete(Convocatoria::find($id)->ruta_pdf);
         Convocatoria::find($id)->delete();
         return back();
     }
