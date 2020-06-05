@@ -65,12 +65,16 @@ class ConvocatoriaController extends Controller
      */
     public function show($id)
     {
+        Convocatoria::where('id', $id)->update([
+            'publicado' => true
+        ]);
+        return back();
+    }
+
+    public function download($id)
+    {
         $file = Convocatoria::where('id', $id)->value('ruta_pdf');
-        //Convocatoria::where('id', $id)->update([
-        //    'publicado' => true
-        //]);
-        $pathToFile = Storage::get($file);
-        return response()->download($file);//back();
+        return Storage::download($file);
     }
 
     /**
