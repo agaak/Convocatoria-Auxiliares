@@ -58,6 +58,14 @@ class CreateUnidadAcademicaTable extends Migration
             $table->dateTime('fecha_final');
             $table->timestamps();
         });
+        Schema::create('calificacion_final', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('id_convocatoria');
+            $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
+            $table->integer('porcentaje_merito');
+            $table->integer('porcentaje_conocimiento');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -67,6 +75,7 @@ class CreateUnidadAcademicaTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('calificacion_final');
         Schema::dropIfExists('requisito');
         Schema::dropIfExists('evento');
         Schema::dropIfExists('convocatoria');  
