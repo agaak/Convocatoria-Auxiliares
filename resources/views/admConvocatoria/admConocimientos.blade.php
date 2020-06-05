@@ -8,32 +8,38 @@
     <button class="pl-4 pr-4 btn btn-dark" type="button" data-toggle="modal" data-target="#admConoModal">Registrar Evaluador</button>
 
     <!-- Table -->
-    <div class="table-requests1">
+    <div class="table-requests1 vertical-align: middle; ">
         <table class="table table-bordered" style="text-align:Left"  >
-        <thead class="thead-dark">
-            <tr>
-                @if (2==2)
-                <th style="font-weight: normal" scope="col" >Cod.Aux</th>
+        <thead class="thead-dark" style="text-align: center">
+        <tr>
+                @if ($tipoConvocatoria==2)
+                <th style="font-weight: normal" scope="col" >Auxiliatura</th>
                 @else
                 <th style="font-weight: normal" scope="col">Tematica</th>
                 @endif 
-            <th style="font-weight: normal" scope="col">CI</th>
+            <th style="font-weight: normal" scope="col">Carnet</th>
             <th style="font-weight: normal" scope="col">Nombres</th>
             <th style="font-weight: normal" scope="col">Apellidos</th>
-            <th style="font-weight: normal" scope="col">Email</th>
+            <th style="font-weight: normal" scope="col">Correo</th>
             <th style="font-weight: normal" scope="col">Opciones</th>
             </tr>
         </thead>
         <tbody style="background-color: white">
-            <div style="visibility: hidden"> {{ $num = 1 }}</div>
+        @foreach ($evaluadores as $evaluador)
+        <div style="visibility: hidden; "> {{ $num = 1, $tam = 0 }}</div>
             <tr>
-            <td scope="col">Introd1</td>
+            @foreach($lista_tem_aux as $tem_aux)
+            <div style="visibility: hidden; height: 0;"> {{ $tem_aux->id_eva == $evaluador->id? $tam++ : $tam }}</div>
+            @if($num == 1 && $tem_aux->id_eva == $evaluador->id)
+                <div style="visibility: hidden; height: 0;"> {{ $num++ }}</div>
+                <td scope="col">{{$tem_aux->nombre}}</td>
+            @endif @endforeach
             
-            <td scope="col" rowspan="3">9999999</td>
-            <td scope="col" rowspan="3">Constantine Bennedict </td>
-            <td scope="col" rowspan="3">Papadopolis Vasilievich</td>
-            <td scope="col" rowspan="3">correocreadfullpro@hotmail.com</td>
-                <td class="table-light" scope="col" rowspan="3">
+            <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}" >{{$evaluador->ci}}</td>
+            <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}">{{$evaluador->nombre}}</td>
+            <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}">{{$evaluador->apellido}}</td>
+            <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}">{{$evaluador->correo}}</td>
+                <td class="table-light" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
                     <a class="options" data-toggle="modal" data-target="#tematicaEditModal" 
                     data-dismiss="modal"><img src="{{ asset('img/pen.png') }}" width="20" height="25"></a>
                     <form class="d-inline"
@@ -47,8 +53,14 @@
                     </form>
                   </td>  
             </tr>
-            <tr><td scope="col">Introd1</td></tr>
-            <tr><td scope="col">Introd1</td></tr>
+            @foreach ($lista_tem_aux as $tem_aux)
+                @if($tem_aux->id_eva==$evaluador->id)
+                    @if($num++ > 2)
+                        <tr><td scope="col">{{$tem_aux->nombre}}</td></tr>
+                   @endif
+                @endif
+            @endforeach        
+        @endforeach
         </tbody>
         </table>
     </div>

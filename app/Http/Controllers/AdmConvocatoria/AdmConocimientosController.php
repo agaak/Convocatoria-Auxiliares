@@ -20,36 +20,34 @@ class AdmConocimientosController extends Controller
     {
         $id_conv = session()->get('convocatoria');
         $listaMultiselect = [];
+        $lista_tem_aux = [];
+        $evalua = EvaluadorConocimientos::select('evaluador_conocimientos.*')
+            ->join('evaluador_conovocatoria','evaluador_conocimientos.id','=','evaluador_conovocatoria.id_evaluador')
+            ->where('evaluador_conovocatoria.id_convocatoria',$id_conv);
+        $evaluadores = $evalua->get();
         $tipoConvocatoria  = Convocatoria::where('id',$id_conv)->value('id_tipo_convocatoria');
         if ($tipoConvocatoria  === 2) {
             $listaMultiselect = Requerimiento::select('auxiliatura.nombre_aux as nombre', 'requerimiento.id as id_unico')
             ->where('id_convocatoria', $id_conv)
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')->get();
+        
+            $lista_tem_aux = $evalua->select('auxiliatura.nombre_aux as nombre','auxiliatura.id','auxiliatura.cod_aux as cod','evaluador_conocimientos.id as id_eva') 
+            ->join('evaluador_auxiliatura','evaluador_conocimientos.id','=','evaluador_auxiliatura.id_evaluador')  
+            ->join('auxiliatura','evaluador_auxiliatura.id_auxiliatura','=','auxiliatura.id')
+            ->get();
         } else {
             $listaMultiselect = Porcentaje::select('id_tematica as id_unico', 'tematica.nombre')
             ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
             ->where('requerimiento.id_convocatoria', $id_conv)
             ->join('tematica','porcentaje.id_tematica','=','tematica.id')->groupBy('tematica.nombre','id_tematica')->get();
+        
+            $lista_tem_aux = $evalua->select('tematica.nombre','tematica.id','evaluador_conocimientos.id as id_eva') 
+            ->join('evaluador_tematica','evaluador_conocimientos.id','=','evaluador_tematica.id_evaluador')  
+            ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')
+            ->groupBy('tematica.id','evaluador_conocimientos.id')->get();
         }
-
         $listaCi = EvaluadorConocimientos::select('ci')->get();
-        $evalua = EvaluadorConocimientos::select('evaluador_conocimientos.*')
-            ->join('evaluador_conovocatoria','evaluador_conocimientos.id','=','evaluador_conovocatoria.id_evaluador')
-            ->where('evaluador_conovocatoria.id_convocatoria',$id_conv);
-        $evaluadores = $evalua->get();
-        $auxs = $evalua->select('auxiliatura.nombre_aux','auxiliatura.cod_aux','evaluador_conocimientos.id') 
-            ->join('evaluador_auxiliatura','evaluador_conocimientos.id','=','evaluador_auxiliatura.id_evaluador')  
-            ->join('auxiliatura','evaluador_auxiliatura.id_auxiliatura','=','auxiliatura.id')
-            ->get();
-            //->join('evaluador_tematica','evaluador_conocimientos.id','=','evaluador_tematica.id_evaluador') 
-            //->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')
-            //->groupBy('evaluador_conocimientos.id','tematica.nombre')->orderBy('evaluador_conocimientos.id','ASC')
-            //->get();
-        $prueba = [];
-        foreach($evaluadores as $eva){    
-            $prueba = collect($eva)->all();//flatten();//->pluck('nombre_tematica')->unique();
-        }
-        return view('admConvocatoria.admConocimientos', compact('listaCi', 'listaMultiselect'));
+        return view('admConvocatoria.admConocimientos', compact('listaCi', 'listaMultiselect','lista_tem_aux','evaluadores','tipoConvocatoria'));
     }
 
     public function inicio($id) {
