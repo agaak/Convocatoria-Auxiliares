@@ -217,14 +217,14 @@
     </div>
   </div>
 
-  <div class="my-5 py-5 text-center">
+  <div class="my-4 py-5 text-center">
     <form action="{{ route('knowledgeRatingFinish') }}" enctype="multipart/form-data" method="POST" accept-charset="UTF-8">
       {{ csrf_field() }}
       <div class="custom-file col-sm-4" lang="es">
         <input type="file" class="custom-file-input" id="upload-pdf" name="upload-pdf" lang="es" required>
         <label class="custom-file-label" style="text-align: left;" for="customFileLang">Seleccionar PDF</label>
-      </div>
-      <button type="submit" class="btn btn-info mx-3" tabindex="-1" role="button" aria-disabled="true">
+      </div><br>
+      <button type="submit" class="btn btn-info mx-3 mt-3" tabindex="-1" role="button" aria-disabled="true">
         Finalizar
       </button>
     </form>

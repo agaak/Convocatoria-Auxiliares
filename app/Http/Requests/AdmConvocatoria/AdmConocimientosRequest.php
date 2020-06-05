@@ -25,10 +25,10 @@ class AdmConocimientosRequest extends FormRequest
     {
         return [
             'adm-cono-tipo' => 'required',
-            'adm-cono-ci' => 'min:4|unique:evaluador_conocimientos,ci',
+            'adm-cono-ci' => 'min:4|unique:evaluador,ci',
             'adm-cono-nombre' => 'regex:/^[a-zA-Z\s]*$/',
             'adm-cono-apellidos' => 'regex:/^[\pL\s\-]+$/u',
-            'adm-cono-correo' => 'email|unique:evaluador_conocimientos,correo'
+            'adm-cono-correo' => 'email|unique:evaluador,correo'
         ];
     }
 

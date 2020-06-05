@@ -12,7 +12,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdmConvocatoria\AdmConocimientosRequest;
 use App\Porcentaje;
 use App\Requerimiento;
-use App\Tipo;
 
 class AdmConocimientosController extends Controller
 {
@@ -21,8 +20,8 @@ class AdmConocimientosController extends Controller
         $id_conv = session()->get('convocatoria');
         $listaMultiselect = [];
         $lista_tem_aux = [];
-        $evalua = EvaluadorConocimientos::select('evaluador_conocimientos.*')
-            ->join('evaluador_conovocatoria','evaluador_conocimientos.id','=','evaluador_conovocatoria.id_evaluador')
+        $evalua = EvaluadorConocimientos::select('evaluador.*')->where('id_tipo_evaluador','2')
+            ->join('evaluador_conovocatoria','evaluador.id','=','evaluador_conovocatoria.id_evaluador')
             ->where('evaluador_conovocatoria.id_convocatoria',$id_conv);
         $evaluadores = $evalua->get();
         $tipoConvocatoria  = Convocatoria::where('id',$id_conv)->value('id_tipo_convocatoria');
@@ -31,8 +30,8 @@ class AdmConocimientosController extends Controller
             ->where('id_convocatoria', $id_conv)
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')->get();
         
-            $lista_tem_aux = $evalua->select('auxiliatura.nombre_aux as nombre','auxiliatura.id','auxiliatura.cod_aux as cod','evaluador_conocimientos.id as id_eva') 
-            ->join('evaluador_auxiliatura','evaluador_conocimientos.id','=','evaluador_auxiliatura.id_evaluador')  
+            $lista_tem_aux = $evalua->select('auxiliatura.nombre_aux as nombre','auxiliatura.id','auxiliatura.cod_aux as cod','evaluador.id as id_eva') 
+            ->join('evaluador_auxiliatura','evaluador.id','=','evaluador_auxiliatura.id_evaluador')  
             ->join('auxiliatura','evaluador_auxiliatura.id_auxiliatura','=','auxiliatura.id')
             ->get();
         } else {
@@ -41,10 +40,10 @@ class AdmConocimientosController extends Controller
             ->where('requerimiento.id_convocatoria', $id_conv)
             ->join('tematica','porcentaje.id_tematica','=','tematica.id')->groupBy('tematica.nombre','id_tematica')->get();
         
-            $lista_tem_aux = $evalua->select('tematica.nombre','tematica.id','evaluador_conocimientos.id as id_eva') 
-            ->join('evaluador_tematica','evaluador_conocimientos.id','=','evaluador_tematica.id_evaluador')  
+            $lista_tem_aux = $evalua->select('tematica.nombre','tematica.id','evaluador.id as id_eva') 
+            ->join('evaluador_tematica','evaluador.id','=','evaluador_tematica.id_evaluador')  
             ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')
-            ->groupBy('tematica.id','evaluador_conocimientos.id')->get();
+            ->groupBy('tematica.id','evaluador.id')->get();
         }
         $listaCi = EvaluadorConocimientos::select('ci')->get();
         return view('admConvocatoria.admConocimientos', compact('listaCi', 'listaMultiselect','lista_tem_aux','evaluadores','tipoConvocatoria'));
@@ -59,6 +58,7 @@ class AdmConocimientosController extends Controller
         $id_conv = session()->get('convocatoria');
         $tipoConvocatoria  = Convocatoria::where('id',$id_conv)->value('id_tipo_convocatoria');
         $evaluador = new EvaluadorConocimientos();
+        $evaluador->id_tipo_evaluador = 2;
         $evaluador->ci = $request->input('adm-cono-ci');
         $evaluador->nombre = $request->input('adm-cono-nombre');
         $evaluador->apellido = $request->input('adm-cono-apellidos');

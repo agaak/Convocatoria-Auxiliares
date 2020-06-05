@@ -109,7 +109,7 @@ class ConocimientoController extends Controller
             ->groupBy('requerimiento.id_auxiliatura')
             ->groupBy('requerimiento.id_auxiliatura')
             ->havingRaw('SUM(porcentaje) < 100')->get();
-        if($porcen_min->isEmpty() && $porcen_max->isEmpty()){
+        if($porcen_min->isEmpty() && $porcen_max->isEmpty() && str_contains($request->file('upload-pdf')->getClientOriginalName(),'.pdf')){
             DB::table('convocatoria')->where('id', $id_conv)->update([
                 'ruta_pdf' => $request -> file('upload-pdf') -> store('public'),
                 'creado' => true
