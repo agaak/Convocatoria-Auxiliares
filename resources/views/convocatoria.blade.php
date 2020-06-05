@@ -165,8 +165,8 @@
                                                     <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                                         style="background-color:#2F2D4A; color:white;"
                                                         class="btn btn-primary btn-sm">{{ csrf_field() }}Administrar</a>
-                                                    <a href="#" style="color:white;"
-                                                        class="btn btn-info btn-sm">Visualizar</a>
+                                                    <a href="{{ route('convocatoria.download',$convo->id ) }}" style="color:white;"
+                                                        class="btn btn-info btn-sm">Visualizar PDF</a>
                                                 </div>
                                                 <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
                                                 convocatoria esta en curso.</div>
@@ -183,9 +183,9 @@
                                                 @endif
                                             @else
                                                 <a href="{{ route('convocatoria.edit',$convo->id ) }}"
-                                                style="background-color:#2F2D4A; color:white;"
+                                                style="color:white;"
                                                 class="btn btn-secondary btn-sm">{{ csrf_field() }}Editar</a>
-                                                <button style="background-color:#2F2D4A; color:white;" class="btn btn-primary btn-sm"
+                                                <button style="color:white;" class="btn btn-info btn-sm"
                                                 type="button" disabled>Administrarr</button>
                                                 </div>
                                                 <div class="card-footer text-muted" style="height: 50px; font-size:14px;">Esta convocatoria se

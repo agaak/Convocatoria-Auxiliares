@@ -71,6 +71,12 @@ class ConvocatoriaController extends Controller
         return back();
     }
 
+    public function download($id)
+    {
+        $file = Convocatoria::where('id', $id)->value('ruta_pdf');
+        return Storage::download($file);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -104,7 +110,7 @@ class ConvocatoriaController extends Controller
      */
     public function destroy($id)
     {
-        //Storage::delete(Convocatoria::find($id)->ruta_pdf);
+        Storage::delete(Convocatoria::find($id)->ruta_pdf);
         Convocatoria::find($id)->delete();
         return back();
     }
