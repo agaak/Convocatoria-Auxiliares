@@ -29,7 +29,13 @@ class DocumentoController extends Controller
 
     public function documentos(Request $request){ //Si no funciona comentar where
         $documentos=DB::table('documento')->get();//where('id_convocatoria', $request->session()->get('convocatoria'))->get();
+        $convActual = request()->session()->get('convocatoria');
+        $notaActual = DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 2)->exists();
+        $datoNotaDoc = null;
+        if ($notaActual) {
+            $datoNotaDoc = DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 2)->get()[0];
+        }
 
-        return view('convocatory.documentos', compact('documentos')); // return $documentos; := carga los datos de la tabla como [] 
+        return view('convocatory.documentos', compact('documentos', 'datoNotaDoc')); // return $documentos; := carga los datos de la tabla como [] 
     }
 }
