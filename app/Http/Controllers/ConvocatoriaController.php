@@ -20,8 +20,7 @@ class ConvocatoriaController extends Controller
         $anioActual = date("Y");
         $tipos = Tipo::get();
         $convos = Convocatoria::where('id_unidad_academica',1)->get();
-        session()->flush();
-        session()->regenerate();
+        session()->forget('convocatoria');
         return view('convocatoria', compact('tipos','anioActual','convos'));
     }
 
@@ -53,7 +52,7 @@ class ConvocatoriaController extends Controller
         $conv->publicado = false;
         $conv->creado = false;
         $conv->save();
-
+        
         session()->put('convocatoria', $conv->id) ;
         return redirect()->route('requests');
     }
@@ -105,7 +104,7 @@ class ConvocatoriaController extends Controller
      */
     public function destroy($id)
     {
-        Storage::delete(Convocatoria::find($id)->ruta_pdf);
+        //Storage::delete(Convocatoria::find($id)->ruta_pdf);
         Convocatoria::find($id)->delete();
         return back();
     }
