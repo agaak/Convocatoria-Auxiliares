@@ -73,7 +73,7 @@ class AdmConocimientosController extends Controller
         ]);
 
         $arreglo = $request->input('adm-cono-tipo');
-        if (strcmp($tipoConvocatoria, 'Conv. Docencia') === 0) {
+        if ($tipoConvocatoria === 2) {
             for($i=0; $i<count($arreglo); $i++) {
                 EvaluadorAuxiliatura::create([
                     'id_evaluador' => strval($idEvaluador),
