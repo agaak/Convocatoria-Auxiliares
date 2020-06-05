@@ -84,7 +84,7 @@
         </tr>
       </thead>
       <tbody style="background-color: white">
-        <div style="visibility: hidden"> {{ $num = 1 }}</div>
+        @php $num = 1 @endphp
         @foreach($requests as $reques)
         <tr> 
           <td>{{ $num++ }}</td>

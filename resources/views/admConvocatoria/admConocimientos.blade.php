@@ -8,7 +8,7 @@
     <button class="pl-4 pr-4 btn btn-dark" type="button" data-toggle="modal" data-target="#admConoModal">Registrar Evaluador</button>
 
     <!-- Table -->
-    <div class="table-requests1 vertical-align: middle; ">
+    <div class="table-requests1 vertical-align: middle; mt-3">
         <table class="table table-bordered" style="text-align:Left"  >
         <thead class="thead-dark" style="text-align: center">
         <tr>
@@ -26,15 +26,15 @@
         </thead>
         <tbody style="background-color: white">
         @foreach ($evaluadores as $evaluador)
-        <div style="visibility: hidden; "> {{ $num = 1, $tam = 0 }}</div>
+        @php $num = 1; $tam = 0; @endphp
             <tr>
             @foreach($lista_tem_aux as $tem_aux)
-            <div style="visibility: hidden; height: 0;"> {{ $tem_aux->id_eva == $evaluador->id? $tam++ : $tam }}</div>
-            @if($num == 1 && $tem_aux->id_eva == $evaluador->id)
-                <div style="visibility: hidden; height: 0;"> {{ $num++ }}</div>
+                @php $tem_aux->id_eva == $evaluador->id? $tam++ : $tam; @endphp
+                @if($num == 1 && $tem_aux->id_eva == $evaluador->id)
+                @php  $num++ @endphp
                 <td scope="col">{{$tem_aux->nombre}}</td>
-            @endif @endforeach
-            
+                @endif 
+            @endforeach
             <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}" >{{$evaluador->ci}}</td>
             <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}">{{$evaluador->nombre}}</td>
             <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}">{{$evaluador->apellido}}</td>

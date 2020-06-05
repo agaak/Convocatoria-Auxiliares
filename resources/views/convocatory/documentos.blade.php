@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody style="background-color: white">
-        <div style="visibility: hidden"> {{ $alphas = 65 }}</div> 
+        @php  $alphas = 65  @endphp
         @foreach($documentos as $documento)
         <tr>
           <th scope="row">{{ chr($alphas++) }} )</th>

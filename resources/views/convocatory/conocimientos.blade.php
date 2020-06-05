@@ -45,7 +45,7 @@
         </tr>
       </thead>
       <tbody>
-        <div style="visibility: hidden"> {{ $num = 1 }}</div>
+        @php $num = 1  @endphp
         @foreach($tems as $tematic)
           <tr>
             <td class="table-light">{{ $num++ }}</td>
@@ -222,7 +222,7 @@
       {{ csrf_field() }}
       <div class="custom-file col-sm-4" lang="es">
         <input type="file" class="custom-file-input" id="upload-pdf" name="upload-pdf" lang="es" required>
-        <label class="custom-file-label" style="text-align: left;" for="customFileLang">Seleccionar Archivo</label>
+        <label class="custom-file-label" style="text-align: left;" for="customFileLang">Seleccionar PDF</label>
       </div>
       <button type="submit" class="btn btn-info mx-3" tabindex="-1" role="button" aria-disabled="true">
         Finalizar

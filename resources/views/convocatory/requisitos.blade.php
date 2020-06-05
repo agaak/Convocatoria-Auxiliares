@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody style="background-color: white">
-        <div style="visibility: hidden"> {{ $alphas = 65 }}</div> 
+        @php $alphas = 65 @endphp
         @foreach($requerimients as $requeriment)
         <tr>
           <th scope="row">{{ chr($alphas++) }} )</th>
@@ -50,6 +50,8 @@
     <form method="post" accion=>
       <div class="form-group">
         <label for="exampleInputEmail1">Nota(*)</label>
+        {{ csrf_field() }}
+        <input class="btn btn-info" type="submit" value="Guardar nota">
         <textarea class="form-control" id="exampleFormControlTextarea1" name="" placeholder="Ingrese la nota respectiva"
           rows="3"></textarea>
       </div>

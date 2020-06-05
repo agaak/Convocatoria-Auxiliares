@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="overflow-auto content">
+<div class="overflow-auto content" style="width: 100vw; height: 77vh;">
     <h3 class="text-uppercase text-left">Convocatorias</h3>
 
     <div class="container">

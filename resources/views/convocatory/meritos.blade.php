@@ -7,7 +7,7 @@
     <h3 class="text-uppercase text-left">Calificación de Méritos</h3>
 
     {{-- Descripcion del contenido y adjunto un icono para edita esta descripcion en un modal --}}
-    {{-- <div class="row">
+    <div class="row">
         <div class="card border-dark mb-3 col-md-11">
             <div class="card-body">
                 <p class="card-text">La calificación de méritos se se basará en los documentos
@@ -19,11 +19,11 @@
         <a class="col-md-1 my-auto" type="button" data-toggle="modal" data-target="#porcentageModal">
             <img src="{{ asset('img/pen.png') }}" width="30" height="30">
         </a>
-    </div> --}}
+    </div>
 
     {{-- Modal de la descripcion del contenido para cambiar dato nota y porcentaje --}}
 
-   {{--  <div class="modal fade" id="porcentageModal" tabindex="-1" role="dialog" aria-labelledby="porcentageMeritModal"
+   <div class="modal fade" id="porcentageModal" tabindex="-1" role="dialog" aria-labelledby="porcentageMeritModal"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -42,16 +42,13 @@
                             presentados por el postulante:
                         </p>
                         <div class="form-row my-4 bg-light">
-                            <span class="my-auto">Se calificará sobre la base de:</span>
-                            <input type="number" class="form-control col-sm-2 mx-2" name="puntos-calificacion"
-                                placeholder="100" min="0" max="100" required>
-                            <span class="my-auto">puntos</span>
+                            <span class="my-auto">Se calificará sobre la base de: 100 puntos.</span>
                         </div>
                         <div class="form-row my-4 bg-light">
                             <span class="my-auto">Que representa el:</span>
                             <input type="number" class="form-control col-sm-2 mx-2" name="porcentaje-merito"
                                 id="porcent-merit" placeholder="%" min="0" max="100" required>
-                            <span class="my-auto">% de la nota final</span>
+                            <span class="my-auto">% de la nota final.</span>
                         </div>
                     </form>
 
@@ -63,7 +60,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     {{-- Botones para añadir merito y submerito que ademas abren los modales respectivos --}}
     <div class="row my-3" style="margin-left: 3ch">
