@@ -12,20 +12,20 @@
             @endphp
             <h2 class="text-uppercase title-navbar">titulo convocatoria</h2>
             <ul class="container-list">
-                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-convocatoria') }}">
+                {{-- <li class="navbar-item {{ activeMenuConten('convocatoria/adm-convocatoria') }}">
                     <a class="link-list" href="{{ route('admConvocatoria') }}">Ver convocatoria</a>
-                </li>
-                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-postulantes') }}">
+                </li> --}}
+                {{-- <li class="navbar-item {{ activeMenuConten('convocatoria/adm-postulantes') }}">
                     <a class="link-list" href="{{ route('admPostulantes') }}">Postulantes</a>
-                </li>
+                </li> --}}
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-conocimientos') }}">
                     <a class="link-list" href="{{ route('admConocimientos') }}">Comision de evaluación de conocimientos</a>
                 </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-meritos') }}">
                     <a class="link-list" href="{{ route('admMeritos') }}">Comision de evaluacion de méritos</a>
                 </li>
-                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-resultados') }}">
-                    <a class="link-list" href="{{ route('admResultados') }}">resultados</a>
+                {{-- <li class="navbar-item {{ activeMenuConten('convocatoria/adm-resultados') }}">
+                    <a class="link-list" href="{{ route('admResultados') }}">resultados</a> --}}
                 </li>
             </ul>
         </nav>

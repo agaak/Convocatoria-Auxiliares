@@ -16,6 +16,6 @@ class AdmConvocatoriaController extends Controller
     public function inicio($id)
     {   
         session()->put('convocatoria', $id) ;
-        return view('admConvocatoria.admConvocatoria');
+        return redirect()->route('admConocimientos');
     }
 }
