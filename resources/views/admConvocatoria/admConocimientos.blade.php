@@ -9,7 +9,7 @@
 
     <!-- Table -->
     <div class="table-requests1 vertical-align: middle; mt-3">
-        <table class="table table-bordered" style="text-align:Left"  >
+        <table class="table table-bordered" style="text-align:center"  >
         <thead class="thead-dark" style="text-align: center">
         <tr>
                 @if ($tipoConvocatoria==2)
@@ -32,7 +32,7 @@
                 @php $tem_aux->id_eva == $evaluador->id? $tam++ : $tam; @endphp
                 @if($num == 1 && $tem_aux->id_eva == $evaluador->id)
                 @php  $num++ @endphp
-                <td scope="col">{{$tem_aux->nombre}}</td>
+                <td scope="col" style="text-align: left">{{$tem_aux->nombre}}</td>
                 @endif 
             @endforeach
             <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}" >{{$evaluador->ci}}</td>
@@ -42,9 +42,7 @@
                 <td class="table-light" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
                     <a class="options" data-toggle="modal" data-target="#tematicaEditModal" 
                     data-dismiss="modal"><img src="{{ asset('img/pen.png') }}" width="20" height="25"></a>
-                    <form class="d-inline"
-                      action="#"
-                      method="POST">
+                    <form class="d-inline" action="{{ route('admConocimientosDelete', $evaluador->id) }}" method="POST">
                       {{ csrf_field() }}
                       {{ method_field('DELETE') }}
                       <button type="submit" class="btn btn-link">
@@ -56,7 +54,7 @@
             @foreach ($lista_tem_aux as $tem_aux)
                 @if($tem_aux->id_eva==$evaluador->id)
                     @if($num++ > 2)
-                        <tr><td scope="col">{{$tem_aux->nombre}}</td></tr>
+                        <tr><td scope="col" style="text-align: left">{{$tem_aux->nombre}}</td></tr>
                    @endif
                 @endif
             @endforeach        
@@ -101,7 +99,7 @@
                             <label for="adm-cono-ci">CI:</label>
                             <div class="row m-auto">
                                 <input type="number" name="adm-cono-ci" placeholder="Ingrese 76446636 para prueba" class="form-control col-sm-7" id="adm-cono-ci" value="{{ old('adm-cono-ci') }}" required>
-                                <button type="button" class="btn btn-primary col-sm-5" onclick="comprobar({{ $listaCi }})">Comprobar Existencia</button>
+                                <button type="button" class="btn btn-primary col-sm-5" onclick="comprobar({{ $listaEva }})">Comprobar Existencia</button>
                             </div>
                             {!! $errors->first('adm-cono-ci', '<strong class="message-error text-danger">:message</strong>') !!}
                         </div>
@@ -113,18 +111,32 @@
                         </div>
                         <div class="form-group">
                             <label for="adm-cono-nombre">Nombre:</label>
-                            <input type="text" name="adm-cono-nombre" minlength="3" class="form-control" value="{{ old('adm-cono-nombre') }}" required>
+                            <input type="text" name="adm-cono-nombre" minlength="3" disabled id="adm-nom" class="form-control" value="{{ old('adm-cono-nombre') }}" required>
                             {!! $errors->first('adm-cono-nombre', '<strong class="message-error text-danger">:message</strong>') !!}
                         </div>
                         <div class="form-group">
                             <label for="adm-cono-apellidos">Apellidos:</label>
-                            <input type="text" name="adm-cono-apellidos" minlength="3" class="form-control" value="{{ old('adm-cono-apellidos') }}" required>
+                            <input type="text" name="adm-cono-apellidos" minlength="3" disabled id="adm-ape" class="form-control" value="{{ old('adm-cono-apellidos') }}" required>
                             {!! $errors->first('adm-cono-apellidos', '<strong class="message-error text-danger">:message</strong>') !!}
                         </div>
                         <div class="form-group">
-                            <label for="adm-cono-correo">Correo:</label>
-                            <input type="email" name="adm-cono-correo" class="form-control" value="{{ old('adm-cono-correo') }}" required>
-                            {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger">:message</strong>') !!}
+                        <label for="adm-cono-correo">Correo:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control mt-0" name="adm-cono-correo" disabled id="adm-correo" aria-label="Recipient's username" 
+                                aria-describedby="basic-addon2" value="{{ old('adm-cono-correo') }}" required>
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon2">@gmail.com</span>
+                            </div>
+                        </div>
+                        {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger">:message</strong>') !!}<br>
+                        <label for="adm-cono-correo">Correo Alternativo:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="adm-cono-correo2" disabled id="adm-correo2" aria-label="Recipient's username" 
+                                aria-describedby="basic-addon2" value="{{ old('adm-cono-correo2') }}" >
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon2">@gmail.com</span>
+                            </div>
+                        </div>
                         </div>
                         @if ($errors->any())
                             <script>

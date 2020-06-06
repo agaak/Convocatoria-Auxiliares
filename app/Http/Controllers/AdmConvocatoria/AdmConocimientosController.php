@@ -45,8 +45,8 @@ class AdmConocimientosController extends Controller
             ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')
             ->groupBy('tematica.id','evaluador.id')->get();
         }
-        $listaCi = EvaluadorConocimientos::select('ci')->get();
-        return view('admConvocatoria.admConocimientos', compact('listaCi', 'listaMultiselect','lista_tem_aux','evaluadores','tipoConvocatoria'));
+        $listaEva = EvaluadorConocimientos::get();
+        return view('admConvocatoria.admConocimientos', compact('listaEva', 'listaMultiselect','lista_tem_aux','evaluadores','tipoConvocatoria'));
     }
 
     public function inicio($id) {
@@ -63,6 +63,9 @@ class AdmConocimientosController extends Controller
         $evaluador->nombre = $request->input('adm-cono-nombre');
         $evaluador->apellido = $request->input('adm-cono-apellidos');
         $evaluador->correo = $request->input('adm-cono-correo');
+        if($request->input('adm-cono-correo2') != null){
+            $evaluador->correo_alt = $request->input('adm-cono-correo2');
+        }
         $evaluador->save();
 
         $idEvaluador = $evaluador->id;
@@ -115,6 +118,13 @@ class AdmConocimientosController extends Controller
         
 
 
+        return back();
+    }
+
+
+    public function destroy($id)
+    {
+        EvaluadorConocimientos::find($id)->delete();
         return back();
     }
 }

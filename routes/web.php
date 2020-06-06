@@ -59,6 +59,7 @@ Route::get('convocatoria/adm-postulantes', 'AdmConvocatoria\AdmPostulantesContro
 
 Route::get('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosController@index')->name('admConocimientos');
 Route::post('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosController@store')->name('admConoStore');
+Route::delete('convocatoria/adm-conocimientos{id}', 'AdmConvocatoria\AdmConocimientosController@destroy')->name('admConocimientosDelete');
 
 Route::get('convocatoria/adm-meritos', 'AdmConvocatoria\AdmMeritosController@index')->name('admMeritos');
 Route::post('convocatoria/adm-meritos','AdmConvocatoria\AdmMeritosController@create')->name('admMeritosCreate');
