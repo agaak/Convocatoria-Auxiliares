@@ -5,12 +5,12 @@
     <h3 class="text-uppercase text-center">Comision de evaluacion de meritos</h3>
 
     <!-- Trigger modal -->
-    <button type="button" class="btn btn-dark" data-toggle="modal" 
+    <button type="button" class="btn btn-dark my-3" data-toggle="modal" 
     data-target="#modalCrearEvaluadorMerit" >Registrar nuevo evaluador</button>
  
     <!-- Table -->
     <div class="table-requests1">
-        <table class="table table-bordered" style="text-align: Left"  >
+        <table class="table table-bordered" style="text-align:center">
         <thead class="thead-dark">
             <tr> 
             <th style="font-weight: normal" scope="col">CI</th>

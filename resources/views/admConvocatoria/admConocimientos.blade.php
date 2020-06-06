@@ -5,11 +5,11 @@
 
     <h3 class="text-uppercase text-center">Comision de evaluacion de conocimientos</h3>
     <!-- Trigger modal -->
-    <button class="pl-4 pr-4 btn btn-dark" type="button" data-toggle="modal" data-target="#admConoModal">Registrar Evaluador</button>
+    <button class="pl-4 pr-4 btn btn-dark mt-3" type="button" data-toggle="modal" data-target="#admConoModal">Registrar Evaluador</button>
 
     <!-- Table -->
     <div class="table-requests1 vertical-align: middle; mt-3">
-        <table class="table table-bordered" style="text-align:center"  >
+        <table class="table table-bordered" style="text-align:center">
         <thead class="thead-dark" style="text-align: center">
         <tr>
                 @if ($tipoConvocatoria==2)

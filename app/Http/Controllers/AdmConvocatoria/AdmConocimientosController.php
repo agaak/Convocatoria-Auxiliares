@@ -12,6 +12,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdmConvocatoria\AdmConocimientosRequest;
 use App\Porcentaje;
 use App\Requerimiento;
+use App\Tipo_evaluador;
+use TipoNotaSeeder;
 
 class AdmConocimientosController extends Controller
 {
@@ -124,7 +126,12 @@ class AdmConocimientosController extends Controller
 
     public function destroy($id)
     {
-        EvaluadorConocimientos::find($id)->delete();
+        EvaluadorTematica::where('id_evaluador',$id)->delete();
+        EvaluadorAuxiliatura::where('id_evaluador',$id)->delete();
+        Tipo_evaluador::where('id_evaluador',$id)->where('id_rol_evaluador','2')->delete();
+        if(Tipo_evaluador::where('id_evaluador',$id)->get()->isExmpty()){
+            EvaluadorConovocatoria::where('id_evaluador', $id)->delete();
+        }
         return back();
     }
 }
