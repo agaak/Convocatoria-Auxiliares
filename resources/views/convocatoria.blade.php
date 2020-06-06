@@ -166,7 +166,7 @@
                                                         style="background-color:#2F2D4A; color:white;"
                                                         class="btn btn-sm">{{ csrf_field() }}Administrar</a>
                                                     <a href="{{ route('convocatoria.download',$convo->id ) }}" style="color:white;"
-                                                        class="btn btn-info btn-sm">Visualizar PDF</a>
+                                                        class="btn btn-info btn-sm">Descargar PDF</a>
                                                 </div>
                                                 <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
                                                 convocatoria esta en curso.</div>

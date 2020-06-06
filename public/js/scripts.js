@@ -177,9 +177,9 @@ $(document).ready(function() {
     });
 });
 
-function comprobar(listaCi) {
+function comprobar(listaEva) {
     let existe = true;
-    for (const item of listaCi) {
+    for (const item of listaEva) {
         if($('#adm-cono-ci').val() == item['ci']) {
             existe = false;
             $('#ci-no-existe').removeClass('d-none');
@@ -187,10 +187,18 @@ function comprobar(listaCi) {
             setTimeout(() => {
                 $('#ci-no-existe').addClass('d-none');
             }, 5000);
+            document.getElementById("adm-nom").value = item['nombre'];
+            document.getElementById("adm-ape").value = item['apellido'];
+            document.getElementById("adm-correo").value = item['correo'];
+            document.getElementById("adm-correo2").value = item['correo_alt'];
         }
     }
 
     if (existe) {
+        document.getElementById("adm-nom").disabled = false;
+        document.getElementById("adm-ape").disabled = false;
+        document.getElementById("adm-correo").disabled = false;
+        document.getElementById("adm-correo2").disabled = false;
         $('#ci-existe').removeClass('d-none');
         $('#ci-no-existe').addClass('d-none');
         setTimeout(() => {

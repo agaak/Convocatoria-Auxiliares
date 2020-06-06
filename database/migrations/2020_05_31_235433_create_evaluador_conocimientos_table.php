@@ -26,7 +26,7 @@ class CreateEvaluadorConocimientosTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('correo');
-            $table->string('correo_alt');
+            $table->string('correo_alt')->nullable();
             $table->timestamps();
         });
 

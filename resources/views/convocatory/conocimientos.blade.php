@@ -22,7 +22,7 @@
     </a>
     <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
       data-target="#auxiliaturaModal"
-      onclick="selectAuxiliaturaModal({{ json_encode($porcentajes) }}, {{ json_encode($tems) }})">
+      @if($requests->isNotEmpty()) onclick="selectAuxiliaturaModal({{ json_encode($porcentajes) }}, {{ json_encode($tems) }})" @endif>
       <img src="{{ asset('img/pen.png') }}" width="30" height="30">
       <span class="mx-1">Editar Auxiliatura</span>
     </a>
@@ -88,6 +88,7 @@
         <div class="modal-body">
           <form method="POST" action="{{ route('knowledgeRatingTematicValid') }}">
             {{ csrf_field() }}
+            @if($requests->isNotEmpty())
             <div class="form-group">
               @if($tematics->isEmpty())
                 <label for="nombre">No hay tematicas para añadir</label>
@@ -109,6 +110,7 @@
                 </div>
               @endif
             </div>
+            @endif
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
               <input class="btn btn-info" type="submit" value="Guardar">
@@ -132,6 +134,7 @@
         <div class="modal-body">
           <form method="POST" action="{{ route('knowledgeRatingAuxUpdate') }}" role="form">
             {{ csrf_field() }}
+            @if($requests->isNotEmpty())
             <div class="form-group">
               <div class="form-row" style="margin-bottom: 5px">
                 <label class="col-auto col-form-label" for="department-conv">Auxiliatura</label>
@@ -168,6 +171,7 @@
                 </div>
               @endforeach
             </div>
+            @endif
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -224,7 +228,7 @@
         <input type="file" class="custom-file-input" id="upload-pdf" name="upload-pdf" lang="es" required>
         <label class="custom-file-label" style="text-align: left;" for="customFileLang">Seleccionar PDF</label>
       </div><br>
-      <button type="submit" class="btn btn-info mx-3 mt-3" tabindex="-1" role="button" aria-disabled="true">
+      <button type="submit" class="btn btn-info mt-3" tabindex="-1" role="button" aria-disabled="true">
         Finalizar
       </button>
     </form>
