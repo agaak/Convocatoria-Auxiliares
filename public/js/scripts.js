@@ -41,6 +41,36 @@ function editEvaluadorMeritos(evaluadorMeritos) {
     $('#adm-meritos-nombre-edit').val(evaluadorMeritos['nombre']);
     $('#adm-meritos-apellidos-edit').val(evaluadorMeritos['apellido']);
     $('#adm-meritos-correo-edit').val(evaluadorMeritos['correo']);
+    $('#adm-meritos-correo-alter-edit').val(evaluadorMeritos['correo_alt']);
+}
+
+function comprobarEvaluadorMerit(listaCi) {
+    let existe = true;
+    let evaluadorExist;
+    for (const item of listaCi) {
+        if($('#adm-meritos-ci').val() == item['ci']) {
+            existe = false;
+            $('#ci-no-existe').removeClass('d-none');
+            $('#ci-existe').addClass('d-none');
+            setTimeout(() => {
+                $('#ci-no-existe').addClass('d-none');
+            }, 5000);
+            evaluadorExist = item;
+        }else{
+        }
+    }
+    if (existe) {
+        $('#ci-existe').removeClass('d-none');
+        $('#ci-no-existe').addClass('d-none');
+        setTimeout(() => {
+            $('#ci-existe').addClass('d-none');
+        }, 5000);
+    }else{
+        $('#adm-meritos-nombre').val(evaluadorExist['nombre']);
+        $('#adm-meritos-apellidos').val(evaluadorExist['apellido']);
+        $('#adm-meritos-correo').val(evaluadorExist['correo']);
+        $('#adm-meritos-correo-alter').val(evaluadorExist['correo_alt']);
+    }
 }
 
 $('#requestEditModal').on('show.bs.modal', function (event) {
@@ -87,6 +117,9 @@ function editMeritModal(lista) {
     $('#merit-id').val(lista[3]);
 }
 
+function editPorcentajes(porcentaje) {
+    $('#porcent-merit').val(porcentaje);
+}
 
 $('#requirementsEditModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)

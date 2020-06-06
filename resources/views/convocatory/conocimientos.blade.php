@@ -9,7 +9,7 @@
   <div class="card border-dark mb-3">
     <div class="card-body">
       <p class="card-text">La calificación de conocimientos se realiza sobre la base de <strong> 100 </strong> puntos,
-        equivalentes al <strong> 80% </strong>
+        equivalentes al <strong> {{ $porcentajesConvocatoria->porcentaje_conocimiento??"_ _ _" }}% </strong>
         de la calificación final.</p>
     </div>
   </div>

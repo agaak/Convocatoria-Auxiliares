@@ -12,18 +12,19 @@
             <div class="card-body">
                 <p class="card-text">La calificación de méritos se se basará en los documentos
                     presentados por el postulante y se realizará sobre la base de <strong> 100 </strong> puntos,
-                    que representa el <strong> 10% </strong>
+                    que representa el <strong> {{ $porcentajesConvocatoria->porcentaje_merito??"_ _ _" }}% </strong>
                     de la calificación final.</p>
             </div>
         </div>
-        <a class="col-md-1 my-auto" type="button" data-toggle="modal" data-target="#porcentageModal">
+        <a class="col-md-1 my-auto" type="button" data-toggle="modal" data-target="#porcentajeModal"
+            onclick="editPorcentajes({{ $porcentajesConvocatoria->porcentaje_merito??0 }})" >
             <img src="{{ asset('img/pen.png') }}" width="30" height="30">
         </a>
     </div>
 
     {{-- Modal de la descripcion del contenido para cambiar dato nota y porcentaje --}}
 
-   <div class="modal fade" id="porcentageModal" tabindex="-1" role="dialog" aria-labelledby="porcentageMeritModal"
+   <div class="modal fade" id="porcentajeModal" tabindex="-1" role="dialog" aria-labelledby="porcentajeMeritModal"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -34,9 +35,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action=""
+                    <form method="POST" action="{{ route('calificacion-meritos.update', 'actualizar') }}"
                         id="points-merit-form">
                         {{ csrf_field() }}
+                        {{ method_field('PUT') }}
                         <p>
                             <span class="font-weight-bold">La calificación de méritos</span> se basará en los documentos
                             presentados por el postulante:
@@ -46,8 +48,8 @@
                         </div>
                         <div class="form-row my-4 bg-light">
                             <span class="my-auto">Que representa el:</span>
-                            <input type="number" class="form-control col-sm-2 mx-2" name="porcentaje-merito"
-                                id="porcent-merit" placeholder="%" min="0" max="100" required>
+                            <input type="number" class="form-control col-sm-2 mx-2" name="porcent-merit"
+                                id="porcent-merit" placeholder="%" min="1" max="99" required>
                             <span class="my-auto">% de la nota final.</span>
                         </div>
                     </form>

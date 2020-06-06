@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Convocatoria\ConocimientoCreateRequest;
 use App\Tematica;
 use App\Porcentaje;
+use App\Calificacion_final;
 use App\Http\Requests\Convocatoria\TematicaEditRequest;
 
 class ConocimientoController extends Controller
@@ -36,7 +37,10 @@ class ConocimientoController extends Controller
         $tematics=Tematica::where('id_unidad_academica',1)
             ->where('id_tipo_convocatoria',$tipo)
             ->whereNotIn('id', $tem_res)->get();
-        return view('convocatory.conocimientos', compact('tematics', 'requests','porcentajes','tems'));
+            
+        $porcentajesConvocatoria = Calificacion_final::where('id_convocatoria',session()
+                                                    ->get('convocatoria'))->first();
+        return view('convocatory.conocimientos', compact('tematics', 'requests','porcentajes','tems','porcentajesConvocatoria'));
     }
 
     public function knowledgeRatingTematicValid(ConocimientoCreateRequest $request){

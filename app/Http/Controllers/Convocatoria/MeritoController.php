@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MeritoEditRequest;
 use App\Http\Requests\MeritoRequest;
 use App\Merito;
+use App\Calificacion_final;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MeritoController extends Controller
 {
@@ -59,7 +61,9 @@ class MeritoController extends Controller
             }
         }
 
-        return view('convocatory.meritos', compact('listaOrdenada'));
+        
+        $porcentajeMeritos = Calificacion_final::where('id_convocatoria',session()->get('convocatoria'))->first();
+        return view('convocatory.meritos', compact('listaOrdenada','porcentajeMeritos'));
     }
 
     /**
@@ -126,8 +130,22 @@ class MeritoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(MeritoEditRequest $request)
-    {  
-        if (request()->has('merit-submerit')) {
+    {   
+        if(request()->has('porcent-merit')){
+            $id_conv = session()->get('convocatoria');
+            if(Calificacion_final::where('id_convocatoria', '=', $id_conv)->exists()){
+                DB::table('calificacion_final')->where('id_convocatoria', $id_conv)->update([
+                    'porcentaje_merito' => $request->input('porcent-merit'),
+                    'porcentaje_conocimiento' => 100 - $request->input('porcent-merit'),
+                ]);
+            }else{
+                $calificacion = new Calificacion_final();
+                $calificacion->id_convocatoria = $id_conv;
+                $calificacion->porcentaje_merito = $request->input('porcent-merit');
+                $calificacion->porcentaje_conocimiento = 100 - $request->input('porcent-merit');
+                $calificacion->save();
+            }
+        }else if (request()->has('merit-submerit')) {
             Merito::where('id', $request->input('submerit-id'))->update([
                 'id_submerito' => $request->input('merit-submerit'),
                 'descripcion_merito' => $request->input('submerit-descripcion-edit'),
@@ -150,6 +168,12 @@ class MeritoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        Merito::where('id', $id)->delete();
+        return redirect()->route('calificacion-meritos.index');
+    }
+
+    public function updatePoints($id)
     {
         Merito::where('id', $id)->delete();
         return redirect()->route('calificacion-meritos.index');
