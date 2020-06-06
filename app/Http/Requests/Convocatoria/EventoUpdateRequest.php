@@ -28,8 +28,8 @@ class EventoUpdateRequest extends FormRequest
         $fechaIniConv = $convActual->value('fecha_inicio').' 00:00:00';
         $fechaFinConv = $convActual->value('fecha_final').' 23:59:59';
         return [
-            'id-datos-edit' => 'required',
-            'titulo-evento-edit' => 'required',
+            'id-datos-edit' => 'required|unique:evento,titulo_evento,2',
+            'titulo-evento-edit' => 'required|unique:evento,lugar_evento',
             'lugar-evento-edit' => 'required',
             'fecha-ini-evento-edit' => 'required|date|after_or_equal:'.$fechaIniConv,
             'fecha-fin-evento-edit' => 'required|date|after:fecha-ini-evento-edit|before_or_equal:'.$fechaFinConv,

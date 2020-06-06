@@ -110,7 +110,7 @@
             <div class="form-group">
               <label for="exampleInputEmail1">Inciso</label>
               <input for="exampleInputEmail1" type="button" class="btn btn-light" id="inc-requirement" name="inc-requirement" readonly/>
-              <textarea class="form-control" id="descripcion-requirement"
+              <textarea class="form-control" id="descripcion-requirement" minlength="11" required
                 rows="3" name="descripcion-requirement" value="{{ old('nombre') }}" ></textarea>
               <small id="emailHelp" class="form-text text-muted">Los requisitos se listan en orden alfabético.</small>
             </div>

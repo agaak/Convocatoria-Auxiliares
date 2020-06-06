@@ -23,12 +23,13 @@ class EventoCreateRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
-        $convActual = Convocatoria::where('id', request()->session()->get('convocatoria'));
+    {   
+        $idConvocatoria = request()->session()->get('convocatoria');
+        $convActual = Convocatoria::where('id', $idConvocatoria);
         $fechaIniConv = $convActual->value('fecha_inicio').' 00:00:00';
         $fechaFinConv = $convActual->value('fecha_final').' 23:59:59';
         return [
-            'titulo-evento' => 'required|unique:evento,titulo_evento',
+            'titulo-evento' => 'required|unique:evento,titulo_evento,2',
             'lugar-evento' => 'required|unique:evento,lugar_evento',
             'fecha-ini-evento' => 'required|date|date_format:"Y-m-d\TH:i"|after_or_equal:'.$fechaIniConv,
             'fecha-fin-evento' => 'required|date|date_format:"Y-m-d\TH:i"|after_or_equal:fecha-ini-evento|before_or_equal:'.$fechaFinConv,
