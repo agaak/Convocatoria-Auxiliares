@@ -9,5 +9,5 @@ class EvaluadorAuxiliatura extends Model
     //
     protected $table='evaluador_auxiliatura';
 
-    protected $fillable=['id_evaluador', 'id_auxiliatura'];
+    protected $fillable=['id_evaluador_convocatoria', 'id_auxiliatura'];
 }

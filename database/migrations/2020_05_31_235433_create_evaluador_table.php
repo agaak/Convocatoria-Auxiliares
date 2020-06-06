@@ -42,8 +42,6 @@ class CreateEvaluadorTable extends Migration
             $table->increments('id');
             $table->integer('id_rol_evaluador');
             $table->foreign('id_rol_evaluador')->references('id')->on('tipo_rol_evaluador')->onDelete('cascade');
-            $table->integer('id_evaluador');
-            $table->foreign('id_evaluador')->references('id')->on('evaluador')->onDelete('cascade');
             $table->integer('id_evaluador_convocatoria');
             $table->foreign('id_evaluador_convocatoria')->references('id')->on('evaluador_conovocatoria')->onDelete('cascade');
             $table->timestamps();

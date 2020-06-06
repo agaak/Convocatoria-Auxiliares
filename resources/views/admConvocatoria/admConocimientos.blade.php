@@ -29,8 +29,8 @@
         @php $num = 1; $tam = 0; @endphp
             <tr>
             @foreach($lista_tem_aux as $tem_aux)
-                @php $tem_aux->id_eva == $evaluador->id? $tam++ : $tam; @endphp
-                @if($num == 1 && $tem_aux->id_eva == $evaluador->id)
+                @php $tem_aux->id_eva == $evaluador->id_eva_conv? $tam++ : $tam; @endphp
+                @if($num == 1 && $tem_aux->id_eva == $evaluador->id_eva_conv)
                 @php  $num++ @endphp
                 <td scope="col" style="text-align: left">{{$tem_aux->nombre}}</td>
                 @endif 
@@ -52,7 +52,7 @@
                   </td>  
             </tr>
             @foreach ($lista_tem_aux as $tem_aux)
-                @if($tem_aux->id_eva==$evaluador->id)
+                @if($tem_aux->id_eva==$evaluador->id_eva_conv)
                     @if($num++ > 2)
                         <tr><td scope="col" style="text-align: left">{{$tem_aux->nombre}}</td></tr>
                    @endif
