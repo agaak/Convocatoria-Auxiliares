@@ -62,8 +62,8 @@ class MeritoController extends Controller
         }
 
         
-        $porcentajeMeritos = Calificacion_final::where('id_convocatoria',session()->get('convocatoria'))->first();
-        return view('convocatory.meritos', compact('listaOrdenada','porcentajeMeritos'));
+        $porcentajesConvocatoria = Calificacion_final::where('id_convocatoria',session()->get('convocatoria'))->first();
+        return view('convocatory.meritos', compact('listaOrdenada','porcentajesConvocatoria'));
     }
 
     /**

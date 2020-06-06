@@ -25,12 +25,12 @@ class AdmMeritosUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'adm-meritos-ci-edit' => 'required|min:4|max:10|unique:evaluador_conocimientos,ci',
+            'adm-meritos-ci-edit' => 'required|min:4|max:10|unique:evaluador,ci',
             'adm-meritos-nombre-edit' => 'required|regex:/^[a-zA-Z\s]*$/',
             'adm-meritos-apellidos-edit' => 'required|regex:/^[\pL\s\-]+$/u',
-            // 'adm-meritos-correo-edit' => 'required|email|unique:evaluador_conocimientos,correo',
+            // 'adm-meritos-correo-edit' => 'required|email|unique:evaluador,correo',
             'adm-meritos-correo-edit' => 'required|email',
-            // 'adm-meritos-correo-alter' => 'required|email|unique:evaluador_conocimientos,correo'
+            'adm-meritos-correo-alter-edit' => 'required|email'
         ];
     }
 
@@ -44,7 +44,7 @@ class AdmMeritosUpdateRequest extends FormRequest
             'adm-meritos-apellidos-edit.regex' => 'El campo Apellidos solo permite letras y espacios en blanco.',
             // 'adm-meritos-correo-edit.unique' => 'El correo ingresado ya existe.',
             'adm-meritos-correo-edit.email' => 'El campo correo debe ser de tipo email.',
-            // 'adm-meritos-correo-alter.email' => 'El campo correo debe ser de tipo email.'
+            'adm-meritos-correo-alter-edit.email' => 'El campo correo debe ser de tipo email.'
         ];
     }
 }

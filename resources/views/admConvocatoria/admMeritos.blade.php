@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody style="background-color: white">
-            @foreach($listEvaluador as $item)
+            @foreach($listEvaluadorMerit as $item)
                 <tr>
                 <th style="font-weight: normal">{{ $item->ci }}</th>
                 <th style="font-weight: normal">{{ $item->nombre }}</th>
@@ -68,15 +68,23 @@
                     <form method="POST" action="{{ route('admMeritosCreate') }}"
                         id="form-create-evaluador-merito">
                         {{ csrf_field() }}
+                        
                         <div class="form-group">
                             <label for="adm-meritos-ci">CI:</label>
-                            <input type="number" class="form-control" name="adm-meritos-ci" id="adm-meritos-ci"
-                                placeholder="Ingrese el número de carnet" required minlength="4" maxlength="10"
-                                value="{{ old('adm-meritos-ci') }}">
-                            <div>
-                                {!! $errors->first('adm-meritos-ci', '<strong
-                                    class="message-error text-danger">:message</strong>') !!}
+                            <div class="row m-auto">
+                                <input type="number" name="adm-meritos-ci" placeholder="Ingrese el número de carnet" class="form-control col-sm-7" 
+                                id="adm-meritos-ci" value="{{ old('adm-meritos-ci') }}" required>
+                                <button type="button" class="btn btn-primary col-sm-5" onclick="comprobarEvaluadorMerit({{ convertir($listEvaluadores) }})">Comprobar Existencia</button>
                             </div>
+                            <div>
+                                {!! $errors->first('adm-meritos-ci', '<strong class="message-error text-danger">:message</strong>') !!}
+                            </div>
+                        </div>
+                        <div class="d-none text-center" id="ci-no-existe">
+                            <strong class="text-danger">El CI ingresado ya exite</strong>
+                        </div>
+                        <div class="d-none text-center" id="ci-existe">
+                            <strong class="text-success">El CI ingresado aun no existe</strong>
                         </div>
                         <div class="form-group">
                             <label for="adm-meritos-nombre">Nombre:</label>
@@ -101,7 +109,7 @@
                         <div class="form-group">
                             <label for="adm-meritos-correo">Correo:</label>
                             <input type="email" class="form-control" name="adm-meritos-correo" id="adm-meritos-correo"
-                                placeholder="Ingrese el correo electronico" required minlength="10"
+                                placeholder="Ingrese el correo electronico" required
                                 value="{{ old('adm-meritos-correo') }}">
                             <div>
                                 {!! $errors->first('adm-meritos-correo', '<strong
@@ -111,7 +119,7 @@
                         <div class="form-group">
                             <label for="adm-meritos-correo-alter">Correo alternativo:</label>
                             <input type="email" class="form-control" name="adm-meritos-correo-alter" id="adm-meritos-correo-alter"
-                                placeholder="Ingrese el correo electronico alternativo" required minlength="10"
+                                placeholder="Ingrese el correo electronico alternativo" required
                                 value="{{ old('adm-meritos-correo-alter') }}">
                             <div>
                                 {!! $errors->first('adm-meritos-correo-alter', '<strong
@@ -187,7 +195,7 @@
                         <div class="form-group">
                             <label for="adm-meritos-correo-edit">Correo:</label>
                             <input type="email" class="form-control" name="adm-meritos-correo-edit" id="adm-meritos-correo-edit"
-                                placeholder="Ingrese el correo electronico" required minlength="10"
+                                placeholder="Ingrese el correo electronico" required 
                                 value="{{ old('adm-meritos-correo-edit') }}">
                             <div>
                                 {!! $errors->first('adm-meritos-correo-edit', '<strong
@@ -197,7 +205,7 @@
                         <div class="form-group">
                             <label for="adm-meritos-correo-alter-edit">Correo alternativo:</label>
                             <input type="email" class="form-control" name="adm-meritos-correo-alter-edit" id="adm-meritos-correo-alter-edit"
-                                placeholder="Ingrese el correo electronico alternativo" required minlength="10"
+                                placeholder="Ingrese el correo electronico alternativo" required 
                                 value="{{ old('adm-meritos-correo-alter-edit') }}">
                             <div>
                                 {!! $errors->first('adm-meritos-correo-alter-edit', '<strong
