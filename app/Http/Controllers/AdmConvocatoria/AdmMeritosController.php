@@ -17,13 +17,13 @@ class AdmMeritosController extends Controller
     public function index()
     {
         $id_conv = session()->get('convocatoria');
-        $listEvaluadorMerit = EvaluadorConocimientos::select('evaluador.*')
+        
+        $listEvaluadorMerit = EvaluadorConocimientos::select('evaluador.*','evaluador_conovocatoria.id as id_eva_conv')
             ->join('evaluador_conovocatoria','evaluador.id','=','evaluador_conovocatoria.id_evaluador')
-            // ->join('tipo_conovocatoria','evaluador_conovocatoria.id_evaluador','=','tipo_conovocatoria.id_evaluador')
             ->where('evaluador_conovocatoria.id_convocatoria',$id_conv)
             ->join('tipo_evaluador','evaluador_conovocatoria.id','=','tipo_evaluador.id_evaluador_convocatoria')
-            ->where('tipo_evaluador.id_rol_evaluador',1)
-            ->get();
+            ->where('id_rol_evaluador','1')->get();
+
         $listEvaluadores = EvaluadorConocimientos::get();
         
         return view('admConvocatoria.admMeritos',compact('listEvaluadorMerit','listEvaluadores'));
@@ -31,28 +31,16 @@ class AdmMeritosController extends Controller
 
     public function create(AdmMeritosRequest $request) {
         $id_conv = session()->get('convocatoria');
+        $idEvaluador;
         if (EvaluadorConocimientos::where('ci', '=', $request->input('adm-meritos-ci'))->exists()) {
-            $idEvaluador = EvaluadorConocimientos::where('ci', '=', $request->input('adm-meritos-ci'))->value('id');
+            $idEvaluador = EvaluadorConocimientos::where('ci', '=', $request->input('adm-meritos-ci'))
+                                                    ->value('id');
             DB::table('evaluador')->where('id', $idEvaluador)->update([
                 'nombre' => $request->input('adm-meritos-nombre'),
                 'apellido' => $request->input('adm-meritos-apellidos'),
                 'correo' => $request->input('adm-meritos-correo'),
                 'correo_alt' => $request->input('adm-meritos-correo-alter'),
             ]);
-            if(EvaluadorConovocatoria::where('id_evaluador', '=', $idEvaluador)->exists()){
-                
-            }else{
-                $evaluadorConovocatoria = new EvaluadorConovocatoria();
-                $evaluadorConovocatoria->id_evaluador = $idEvaluador;
-                $evaluadorConovocatoria->id_convocatoria = $id_conv;
-                $evaluadorConovocatoria->save();
-                $idEvaluadorConvocatoria = $evaluadorConovocatoria->id;
-                Tipo_evaluador::create([
-                    'id_rol_evaluador' => 1, 
-                    'id_evaluador' => $idEvaluador,
-                    'id_evaluador_convocatoria' => $idEvaluadorConvocatoria
-                ]);
-            }
         }else{
             $evaluador = new EvaluadorConocimientos();
             $evaluador->ci = $request->input('adm-meritos-ci');
@@ -62,16 +50,25 @@ class AdmMeritosController extends Controller
             $evaluador->correo_alt = $request->input('adm-meritos-correo-alter');
             $evaluador->save();
             $idEvaluador = $evaluador->id;
-
+        }
+        if(EvaluadorConovocatoria::where('id_evaluador', '=', $idEvaluador)
+                                ->where('id_convocatoria', '=', $id_conv)->exists()){
+            $idEvaluadorConvocatoria = EvaluadorConovocatoria::where('id_evaluador', '=', $idEvaluador)
+                                    ->where('id_convocatoria', '=', $id_conv)->first()->id;
+        }else{
             $evaluadorConovocatoria = new EvaluadorConovocatoria();
             $evaluadorConovocatoria->id_evaluador = $idEvaluador;
             $evaluadorConovocatoria->id_convocatoria = $id_conv;
             $evaluadorConovocatoria->save();
             $idEvaluadorConvocatoria = $evaluadorConovocatoria->id;
+        }
+        if(Tipo_evaluador::where('id_rol_evaluador', '=', 1)
+                           ->where('id_evaluador_convocatoria', '=', $idEvaluadorConvocatoria)
+                           ->exists()){
 
+        }else{
             Tipo_evaluador::create([
                 'id_rol_evaluador' => 1, 
-                'id_evaluador' => $idEvaluador,
                 'id_evaluador_convocatoria' => $idEvaluadorConvocatoria
             ]);
         }
@@ -89,9 +86,20 @@ class AdmMeritosController extends Controller
         return back();
     }
     
-    public function delete($id){
-        DB::table('tipo_evaluador')->where('id', 1)
-                                       ->delete();
+    public function delete($idEvaluador){
+        $id_conv = session()->get('convocatoria');
+        $evaluadorConvocatoria = EvaluadorConovocatoria::where('id_evaluador',$idEvaluador)
+                                                ->where('id_convocatoria',$id_conv)->first();
+        
+        Tipo_evaluador::where('id_evaluador_convocatoria',$evaluadorConvocatoria->id)
+                        ->where('id_rol_evaluador','1')->delete();
+
+        if(Tipo_evaluador::where('id_evaluador_convocatoria',$evaluadorConvocatoria->id)
+                            ->where('id_rol_evaluador','1')->get()->isEmpty()){
+            EvaluadorConovocatoria::where('id_evaluador', $idEvaluador)
+                                    ->where('id_convocatoria', $id_conv)
+                                    ->delete();
+        }
         return back();
     }
 }
