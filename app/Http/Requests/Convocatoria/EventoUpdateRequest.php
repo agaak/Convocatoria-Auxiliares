@@ -4,6 +4,7 @@ namespace App\Http\Requests\Convocatoria;
 use App\Convocatoria;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class EventoUpdateRequest extends FormRequest
 {
@@ -24,10 +25,15 @@ class EventoUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $idConv = request()->session()->get('convocatoria');
         $convActual = Convocatoria::where('id', request()->session()->get('convocatoria'));
         $fechaIniConv = $convActual->value('fecha_inicio').' 00:00:00';
         $fechaFinConv = $convActual->value('fecha_final').' 23:59:59';
+
+        $idEvento = DB::table('evento')->select('id')->where('id', request()->input('id-datos-edit'))->get('id');
+
         return [
+            'titulo-evento-edit' => 'required|unique:evento,titulo_evento,'.$idEvento.',id,id_convocatoria,'.$idConv,
             'id-datos-edit' => 'required',
             'titulo-evento-edit' => 'required',
             'lugar-evento-edit' => 'required',

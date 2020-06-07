@@ -119,8 +119,13 @@ class ConocimientoController extends Controller
                 'creado' => true
             ]);  
             return redirect()->route('convocatoria.index'); 
+        } else {
+            request()->validate([
+                'finalizo' => 'required'
+            ],[
+                'finalizo.required' => 'Aun Falta Algo.'
+            ]); // msg Ccorregir los datos 
         }
-        return back(); // msg Ccorregir los datos 
     }
 
     public function knowledgeRatingPdf(Request $request){
