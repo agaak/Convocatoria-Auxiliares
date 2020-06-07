@@ -146,9 +146,6 @@ function editSubMeritModal(lista) {
 function selectAuxiliaturaModal(mporcentajes,mtematicas) {
     var selecte = document.getElementById("id-req");
     var mid_req = selecte.options[selecte.selectedIndex].value;
-    console.log(mporcentajes);
-    console.log(mtematicas);
-    console.log(mid_req);
     var x = document.getElementsByClassName('porcentaje-aux');
     var cont = 0;
     for(i = 0; i < mporcentajes.length; i++) {
@@ -211,6 +208,7 @@ $(document).ready(function() {
 });
 
 function comprobar(listaEva) {
+    document.getElementById("button-guardar").disabled = false;
     let existe = true;
     for (const item of listaEva) {
         if($('#adm-cono-ci').val() == item['ci']) {
@@ -229,9 +227,17 @@ function comprobar(listaEva) {
 
     if (existe) {
         document.getElementById("adm-nom").disabled = false;
+        document.getElementById("adm-nom").value = "";
+        document.getElementById("adm-nom").placeholder="Ingrese su nombre"
         document.getElementById("adm-ape").disabled = false;
+        document.getElementById("adm-ape").value = "";
+        document.getElementById("adm-ape").placeholder="Ingrese su apellido"
         document.getElementById("adm-correo").disabled = false;
+        document.getElementById("adm-correo").value = "";
+        document.getElementById("adm-correo").placeholder="Ingrese su correo"
         document.getElementById("adm-correo2").disabled = false;
+        document.getElementById("adm-correo2").value = "";
+        document.getElementById("adm-correo2").placeholder="Ingrese su correo alternativo"
         $('#ci-existe').removeClass('d-none');
         $('#ci-no-existe').addClass('d-none');
         setTimeout(() => {
@@ -270,12 +276,28 @@ $('#recipeCarousel').carousel({
     $(this).next('.custom-file-label').html(fileName);
   })
  
-  function editEvalConociminetos(evaluador, tematicas, tematicasAll){
-    console.log(tematicas);
-    console.log(tematicasAll);
+  function editEvalConociminetos(evaluador, tematicas, listamulti){
+    var selectem = document.getElementById("select-cono");
+    $('#select-cono').find('option').remove().end() ;
+    for(i = 0; i < tematicas.length; i++){
+        if(tematicas[i].id_eva == evaluador.id_eva_conv){
+            var option = new Option(tematicas[i].nombre, tematicas[i].id);
+            option.selected = true;
+            selectem.append(option);
+        }   
+    }
+    for(i = 0; i < listamulti.length; i++){
+        if($('#select-cono').find("option[value=" + listamulti[i].id_unico + "]").length != 1){
+            var option = new Option(listamulti[i].nombre, listamulti[i].id_unico);
+            option.selected = false;
+            selectem.append(option);
+        }    
+    }
+    $('#id_eva_conv').val(evaluador.id_eva_conv);
     $('#id-evaluador').val(evaluador.id);
     $('#adm-cono-ci-edit').val(evaluador.ci);
     $('#adm-cono-nombre-edit').val(evaluador.nombre);
     $('#adm-cono-apellidos-edit').val(evaluador.apellido);
     $('#adm-cono-correo-edit').val(evaluador.correo);
+    $('#adm-cono-correo2-edit').val(evaluador.correo_alt);
 }

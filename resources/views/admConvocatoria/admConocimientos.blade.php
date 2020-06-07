@@ -29,7 +29,7 @@
         @php $num = 1; $tam = 0; @endphp
             <tr>
             @foreach($lista_tem_aux as $tem_aux)
-                @php $tem_aux->id_eva == $evaluador->id_eva_conv? $tam++ : $tam; @endphp
+                @php $tam = $tem_aux->id_eva == $evaluador->id_eva_conv? $tam + 1 : $tam; @endphp
                 @if($num == 1 && $tem_aux->id_eva == $evaluador->id_eva_conv)
                 @php  $num++ @endphp
                 <td scope="col" style="text-align: left">{{$tem_aux->nombre}}</td>
@@ -89,18 +89,19 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="adm-cono-tipo">Auxiliatura:</label>
-                            <select id="adm-cono-tipo" name="adm-cono-tipo[]" class="select2" multiple="multiple">
+                            <select id="adm-cono-tipo" name="adm-cono-tipo[]" class="select2" multiple="multiple" autofocus required>
                                 @foreach ($listaMultiselect as $item)
                                     <option value="{{ $item->id_unico }}">{{ $item->nombre }}</option>
                                 @endforeach
                             </select>
                             {!! $errors->first('adm-cono-tipo', '<strong class="message-error text-danger">:message</strong>') !!}
                         </div>
-                        <div class="form-group">
-                            <label for="adm-cono-ci">CI:</label>
-                            <div class="row m-auto">
-                                <input type="number" name="adm-cono-ci" placeholder="Ingrese 76446636 para prueba" class="form-control col-sm-7" id="adm-cono-ci" value="{{ old('adm-cono-ci') }}" required>
-                                <button type="button" class="btn btn-primary col-sm-5" onclick="comprobar({{ $listaEva }})">Comprobar Existencia</button>
+                        <div class="form-group row">
+                            <label for="adm-cono-ci"  class="col-sm-1 col-form-label">CI:</label>
+                            <div class="col-sm-5">
+                                <input type="number" name="adm-cono-ci" placeholder="Ingrese su carnet" class="form-control" id="adm-cono-ci" value="{{ old('adm-cono-ci') }}" required>
+                            </div> <div class="col-sm-6">
+                                <button type="button" class="btn btn-primary" onclick="comprobar({{ $listaEva }})">Comprobar Existencia</button>
                             </div>
                             {!! $errors->first('adm-cono-ci', '<strong class="message-error text-danger">:message</strong>') !!}
                         </div>
@@ -110,32 +111,36 @@
                         <div class="d-none text-center" id="ci-existe">
                             <strong class="text-success">El CI ingresado aun no existe</strong>
                         </div>
-                        <div class="form-group">
-                            <label for="adm-cono-nombre">Nombre:</label>
+                        <div class="form-group row">
+                            <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Nombre:</label>
+                            <div class="col-sm-9">
                             <input type="text" name="adm-cono-nombre" minlength="3" disabled id="adm-nom" class="form-control" value="{{ old('adm-cono-nombre') }}" required>
-                            {!! $errors->first('adm-cono-nombre', '<strong class="message-error text-danger">:message</strong>') !!}
-                        </div>
-                        <div class="form-group">
-                            <label for="adm-cono-apellidos">Apellidos:</label>
-                            <input type="text" name="adm-cono-apellidos" minlength="3" disabled id="adm-ape" class="form-control" value="{{ old('adm-cono-apellidos') }}" required>
-                            {!! $errors->first('adm-cono-apellidos', '<strong class="message-error text-danger">:message</strong>') !!}
-                        </div>
-                        <div class="form-group">
-                        <label for="adm-cono-correo">Correo:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control mt-0" name="adm-cono-correo" disabled id="adm-correo" aria-label="Recipient's username" 
-                                aria-describedby="basic-addon2" value="{{ old('adm-cono-correo') }}" required>
-                            <div class="input-group-append">
-                              <span class="input-group-text" id="basic-addon2">@gmail.com</span>
                             </div>
                         </div>
-                        {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger">:message</strong>') !!}<br>
-                        <label for="adm-cono-correo">Correo Alternativo:</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="adm-cono-correo2" disabled id="adm-correo2" aria-label="Recipient's username" 
+                        <div class="form-group row">
+                            <label for="adm-ape" class="col-sm-3 col-form-label">Apellidos:</label>
+                            <div class="col-sm-9">
+                            <input type="text" name="adm-cono-apellidos" minlength="3" disabled id="adm-ape" class="form-control" value="{{ old('adm-cono-apellidos') }}" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                        <label for="adm-cono-correo"  class="col-sm-3 col-form-label">Correo:</label>
+                        <div class="input-group mb-3 col-sm-9">
+                            <input type="email" class="form-control mt-0" name="adm-cono-correo" disabled id="adm-correo" aria-label="Recipient's username" 
+                                aria-describedby="basic-addon2" value="{{ old('adm-cono-correo') }}" required>
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon2">@</span>
+                            </div>
+                        </div>
+                        {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger text-center col-sm-12 m-0">:message</strong>') !!}
+                        </div>
+                        <div class="form-group row">
+                        <label for="adm-cono-correo2"  class="col-sm-3 col-form-label">Correo Alt(*)</label>
+                        <div class="input-group mb-3 col-sm-9">
+                            <input type="email" class="form-control" name="adm-cono-correo2" disabled id="adm-correo2" aria-label="Recipient's username" 
                                 aria-describedby="basic-addon2" value="{{ old('adm-cono-correo2') }}" >
                             <div class="input-group-append">
-                              <span class="input-group-text" id="basic-addon2">@gmail.com</span>
+                              <span class="input-group-text" id="basic-addon2">@</span>
                             </div>
                         </div>
                         </div>
@@ -143,6 +148,7 @@
                             <script>
                                 window.onload = () => {
                                     $('#admConoModal').modal('show');
+                                    document.getElementById("button-guardar").disabled = false;
                                 }
                             </script>
                         @endif
@@ -151,7 +157,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" form="from-adm-conocimientos" class="btn btn-info" id="button-guardar">Guardar</button>
+                    <button type="submit" form="from-adm-conocimientos" class="btn btn-info" id="button-guardar" disabled>Guardar</button>
                 </div>
             </div>
         </div>
@@ -173,19 +179,21 @@ aria-hidden="true">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 <input type="hidden" id="id-evaluador" name="id-evaluador">
+                <input type="hidden" id="id_eva_conv" name="id_eva_conv">
                 <div class="form-group">
                     <label for="adm-cono-tipo">Auxiliatura:</label>
-                    <select id="adm-cono-tipo" name="adm-cono-tipo[]" class="select2" multiple="multiple">
-                            <option value=""></option>{{--                                                  --}}
+                    <select name="adm-cono-tipo2[]" class="select2" id="select-cono" multiple="multiple" required>
+                        @foreach ($listaMultiselect as $item)
+                        <option value="{{ $item->id_unico }}">{{ $item->nombre }}</option>
+                        @endforeach
                     </select>
-                    {!! $errors->first('adm-cono-tipo', '<strong class="message-error text-danger">:message</strong>') !!}
+                {!! $errors->first('adm-cono-tipo', '<strong class="message-error text-danger">:message</strong>') !!}
                 </div>
-                <div class="form-group">
-                    <label for="adm-cono-ci">CI:</label>
-                    <div class="row m-auto">
-                        <input type="number" name="adm-cono-ci-edit" placeholder="Ingrese 76446636 para prueba" class="form-control col-sm-7" id="adm-cono-ci-edit" value="{{ old('adm-cono-ci') }}" required>
-                        <button type="button" class="btn btn-primary col-sm-5" onclick="comprobar({{ $listaEva }})">Comprobar Existencia</button>
-                    </div>
+                <div class="form-group row">
+                        <label for="adm-cono-ci-edit" class="col-sm-3 col-form-label">Carnet:</label>
+                        <div class="col-sm-9">
+                        <input type="number" name="adm-cono-ci-edit" readonly class="form-control" id="adm-cono-ci-edit" required>
+                        </div>
                     {!! $errors->first('adm-cono-ci', '<strong class="message-error text-danger">:message</strong>') !!}
                 </div>
                 <div class="d-none text-center" id="ci-no-existe">
@@ -194,20 +202,39 @@ aria-hidden="true">
                 <div class="d-none text-center" id="ci-existe">
                     <strong class="text-success">El CI ingresado aun no existe</strong>
                 </div>
-                <div class="form-group">
-                    <label for="adm-cono-nombre">Nombre:</label>
-                    <input type="text" name="adm-cono-nombre-edit" id="adm-cono-nombre-edit" minlength="3" class="form-control" value="{{ old('adm-cono-nombre') }}" required>
+                <div class="form-group row">
+                    <label for="adm-cono-nombre-edit" class="col-sm-3 col-form-label">Nombres:</label>
+                    <div class="col-sm-9">
+                    <input type="text" name="adm-cono-nombre-edit" id="adm-cono-nombre-edit" minlength="3" class="form-control" required>
+                    </div>
                     {!! $errors->first('adm-cono-nombre', '<strong class="message-error text-danger">:message</strong>') !!}
                 </div>
-                <div class="form-group">
-                    <label for="adm-cono-apellidos">Apellidos:</label>
+                <div class="form-group row">
+                    <label for="adm-cono-apellidos-edit"  class="col-sm-3 col-form-label">Apellidos:</label>
+                    <div class="col-sm-9">
                     <input type="text" name="adm-cono-apellidos-edit" id="adm-cono-apellidos-edit" minlength="3" class="form-control" value="{{ old('adm-cono-apellidos') }}" required>
+                    </div>
                     {!! $errors->first('adm-cono-apellidos', '<strong class="message-error text-danger">:message</strong>') !!}
                 </div>
-                <div class="form-group">
-                    <label for="adm-cono-correo">Correo:</label>
-                    <input type="email" name="adm-cono-correo-edit" id="adm-cono-correo-edit" class="form-control" value="{{ old('adm-cono-correo') }}" required>
-                    {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger">:message</strong>') !!}
+                <div class="form-group row">
+                    <label for="adm-cono-correo-edit"  class="col-sm-3 col-form-label">Correo:</label>
+                    <div class="input-group mb-3 col-sm-9">
+                        <input type="email" class="form-control" name="adm-cono-correo-edit" id="adm-cono-correo-edit" aria-label="Recipient's username" 
+                            aria-describedby="basic-addon2" required>
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="basic-addon2">@</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="adm-cono-correo2-edit"  class="col-sm-3 col-form-label">Correo Alt(*)</label>
+                    <div class="input-group mb-3 col-sm-9">
+                        <input type="email" class="form-control" name="adm-cono-correo2-edit" id="adm-cono-correo2-edit" aria-label="Recipient's username" 
+                            aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="basic-addon2">@</span>
+                        </div>
+                    </div>
                 </div>
                 @if ($errors->any())
                     <script>
@@ -221,7 +248,7 @@ aria-hidden="true">
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="submit" form="from-adm-conocimientos-edit" class="btn btn-info" id="button-guardar">Guardar</button>
+            <button type="submit" form="from-adm-conocimientos-edit" class="btn btn-info" id="button-guardar2">Guardar</button>
         </div>
     </div>
 </div>

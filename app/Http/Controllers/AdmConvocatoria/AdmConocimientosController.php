@@ -30,27 +30,36 @@ class AdmConocimientosController extends Controller
             ->where('id_rol_evaluador','2')->get();
         $tipoConvocatoria  = Convocatoria::where('id',$id_conv)->value('id_tipo_convocatoria');
         if ($tipoConvocatoria  === 2) {
-            $listaMultiselect = Requerimiento::select('auxiliatura.nombre_aux as nombre', 'requerimiento.id as id_unico')
-            ->where('id_convocatoria', $id_conv)
-            ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')->get();
-        
             $lista_tem_aux = EvaluadorAuxiliatura::select('auxiliatura.nombre_aux as nombre','auxiliatura.id','auxiliatura.cod_aux as cod','evaluador.id as id_eva') 
             ->join('evaluador_auxiliatura','id_convo','=','evaluador_auxiliatura.id_evaluador_convocatoria')  
             ->join('auxiliatura','evaluador_auxiliatura.id_auxiliatura','=','auxiliatura.id')
             ->get();
-        } else {
-            $listaMultiselect = Porcentaje::select('id_tematica as id_unico', 'tematica.nombre')
-            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
-            ->where('requerimiento.id_convocatoria', $id_conv)
-            ->join('tematica','porcentaje.id_tematica','=','tematica.id')->groupBy('tematica.nombre','id_tematica')->get();
+
+
+            $listaMultiselect = Requerimiento::select('auxiliatura.nombre_aux as nombre', 'requerimiento.id as id_unico')
+            ->where('id_convocatoria', $id_conv)
+            ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')->get();
             
+        } else {
             $lista_tem_aux = EvaluadorTematica::select('tematica.nombre','tematica.id','evaluador_conovocatoria.id as id_eva') 
-            ->join('evaluador_conovocatoria','evaluador_tematica.id_evaluador_convocatoria','=','evaluador_conovocatoria.id_evaluador')
+            ->join('evaluador_conovocatoria','evaluador_tematica.id_evaluador_convocatoria','=','evaluador_conovocatoria.id')
             ->where('evaluador_conovocatoria.id_convocatoria',$id_conv)
             ->join('tipo_evaluador','evaluador_conovocatoria.id','=','tipo_evaluador.id_evaluador_convocatoria')
             ->where('id_rol_evaluador','2')
             ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')
             ->groupBy('tematica.id','evaluador_conovocatoria.id')->get();
+
+            $tem_res = [];
+            foreach($lista_tem_aux as $tem){
+                array_push($tem_res, $tem->id);    
+            }
+
+            $listaMultiselect = Porcentaje::select('id_tematica as id_unico', 'tematica.nombre')
+            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+            ->where('requerimiento.id_convocatoria', $id_conv)
+            ->join('tematica','porcentaje.id_tematica','=','tematica.id')
+            ->whereNotIn('id_tematica', $tem_res)->groupBy('tematica.nombre','id_tematica')->get();
+
         }
         $listaEva = EvaluadorConocimientos::get();
         return view('admConvocatoria.admConocimientos', compact('listaEva', 'listaMultiselect','lista_tem_aux','evaluadores','tipoConvocatoria'));
@@ -142,16 +151,53 @@ class AdmConocimientosController extends Controller
             'apellido' => $request->input('adm-cono-apellidos-edit'),
             'correo' => $request->input('adm-cono-correo-edit'),
         ]);
+        if($request->input('adm-cono-correo2-edit') != null){
+            EvaluadorConocimientos::where('id', $request->input('id-evaluador'))->update([
+                'correo_alt' => $request->input('adm-cono-correo2-edit'),
+            ]);
+        }
+
+        $idEvaConvo =  $request->input('id_eva_conv');
+        $tipoConvocatoria  = Convocatoria::where('id',session()->get('convocatoria'))->value('id_tipo_convocatoria');
+        $arreglo = $request->input('adm-cono-tipo2');
+        
+
+        if ($tipoConvocatoria === 2) {
+            EvaluadorAuxiliatura::where('id_evaluador_convocatoria',$idEvaConvo)->delete();
+            foreach ($arreglo as $item) {
+                EvaluadorAuxiliatura::create([
+                    'id_evaluador_convocatoria' => $idEvaConvo,
+                    'id_auxiliatura' => $item
+                ]);
+            }
+        } else {
+            EvaluadorTematica::where('id_evaluador_convocatoria',$idEvaConvo)->delete();
+            foreach($arreglo as $item) {
+                EvaluadorTematica::create([
+                    'id_evaluador_convocatoria' => $idEvaConvo,
+                    'id_tematica' => $item
+                ]);
+            }
+        }
         return back();
     }
 
     public function destroy($id)
     {
-        EvaluadorTematica::where('id_evaluador',$id)->delete();
-        EvaluadorAuxiliatura::where('id_evaluador',$id)->delete();
-        Tipo_evaluador::where('id_evaluador',$id)->where('id_rol_evaluador','2')->delete();
-        if(Tipo_evaluador::where('id_evaluador',$id)->get()->isExmpty()){
+        $id_conv = session()->get('convocatoria');
+
+        $id_eva_conv = EvaluadorConovocatoria::where('id_convocatoria',$id_conv)
+            ->where('id_evaluador',$id)->value('id');
+            
+        EvaluadorTematica::where('id_evaluador_convocatoria',$id_eva_conv)->delete();
+        EvaluadorAuxiliatura::where('id_evaluador_convocatoria',$id_eva_conv)->delete();
+
+        Tipo_evaluador::where('id_evaluador_convocatoria',$id_eva_conv)->where('id_rol_evaluador','2')->delete();
+
+        $msg = Tipo_evaluador::where('id_evaluador_convocatoria',$id_eva_conv)->get();
+        if(Tipo_evaluador::where('id_evaluador_convocatoria',$id_eva_conv)->get()->isEmpty()){
             EvaluadorConovocatoria::where('id_evaluador', $id)->delete();
+
         }
         return back();
     }
