@@ -40,7 +40,8 @@
             <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}">{{$evaluador->apellido}}</td>
             <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}">{{$evaluador->correo}}</td>
                 <td class="table-light" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
-                    <a class="options" data-toggle="modal" data-target="#tematicaEditModal" 
+                    <a class="options" data-toggle="modal" data-target="#editEvalConociminetos" 
+                    onclick="editEvalConociminetos({{ json_encode($evaluador) }}, {{ json_encode($lista_tem_aux) }}, {{ json_encode($listaMultiselect) }})"
                     data-dismiss="modal"><img src="{{ asset('img/pen.png') }}" width="20" height="25"></a>
                     <form class="d-inline" action="{{ route('admConocimientosDelete', $evaluador->id) }}" method="POST">
                       {{ csrf_field() }}
@@ -155,5 +156,76 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal para editar evaluador de conocimientos --}}
+<div class="modal fade" id="editEvalConociminetos" tabindex="-1" role="dialog" aria-labelledby="admConoModalTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="admConoModalTitle">Editar Evaluador de Conocimientos</h5>
+            <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="{{ route('admConoUpdate') }}" id="from-adm-conocimientos-edit">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
+                <input type="hidden" id="id-evaluador" name="id-evaluador">
+                <div class="form-group">
+                    <label for="adm-cono-tipo">Auxiliatura:</label>
+                    <select id="adm-cono-tipo" name="adm-cono-tipo[]" class="select2" multiple="multiple">
+                            <option value=""></option>{{--                                                  --}}
+                    </select>
+                    {!! $errors->first('adm-cono-tipo', '<strong class="message-error text-danger">:message</strong>') !!}
+                </div>
+                <div class="form-group">
+                    <label for="adm-cono-ci">CI:</label>
+                    <div class="row m-auto">
+                        <input type="number" name="adm-cono-ci-edit" placeholder="Ingrese 76446636 para prueba" class="form-control col-sm-7" id="adm-cono-ci-edit" value="{{ old('adm-cono-ci') }}" required>
+                        <button type="button" class="btn btn-primary col-sm-5" onclick="comprobar({{ $listaEva }})">Comprobar Existencia</button>
+                    </div>
+                    {!! $errors->first('adm-cono-ci', '<strong class="message-error text-danger">:message</strong>') !!}
+                </div>
+                <div class="d-none text-center" id="ci-no-existe">
+                    <strong class="text-danger">El CI ingresado ya exite</strong>
+                </div>
+                <div class="d-none text-center" id="ci-existe">
+                    <strong class="text-success">El CI ingresado aun no existe</strong>
+                </div>
+                <div class="form-group">
+                    <label for="adm-cono-nombre">Nombre:</label>
+                    <input type="text" name="adm-cono-nombre-edit" id="adm-cono-nombre-edit" minlength="3" class="form-control" value="{{ old('adm-cono-nombre') }}" required>
+                    {!! $errors->first('adm-cono-nombre', '<strong class="message-error text-danger">:message</strong>') !!}
+                </div>
+                <div class="form-group">
+                    <label for="adm-cono-apellidos">Apellidos:</label>
+                    <input type="text" name="adm-cono-apellidos-edit" id="adm-cono-apellidos-edit" minlength="3" class="form-control" value="{{ old('adm-cono-apellidos') }}" required>
+                    {!! $errors->first('adm-cono-apellidos', '<strong class="message-error text-danger">:message</strong>') !!}
+                </div>
+                <div class="form-group">
+                    <label for="adm-cono-correo">Correo:</label>
+                    <input type="email" name="adm-cono-correo-edit" id="adm-cono-correo-edit" class="form-control" value="{{ old('adm-cono-correo') }}" required>
+                    {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger">:message</strong>') !!}
+                </div>
+                @if ($errors->any())
+                    <script>
+                        window.onload = () => {
+                            $('#admConoModal').modal('show');
+                        }
+                    </script>
+                @endif
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" form="from-adm-conocimientos-edit" class="btn btn-info" id="button-guardar">Guardar</button>
+        </div>
+    </div>
+</div>
+</div>
+
     
 @endsection

@@ -270,3 +270,12 @@ $('#recipeCarousel').carousel({
     $(this).next('.custom-file-label').html(fileName);
   })
  
+  function editEvalConociminetos(evaluador, tematicas, tematicasAll){
+    console.log(tematicas);
+    console.log(tematicasAll);
+    $('#id-evaluador').val(evaluador.id);
+    $('#adm-cono-ci-edit').val(evaluador.ci);
+    $('#adm-cono-nombre-edit').val(evaluador.nombre);
+    $('#adm-cono-apellidos-edit').val(evaluador.apellido);
+    $('#adm-cono-correo-edit').val(evaluador.correo);
+}

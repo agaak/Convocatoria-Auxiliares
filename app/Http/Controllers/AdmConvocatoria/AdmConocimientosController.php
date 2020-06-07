@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\AdmConvocatoria;
 
-use App\Auxiliatura;
+
 use App\Convocatoria;
 use App\EvaluadorAuxiliatura;
 use App\EvaluadorConocimientos;
 use App\EvaluadorConovocatoria;
 use App\EvaluadorTematica;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\AdmConvocatoria\AdmConocimientosRequest;
 use App\Porcentaje;
 use App\Requerimiento;
 use App\Tipo_evaluador;
-use App\Tipo_rol_evaluador;
-use TipoNotaSeeder;
+
 
 class AdmConocimientosController extends Controller
 {
@@ -135,6 +135,15 @@ class AdmConocimientosController extends Controller
         return back();
     }
 
+    public function updateEvaluador(Request $request){
+        EvaluadorConocimientos::where('id', $request->input('id-evaluador'))->update([
+            'ci' => $request->input('adm-cono-ci-edit'),
+            'nombre' => $request->input('adm-cono-nombre-edit'),
+            'apellido' => $request->input('adm-cono-apellidos-edit'),
+            'correo' => $request->input('adm-cono-correo-edit'),
+        ]);
+        return back();
+    }
 
     public function destroy($id)
     {
