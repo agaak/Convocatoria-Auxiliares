@@ -200,7 +200,7 @@
                                 <img src="{{ asset('img/pen.png') }}" width="30" height="30">
                             </a>
                             <form class="d-inline"
-                                action="{{ route('admMeritosDelete', $item->id) }}"
+                                action="{{ route('importantDatesDelete', $item->id) }}"
                                 method="POST" id="important-dates-delete">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
