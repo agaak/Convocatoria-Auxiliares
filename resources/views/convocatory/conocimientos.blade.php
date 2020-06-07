@@ -226,12 +226,14 @@
       {{ csrf_field() }}
       <div class="custom-file col-sm-4" lang="es">
         <input type="file" class="custom-file-input" id="upload-pdf" name="upload-pdf" lang="es" required>
+        <input type="hidden" name="finalizo" value="">
         <label class="custom-file-label" style="text-align: left;" for="customFileLang">Seleccionar PDF</label>
       </div><br>
       <button type="submit" class="btn btn-info mt-3" tabindex="-1" role="button" aria-disabled="true">
         Finalizar
       </button>
     </form>
+    {!! $errors->first('finalizo', '<strong class="message-error text-danger">:message</strong>') !!}
   </div>
 </div>
 <script>
