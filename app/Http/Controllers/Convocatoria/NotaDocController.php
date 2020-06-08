@@ -23,11 +23,13 @@ class NotaDocController extends Controller
             }
             
         } else {
-            DB::table('nota')->insert([
-                'id_tipo_nota' => 2,
-                'id_convocatoria' => $convActual,
-                'descripcion' => request()->input('nota-doc')
-            ]);
+            if (request()->input('nota-doc') != null) {
+                DB::table('nota')->insert([
+                    'id_tipo_nota' => 2,
+                    'id_convocatoria' => $convActual,
+                    'descripcion' => request()->input('nota-doc')
+                ]);
+            }
         }
 
         return back();

@@ -118,34 +118,70 @@ class ConocimientoController extends Controller
             ->groupBy('requerimiento.id_auxiliatura')
             ->groupBy('requerimiento.id_auxiliatura')
             ->havingRaw('SUM(porcentaje) < 100')->get();
-        $controlMerito = Merito::where('id_convocatoria',$id_conv)->where('id_submerito', null)->sum('porcentaje') == 100;
-        if(!$controlMerito){
-            request()->validate([
-                'finalizo' => 'required'
-            ],[
-                'finalizo.required' => 'La suma de los porcentajes de merito no es el 100%.'
-            ]);  
-        }
-        $control = Requerimiento::where('id_convocatoria',$id_conv)->exists() && 
-            Requisito::where('id_convocatoria',$id_conv)->exists() &&
-            Documento::where('id_convocatoria',$id_conv)->exists() &&
-            EventoImportante::where('id_convocatoria',$id_conv)->exists() &&
-            Merito::where('id_convocatoria',$id_conv)->exists() &&
-            Calificacion_final::where('id_convocatoria',$id_conv)->exists() &&
-            Porcentaje::join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
-            ->where('requerimiento.id_convocatoria',$id_conv)->exists();
-        if(!$control){
-            request()->validate([
-                'finalizo' => 'required'
-            ],[
-                'finalizo.required' => 'Tiene secciones sin completar.'
-            ]);  
-        }
+        
+            if(!Requerimiento::where('id_convocatoria',$id_conv)->exists()){
+                request()->validate([
+                    'finalizo' => 'required'
+                ],[
+                    'finalizo.required' => 'No lleno la seccion de requerimientos.'
+                ]);  
+            }
+            if(!Requisito::where('id_convocatoria',$id_conv)->exists()){
+                request()->validate([
+                    'finalizo' => 'required'
+                ],[
+                    'finalizo.required' => 'No lleno la seccion de requisitos.'
+                ]);  
+            }
+            if(!Documento::where('id_convocatoria',$id_conv)->exists()){
+                request()->validate([
+                    'finalizo' => 'required'
+                ],[
+                    'finalizo.required' => 'No lleno la seccion de documentos.'
+                ]);  
+            }
+            if(!EventoImportante::where('id_convocatoria',$id_conv)->exists()){
+                request()->validate([
+                    'finalizo' => 'required'
+                ],[
+                    'finalizo.required' => 'No lleno la seccion de eventos importantes.'
+                ]);  
+            }
+            if(!Merito::where('id_convocatoria',$id_conv)->exists()){
+                request()->validate([
+                    'finalizo' => 'required'
+                ],[
+                    'finalizo.required' => 'No lleno la seccion de calificaion de meritos.'
+                ]);  
+            }
+            if(! Merito::where('id_convocatoria',$id_conv)->where('id_submerito', null)->sum('porcentaje') == 100){
+                request()->validate([
+                    'finalizo' => 'required'
+                ],[
+                    'finalizo.required' => 'La suma de los porcentajes de meritos no es el 100%.'
+                ]);  
+            }
+            if(! Calificacion_final::where('id_convocatoria',$id_conv)->exists()){
+                request()->validate([
+                    'finalizo' => 'required'
+                ],[
+                    'finalizo.required' => 'No lleno la nota final en la seccion de meritos.'
+                ]);  
+            }
+            if(! Porcentaje::join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+                ->where('requerimiento.id_convocatoria',$id_conv)->exists()){
+                request()->validate([
+                    'finalizo' => 'required'
+                ],[
+                    'finalizo.required' => 'No lleno la seccion de calificacion de conocimientos.'
+                ]);  
+            }
+           
         if($porcen_min->isNotEmpty() || $porcen_max->isNotEmpty()){
             request()->validate([
                 'finalizo' => 'required'
             ],[
-                'finalizo.required' => 'La suma de los porcentajes de las auxiliaturas no es el 100%.'
+                'finalizo.required' => 'La suma de los porcentajes de las tematicas de una auxiliaturas no es el 100%.'
             ]);
         }
         if(str_contains($request->file('upload-pdf')->getClientOriginalName(),'.pdf')){

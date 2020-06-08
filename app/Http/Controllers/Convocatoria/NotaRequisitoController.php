@@ -24,11 +24,13 @@ class NotaRequisitoController extends Controller
             }
             
         } else {
-            DB::table('nota')->insert([
-                'id_tipo_nota' => 1,
-                'id_convocatoria' => $convActual,
-                'descripcion' => request()->input('nota-requisito')
-            ]);
+            if (request()->input('nota-requisito') != null) {
+                DB::table('nota')->insert([
+                    'id_tipo_nota' => 1,
+                    'id_convocatoria' => $convActual,
+                    'descripcion' => request()->input('nota-requisito')
+                ]);
+            }
         }
 
         return back();
