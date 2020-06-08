@@ -93,7 +93,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="conv-gestion">Gestion</label>
+                                    <label for="conv-gestion">Gestión</label>
                                     <select name="conv-gestion" id="conv-gestion" class="form-control" required>
                                         <option value="{{ $anioActual }}"
                                             {{ old('conv-gestion') === $anioActual? 'selected': '' }}>
