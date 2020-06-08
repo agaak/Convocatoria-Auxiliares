@@ -34,7 +34,7 @@ class AdmMeritosController extends Controller
         if($idEvaluador == null){
             request()->validate([
                 'adm-cono-tipo' => 'required',
-                'adm-cono-ci' => 'min:4|max:10|unique:evaluador,ci',
+                'adm-cono-ci' => 'min:4|max:9|unique:evaluador,ci',
                 'adm-cono-nombre' => 'regex:/^[a-zA-Z\s]*$/',
                 'adm-cono-apellidos' => 'regex:/^[\pL\s\-]+$/u',
                 'adm-cono-correo' => 'email|unique:evaluador,correo',
