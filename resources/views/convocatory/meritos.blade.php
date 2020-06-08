@@ -179,6 +179,7 @@
                                 id="submerit-descripcion-edit" rows="3" placeholder="Ingrese la descripción del mérito"
                                 required></textarea>
                         </div>
+                        {!! $errors->first('submerit-descripcion-edit', '<strong class="message-error text-danger">:message</strong>') !!}
                         <div class="form-row my-2">
                             <label class="col-3 col-form-label" for="submerit-porcentaje-edit">Porcentaje:</label>
                             <input type="number" class="form-control col-sm-3" name="submerit-porcentaje-edit"
@@ -278,7 +279,7 @@
 
                 @foreach($listaOrdenada  as $item)
                     <tr>
-                        <td class="{{ $item[0] === null? 'text-uppercase font-weight-bold': 'text-lowercase' }}"
+                        <td class="{{ $item[0] === null? 'font-weight-bold': 'text-lowercase' }}"
                             style="padding-left: {{ espacios($item[1]) }}px;">{{ $item[1] }}</td>
                         <td class="text-center">{{ $item[2] }}</td>
                         <td class="text-center">

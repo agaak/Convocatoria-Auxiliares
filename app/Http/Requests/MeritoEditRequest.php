@@ -47,6 +47,7 @@ class MeritoEditRequest extends FormRequest
             $total = $merito - $subMeritos;
             return [
                 'submerit-porcentaje-edit' => 'required|maximo:'.$total,
+                'submerit-descripcion-edit' => 'required|unique:merito,descripcion_merito,'.request()->input('submerit-id').',id,id_convocatoria,'.$convActual,
             ];
         } else {
             $total = Merito::where('id_convocatoria', $convActual)->where('id_submerito', null)
@@ -54,6 +55,7 @@ class MeritoEditRequest extends FormRequest
             $total = 100 - $total;
     
             return [
+                'merit-descripcion-edit' => 'required|unique:merito,descripcion_merito,'.request()->input('merit-id').',id,id_convocatoria,'.$convActual,
                 'merit-porcentaje-edit' => 'required|maximo:'.$total
             ];
         }
@@ -62,6 +64,7 @@ class MeritoEditRequest extends FormRequest
 
     public function messages()
     {
+        $convActual = request()->session()->get('convocatoria');
         if(request()->has('porcent-merit')){
             return ['porcent-merit.required' => 'El porcentaje es requerido',
                     'porcent-merit.min' => 'El porcentaje debe ser mayor a 0',
@@ -69,11 +72,13 @@ class MeritoEditRequest extends FormRequest
                     ];
         }else if (request()->has('merit-submerit')) {
             return [
-                'submerit-porcentaje-edit.maximo' => 'El Porcentaje ingresado mas la suma de los otros sub meritos excede el limite.'
+                'submerit-porcentaje-edit.maximo' => 'El Porcentaje ingresado mas la suma de los otros sub meritos excede el limite.',
+                'submerit-descripcion-edit.unique' => 'El Campo Descripción debe ser única.'
             ];
         } else {
             return [
-                'merit-porcentaje-edit.maximo' => 'El Porcentaje ingresado mas la suma de los otros supera los 100.'
+                'merit-porcentaje-edit.maximo' => 'El Porcentaje ingresado mas la suma de los otros supera los 100.',
+                'merit-descripcion-edit.unique' => 'El Campo Descripción debe ser única.'
             ];
         }
         
