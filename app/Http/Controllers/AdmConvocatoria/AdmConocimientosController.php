@@ -70,30 +70,58 @@ class AdmConocimientosController extends Controller
         return redirect()->route('admConvocatoria');
     }
 
-    public function store(AdmConocimientosRequest $request) {
+    public function store(Request $request) {
         $id_conv = session()->get('convocatoria');
         $tipoConvocatoria  = Convocatoria::where('id',$id_conv)->value('id_tipo_convocatoria');
-        $evaluador = new EvaluadorConocimientos();
-        $evaluador->ci = $request->input('adm-cono-ci');
-        $evaluador->nombre = $request->input('adm-cono-nombre');
-        $evaluador->apellido = $request->input('adm-cono-apellidos');
-        $evaluador->correo = $request->input('adm-cono-correo');
-        if($request->input('adm-cono-correo2') != null){
-            $evaluador->correo_alt = $request->input('adm-cono-correo2');
+        $evaluadorID = EvaluadorConocimientos::where('ci', $request->input('adm-cono-ci'))->value('id');
+        if($evaluadorID == null){
+            request()->validate([
+                'adm-cono-tipo' => 'required',
+                'adm-cono-ci' => 'min:4|max:10|unique:evaluador,ci',
+                'adm-cono-nombre' => 'regex:/^[a-zA-Z\s]*$/',
+                'adm-cono-apellidos' => 'regex:/^[\pL\s\-]+$/u',
+                'adm-cono-correo' => 'email|unique:evaluador,correo',
+                'adm-cono-correo2' => 'nullable|email'
+            ],[
+                'adm-cono-tipo.required' => 'Este Campo es requerido.',
+                'adm-cono-ci.min' => 'El campo CI contiene como minimo 4 carácteres.',
+                'adm-cono-ci.max' => 'El campo CI contiene como maximo 10 carácteres.', 
+                'adm-cono-ci.unique' => 'El ci ingresado ya existe.',
+                'adm-cono-nombre.regex' => 'El campo Nombre solo permite letras y espacios en blanco.',
+                'adm-cono-apellidos.regex' => 'El campo Apellidos solo permite letras y espacios en blanco.',
+                'adm-cono-correo.unique' => 'El correo ingresado ya existe.',
+                'adm-cono-correo.email' => 'El campo correo debe ser de tipo email.',
+                'adm-cono-correo2.email' => 'El campo correo debe ser de tipo email.'
+            ]);
+            $evaluador = new EvaluadorConocimientos();
+            $evaluador->ci = $request->input('adm-cono-ci');
+            $evaluador->nombre = $request->input('adm-cono-nombre');
+            $evaluador->apellido = $request->input('adm-cono-apellidos');
+            $evaluador->correo = $request->input('adm-cono-correo');
+            if($request->input('adm-cono-correo2') != null){
+                $evaluador->correo_alt = $request->input('adm-cono-correo2');
+            }
+            $evaluador->save();
+            $evaluadorID = $evaluador->id;
         }
-        $evaluador->save();
-
         $idEvaConvo = EvaluadorConovocatoria::where('id_convocatoria',$id_conv)
-            ->where('id_evaluador',$evaluador->id)->value('id');
+            ->where('id_evaluador',$evaluadorID)->value('id');
 
         if($idEvaConvo == null){
             $eva_con = new EvaluadorConovocatoria();
-            $eva_con->id_evaluador = $evaluador->id; 
+            $eva_con->id_evaluador = $evaluadorID; 
             $eva_con->id_convocatoria = $id_conv;
             $eva_con->save();
             $idEvaConvo = $eva_con->id;
         }
-
+        $tip_eva = Tipo_evaluador::where('id_evaluador_convocatoria',$idEvaConvo)->where('id_rol_evaluador',2)->get();
+        if($tip_eva->isNotEmpty()){
+            request()->validate([
+                'adm-cono-ci' => 'unique:evaluador,ci'
+            ],[
+                'adm-cono-ci.unique' => 'El evaluador ya esta registrado.'
+            ]);    
+        }
         Tipo_evaluador::create([
             'id_rol_evaluador' => 2,
             'id_evaluador_convocatoria' => $idEvaConvo
@@ -138,9 +166,6 @@ class AdmConocimientosController extends Controller
                 ]);
             }
         }
-        
-
-
         return back();
     }
 

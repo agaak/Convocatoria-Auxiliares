@@ -36,12 +36,12 @@ function editDatesList(listDates) {
 }
 
 function editEvaluadorMeritos(evaluadorMeritos) {
-    $('#id-dato-edit').val(evaluadorMeritos['id']);
-    $('#adm-meritos-ci-edit').val(evaluadorMeritos['ci']);
-    $('#adm-meritos-nombre-edit').val(evaluadorMeritos['nombre']);
-    $('#adm-meritos-apellidos-edit').val(evaluadorMeritos['apellido']);
-    $('#adm-meritos-correo-edit').val(evaluadorMeritos['correo']);
-    $('#adm-meritos-correo-alter-edit').val(evaluadorMeritos['correo_alt']);
+    $('#id-evaluador').val(evaluadorMeritos.id);
+    $('#adm-cono-ci-edit').val(evaluadorMeritos.ci);
+    $('#adm-cono-nombre-edit').val(evaluadorMeritos.nombre);
+    $('#adm-cono-apellidos-edit').val(evaluadorMeritos.apellido);
+    $('#adm-cono-correo-edit').val(evaluadorMeritos.correo);
+    $('#adm-cono-correo2-edit').val(evaluadorMeritos.correo_alt);
 }
 
 function comprobarEvaluadorMerit(listaCi) {
@@ -213,6 +213,7 @@ function comprobar(listaEva) {
     for (const item of listaEva) {
         if($('#adm-cono-ci').val() == item['ci']) {
             existe = false;
+            $('#err').removeClass('error');
             $('#ci-no-existe').removeClass('d-none');
             $('#ci-existe').addClass('d-none');
             setTimeout(() => {

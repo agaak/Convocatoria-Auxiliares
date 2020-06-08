@@ -28,7 +28,7 @@
                 <th style="font-weight: normal">{{ $item->apellido }}</th>
                 <th style="font-weight: normal">{{ $item->correo }}</th>
                 <th>
-                    <button type="submit" class="btn btn-link" onclick="editEvaluadorMeritos({{ convertir($item) }})" 
+                    <button type="submit" class="btn btn-link" onclick="editEvaluadorMeritos({{ json_encode($item) }})" 
                     data-toggle="modal" data-target="#modalUpdateEvaluadorMerit">
                     <img src="{{ asset('img/pen.png') }}" width="26" height="26">
                     </button> 
@@ -68,83 +68,76 @@
                     <form method="POST" action="{{ route('admMeritosCreate') }}"
                         id="form-create-evaluador-merito">
                         {{ csrf_field() }}
-                        
-                        <div class="form-group">
-                            <label for="adm-meritos-ci">CI:</label>
-                            <div class="row m-auto">
-                                <input type="number" name="adm-meritos-ci" placeholder="Ingrese el número de carnet" class="form-control col-sm-7" 
-                                id="adm-meritos-ci" value="{{ old('adm-meritos-ci') }}" required>
-                                <button type="button" class="btn btn-primary col-sm-5" onclick="comprobarEvaluadorMerit({{ convertir($listEvaluadores) }})">Comprobar Existencia</button>
+                        <div class="form-group row mb-1">
+                            <label for="adm-cono-ci"  class="col-sm-1 col-form-label">CI:</label>
+                            <div class="col-sm-5">
+                                <input type="number" name="adm-cono-ci" placeholder="Ingrese su carnet" class="form-control" id="adm-cono-ci" required>
+                            </div> <div class="col-sm-6">
+                                <button type="button" class="btn btn-primary" onclick="comprobar({{ $listEvaluadores }})">Comprobar Existencia</button>
                             </div>
-                            <div>
-                                {!! $errors->first('adm-meritos-ci', '<strong class="message-error text-danger">:message</strong>') !!}
-                            </div>
+                            {!! $errors->first('adm-cono-ci', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
                         </div>
-                        <div class="d-none text-center" id="ci-no-existe">
-                            <strong class="text-danger">El CI ingresado ya exite</strong>
+                        <div class="d-none text-left col-sm-12 mt-0" id="ci-no-existe">
+                            <strong class="text-primary">El CI ingresado ya exite</strong>
                         </div>
-                        <div class="d-none text-center" id="ci-existe">
+                        <div class="d-none text-left col-sm-12 mt-0" id="ci-existe">
                             <strong class="text-success">El CI ingresado aun no existe</strong>
                         </div>
-                        <div class="form-group">
-                            <label for="adm-meritos-nombre">Nombre:</label>
-                            <input type="text" class="form-control" name="adm-meritos-nombre" id="adm-meritos-nombre"
-                                placeholder="Ingrese el nombre(s)" required minlength="3"
-                                value="{{ old('adm-meritos-nombre') }}">
-                            <div>
-                                {!! $errors->first('adm-meritos-nombre', '<strong
-                                    class="message-error text-danger">:message</strong>') !!}
+                        <div class="form-group row mt-4">
+                            <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Nombre:</label>
+                            <div class="col-sm-9">
+                            <input type="text" name="adm-cono-nombre" minlength="3" disabled id="adm-nom" class="form-control" required>
+                            </div>
+                            {!! $errors->first('adm-cono-nombre', '<strong class="message-error text-danger col-sm-12">:message</strong>') !!}
+                        </div>
+                        <div class="form-group row">
+                            <label for="adm-ape" class="col-sm-3 col-form-label">Apellidos:</label>
+                            <div class="col-sm-9">
+                            <input type="text" name="adm-cono-apellidos" minlength="3" disabled id="adm-ape" class="form-control" required>
+                            </div>
+                            {!! $errors->first('adm-cono-apellidos', '<strong class="message-error text-center text-danger col-sm-12">:message</strong>') !!}
+                        </div>
+                        <div class="form-group row">
+                        <label for="adm-cono-correo"  class="col-sm-3 col-form-label">Correo:</label>
+                        <div class="input-group col-sm-9">
+                            <input type="email" class="form-control mt-0" name="adm-cono-correo" disabled id="adm-correo" aria-label="Recipient's username" 
+                                aria-describedby="basic-addon2" required>
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon2">@</span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="adm-meritos-apellidos">Apellidos</label>
-                            <input type="text" class="form-control" name="adm-meritos-apellidos" id="adm-meritos-apellidos"
-                                placeholder="Ingrese los apellidos" required minlength="3"
-                                value="{{ old('adm-meritos-apellidos') }}">
-                            <div>
-                                {!! $errors->first('adm-meritos-apellidos', '<strong
-                                    class="message-error text-danger">:message</strong>') !!}
+                        {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger text-right col-sm-10 mt-0 mb-1">:message</strong>') !!}
+                        </div>
+                        <div class="form-group row">
+                        <label for="adm-cono-correo2"  class="col-sm-3 col-form-label">Correo Alt(*)</label>
+                        <div class="input-group col-sm-9">
+                            <input type="email" class="form-control" name="adm-cono-correo2" disabled id="adm-correo2" aria-label="Recipient's username" 
+                                aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon2">@</span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="adm-meritos-correo">Correo:</label>
-                            <input type="email" class="form-control" name="adm-meritos-correo" id="adm-meritos-correo"
-                                placeholder="Ingrese el correo electronico" required
-                                value="{{ old('adm-meritos-correo') }}">
-                            <div>
-                                {!! $errors->first('adm-meritos-correo', '<strong
-                                    class="message-error text-danger">:message</strong>') !!}
-                            </div>
+                        {!! $errors->first('adm-cono-correo2', '<strong class="message-error text-danger text-center col-sm-12">:message</strong>') !!}
                         </div>
-                        <div class="form-group">
-                            <label for="adm-meritos-correo-alter">Correo alternativo:</label>
-                            <input type="email" class="form-control" name="adm-meritos-correo-alter" id="adm-meritos-correo-alter"
-                                placeholder="Ingrese el correo electronico alternativo" required
-                                value="{{ old('adm-meritos-correo-alter') }}">
-                            <div>
-                                {!! $errors->first('adm-meritos-correo-alter', '<strong
-                                    class="message-error text-danger">:message</strong>') !!}
-                            </div>
-                        </div>
-                        
-                        @if($errors->any())
+                        @if ($errors->any())
                             <script>
                                 window.onload = () => {
                                     $('#modalCrearEvaluadorMerit').modal('show');
+                                    document.getElementById("button-guardar").disabled = false;
                                 }
                             </script>
                         @endif
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-secondary" value="Cancelar" data-dismiss="modal">
-                    <input type="submit" class="btn btn-info" value="Guardar" form="form-create-evaluador-merito">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="form-create-evaluador-merito" class="btn btn-info" id="button-guardar" disabled>Guardar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- Modal Actualizar evaluador de meritos --}}
+    {{-- Modal Actualizar evaluador de meritos --}} 
     <div class="modal fade" id="modalUpdateEvaluadorMerit" tabindex="-1" role="dialog"
         aria-labelledby="importanDatesTitleUpdate" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -160,61 +153,57 @@
                         id="form-update-evaluador-merito">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <input type="hidden" id="id-dato-edit" name="id-dato-edit">
+                        <input type="hidden" id="id-evaluador" name="id-evaluador">
 
-                        <div class="form-group">
-                            <label for="adm-meritos-ci-edit">CI:</label>
-                            <input type="number" class="form-control" name="adm-meritos-ci-edit" id="adm-meritos-ci-edit"
-                                placeholder="Ingrese el número de carnet" required minlength="4" maxlength="10"
-                                value="{{ old('adm-meritos-ci-edit') }}">
-                            <div>
-                                {!! $errors->first('adm-meritos-ci-edit', '<strong
-                                    class="message-error text-danger">:message</strong>') !!}
+                        <div class="form-group row">
+                            <label for="adm-cono-ci-edit" class="col-sm-3 col-form-label">Carnet:</label>
+                            <div class="col-sm-9">
+                            <input type="number" name="adm-cono-ci-edit" readonly class="form-control" id="adm-cono-ci-edit" required>
+                            </div>
+                        {!! $errors->first('adm-cono-ci', '<p class="message-error text-danger id="err"">:message</p>') !!}
+                    </div>
+                    <div class="d-none text-center col-sm-6" id="ci-no-existe">
+                        <p class="text-success">El CI ingresado ya exite</p>
+                    </div>
+                    <div class="d-none text-center col-sm-6" id="ci-existe">
+                        <p class="text-primary">El CI ingresado aun no existe</p>
+                    </div>
+                    <div class="form-group row">
+                        <label for="adm-cono-nombre-edit" class="col-sm-3 col-form-label">Nombres:</label>
+                        <div class="col-sm-9">
+                        <input type="text" name="adm-cono-nombre-edit" id="adm-cono-nombre-edit" minlength="3" class="form-control" required>
+                        </div>
+                        {!! $errors->first('adm-cono-nombre-edit', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
+                    </div>
+                    <div class="form-group row">
+                        <label for="adm-cono-apellidos-edit"  class="col-sm-3 col-form-label">Apellidos:</label>
+                        <div class="col-sm-9">
+                        <input type="text" name="adm-cono-apellidos-edit" id="adm-cono-apellidos-edit" minlength="3" class="form-control" required>
+                        </div>
+                        {!! $errors->first('adm-cono-apellidos-edit', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
+                    </div>
+                    <div class="form-group row">
+                        <label for="adm-cono-correo-edit"  class="col-sm-3 col-form-label">Correo:</label>
+                        <div class="input-group mb-3 col-sm-9">
+                            <input type="email" class="form-control" name="adm-cono-correo-edit" id="adm-cono-correo-edit" aria-label="Recipient's username" 
+                                aria-describedby="basic-addon2" required>
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon2">@</span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="adm-meritos-nombre-edit">Nombre:</label>
-                            <input type="text" class="form-control" name="adm-meritos-nombre-edit" id="adm-meritos-nombre-edit"
-                                placeholder="Ingrese el nombre(s)" required minlength="3"
-                                value="{{ old('adm-meritos-nombre-edit') }}">
-                            <div>
-                                {!! $errors->first('adm-meritos-nombre-edit', '<strong
-                                    class="message-error text-danger">:message</strong>') !!}
+                    </div>
+                    {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger text-right col-sm-10 mt-0 mb-1">:message</strong>') !!}
+                    <div class="form-group row">
+                        <label for="adm-cono-correo2-edit"  class="col-sm-3 col-form-label">Correo Alt(*)</label>
+                        <div class="input-group mb-3 col-sm-9">
+                            <input type="email" class="form-control" name="adm-cono-correo2-edit" id="adm-cono-correo2-edit" aria-label="Recipient's username" 
+                                aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon2">@</span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="adm-meritos-apellidos-edit">Apellidos</label>
-                            <input type="text" class="form-control" name="adm-meritos-apellidos-edit" id="adm-meritos-apellidos-edit"
-                                placeholder="Ingrese los apellidos" required minlength="3"
-                                value="{{ old('adm-meritos-apellidos-edit') }}">
-                            <div>
-                                {!! $errors->first('adm-meritos-apellidos-edit', '<strong
-                                    class="message-error text-danger">:message</strong>') !!}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="adm-meritos-correo-edit">Correo:</label>
-                            <input type="email" class="form-control" name="adm-meritos-correo-edit" id="adm-meritos-correo-edit"
-                                placeholder="Ingrese el correo electronico" required 
-                                value="{{ old('adm-meritos-correo-edit') }}">
-                            <div>
-                                {!! $errors->first('adm-meritos-correo-edit', '<strong
-                                    class="message-error text-danger">:message</strong>') !!}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="adm-meritos-correo-alter-edit">Correo alternativo:</label>
-                            <input type="email" class="form-control" name="adm-meritos-correo-alter-edit" id="adm-meritos-correo-alter-edit"
-                                placeholder="Ingrese el correo electronico alternativo" required 
-                                value="{{ old('adm-meritos-correo-alter-edit') }}">
-                            <div>
-                                {!! $errors->first('adm-meritos-correo-alter-edit', '<strong
-                                    class="message-error text-danger">:message</strong>') !!}
-                            </div>
-                        </div>
-                        @if ($errors->has('adm-meritos-ci-edit')||$errors->has('adm-meritos-nombre-edit')||
-                             $errors->has('adm-meritos-apellidos-edit')||$errors->has('adm-meritos-correo-edit')||
-                             $errors->has('adm-meritos-correo-alter-edit'))
+                    </div>
+                        @if($errors->any())
                             <script>
                                 window.onload = () => {
                                     $('#modalUpdateEvaluadorMerit').modal('show');
@@ -230,12 +219,6 @@
             </div>
         </div>
     </div>
-
-    @php
-        function convertir($object) {
-        return json_encode($object);
-        }
-    @endphp
 
 
 

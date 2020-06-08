@@ -94,55 +94,58 @@
                                     <option value="{{ $item->id_unico }}">{{ $item->nombre }}</option>
                                 @endforeach
                             </select>
-                            {!! $errors->first('adm-cono-tipo', '<strong class="message-error text-danger">:message</strong>') !!}
+                            {!! $errors->first('adm-cono-tipo', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row mb-1">
                             <label for="adm-cono-ci"  class="col-sm-1 col-form-label">CI:</label>
                             <div class="col-sm-5">
-                                <input type="number" name="adm-cono-ci" placeholder="Ingrese su carnet" class="form-control" id="adm-cono-ci" value="{{ old('adm-cono-ci') }}" required>
+                                <input type="number" name="adm-cono-ci" placeholder="Ingrese su carnet" class="form-control" id="adm-cono-ci" required>
                             </div> <div class="col-sm-6">
                                 <button type="button" class="btn btn-primary" onclick="comprobar({{ $listaEva }})">Comprobar Existencia</button>
                             </div>
-                            {!! $errors->first('adm-cono-ci', '<strong class="message-error text-danger">:message</strong>') !!}
+                            {!! $errors->first('adm-cono-ci', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
                         </div>
-                        <div class="d-none text-center" id="ci-no-existe">
-                            <strong class="text-danger">El CI ingresado ya exite</strong>
+                        <div class="d-none text-left col-sm-12 mt-0" id="ci-no-existe">
+                            <strong class="text-primary">El CI ingresado ya exite</strong>
                         </div>
-                        <div class="d-none text-center" id="ci-existe">
+                        <div class="d-none text-left col-sm-12 mt-0" id="ci-existe">
                             <strong class="text-success">El CI ingresado aun no existe</strong>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row mt-4">
                             <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Nombre:</label>
                             <div class="col-sm-9">
-                            <input type="text" name="adm-cono-nombre" minlength="3" disabled id="adm-nom" class="form-control" value="{{ old('adm-cono-nombre') }}" required>
+                            <input type="text" name="adm-cono-nombre" minlength="3" disabled id="adm-nom" class="form-control" required>
                             </div>
+                            {!! $errors->first('adm-cono-nombre', '<strong class="message-error text-danger col-sm-12">:message</strong>') !!}
                         </div>
                         <div class="form-group row">
                             <label for="adm-ape" class="col-sm-3 col-form-label">Apellidos:</label>
                             <div class="col-sm-9">
-                            <input type="text" name="adm-cono-apellidos" minlength="3" disabled id="adm-ape" class="form-control" value="{{ old('adm-cono-apellidos') }}" required>
+                            <input type="text" name="adm-cono-apellidos" minlength="3" disabled id="adm-ape" class="form-control" required>
                             </div>
+                            {!! $errors->first('adm-cono-apellidos', '<strong class="message-error text-center text-danger col-sm-12">:message</strong>') !!}
                         </div>
                         <div class="form-group row">
                         <label for="adm-cono-correo"  class="col-sm-3 col-form-label">Correo:</label>
-                        <div class="input-group mb-3 col-sm-9">
+                        <div class="input-group col-sm-9">
                             <input type="email" class="form-control mt-0" name="adm-cono-correo" disabled id="adm-correo" aria-label="Recipient's username" 
-                                aria-describedby="basic-addon2" value="{{ old('adm-cono-correo') }}" required>
+                                aria-describedby="basic-addon2" required>
                             <div class="input-group-append">
                               <span class="input-group-text" id="basic-addon2">@</span>
                             </div>
                         </div>
-                        {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger text-center col-sm-12 m-0">:message</strong>') !!}
+                        {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger text-right col-sm-10 mt-0 mb-1">:message</strong>') !!}
                         </div>
                         <div class="form-group row">
                         <label for="adm-cono-correo2"  class="col-sm-3 col-form-label">Correo Alt(*)</label>
-                        <div class="input-group mb-3 col-sm-9">
+                        <div class="input-group col-sm-9">
                             <input type="email" class="form-control" name="adm-cono-correo2" disabled id="adm-correo2" aria-label="Recipient's username" 
-                                aria-describedby="basic-addon2" value="{{ old('adm-cono-correo2') }}" >
+                                aria-describedby="basic-addon2">
                             <div class="input-group-append">
                               <span class="input-group-text" id="basic-addon2">@</span>
                             </div>
                         </div>
+                        {!! $errors->first('adm-cono-correo2', '<strong class="message-error text-danger text-center col-sm-12">:message</strong>') !!}
                         </div>
                         @if ($errors->any())
                             <script>
@@ -187,34 +190,34 @@ aria-hidden="true">
                         <option value="{{ $item->id_unico }}">{{ $item->nombre }}</option>
                         @endforeach
                     </select>
-                {!! $errors->first('adm-cono-tipo', '<strong class="message-error text-danger">:message</strong>') !!}
+                {!! $errors->first('adm-cono-tipo', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
                 </div>
                 <div class="form-group row">
                         <label for="adm-cono-ci-edit" class="col-sm-3 col-form-label">Carnet:</label>
                         <div class="col-sm-9">
                         <input type="number" name="adm-cono-ci-edit" readonly class="form-control" id="adm-cono-ci-edit" required>
                         </div>
-                    {!! $errors->first('adm-cono-ci', '<strong class="message-error text-danger">:message</strong>') !!}
+                    {!! $errors->first('adm-cono-ci', '<p class="message-error text-danger id="err"">:message</p>') !!}
                 </div>
-                <div class="d-none text-center" id="ci-no-existe">
-                    <strong class="text-danger">El CI ingresado ya exite</strong>
+                <div class="d-none text-center col-sm-6" id="ci-no-existe">
+                    <p class="text-success">El CI ingresado ya exite</p>
                 </div>
-                <div class="d-none text-center" id="ci-existe">
-                    <strong class="text-success">El CI ingresado aun no existe</strong>
+                <div class="d-none text-center col-sm-6" id="ci-existe">
+                    <p class="text-primary">El CI ingresado aun no existe</p>
                 </div>
                 <div class="form-group row">
                     <label for="adm-cono-nombre-edit" class="col-sm-3 col-form-label">Nombres:</label>
                     <div class="col-sm-9">
                     <input type="text" name="adm-cono-nombre-edit" id="adm-cono-nombre-edit" minlength="3" class="form-control" required>
                     </div>
-                    {!! $errors->first('adm-cono-nombre', '<strong class="message-error text-danger">:message</strong>') !!}
+                    {!! $errors->first('adm-cono-nombre', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
                 </div>
                 <div class="form-group row">
                     <label for="adm-cono-apellidos-edit"  class="col-sm-3 col-form-label">Apellidos:</label>
                     <div class="col-sm-9">
-                    <input type="text" name="adm-cono-apellidos-edit" id="adm-cono-apellidos-edit" minlength="3" class="form-control" value="{{ old('adm-cono-apellidos') }}" required>
+                    <input type="text" name="adm-cono-apellidos-edit" id="adm-cono-apellidos-edit" minlength="3" class="form-control" required>
                     </div>
-                    {!! $errors->first('adm-cono-apellidos', '<strong class="message-error text-danger">:message</strong>') !!}
+                    {!! $errors->first('adm-cono-apellidos', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
                 </div>
                 <div class="form-group row">
                     <label for="adm-cono-correo-edit"  class="col-sm-3 col-form-label">Correo:</label>
