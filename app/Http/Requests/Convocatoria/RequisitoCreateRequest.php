@@ -23,8 +23,9 @@ class RequisitoCreateRequest extends FormRequest
      */
     public function rules()
     {
+        $convActual = request()->session()->get('convocatoria');
         return [
-            'descripcion'=> 'required|unique:requisito,descripcion' 
+            'descripcion'=> 'required|unique:requisito,descripcion,0,id,id_convocatoria,'.$convActual
             //
         ];
     }
