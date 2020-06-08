@@ -23,12 +23,14 @@ class ConvocatoriaRequest extends FormRequest
      */
     public function rules()
     {
-        $fecha = date("m/d/Y");
+        $time = strtotime("-1 year", time());
+        $fecha = date("Y-m-d", $time);
         return [
             'conv-titulo' => 'required',
             'conv-fecha-ini' => 'required|before_or_equal:conv-fecha-fin|after_or_equal:'.$fecha,
             'conv-fecha-fin' => 'required',
             'conv-tipo' => 'required',
+            'conv-gestion' => 'required',
             'conv-gestion' => 'required',
             'conv-descripcion' => 'required'
         ];

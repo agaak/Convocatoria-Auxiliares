@@ -219,10 +219,8 @@ class AdmConocimientosController extends Controller
 
         Tipo_evaluador::where('id_evaluador_convocatoria',$id_eva_conv)->where('id_rol_evaluador','2')->delete();
 
-        $msg = Tipo_evaluador::where('id_evaluador_convocatoria',$id_eva_conv)->get();
         if(Tipo_evaluador::where('id_evaluador_convocatoria',$id_eva_conv)->get()->isEmpty()){
             EvaluadorConovocatoria::where('id_evaluador', $id)->delete();
-
         }
         return back();
     }

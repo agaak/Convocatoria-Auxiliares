@@ -30,8 +30,9 @@ class CreateUnidadAcademicaTable extends Migration
             $table->integer('id_tipo_convocatoria')->unsigned();
             $table->foreign('id_unidad_academica')->references('id')->on('unidad_academica')->onDelete('cascade');
             $table->foreign('id_tipo_convocatoria')->references('id')->on('tipo_convocatoria')->onDelete('cascade');
-            $table->string('titulo',256)->nullable();
-            $table->text('descripcion_convocatoria')->nullable();
+            $table->string('titulo',256);
+            $table->text('descripcion_convocatoria');
+            $table->year('gestion');
             $table->boolean('publicado');
             $table->boolean('creado');
             $table->string('ruta_pdf')->nullable();;

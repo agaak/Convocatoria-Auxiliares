@@ -9,7 +9,12 @@ use App\Http\Requests\Convocatoria\ConocimientoCreateRequest;
 use App\Tematica;
 use App\Porcentaje;
 use App\Calificacion_final;
+use App\Documento;
+use App\EventoImportante;
 use App\Http\Requests\Convocatoria\TematicaEditRequest;
+use App\Merito;
+use App\Requerimiento;
+use App\Requisito;
 
 class ConocimientoController extends Controller
 {
@@ -113,18 +118,48 @@ class ConocimientoController extends Controller
             ->groupBy('requerimiento.id_auxiliatura')
             ->groupBy('requerimiento.id_auxiliatura')
             ->havingRaw('SUM(porcentaje) < 100')->get();
-        if($porcen_min->isEmpty() && $porcen_max->isEmpty() && str_contains($request->file('upload-pdf')->getClientOriginalName(),'.pdf')){
+        $controlMerito = Merito::where('id_convocatoria',$id_conv)->where('id_submerito', null)->sum('porcentaje') == 100;
+        if(!$controlMerito){
+            request()->validate([
+                'finalizo' => 'required'
+            ],[
+                'finalizo.required' => 'La suma de los porcentajes de merito no es el 100%.'
+            ]);  
+        }
+        $control = Requerimiento::where('id_convocatoria',$id_conv)->exists() && 
+            Requisito::where('id_convocatoria',$id_conv)->exists() &&
+            Documento::where('id_convocatoria',$id_conv)->exists() &&
+            EventoImportante::where('id_convocatoria',$id_conv)->exists() &&
+            Merito::where('id_convocatoria',$id_conv)->exists() &&
+            Calificacion_final::where('id_convocatoria',$id_conv)->exists() &&
+            Porcentaje::join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+            ->where('requerimiento.id_convocatoria',$id_conv)->exists();
+        if(!$control){
+            request()->validate([
+                'finalizo' => 'required'
+            ],[
+                'finalizo.required' => 'Tiene secciones sin completar.'
+            ]);  
+        }
+        if($porcen_min->isNotEmpty() || $porcen_max->isNotEmpty()){
+            request()->validate([
+                'finalizo' => 'required'
+            ],[
+                'finalizo.required' => 'La suma de los porcentajes de las auxiliaturas no es el 100%.'
+            ]);
+        }
+        if(str_contains($request->file('upload-pdf')->getClientOriginalName(),'.pdf')){
             DB::table('convocatoria')->where('id', $id_conv)->update([
                 'ruta_pdf' => $request -> file('upload-pdf') -> store('public'),
                 'creado' => true
-            ]);  
+            ]);
             return redirect()->route('convocatoria.index'); 
         } else {
             request()->validate([
                 'finalizo' => 'required'
             ],[
-                'finalizo.required' => 'Aun Falta Algo.'
-            ]); // msg Ccorregir los datos 
+                'finalizo.required' => 'El archivo debe ser PDF.'
+            ]);
         }
     }
 

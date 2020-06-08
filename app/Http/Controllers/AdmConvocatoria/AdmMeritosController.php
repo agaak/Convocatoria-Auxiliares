@@ -104,16 +104,13 @@ class AdmMeritosController extends Controller
     public function delete($idEvaluador){
         $id_conv = session()->get('convocatoria');
         $evaluadorConvocatoria = EvaluadorConovocatoria::where('id_evaluador',$idEvaluador)
-                                                ->where('id_convocatoria',$id_conv)->first();
+                                                ->where('id_convocatoria',$id_conv)->value('id');
         
-        Tipo_evaluador::where('id_evaluador_convocatoria',$evaluadorConvocatoria->id)
-                        ->where('id_rol_evaluador','1')->delete();
+        Tipo_evaluador::where('id_evaluador_convocatoria',$evaluadorConvocatoria)
+                        ->where('id_rol_evaluador','1')->delete(); 
 
-        if(Tipo_evaluador::where('id_evaluador_convocatoria',$evaluadorConvocatoria->id)
-                            ->where('id_rol_evaluador','1')->get()->isEmpty()){
-            EvaluadorConovocatoria::where('id_evaluador', $idEvaluador)
-                                    ->where('id_convocatoria', $id_conv)
-                                    ->delete();
+        if(Tipo_evaluador::where('id_evaluador_convocatoria',$evaluadorConvocatoria)->get()->isEmpty()){
+                EvaluadorConovocatoria::where('id_evaluador', $idEvaluador)->delete();
         }
         return back();
     }

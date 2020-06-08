@@ -94,12 +94,15 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="conv-gestion">Gestion</label>
-                                    <select name="conv-gestion" id="conv-gestion" class="form-control">
-                                        <option value="op-1"
-                                            {{ old('conv-gestion') === 'op-1'? 'selected': '' }}>
+                                    <select name="conv-gestion" id="conv-gestion" class="form-control" required>
+                                        <option value="{{ $anioActual }}"
+                                            {{ old('conv-gestion') === $anioActual? 'selected': '' }}>
                                             {{ $anioActual }}</option>
-                                        <option value="op-2"
-                                            {{ old('conv-gestion') === 'op-2'? 'selected': '' }}>
+                                        <option value="{{ $anioActual-1 }}"
+                                            {{ old('conv-gestion') === $anioActual-1 ? 'selected': '' }}>
+                                            {{ $anioActual-1 }}</option>
+                                        <option value="{{ $anioActual+1 }}"
+                                            {{ old('conv-gestion') === $anioActual+1? 'selected': '' }}>
                                             {{ $anioActual+1 }}</option>
                                     </select>
                                 </div>

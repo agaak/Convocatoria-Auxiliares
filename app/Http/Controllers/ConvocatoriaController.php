@@ -49,6 +49,7 @@ class ConvocatoriaController extends Controller
         $conv->descripcion_convocatoria = $request->input('conv-descripcion');
         $conv->fecha_inicio = date("Y-m-d", strtotime($request->input('conv-fecha-ini')));
         $conv->fecha_final = date("Y-m-d", strtotime($request->input('conv-fecha-fin')));
+        $conv->gestion = $request->input('conv-gestion');
         $conv->publicado = false;
         $conv->creado = false;
         $conv->save();

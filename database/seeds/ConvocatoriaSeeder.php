@@ -22,10 +22,11 @@ class ConvocatoriaSeeder extends Seeder
             De Sistemas de la Facultad de Ciencias y Tecnología, convoca al concurso de méritos y
             examen de competencia para la provisión de Auxiliares del Departamento, tomando como
             base los requerimientos que se tienen programados para la gestión 2020. ',
+            'gestion'=> 2020,
             'publicado'=> false,
             'creado'=> false,
-            'fecha_inicio'=> '6/6/2021',
-            'fecha_final'=> '7/7/2021'
+            'fecha_inicio'=> '6/6/2020',
+            'fecha_final'=> '7/7/2020'
         ]);
 
         Requerimiento::create([
