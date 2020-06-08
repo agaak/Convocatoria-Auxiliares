@@ -18,6 +18,13 @@ class RequisitoController extends Controller
     }
 
     public function requirementUpdate(Request $request){
+        $convActual = request()->session()->get('convocatoria');
+        $idRequerimiento = request()->input('id-requirement');
+        request()->validate([
+            'descripcion-requirement'=> 'required|unique:requisito,descripcion,'.$idRequerimiento.',id,id_convocatoria,'.$convActual
+        ],[
+            'descripcion-requirement.unique' => 'El Requisito ya ha sido registrado.'
+        ]);
         DB::table('requisito')->where('id', $request->input('id-requirement'))->update([
             'descripcion' => $request->input('descripcion-requirement') ]);
         return back();
@@ -30,7 +37,7 @@ class RequisitoController extends Controller
 
     public function requirements(Request $request){
         $requerimients=DB::table('requisito')->
-            where('id_convocatoria', $request->session()->get('convocatoria'))
+            where('id_convocatoria', $request->session()->get('convocatoria'))->orderBy('id', 'ASC')
             ->get();
         $convActual = request()->session()->get('convocatoria');
         $notaActual = DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 1)->exists();

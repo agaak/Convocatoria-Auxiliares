@@ -81,6 +81,7 @@
               <textarea class="form-control" id="descripcion-req" placeholder="Especifique el documento"
                 rows="3" name="descripcion"  minlength="11" required></textarea>
             </div>
+            {!! $errors->first('descripcion', '<strong class="message-error text-danger">:message</strong>') !!}
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
               <input class="btn btn-info" type="submit" value="Guardar">
@@ -114,6 +115,7 @@
                 rows="3" name="descripcion-requirement" value="{{ old('nombre') }}" ></textarea>
               <small id="emailHelp" class="form-text text-muted">Los requisitos se listan en orden alfabético.</small>
             </div>
+            {!! $errors->first('descripcion-requirement', '<strong class="message-error text-danger">:message</strong>') !!}
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
               <input class="btn btn-info" type="submit" value="Guardar">

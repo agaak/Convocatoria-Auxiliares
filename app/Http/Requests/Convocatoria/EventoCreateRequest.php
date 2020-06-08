@@ -30,7 +30,7 @@ class EventoCreateRequest extends FormRequest
         $fechaFinConv = $convActual->value('fecha_final').' 23:59:59';
         return [
             'titulo-evento' => 'required|unique:evento,titulo_evento,0,id,id_convocatoria,'.$idConv,
-            'lugar-evento' => 'required|unique:evento,lugar_evento',
+            'lugar-evento' => 'required',
             'fecha-ini-evento' => 'required|date|date_format:"Y-m-d\TH:i"|after_or_equal:'.$fechaIniConv,
             'fecha-fin-evento' => 'required|date|date_format:"Y-m-d\TH:i"|after_or_equal:fecha-ini-evento|before_or_equal:'.$fechaFinConv,
         ];

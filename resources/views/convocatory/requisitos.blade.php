@@ -80,9 +80,17 @@
               <label for="exampleInputEmail1">Inciso {{ chr($alphas) }}:
               </label>
               <textarea class="form-control" id="descripcion-req" placeholder="Ingrese el requisito"
-                rows="3" name="descripcion" minlength="11" required></textarea>
+                rows="3" name="descripcion" minlength="11" required>{{ old('descripcion') }}</textarea>
               <small id="emailHelp" class="form-text text-muted">Los requisitos se listan en orden alfabético.</small>
             </div>
+            {!! $errors->first('descripcion', '<strong class="message-error text-danger">:message</strong>') !!}
+            @if ($errors->has('descripcion'))
+              <script>
+                  window.onload = () => {
+                      $('#requirementsModal').modal('show');
+                  }
+              </script>
+            @endif
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
               <input class="btn btn-info" type="submit" value="Guardar">
@@ -99,7 +107,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Requisito</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">Editar Requisito</h5>
           <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -111,11 +119,12 @@
             <input type="hidden" id="id-requirement" name="id-requirement">
             <div class="form-group">
               <label for="exampleInputEmail1">Inciso</label>
-              <input for="exampleInputEmail1" type="button" class="btn btn-light" id="inc-requirement" name="inc-requirement" readonly/>
+              <input for="exampleInputEmail1" type="button" class="btn btn-light" id="inc-requirement" name="inc-requirement" readonly>
               <textarea class="form-control" id="descripcion-requirement" minlength="11" required
-                rows="3" name="descripcion-requirement" value="{{ old('nombre') }}" ></textarea>
+                rows="3" name="descripcion-requirement"></textarea>
               <small id="emailHelp" class="form-text text-muted">Los requisitos se listan en orden alfabético.</small>
             </div>
+            {!! $errors->first('descripcion-requirement', '<strong class="message-error text-danger">:message</strong>') !!}
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
               <input class="btn btn-info" type="submit" value="Guardar">

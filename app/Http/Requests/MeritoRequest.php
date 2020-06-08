@@ -42,7 +42,7 @@ class MeritoRequest extends FormRequest
             $subMeritos = Merito::where('id_convocatoria', $convActual)->where('id_submerito', request()->input('merit-submerit'))->sum('porcentaje');
             $total = $merito - $subMeritos;
             return [
-                'submerit-descripcion' => 'required|unique:merito,descripcion_merito',
+                'submerit-descripcion' => 'required|unique:merito,descripcion_merito,0,id,id_convocatoria,'.$convActual,
                 'submerit-porcentaje' => 'required|maximo:'.$total,
             ];
         } else {
@@ -50,7 +50,7 @@ class MeritoRequest extends FormRequest
             $total = 100 - $total;
 
             return [
-                'merit-descripcion' => 'required|unique:merito,descripcion_merito',
+                'merit-descripcion' => 'required|unique:merito,descripcion_merito,0,id,id_convocatoria,'.$convActual,
                 'merit-porcentaje' => 'required|maximo:'.$total
             ];
         }
