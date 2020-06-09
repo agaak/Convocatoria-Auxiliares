@@ -114,14 +114,14 @@
                         <div class="form-group row mt-4">
                             <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Nombre:</label>
                             <div class="col-sm-9">
-                            <input type="text" name="adm-cono-nombre" minlength="3" disabled id="adm-nom" class="form-control" required>
+                            <input type="text" name="adm-cono-nombre" value="{{ old('adm-cono-nombre') }}" minlength="3" disabled id="adm-nom" class="form-control" required>
                             </div>
                             {!! $errors->first('adm-cono-nombre', '<strong class="message-error text-danger col-sm-12">:message</strong>') !!}
                         </div>
                         <div class="form-group row">
                             <label for="adm-ape" class="col-sm-3 col-form-label">Apellidos:</label>
                             <div class="col-sm-9">
-                            <input type="text" name="adm-cono-apellidos" minlength="3" disabled id="adm-ape" class="form-control" required>
+                            <input type="text" name="adm-cono-apellidos" value="{{ old('adm-cono-apellidos') }}" minlength="3" disabled id="adm-ape" class="form-control" required>
                             </div>
                             {!! $errors->first('adm-cono-apellidos', '<strong class="message-error text-center text-danger col-sm-12">:message</strong>') !!}
                         </div>
@@ -129,7 +129,7 @@
                         <label for="adm-cono-correo"  class="col-sm-3 col-form-label">Correo:</label>
                         <div class="input-group col-sm-9">
                             <input type="email" class="form-control mt-0" name="adm-cono-correo" disabled id="adm-correo" aria-label="Recipient's username" 
-                                aria-describedby="basic-addon2" required>
+                                aria-describedby="basic-addon2" value="{{ old('adm-cono-correo') }}" required>
                             <div class="input-group-append">
                               <span class="input-group-text" id="basic-addon2">@</span>
                             </div>
@@ -150,7 +150,12 @@
                         @if ($errors->any())
                             <script>
                                 window.onload = () => {
+                                    document.getElementById("adm-nom").disabled = false;
                                     $('#admConoModal').modal('show');
+                                    document.getElementById("adm-nom").disabled = false;
+                                    document.getElementById("adm-ape").disabled = false;
+                                    document.getElementById("adm-correo").disabled = false;
+                                    document.getElementById("adm-correo2").disabled = false;
                                     document.getElementById("button-guardar").disabled = false;
                                 }
                             </script>
@@ -210,14 +215,14 @@ aria-hidden="true">
                     <div class="col-sm-9">
                     <input type="text" name="adm-cono-nombre-edit" id="adm-cono-nombre-edit" minlength="3" class="form-control" required>
                     </div>
-                    {!! $errors->first('adm-cono-nombre', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
+                    {!! $errors->first('adm-cono-nombre-edit', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
                 </div>
                 <div class="form-group row">
                     <label for="adm-cono-apellidos-edit"  class="col-sm-3 col-form-label">Apellidos:</label>
                     <div class="col-sm-9">
                     <input type="text" name="adm-cono-apellidos-edit" id="adm-cono-apellidos-edit" minlength="3" class="form-control" required>
                     </div>
-                    {!! $errors->first('adm-cono-apellidos', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
+                    {!! $errors->first('adm-cono-apellidos-edit', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
                 </div>
                 <div class="form-group row">
                     <label for="adm-cono-correo-edit"  class="col-sm-3 col-form-label">Correo:</label>
@@ -242,7 +247,7 @@ aria-hidden="true">
                 @if ($errors->any())
                     <script>
                         window.onload = () => {
-                            $('#admConoModal').modal('show');
+                            $('#editEvalConociminetos').modal('show');
                         }
                     </script>
                 @endif

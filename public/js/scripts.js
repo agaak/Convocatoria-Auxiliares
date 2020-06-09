@@ -224,6 +224,10 @@ function comprobar(listaEva) {
             document.getElementById("adm-ape").value = item['apellido'];
             document.getElementById("adm-correo").value = item['correo'];
             document.getElementById("adm-correo2").value = item['correo_alt'];
+            document.getElementById("adm-nom").disabled = true;
+            document.getElementById("adm-ape").disabled = true;
+            document.getElementById("adm-correo").disabled = true;
+            document.getElementById("adm-correo2").disabled = true;
         }
     }
 
