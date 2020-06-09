@@ -100,7 +100,13 @@ class ConocimientoController extends Controller
                     'porcentaje' => $por,
                 ]);
             }
-        } //false msg error en la cantidad
+        } else {
+            request()->validate([
+                'finalizo' => 'required'
+            ],[
+                'finalizo.required' => 'Error al intentar actualizar, los porcentajes no es 100%.'
+            ]);
+        } 
         return back();
     }
     
@@ -154,6 +160,21 @@ class ConocimientoController extends Controller
                     'finalizo.required' => 'No lleno la seccion de calificaion de meritos.'
                 ]);  
             }
+            $meritos = Merito::where('id_convocatoria', $id_conv)->get();
+            $control_merit = true;
+            foreach($meritos as $merito){
+                if($merito->id_submerito == null){
+                    $subMeritos = Merito::where('id_convocatoria', $id_conv)->where('id_submerito', $merito->id)->sum('porcentaje');
+                    $control_merit = $control_merit && $merito->porcentaje == $subMeritos;
+                }
+            }
+            if(!$control_merit){
+                request()->validate([
+                    'finalizo' => 'required'
+                ],[
+                    'finalizo.required' => 'Falta llenar la suma de los porcentajes de algunos sub-meritos.'
+                ]);  
+            }
             if(! Merito::where('id_convocatoria',$id_conv)->where('id_submerito', null)->sum('porcentaje') == 100){
                 request()->validate([
                     'finalizo' => 'required'
@@ -203,8 +224,7 @@ class ConocimientoController extends Controller
         $id_conv = session()->get('convocatoria');
         DB::table('convocatoria')->where('id', $id_conv)->update([
             'ruta_pdf' => $request -> file('documento') -> store('public/')
-        ]);
-        
+        ]);        
         return back();
     }
 }

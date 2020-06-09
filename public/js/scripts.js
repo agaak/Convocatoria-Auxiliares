@@ -121,16 +121,15 @@ function editPorcentajes(porcentaje) {
     $('#porcent-merit').val(porcentaje);
 }
 
-$('#requirementsEditModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget)
-    var mid = button.data('id')
-    var minc = button.data('inc')
-    var mdescripcion = button.data('descripcion')
-    var modal = $(this)
-    modal.find('.modal-body #id-requirement').val(mid);
-    modal.find('.modal-body #inc-requirement').val(minc);
-    modal.find('.modal-body #descripcion-requirement').val(mdescripcion);
-    })
+
+
+function requirementsEditModal(requisito,inc) {
+    console.log(requisito);
+    console.log(inc);
+    document.getElementById("inc-req-edit").innerHTML = inc;
+    $('#id-requirement').val(requisito.id);
+    $('#descripcion-requirement').val(requisito.descripcion);
+}
 
 function editSubMeritModal(lista) {
     formaterar = lista[1].split(' ')
@@ -141,7 +140,9 @@ function editSubMeritModal(lista) {
     $('#submerit-porcentaje-edit').val(lista[2]);
     $('#submerit-id').val(lista[3]);
 }
-
+$('#requirementsEditModal').on('hidden.bs.modal', () => {
+    document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
+});
 
 function selectAuxiliaturaModal(mporcentajes,mtematicas) {
     var selecte = document.getElementById("id-req");
@@ -302,3 +303,7 @@ $('#recipeCarousel').carousel({
     $('#adm-cono-correo-edit').val(evaluador.correo);
     $('#adm-cono-correo2-edit').val(evaluador.correo_alt);
 }
+
+setTimeout(() => {
+    document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
+}, 5000);

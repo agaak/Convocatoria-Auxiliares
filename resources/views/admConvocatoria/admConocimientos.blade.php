@@ -221,7 +221,7 @@ aria-hidden="true">
                 </div>
                 <div class="form-group row">
                     <label for="adm-cono-correo-edit"  class="col-sm-3 col-form-label">Correo:</label>
-                    <div class="input-group mb-3 col-sm-9">
+                    <div class="input-group col-sm-9">
                         <input type="email" class="form-control" name="adm-cono-correo-edit" id="adm-cono-correo-edit" aria-label="Recipient's username" 
                             aria-describedby="basic-addon2" required>
                         <div class="input-group-append">
@@ -231,7 +231,7 @@ aria-hidden="true">
                 </div>
                 <div class="form-group row">
                     <label for="adm-cono-correo2-edit"  class="col-sm-3 col-form-label">Correo Alt(*)</label>
-                    <div class="input-group mb-3 col-sm-9">
+                    <div class="input-group mb-1 col-sm-9">
                         <input type="email" class="form-control" name="adm-cono-correo2-edit" id="adm-cono-correo2-edit" aria-label="Recipient's username" 
                             aria-describedby="basic-addon2">
                         <div class="input-group-append">

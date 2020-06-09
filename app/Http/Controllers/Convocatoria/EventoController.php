@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Convocatoria;
 
+use App\Convocatoria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Convocatoria\EventoCreateRequest;
@@ -16,7 +17,8 @@ class EventoController extends Controller
         $importantDatesList=DB::table('evento')->
             where('id_convocatoria', $request->session()->get('convocatoria'))
             ->get();
-        return view('convocatory.eventos', compact('importantDatesList'));
+        $convocatoria = Convocatoria::select('fecha_inicio','fecha_final')->where('id',$request->session()->get('convocatoria'))->get();
+        return view('convocatory.eventos', compact('importantDatesList','convocatoria'));
     }
 
     public function importantDateSave(EventoCreateRequest $request){

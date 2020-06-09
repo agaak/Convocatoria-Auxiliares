@@ -162,7 +162,6 @@
                   <div class="form-group col-4">
                     <div class="row">
                       <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
-
                       <input type="number" class="form-control form-control-sm col-sm-5 porcentaje-aux"
                         name="porcentaje-aux[]" min="0" max="100" required>
 
@@ -172,10 +171,10 @@
               @endforeach
             </div>
             @endif
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <input class="btn btn-info" type="submit" value="Guardar">
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <input class="btn btn-info" type="submit" value="Guardar">
+          </div>
         </div>
         </form>
       </div>

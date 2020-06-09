@@ -187,14 +187,28 @@
                         <th class="font-weight-normal" scope="col">Opciones</th>
                     </tr>
                 </thead>
-            <tbody class="bg-white">
+            <tbody class="bg-white" style="vertical-align: middle">
+                <tr>
+                    <td>Publicación de convocatoria </td>
+                    <td>Depto. Inf-Sis</td>
+                    <td class="text-center">{{ $convocatoria[0]->fecha_inicio }}</td>
+                    <td class="text-center">{{ $convocatoria[0]->fecha_final }}</td>
+                    <td class="text-center">
+                        <a type="button">
+                            <img src="{{ asset('img/pen.png') }}" width="30" height="30">
+                        </a>
+                        <a type="button">
+                            <img src="{{ asset('img/trash.png') }}" width="30" height="30">
+                        </a>
+                    </td>
+                </tr>
                 @foreach($importantDatesList as $item)
                     <tr>
-                        <td>{{ $item->titulo_evento }}</td>
-                        <td>{{ $item->lugar_evento }}</td>
-                        <td class="text-center">{{ $item->fecha_inicio }}</td>
-                        <td class="text-center">{{ $item->fecha_final }}</td>
-                        <td class="text-center">
+                        <td style="vertical-align: middle;">{{ $item->titulo_evento }}</td>
+                        <td style="vertical-align: middle;">{{ $item->lugar_evento }}</td>
+                        <td style="vertical-align: middle;" class="text-center">{{ $item->fecha_inicio }}</td>
+                        <td style="vertical-align: middle;" class="text-center">{{ $item->fecha_final }}</td>
+                        <td style="vertical-align: middle;" class="text-center">
                             <a type="button" onclick="editDatesList({{ convertir($item) }})" data-toggle="modal"
                                 data-target="#importantDatesModalUpdate">
                                 <img src="{{ asset('img/pen.png') }}" width="30" height="30">
@@ -204,9 +218,9 @@
                                 method="POST" id="important-dates-delete">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-link">
+                                <a type="submit" class="btn btn-link">
                                     <img src="{{ asset('img/trash.png') }}" width="30" height="30">
-                                </button>
+                                </a>
                             </form>
 
                         </td>

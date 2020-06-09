@@ -13,7 +13,6 @@
       <span class="mx-1">Añadir requisito</span>
     </a>
   </div>
-
   <div class="table-requests">
     <table class="table table-bordered">
       <thead class="thead-dark">
@@ -27,14 +26,14 @@
         @php $alphas = 65 @endphp
         @foreach($requerimients as $requeriment)
         <tr>
-          <th scope="row">{{ chr($alphas++) }} )</th>
+          <th scope="row">{{ chr($alphas++).')' }}</th>
           <td style="text-align: justify;">
             {{ $requeriment->descripcion }}
           </td>
           <td style="text-align: center">
-            <a class="options" data-toggle="modal" data-target="#requirementsEditModal" data-id="{{ $requeriment->id }}"
-              data-descripcion="{{ $requeriment->descripcion }}"  data-inc="{{ chr($alphas-1) }}" data-dismiss="modal"><img
-                src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
+            <a class="options" data-toggle="modal" data-target="#requirementsEditModal" data-dismiss="modal"
+            onclick="requirementsEditModal({{ json_encode($requeriment) }}, {{  json_encode(chr($alphas-1)) }} )">
+            <img src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
                   
                 <form class="d-inline" action="{{ route('requirementDelete', $requeriment->id) }}" method="POST">
                   {{ csrf_field() }}
@@ -113,21 +112,28 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="{{ route('requirementUpdate') }}" role="form" autocomplete="off">
+          <form method="POST" action="{{ route('requirementUpdate') }}" id="form-edit-requ">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <input type="hidden" id="id-requirement" name="id-requirement">
             <div class="form-group">
               <label for="exampleInputEmail1">Inciso</label>
-              <input for="exampleInputEmail1" type="button" class="btn btn-light" id="inc-requirement" name="inc-requirement" readonly>
+              <label for="exampleInputEmail1" id="inc-req-edit" name="inc-req-edit"></label>
               <textarea class="form-control" id="descripcion-requirement" minlength="11" required
-                rows="3" name="descripcion-requirement"></textarea>
+                rows="3" name="descripcion-edit">{{ old('descripcion-edit') }}</textarea>
               <small id="emailHelp" class="form-text text-muted">Los requisitos se listan en orden alfabético.</small>
             </div>
-            {!! $errors->first('descripcion-requirement', '<strong class="message-error text-danger">:message</strong>') !!}
+            {!! $errors->first('descripcion-edit', '<strong class="message-error text-danger">:message</strong>') !!}
+            @if ($errors->has('descripcion-edit'))
+              <script>
+                  window.onload = () => {
+                      $('#requirementsEditModal').modal('show');
+                  }
+              </script>
+            @endif
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <input class="btn btn-info" type="submit" value="Guardar">
+              <button class="btn btn-info" form="form-edit-requ" type="submit">Guardar</button>
             </div>
           </form>
         </div>

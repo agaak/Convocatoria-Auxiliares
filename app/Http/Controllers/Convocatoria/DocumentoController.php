@@ -24,10 +24,12 @@ class DocumentoController extends Controller
         $convActual = request()->session()->get('convocatoria');
         $idDocumento = $request->input('id-requirement');
         request()->validate([
-            'descripcion-requirement'=> 'required|unique:documento,descripcion,'.$idDocumento.',id,id_convocatoria,'.$convActual
+            'descripcion-edit'=> 'required|unique:documento,descripcion,'.$idDocumento.',id,id_convocatoria,'.$convActual
+        ],[
+            'descripcion-edit.unique' => 'El Documento ya ha sido registrado.'
         ]);
         DB::table('documento')->where('id', $idDocumento)->update([
-            'descripcion' => $request->input('descripcion-requirement') ]);
+            'descripcion' => $request->input('descripcion-edit') ]);
         return back();
     }
 

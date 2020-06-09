@@ -38,7 +38,21 @@ class EventoUpdateRequest extends FormRequest
             'id-datos-edit' => 'required',
             'lugar-evento-edit' => 'required',
             'fecha-ini-evento-edit' => 'required|date|after_or_equal:'.$fechaIniConv,
-            'fecha-fin-evento-edit' => 'required|date|after:fecha-ini-evento-edit|before_or_equal:'.$fechaFinConv,
+            'fecha-fin-evento-edit' => 'required|date|date_format:"Y-m-d\TH:i"|after_or_equal:fecha-ini-evento|before_or_equal:'.$fechaFinConv,
+        ];
+    }
+
+    public function messages()
+    {
+        $convActual = Convocatoria::where('id', request()->session()->get('convocatoria'));
+        $fechaIniConv = $convActual->value('fecha_inicio').' 00:00:00';
+        $fechaFinConv = $convActual->value('fecha_final').' 23:59:59';
+        return [
+            'titulo-evento-edit.required' => 'El titulo es obligatorio.',
+            'titulo-evento-edit.unique' => 'El titulo ingresado ya existe.',
+            'fecha-ini-evento-edit.after_or_equal' => 'La Fecha Inicio debe ser una fecha posterior o igual a '.$fechaIniConv.'.',
+            'fecha-fin-evento-edit.before_or_equal' => 'La Fecha Final debe ser una fecha anterior o igual a '.$fechaFinConv.'.',
+            'fecha-fin-evento-edit.after_or_equal' => 'La Fecha Final debe ser una fecha posterior o igual a la fecha inicial.'
         ];
     }
 }

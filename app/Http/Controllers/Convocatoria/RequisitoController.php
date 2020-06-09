@@ -21,12 +21,12 @@ class RequisitoController extends Controller
         $convActual = request()->session()->get('convocatoria');
         $idRequerimiento = request()->input('id-requirement');
         request()->validate([
-            'descripcion-requirement'=> 'required|unique:requisito,descripcion,'.$idRequerimiento.',id,id_convocatoria,'.$convActual
+            'descripcion-edit'=> 'required|unique:requisito,descripcion,'.$idRequerimiento.',id,id_convocatoria,'.$convActual
         ],[
-            'descripcion-requirement.unique' => 'El Requisito ya ha sido registrado.'
+            'descripcion-edit.unique' => 'El Requisito ya ha sido registrado.'
         ]);
         DB::table('requisito')->where('id', $request->input('id-requirement'))->update([
-            'descripcion' => $request->input('descripcion-requirement') ]);
+            'descripcion' => $request->input('descripcion-edit') ]);
         return back();
     }
 

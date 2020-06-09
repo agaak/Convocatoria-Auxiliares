@@ -33,14 +33,12 @@ class AdmMeritosController extends Controller
         $idEvaluador = EvaluadorConocimientos::where('ci', $request->input('adm-cono-ci'))->value('id');
         if($idEvaluador == null){
             request()->validate([
-                'adm-cono-tipo' => 'required',
                 'adm-cono-ci' => 'min:4|max:9|unique:evaluador,ci',
                 'adm-cono-nombre' => 'regex:/^[a-zA-Z\s]*$/',
                 'adm-cono-apellidos' => 'regex:/^[\pL\s\-]+$/u',
                 'adm-cono-correo' => 'email|unique:evaluador,correo',
                 'adm-cono-correo2' => 'nullable|email'
             ],[
-                'adm-cono-tipo.required' => 'Este Campo es requerido.',
                 'adm-cono-ci.min' => 'El campo CI contiene como minimo 4 carácteres.',
                 'adm-cono-ci.max' => 'El campo CI contiene como maximo 10 carácteres.', 
                 'adm-cono-ci.unique' => 'El ci ingresado ya existe.',
@@ -83,12 +81,23 @@ class AdmMeritosController extends Controller
             'id_rol_evaluador' => 1,
             'id_evaluador_convocatoria' => $idEvaluadorConvocatoria
         ]);
-        return back();
+        return redirect()->route('admMeritos');
     }
 
     public function update(Request $request){
+        request()->validate([
+            'adm-cono-nombre-edit' => 'regex:/^[a-zA-Z\s]*$/',
+            'adm-cono-apellidos-edit' => 'regex:/^[\pL\s\-]+$/u',
+            //'adm-cono-correo-edit' => 'email|unique:evaluador,correo',
+            'adm-cono-correo2-edit' => 'nullable|email'
+        ],[
+            'adm-cono-nombre-edit.regex' => 'El campo Nombre solo permite letras y espacios en blanco.',
+            'adm-cono-apellidos-edit.regex' => 'El campo Apellidos solo permite letras y espacios en blanco.',
+            //'adm-cono-correo-edit.unique' => 'El correo ingresado ya existe.',
+            //'adm-cono-correo-edit.email' => 'El campo correo debe ser de tipo email.',
+            'adm-cono-correo2-edit.email' => 'El campo correo debe ser de tipo email.'
+        ]);
         EvaluadorConocimientos::where('id', $request->input('id-evaluador'))->update([
-            'ci' => $request->input('adm-cono-ci-edit'),
             'nombre' => $request->input('adm-cono-nombre-edit'),
             'apellido' => $request->input('adm-cono-apellidos-edit'),
             'correo' => $request->input('adm-cono-correo-edit'),

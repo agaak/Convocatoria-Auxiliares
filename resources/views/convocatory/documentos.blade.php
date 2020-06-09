@@ -27,14 +27,14 @@
         @php  $alphas = 65  @endphp
         @foreach($documentos as $documento)
         <tr>
-          <th scope="row">{{ chr($alphas++) }} )</th>
+          <th scope="row">{{ chr($alphas++).')' }}</th>
           <td style="text-align: justify;">
             {{ $documento->descripcion }}
           </td>
           <td style="text-align: center">
-            <a class="options" data-toggle="modal" data-target="#requirementsEditModal" data-id="{{ $documento->id }}"
-              data-descripcion="{{ $documento->descripcion }}"  data-inc="{{ chr($alphas-1) }}" data-dismiss="modal"><img
-                src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
+            <a class="options" data-toggle="modal" data-target="#requirementsEditModal" data-dismiss="modal"
+            onclick="requirementsEditModal({{ json_encode($documento) }}, {{  json_encode(chr($alphas-1)) }} )">
+            <img src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
                   
                 <form class="d-inline" action="{{ route('documentoDelete', $documento->id) }}" method="POST">
                   {{ csrf_field() }}
@@ -82,6 +82,13 @@
                 rows="3" name="descripcion"  minlength="11" required></textarea>
             </div>
             {!! $errors->first('descripcion', '<strong class="message-error text-danger">:message</strong>') !!}
+            @if ($errors->has('descripcion'))
+              <script>
+                  window.onload = () => {
+                      $('#documentosModal').modal('show');
+                  }
+              </script>
+            @endif
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
               <input class="btn btn-info" type="submit" value="Guardar">
@@ -110,12 +117,19 @@
             <input type="hidden" id="id-requirement" name="id-requirement">
             <div class="form-group">
               <label for="exampleInputEmail1">Inciso</label>
-              <input for="exampleInputEmail1" type="button" class="btn btn-light" id="inc-requirement" name="inc-requirement" readonly/>
+              <label for="exampleInputEmail1" id="inc-req-edit" name="inc-req-edit"></label>
               <textarea class="form-control" id="descripcion-requirement" minlength="11" required
-                rows="3" name="descripcion-requirement" value="{{ old('nombre') }}" ></textarea>
-              <small id="emailHelp" class="form-text text-muted">Los requisitos se listan en orden alfabético.</small>
+                rows="3" name="descripcion-edit">{{ old('descripcion-edit') }}</textarea>
+              <small id="emailHelp" class="form-text text-muted">Los documentos se listan en orden alfabético.</small>
             </div>
-            {!! $errors->first('descripcion-requirement', '<strong class="message-error text-danger">:message</strong>') !!}
+            {!! $errors->first('descripcion-edit', '<strong class="message-error text-danger">:message</strong>') !!}
+            @if ($errors->has('descripcion-edit'))
+              <script>
+                  window.onload = () => {
+                      $('#requirementsEditModal').modal('show');
+                  }
+              </script>
+            @endif
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
               <input class="btn btn-info" type="submit" value="Guardar">
