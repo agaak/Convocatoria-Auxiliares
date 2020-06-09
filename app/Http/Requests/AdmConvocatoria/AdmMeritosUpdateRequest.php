@@ -24,27 +24,24 @@ class AdmMeritosUpdateRequest extends FormRequest
     
     public function rules()
     {
+        $idEva = request()->input('id-evaluador');
+
         return [
-            'adm-meritos-ci-edit' => 'required|min:4|max:10|unique:evaluador,ci',
-            'adm-meritos-nombre-edit' => 'required|regex:/^[a-zA-Z\s]*$/',
-            'adm-meritos-apellidos-edit' => 'required|regex:/^[\pL\s\-]+$/u',
-            // 'adm-meritos-correo-edit' => 'required|email|unique:evaluador,correo',
-            'adm-meritos-correo-edit' => 'required|email',
-            'adm-meritos-correo-alter-edit' => 'required|email'
+            'adm-cono-nombre-edit' => 'regex:/^[a-zA-Z\s]*$/',
+            'adm-cono-apellidos-edit' => 'regex:/^[\pL\s\-]+$/u',
+            'adm-cono-correo-edit' => 'email|unique:evaluador,correo,'.$idEva,
+            'adm-cono-correo2-edit' => 'nullable|email'
         ];
     }
 
     public function messages()
     {
         return [
-            'adm-meritos-ci-edit.min' => 'El campo CI contiene como minimo 4 carácteres.',
-            'adm-meritos-ci-edit.max' => 'El campo CI contiene como maximo 10 carácteres.',
-            'adm-meritos-ci-edit.unique' => 'El numero de carnet de identidad ingresado ya existe.',
-            'adm-meritos-nombre-edit.regex' => 'El campo Nombre solo permite letras y espacios en blanco.',
-            'adm-meritos-apellidos-edit.regex' => 'El campo Apellidos solo permite letras y espacios en blanco.',
-            // 'adm-meritos-correo-edit.unique' => 'El correo ingresado ya existe.',
-            'adm-meritos-correo-edit.email' => 'El campo correo debe ser de tipo email.',
-            'adm-meritos-correo-alter-edit.email' => 'El campo correo debe ser de tipo email.'
+            'adm-cono-nombre-edit.regex' => 'El campo Nombre solo permite letras y espacios en blanco.',
+            'adm-cono-apellidos-edit.regex' => 'El campo Apellidos solo permite letras y espacios en blanco.',
+            'adm-cono-correo-edit.unique' => 'El correo ingresado ya existe.', 
+            'adm-cono-correo-edit.email' => 'El campo correo debe ser de tipo email.',
+            'adm-cono-correo2-edit.email' => 'El campo correo debe ser de tipo email.'
         ];
     }
 }

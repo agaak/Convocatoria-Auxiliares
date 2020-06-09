@@ -170,19 +170,19 @@ class AdmConocimientosController extends Controller
     }
 
     public function updateEvaluador(Request $request){
-
+        $idEva = request()->input('id-evaluador');
         request()->validate([
             'adm-cono-tipo2' => 'required',
             'adm-cono-nombre-edit' => 'regex:/^[a-zA-Z\s]*$/',
             'adm-cono-apellidos-edit' => 'regex:/^[\pL\s\-]+$/u',
-            //'adm-cono-correo-edit' => 'email|unique:evaluador,correo',
+            'adm-cono-correo-edit' => 'email|unique:evaluador,correo,'.$idEva,
             'adm-cono-correo2-edit' => 'nullable|email'
         ],[
             'adm-cono-tipo2.required' => 'Este Campo es requerido.',
             'adm-cono-nombre-edit.regex' => 'El campo Nombre solo permite letras y espacios en blanco.',
             'adm-cono-apellidos-edit.regex' => 'El campo Apellidos solo permite letras y espacios en blanco.',
-            //'adm-cono-correo-edit.unique' => 'El correo ingresado ya existe.',
-            //'adm-cono-correo-edit.email' => 'El campo correo debe ser de tipo email.',
+            'adm-cono-correo-edit.unique' => 'El correo ingresado ya existe.',
+            'adm-cono-correo-edit.email' => 'El campo correo debe ser de tipo email.',
             'adm-cono-correo2-edit.email' => 'El campo correo debe ser de tipo email.'
         ]);
 

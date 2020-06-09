@@ -153,7 +153,7 @@
                         id="form-update-evaluador-merito">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <input type="hidden" id="id-evaluador" name="id-evaluador">
+                        <input type="hidden" id="id-evaluador" value="{{ old('id-evaluador') }}" name="id-evaluador">
 
                         <div class="form-group row">
                             <label for="adm-cono-ci-edit" class="col-sm-3 col-form-label">Carnet:</label>
@@ -191,7 +191,7 @@
                               <span class="input-group-text" id="basic-addon2">@</span>
                             </div>
                         </div>
-                        {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger text-right col-sm-10 mt-0 mb-1">:message</strong>') !!}
+                        {!! $errors->first('adm-cono-correo-edit', '<strong class="message-error text-danger text-right col-sm-10 mt-0 mb-1">:message</strong>') !!}
                     </div>
                    <div class="form-group row">
                         <label for="adm-cono-correo2-edit"  class="col-sm-3 col-form-label">Correo Alt(*)</label>

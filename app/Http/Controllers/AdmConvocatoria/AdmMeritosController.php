@@ -84,19 +84,7 @@ class AdmMeritosController extends Controller
         return redirect()->route('admMeritos');
     }
 
-    public function update(Request $request){
-        request()->validate([
-            'adm-cono-nombre-edit' => 'regex:/^[a-zA-Z\s]*$/',
-            'adm-cono-apellidos-edit' => 'regex:/^[\pL\s\-]+$/u',
-            //'adm-cono-correo-edit' => 'email|unique:evaluador,correo',
-            'adm-cono-correo2-edit' => 'nullable|email'
-        ],[
-            'adm-cono-nombre-edit.regex' => 'El campo Nombre solo permite letras y espacios en blanco.',
-            'adm-cono-apellidos-edit.regex' => 'El campo Apellidos solo permite letras y espacios en blanco.',
-            //'adm-cono-correo-edit.unique' => 'El correo ingresado ya existe.',
-            //'adm-cono-correo-edit.email' => 'El campo correo debe ser de tipo email.',
-            'adm-cono-correo2-edit.email' => 'El campo correo debe ser de tipo email.'
-        ]);
+    public function update(AdmMeritosUpdateRequest $request){
         EvaluadorConocimientos::where('id', $request->input('id-evaluador'))->update([
             'nombre' => $request->input('adm-cono-nombre-edit'),
             'apellido' => $request->input('adm-cono-apellidos-edit'),

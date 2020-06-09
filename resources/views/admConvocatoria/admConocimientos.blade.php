@@ -186,8 +186,8 @@ aria-hidden="true">
             <form method="POST" action="{{ route('admConoUpdate') }}" id="from-adm-conocimientos-edit">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
-                <input type="hidden" id="id-evaluador" name="id-evaluador">
-                <input type="hidden" id="id_eva_conv" name="id_eva_conv">
+                <input type="hidden" id="id-evaluador" value="{{ old('id-evaluador') }}" name="id-evaluador">
+                <input type="hidden" id="id_eva_conv" value="{{ old('id_eva_conv') }}" name="id_eva_conv">
                 <div class="form-group">
                     <label for="adm-cono-tipo">Auxiliatura:</label>
                     <select name="adm-cono-tipo2[]" class="select2" id="select-cono" multiple="multiple" required>
@@ -200,7 +200,7 @@ aria-hidden="true">
                 <div class="form-group row">
                         <label for="adm-cono-ci-edit" class="col-sm-3 col-form-label">Carnet:</label>
                         <div class="col-sm-9">
-                        <input type="number" name="adm-cono-ci-edit" readonly class="form-control" id="adm-cono-ci-edit" required>
+                        <input type="number" name="adm-cono-ci-edit" value="{{ old('adm-cono-ci-edit') }}" readonly class="form-control" id="adm-cono-ci-edit" required>
                         </div>
                     {!! $errors->first('adm-cono-ci', '<p class="message-error text-danger id="err"">:message</p>') !!}
                 </div>
@@ -213,36 +213,38 @@ aria-hidden="true">
                 <div class="form-group row">
                     <label for="adm-cono-nombre-edit" class="col-sm-3 col-form-label">Nombres:</label>
                     <div class="col-sm-9">
-                    <input type="text" name="adm-cono-nombre-edit" id="adm-cono-nombre-edit" minlength="3" class="form-control" required>
+                    <input type="text" name="adm-cono-nombre-edit" value="{{ old('adm-cono-nombre-edit') }}" id="adm-cono-nombre-edit" minlength="3" class="form-control" required>
                     </div>
                     {!! $errors->first('adm-cono-nombre-edit', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
                 </div>
                 <div class="form-group row">
                     <label for="adm-cono-apellidos-edit"  class="col-sm-3 col-form-label">Apellidos:</label>
                     <div class="col-sm-9">
-                    <input type="text" name="adm-cono-apellidos-edit" id="adm-cono-apellidos-edit" minlength="3" class="form-control" required>
+                    <input type="text" name="adm-cono-apellidos-edit" value="{{ old('adm-cono-apellidos-edit') }}" id="adm-cono-apellidos-edit" minlength="3" class="form-control" required>
                     </div>
                     {!! $errors->first('adm-cono-apellidos-edit', '<strong class="message-error text-danger id="err"">:message</strong>') !!}
                 </div>
                 <div class="form-group row">
                     <label for="adm-cono-correo-edit"  class="col-sm-3 col-form-label">Correo:</label>
                     <div class="input-group col-sm-9">
-                        <input type="email" class="form-control" name="adm-cono-correo-edit" id="adm-cono-correo-edit" aria-label="Recipient's username" 
+                        <input type="email" class="form-control" name="adm-cono-correo-edit" value="{{ old('adm-cono-correo-edit') }}" id="adm-cono-correo-edit" aria-label="Recipient's username" 
                             aria-describedby="basic-addon2" required>
                         <div class="input-group-append">
                           <span class="input-group-text" id="basic-addon2">@</span>
                         </div>
                     </div>
+                    {!! $errors->first('adm-cono-correo-edit', '<strong class="message-error text-danger text-right col-sm-10 mt-0 mb-1">:message</strong>') !!}
                 </div>
                 <div class="form-group row">
                     <label for="adm-cono-correo2-edit"  class="col-sm-3 col-form-label">Correo Alt(*)</label>
                     <div class="input-group mb-1 col-sm-9">
-                        <input type="email" class="form-control" name="adm-cono-correo2-edit" id="adm-cono-correo2-edit" aria-label="Recipient's username" 
+                        <input type="email" class="form-control" name="adm-cono-correo2-edit" value="{{ old('adm-cono-correo2-edit') }}" id="adm-cono-correo2-edit" aria-label="Recipient's username" 
                             aria-describedby="basic-addon2">
                         <div class="input-group-append">
                           <span class="input-group-text" id="basic-addon2">@</span>
                         </div>
                     </div>
+                    {!! $errors->first('adm-cono-correo2-edit', '<strong class="message-error text-danger text-right col-sm-10 mt-0 mb-1">:message</strong>') !!}
                 </div>
                 @if ($errors->any())
                     <script>
