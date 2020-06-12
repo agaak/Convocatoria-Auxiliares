@@ -84,3 +84,5 @@ Route::get('convocatoria/download/{id}', 'ConvocatoriaController@download')->nam
 // Estos siempres al final son un caso especial
 Route::resource('convocatoria/calificacion-meritos', 'Convocatoria\MeritoController');
 Route::resource('convocatoria', 'ConvocatoriaController');
+
+Auth::routes();

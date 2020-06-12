@@ -49,7 +49,7 @@ body {
 .container-time {
     position: relative;
     font-size: .8rem;
-    margin-right: 30px;
+    margin-right: 15px;
     height: 50px;
 }
 
@@ -57,12 +57,23 @@ body {
     height: 51px;
 }
 
+.color-fondo {
+    background-color: #001523;
+    border: 1px solid rgb(22, 61, 99);
+}
+
+.svg-color {
+    fill: white;
+}
+
 .navbar-collapse-color {
     background-color: #001523;
     padding: 0;
+    z-index: 10;
 }
 
-.navbar-collapse-color ul li a {
+.navbar-collapse-color ul li a,
+.login {
     color: white !important;
     border-radius: 10px 10px;
     font-size: 14px;
@@ -75,7 +86,9 @@ body {
 }
 
 .navbar-collapse-color ul li a:hover,
-.navbar-collapse-color ul li a.activate {
+.navbar-collapse-color ul li a.activate,
+.login:hover,
+.login.activate {
     box-shadow: 0 0 5px black inset;
     background-color: white;
     color: #001523 !important;
@@ -284,4 +297,10 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance:textfield; /* Firefox */
+}
+
+/* Login */
+
+.content-login {
+    height: 80vh;
 }
