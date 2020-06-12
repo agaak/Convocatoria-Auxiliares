@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ConvocatoriaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:administrador,evaluador'])->except('index');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -53,7 +57,7 @@ class ConvocatoriaController extends Controller
         $conv->publicado = false;
         $conv->creado = false;
         $conv->save();
-        
+
         session()->put('convocatoria', $conv->id) ;
         return redirect()->route('requests');
     }
@@ -99,7 +103,7 @@ class ConvocatoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         return back();
     }
 

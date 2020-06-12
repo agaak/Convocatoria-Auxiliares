@@ -15,6 +15,22 @@
         </div>
     </div>
 
+    <div class="container">
+        @if (auth()->check())
+            @if (auth()->user()->hasRoles(['administrador']))
+                <p>Ejemplo si es Visitante</p>
+                <p>Ejemplo si es Evaluador</p>
+                <p>Ejemplo si es Administrador</p>
+            @endif
+            @if (auth()->user()->hasRoles(['evaluador', 'administrador']))
+                <p>Ejemplo si es Visitante</p>
+                <p>Ejemplo si es Evaluador</p>
+            @endif
+        @else
+            <p>Ejemplo si es Visitante</p>
+        @endif
+    </div>
+
     {{-- Moadal pra crear nueva convocatoria --}}
     {{-- conv = convocatoria --}}
     <div class="modal fade" id="convocatoriaModal" tabindex="-1" role="dialog" aria-labelledby="convModalTitle"
@@ -177,7 +193,7 @@
                                                 <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                                 style="background-color:#2F2D4A; color:white;"
                                                 class="btn btn-sm">{{ csrf_field() }}Administrar</a>
-                                                <a href="{{ route('convocatoria.show',$convo->id ) }}" 
+                                                <a href="{{ route('convocatoria.show',$convo->id ) }}"
                                                 style="background-color:#61DE4D;color:rgb(255, 255, 255);"
                                                 class="btn btn-sm">{{ csrf_field() }}Publicar</a>
                                                 </div>

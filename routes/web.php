@@ -11,8 +11,13 @@
 |
 */
 
+use App\Role;
+use Illuminate\Support\Facades\App;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
+Route::get('roles', function(){
+	return \App\Role::with('user')->get();
+});
 
 Route::get('/', ['as' => 'home', 'uses' => 'NavbarController@home']);
 
