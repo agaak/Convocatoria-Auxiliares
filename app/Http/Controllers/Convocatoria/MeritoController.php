@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Convocatoria;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MeritoEditRequest;
 use App\Http\Requests\MeritoRequest;
+use App\Http\Controllers\Utils\Convocatoria\Merito as Merit;
 use App\Merito;
 use App\Calificacion_final;
 use Illuminate\Http\Request;
@@ -19,50 +20,9 @@ class MeritoController extends Controller
      */
     public function index()
     {
-
-        $meritList = Merito::where('id_convocatoria', request()->session()->get('convocatoria'))->orderBy('id', 'ASC')->get();
-
-        $llenarLista = [];
-        $listaInicial = [];
-        foreach ($meritList as $value) {
-            $listaInicial = [];
-            array_push($listaInicial, $value->id_submerito);
-            array_push($listaInicial, $value->descripcion_merito);
-            array_push($listaInicial, $value->porcentaje);
-            array_push($listaInicial, $value->id);
-            $llenarLista[$value->id] = $listaInicial;
-        }
-
-        function buscarPerteneciente($original, $identificador, $arreglo, $caracteres, $cadena) {
-            $contador = 1;
-            $cadenaTempral = "";
-            foreach ($original as $key => $value) {
-                if ($value[0] !== null) {
-                    if($value[0] === $identificador) {
-                        $cadenaTemporal = $cadena.$contador;
-                        $value[1] = chr($caracteres).$cadenaTemporal.') '.$value[1];
-                        array_push($arreglo, $value);
-                        $arreglo = buscarPerteneciente($original ,$key, $arreglo, $caracteres, $cadenaTemporal.'.');
-                        $contador++;
-                    }
-                }
-            }
-            return $arreglo;
-        }
-
-        $listaOrdenada = [];
-        $caracteres = 321;
-        foreach ($llenarLista as $key => $value) {
-            if ($value[0] === null) {
-                $value[1] = chr($caracteres).') '.$value[1];
-                array_push($listaOrdenada, $value);
-                $listaOrdenada = buscarPerteneciente($llenarLista, $key, $listaOrdenada, $caracteres, '.');
-                $caracteres++;
-            }
-        }
-
-        
-        $porcentajesConvocatoria = Calificacion_final::where('id_convocatoria',session()->get('convocatoria'))->first();
+        $idConv = session()->get('convocatoria');
+        $listaOrdenada = (new Merit)->getMeritos($idConv);
+        $porcentajesConvocatoria = Calificacion_final::where('id_convocatoria',$idConv)->first();
         return view('convocatory.meritos', compact('listaOrdenada','porcentajesConvocatoria'));
     }
 
