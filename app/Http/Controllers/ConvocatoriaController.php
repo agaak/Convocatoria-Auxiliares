@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Convocatoria;
 use App\Http\Requests\ConvocatoriaRequest;
+use App\Requerimiento;
 use App\Tipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +22,11 @@ class ConvocatoriaController extends Controller
         $tipos = Tipo::get();
         $convos = Convocatoria::where('id_unidad_academica',1)->get();
         session()->forget('convocatoria');
-        return view('convocatoria', compact('tipos','anioActual','convos'));
+        $auxs = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
+            ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
+            ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();
+        return view('convocatoria', compact('tipos','anioActual','convos', 'auxs'));
+        return $auxs;
     }
 
     /**

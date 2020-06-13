@@ -13,6 +13,30 @@ class CreatePostulanteTable extends Migration
      */
     public function up()
     {
+        Schema::create('pre_postulante', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('id_convocatoria');
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->string('direccion');
+            $table->string('correo');
+            $table->string('cod_sis');
+            $table->integer('telefono');
+            $table->integer('ci');
+            $table->timestamps();
+
+            $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
+        });
+
+        Schema::create('pre_postulante_auxiliatura', function (Blueprint $table) {
+            $table->integer('id_pre_postulante');
+            $table->foreign('id_pre_postulante')->references('id')->on('pre_postulante')->onDelete('cascade');
+            $table->integer('id_auxiliatura');
+            $table->foreign('id_auxiliatura')->references('id')->on('auxiliatura')->onDelete('cascade');
+            $table->string('observacion');
+            $table->timestamps();
+        });
+
         Schema::create('postulante', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
@@ -43,6 +67,7 @@ class CreatePostulanteTable extends Migration
             
             $table->timestamps();
         });
+        
     }
 
     /**
@@ -55,5 +80,7 @@ class CreatePostulanteTable extends Migration
         Schema::dropIfExists('postulante_conovocatoria');
         Schema::dropIfExists('postulante_auxiliatura');
         Schema::dropIfExists('postulante');
+        Schema::dropIfExists('pre_postulante');
+        Schema::dropIfExists('pre_postulante_auxiliatura');
     }
 }
