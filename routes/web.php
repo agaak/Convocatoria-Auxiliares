@@ -11,8 +11,13 @@
 |
 */
 
+use App\Role;
+use Illuminate\Support\Facades\App;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
+Route::get('roles', function(){
+	return \App\Role::with('user')->get();
+});
 
 Route::get('/', ['as' => 'home', 'uses' => 'NavbarController@home']);
 
@@ -84,3 +89,5 @@ Route::get('convocatoria/download/{id}', 'ConvocatoriaController@download')->nam
 // Estos siempres al final son un caso especial
 Route::resource('convocatoria/calificacion-meritos', 'Convocatoria\MeritoController');
 Route::resource('convocatoria', 'ConvocatoriaController');
+
+Auth::routes();

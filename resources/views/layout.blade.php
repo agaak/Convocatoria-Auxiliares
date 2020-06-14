@@ -27,10 +27,30 @@
                     universidad mayor de san simon
                 </h1>
             </div>
-
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
             <div class="time-navbar">
                 <div class="container-time">
-                    <time class="text-white date-time"> {{ date('d-m-Y') }} <br> {{ date('H:i:s') }} </time>
+                    <time class="text-white date-time">
+                        <div class="btn-group dropleft">
+                            <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @guest
+                                <img src="{{ asset('img/guest.svg') }}" width="30" height="30" class="svg-color">
+                                @else
+                                <img src="{{ asset('img/user.png') }}" width="30" height="30">
+                                @endguest
+                            </button>
+                            <div class="dropdown-menu color-fondo px-1">
+                                @guest
+                                <a class="dropdown-item nav-link my-1 login {{ activeMenu('login') }}" href="{{ route('login') }}">Iniciar sesión</a>
+                                <a class="dropdown-item nav-link my-1 login {{ activeMenu('register') }}" href="{{ route('register') }}">Registrar</a>
+                                @else
+                                <a class="dropdown-item nav-link login" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
+                                @endguest
+                            </div>
+                          </div>
+                    </time>
                 </div>
                 <nav class="navbar navbar-expand-lg navbar-dark container-bar">
                     @php
@@ -79,6 +99,7 @@
     </div>
         
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.es.min.js') }}"></script>
