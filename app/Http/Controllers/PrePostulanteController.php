@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\PrePostulante;
-use Illuminate\Http\Request;
+use App\Requerimiento;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class PrePostulanteController extends Controller
 {
@@ -28,7 +29,13 @@ class PrePostulanteController extends Controller
                 'observacion' => 'ninguna'
             ]);
         }
-        
-        return request();
+
+        $auxiliaturas = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
+        ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
+        ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();
+
+        $pdf = PDF::loadView('postulantePDF.postulante', compact('postulante', 'auxiliaturas'));
+
+        return $pdf->download('rotulo-postulante.pdf');
     }
 }
