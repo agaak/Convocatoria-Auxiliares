@@ -80,7 +80,7 @@ class CreatePostulanteTable extends Migration
         Schema::dropIfExists('postulante_conovocatoria');
         Schema::dropIfExists('postulante_auxiliatura');
         Schema::dropIfExists('postulante');
-        Schema::dropIfExists('pre_postulante');
         Schema::dropIfExists('pre_postulante_auxiliatura');
+        Schema::dropIfExists('pre_postulante');
     }
 }
