@@ -30,24 +30,26 @@ class AdmConocimientosController extends Controller
             ->where('id_rol_evaluador','2')->get();
         $tipoConvocatoria  = Convocatoria::where('id',$id_conv)->value('id_tipo_convocatoria');
         if ($tipoConvocatoria  === 2) {
-            $lista_tem_aux = EvaluadorAuxiliatura::select('auxiliatura.nombre_aux as nombre','auxiliatura.id','auxiliatura.cod_aux as cod','evaluador.id as id_eva') 
-            ->join('evaluador_auxiliatura','id_convo','=','evaluador_auxiliatura.id_evaluador_convocatoria')  
-            ->join('auxiliatura','evaluador_auxiliatura.id_auxiliatura','=','auxiliatura.id')
-            ->get();
+            $lista_tem_aux = EvaluadorAuxiliatura::select('auxiliatura.nombre_aux as nombre','auxiliatura.id','evaluador_conovocatoria.id as id_eva') 
+            ->join('evaluador_conovocatoria','evaluador_auxiliatura.id_evaluador_convocatoria','=','evaluador_conovocatoria.id') 
+            ->where('evaluador_conovocatoria.id_convocatoria',$id_conv)
+            ->join('auxiliatura','evaluador_auxiliatura.id_auxiliatura','=','auxiliatura.id')->get();
+            
+            $tem_res = [];
+            foreach($lista_tem_aux as $tem){
+                array_push($tem_res, $tem->id);    
+            }
 
-
-            $listaMultiselect = Requerimiento::select('auxiliatura.nombre_aux as nombre', 'requerimiento.id as id_unico')
+            $listaMultiselect = Requerimiento::select('auxiliatura.nombre_aux as nombre', 'auxiliatura.id as id_unico')
             ->where('id_convocatoria', $id_conv)
-            ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')->get();
+            ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
+            ->whereNotIn('auxiliatura.id', $tem_res)->get();
             
         } else {
             $lista_tem_aux = EvaluadorTematica::select('tematica.nombre','tematica.id','evaluador_conovocatoria.id as id_eva') 
             ->join('evaluador_conovocatoria','evaluador_tematica.id_evaluador_convocatoria','=','evaluador_conovocatoria.id')
             ->where('evaluador_conovocatoria.id_convocatoria',$id_conv)
-            ->join('tipo_evaluador','evaluador_conovocatoria.id','=','tipo_evaluador.id_evaluador_convocatoria')
-            ->where('id_rol_evaluador','2')
-            ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')
-            ->groupBy('tematica.id','evaluador_conovocatoria.id')->get();
+            ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')->get();
 
             $tem_res = [];
             foreach($lista_tem_aux as $tem){
