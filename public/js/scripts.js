@@ -311,3 +311,20 @@ $('#recipeCarousel').carousel({
 setTimeout(() => {
     document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
 }, 5000);
+
+function listaAux(datos, id) {
+    document.querySelectorAll(".eliminar").forEach(e => e.parentNode.removeChild(e));
+    $('#post-ci').val('');
+    $('#post-tel').val('');
+    $('#post-nom').val('');
+    $('#post-ape').val('');
+    $('#post-cod').val('');
+    $('#post-cor').val('');
+    $('#post-dir').val('');
+    $('#id-conv-postulante').val(id);
+    datos.forEach(data => {
+        if (data.id_conv == id) {
+            $('#auxiliaturas').prepend(`<option class="eliminar" value="${data.id}">${data.nombre_aux}</option>`);
+        }
+    });
+}

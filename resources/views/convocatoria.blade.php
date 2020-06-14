@@ -1,7 +1,6 @@
 @extends('layout')
 
 @section('content')
-
 <div class="overflow-auto content" style="width: 100vw; height: 77vh;">
     <h3 class="text-uppercase text-left">Convocatorias</h3>
 
@@ -12,6 +11,71 @@
                 <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
                 <span class="mx-1">Crear Convocatoria</span>
             </a>
+        </div>
+    </div>
+    {{-- Postulante --}}
+    <div class="modal fade" id="postulanteModal" tabindex="-1" role="dialog" aria-labelledby="postModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="postModalTitle">Registro Pre Postulante</h5>
+                    <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('exportPDF') }}" id="form-postulante">
+                        {{ csrf_field() }}
+
+                        <input type="hidden" name="id-conv-postulante" id="id-conv-postulante" value="">
+                        <div class="form-group">
+                            <label class="d-block">Auxiliatura:<br>
+                                <select name="auxiliaturas[]" class="select2" id="auxiliaturas" multiple="multiple" required>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="d-block">Nombres:
+                                <input class="form-control" type="text" id="post-nom" placeholder="Ingrese sus nombres" name="postulante-nombre" required>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="d-block">Apellidos:
+                                <input class="form-control" type="text" id="post-ape" placeholder="Ingrese sus apellidos" name="postulante-apellidos" required>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="d-block">Dirección:
+                                <input class="form-control" type="text" id="post-dir" placeholder="Ingrese su dirección" name="postulante-direccion" required>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="d-block">Correo electrónico:
+                                <input class="form-control" type="email" id="post-cor" name="correo-direccion" placeholder="ejemplo@algo.com" required>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="d-block">Código SIS:
+                                <input class="form-control" type="text" id="post-cod" placeholder="Ingrese su SIS" pattern="[0-9]+" name="cod-sis" required>
+                            </label>
+                        </div>
+                        <div class="form-row">
+                            <label class="col-6">Teléfono:
+                                <input class="form-control" type="number" placeholder="Ingrese su numero teléfonico" id="post-tel" name="telefono" required>
+                            </label>
+                            <label class="col-6">CI:
+                                <input class="form-control" type="text" id="post-ci" placeholder="Ingrese su C.I." name="ci" pattern="[0-9]{4,10}"
+                                title="Solo se aceptan caracteres numéricos, como mínimo 4 y máximo 10." required>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-info" form="form-postulante">Descargar rótulo</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -186,6 +250,9 @@
                                                         class="btn btn-sm">{{ csrf_field() }}Administrar</a>
                                                     <a href="{{ route('convocatoria.download',$convo->id ) }}" style="color:white;"
                                                         class="btn btn-info btn-sm">Descargar PDF</a>
+                                                    <a type="button" onclick="listaAux({{ $auxs }}, {{ $convo->id }})" class="btn btn-success text-white" data-toggle="modal" data-target="#postulanteModal">
+                                                        Postular ahora
+                                                    </a>
                                                 </div>
                                                 <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
                                                 convocatoria esta en curso.</div>

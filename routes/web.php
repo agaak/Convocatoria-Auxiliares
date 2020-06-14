@@ -80,7 +80,7 @@ Route::get('convocatoria/adm-resultados', 'AdmConvocatoria\AdmResultadosControll
 Route::get('convocatoria/download/{id}', 'ConvocatoriaController@download')->name('convocatoria.download');
 
 
-
+Route::post('convocatoria/pre-postulacion', 'PrePostulanteController@exportPDF')->name('exportPDF');
 
 
 
