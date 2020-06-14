@@ -38,7 +38,7 @@ class EventoUpdateRequest extends FormRequest
             'id-datos-edit' => 'required',
             'lugar-evento-edit' => 'required',
             'fecha-ini-evento-edit' => 'required|date|after_or_equal:'.$fechaIniConv,
-            'fecha-fin-evento-edit' => 'required|date|date_format:"Y-m-d\TH:i"|after_or_equal:fecha-ini-evento|before_or_equal:'.$fechaFinConv,
+            'fecha-fin-evento-edit' => 'required|date|after_or_equal:fecha-ini-evento-edit|before_or_equal:'.$fechaFinConv,
         ];
     }
 

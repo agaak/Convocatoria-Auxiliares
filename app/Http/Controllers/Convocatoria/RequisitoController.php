@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Convocatoria\RequisitoCreateRequest;
+use App\Http\Controllers\Utils\Convocatoria\Requisito as Req;
 use App\Requisito;
 class RequisitoController extends Controller
 {
@@ -25,7 +26,7 @@ class RequisitoController extends Controller
         ],[
             'descripcion-edit.unique' => 'El Requisito ya ha sido registrado.'
         ]);
-        DB::table('requisito')->where('id', $request->input('id-requirement'))->update([
+        Requisito::where('id', $request->input('id-requirement'))->update([
             'descripcion' => $request->input('descripcion-edit') ]);
         return back();
     }
@@ -36,10 +37,8 @@ class RequisitoController extends Controller
     }
 
     public function requirements(Request $request){
-        $requerimients=DB::table('requisito')->
-            where('id_convocatoria', $request->session()->get('convocatoria'))->orderBy('id', 'ASC')
-            ->get();
         $convActual = request()->session()->get('convocatoria');
+        $requerimients = (new Req)->getRequisitos($convActual);
         $notaActual = DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 1)->exists();
         $datoNota = null;
         if ($notaActual) {

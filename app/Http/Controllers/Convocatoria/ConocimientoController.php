@@ -12,6 +12,7 @@ use App\Calificacion_final;
 use App\Documento;
 use App\EventoImportante;
 use App\Http\Requests\Convocatoria\TematicaEditRequest;
+use App\Http\Controllers\Utils\Convocatoria\Conocimiento as UtilsCon;
 use App\Merito;
 use App\Requerimiento;
 use App\Requisito;
@@ -22,19 +23,11 @@ class ConocimientoController extends Controller
         $id_conv = $request->session()->get('convocatoria');
         $tipo = DB::table('convocatoria')->where('id',$id_conv)
             ->value('id_tipo_convocatoria');
-        $requests =DB::table('requerimiento')->select('auxiliatura.nombre_aux','auxiliatura.cod_aux','requerimiento.id')
-            ->where('id_convocatoria',$id_conv)
-            ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')->orderBy('requerimiento.id','ASC')->get();    
-        $porcentajes = Porcentaje::select('id_requerimiento','porcentaje.porcentaje','porcentaje.id_auxiliatura','id_tematica','tematica.nombre')
-            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
-            ->where('requerimiento.id_convocatoria',$id_conv)->orderBy('id_requerimiento','ASC')
-            ->join('tematica','porcentaje.id_tematica','=','tematica.id')
-            ->orderBy('tematica.nombre','ASC')->get();
-        $tems = Tematica::select('tematica.nombre','tematica.id')
-            ->join('porcentaje','tematica.id','=','porcentaje.id_tematica')
-            ->join('requerimiento','porcentaje.id_requerimiento', '=', 'requerimiento.id')
-            ->where('requerimiento.id_convocatoria',$id_conv)
-            ->groupBy('tematica.nombre','tematica.id')->orderBy('nombre','ASC')->get();
+        $utilsConocimiento= new UtilsCon;
+        $requests = $utilsConocimiento->getRequerimientos($id_conv);
+        $porcentajes = $utilsConocimiento->getPorcentajes($id_conv);
+        $tems = $utilsConocimiento->getItems($id_conv);
+
         $tem_res = [];
         foreach($tems as $tem){
             array_push($tem_res, $tem->id);    
