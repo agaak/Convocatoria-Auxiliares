@@ -37,35 +37,35 @@
                         </div>
                         <div class="form-group">
                             <label class="d-block">Nombres:
-                                <input class="form-control" type="text" name="postulante-nombre" required>
+                                <input class="form-control" type="text" id="post-nom" placeholder="Ingrese sus nombres" name="postulante-nombre" required>
                             </label>
                         </div>
                         <div class="form-group">
                             <label class="d-block">Apellidos:
-                                <input class="form-control" type="text" name="postulante-apellidos" required>
+                                <input class="form-control" type="text" id="post-ape" placeholder="Ingrese sus apellidos" name="postulante-apellidos" required>
                             </label>
                         </div>
                         <div class="form-group">
                             <label class="d-block">Dirección:
-                                <input class="form-control" type="text" name="postulante-direccion" required>
+                                <input class="form-control" type="text" id="post-dir" placeholder="Ingrese su dirección" name="postulante-direccion" required>
                             </label>
                         </div>
                         <div class="form-group">
                             <label class="d-block">Correo electrónico:
-                                <input class="form-control" type="email" name="correo-direccion" required>
+                                <input class="form-control" type="email" id="post-cor" name="correo-direccion" placeholder="ejemplo@algo.com" required>
                             </label>
                         </div>
                         <div class="form-group">
                             <label class="d-block">Código SIS:
-                                <input class="form-control" type="text" pattern="[0-9]+" name="cod-sis" required>
+                                <input class="form-control" type="text" id="post-cod" placeholder="Ingrese su SIS" pattern="[0-9]+" name="cod-sis" required>
                             </label>
                         </div>
                         <div class="form-row">
                             <label class="col-6">Teléfono:
-                                <input class="form-control" type="number" name="telefono" required>
+                                <input class="form-control" type="number" placeholder="Ingrese su numero teléfonico" id="post-tel" name="telefono" required>
                             </label>
                             <label class="col-6">CI:
-                                <input class="form-control" type="text" name="ci" pattern="[0-9]{4,10}"
+                                <input class="form-control" type="text" id="post-ci" placeholder="Ingrese su C.I." name="ci" pattern="[0-9]{4,10}"
                                 title="Solo se aceptan caracteres numéricos, como mínimo 4 y máximo 10." required>
                             </label>
                         </div>
