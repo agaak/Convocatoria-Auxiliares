@@ -86,7 +86,7 @@
                 <p>Ejemplo si es Evaluador</p>
                 <p>Ejemplo si es Administrador</p>
             @endif
-            @if (auth()->user()->hasRoles(['evaluador', 'administrador']))
+            @if (auth()->user()->hasRoles(['evaluador']))
                 <p>Ejemplo si es Visitante</p>
                 <p>Ejemplo si es Evaluador</p>
             @endif

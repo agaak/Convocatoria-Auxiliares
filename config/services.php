@@ -15,8 +15,8 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('postmaster@sandbox83ca9bcc05b9428fbc0d8e7fcbb83381.mailgun.org'),
-        'secret' => env('8777e4cafa13e2f658306540a96c56d0-8b34de1b-bf75385f'),
+        'domain' => 'sandbox83ca9bcc05b9428fbc0d8e7fcbb83381.mailgun.org',
+        'secret' => 'c6bca921508cc19316cf4435bc1cd9fe-8b34de1b-313d4457', 
     ],
 
     'ses' => [
