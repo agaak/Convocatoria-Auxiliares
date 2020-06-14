@@ -105,7 +105,8 @@
                         id="important-dates-update">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <input type="hidden" id="id-datos-edit" name="id-datos-edit">
+                        <input type="hidden" id="id-datos-edit" name="id-datos-edit"
+                        value="{{ old('id-datos-edit') }}">
                         <div class="form-group">
                             <label for="title-event">Titulo de evento</label>
                             <input type="text" class="form-control" name="titulo-evento-edit" id="titulo-evento-edit"
