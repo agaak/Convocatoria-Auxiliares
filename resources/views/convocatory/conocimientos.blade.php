@@ -58,15 +58,6 @@
                     <option value={{ $tematic->id }}>{{ $tematic->nombre }}</option>
                   @endforeach
                 </select>
-                <div class="form-row " style="margin-top: 20px">
-                  <div class="form-group col-6">
-                    <div class="row">
-                      <label class="col-8 col-form-label" for="porcent-merit">Valor por defecto:</label>
-                      <input type="number" class="form-control col-sm-4" name="porcentaje" id="porcentaje" value="30"
-                        min="0" max="100" required>
-                    </div>
-                  </div>
-                </div>
               @endif
             </div>
             @endif

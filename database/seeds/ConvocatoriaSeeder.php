@@ -1,8 +1,11 @@
 <?php
 
 use App\Convocatoria;
+use App\EventoImportante;
 use App\Porcentaje;
+use App\Documento;
 use App\Requerimiento;
+use App\Requisito;
 use Illuminate\Database\Seeder;
 
 class ConvocatoriaSeeder extends Seeder
@@ -47,6 +50,28 @@ class ConvocatoriaSeeder extends Seeder
             'horas_mes' => 70,
             'cant_aux' => 3
         ]);
+        
+        Requisito::create([
+            'id_convocatoria' =>  1,
+            'descripcion' => "Ser estudiante regular y con rendimiento de las carreras de Licenciatura en Ingeniería
+            Informática o Licenciatura en Ingeniería de Sistemas y/o afín, que cursa regularmente en la
+            universidad. Para administrador de Laboratorio de Mantenimiento de Hardware podrán
+            presentarse además estudiantes de Ing. Electrónica. Estudiante regular es aquel que está
+            inscrito en la gestión académica vigente y cumple los requisitos exigidos para seguir una
+            carrera universitaria y el rendimiento académico, haber aprobado más de la mitad de las
+            materias curriculares que corresponde al semestre anterior, certificado por el
+            departamento de Registros e Inscripciones. "
+        ]);
+        
+        Documento::create([
+            'id_convocatoria' =>  1,
+            'descripcion' => "Presentar solicitud escrita dirigida a la Jefatura de Departamento de Informática y Sistemas
+            especificando claramente la(s) auxiliatura(s) a la(s) que se postula:
+            - Código de auxiliatura
+            - Nombre de la auxiliatura. "
+        ]);
+        
+
 
         Porcentaje::create([
             'id_requerimiento' => 1,

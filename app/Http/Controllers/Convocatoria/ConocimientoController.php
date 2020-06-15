@@ -55,7 +55,7 @@ class ConocimientoController extends Controller
             $por -> id_requerimiento = $item->id;
             $por -> id_auxiliatura =  $item->id_auxiliatura;
             $por -> id_tematica = $request->get('id-tematica'); 
-            $por -> porcentaje = $request->get('porcentaje'); 
+            $por -> porcentaje = 0; 
             $por -> save();
             }
         }

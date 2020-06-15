@@ -21,7 +21,11 @@
             <td class="table-light">{{ $tematic->nombre }}</td>
             @foreach($porcentajes as $item)
               @if($item->id_tematica == $tematic->id)
+                @if($item->porcentaje == 0)
+                <td class="table-light">-</td>
+                @else
                 <td class="table-light">{{ $item->porcentaje }}</td>
+                @endif
               @endif
             @endforeach
             <td class="table-light">

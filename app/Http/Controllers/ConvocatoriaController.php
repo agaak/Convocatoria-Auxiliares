@@ -7,6 +7,7 @@ use App\Tipo_evaluador;
 use App\EvaluadorAuxiliatura;
 use App\EvaluadorTematica;
 use App\Http\Requests\ConvocatoriaRequest;
+use App\Http\Controllers\Utils\ConvocatoriaComp as Convos;
 use App\Requerimiento;
 use App\Tipo;
 use Illuminate\Http\Request;
@@ -29,13 +30,13 @@ class ConvocatoriaController extends Controller
     {
         $anioActual = date("Y");
         $tipos = Tipo::get();
-        $convos = Convocatoria::where('id_unidad_academica',1)->get();
+        $convos =  (new Convos)->getConvocatorias();
         session()->forget('convocatoria');
         $auxs = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
             ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();
         return view('convocatoria', compact('tipos','anioActual','convos', 'auxs'));
-        return $auxs;
+        //return $auxs;
     }
 
     /**
@@ -80,9 +81,8 @@ class ConvocatoriaController extends Controller
      */
     public function show($id)
     {
-        $datos = [];
         Convocatoria::where('id', $id)->update([
-            'publicado' => false
+            'publicado' => true
         ]);
         $evaluadores = EvaluadorConocimientos::select('evaluador.*','convocatoria.titulo','evaluador_conovocatoria.id  as id_eva_con')
             ->join('evaluador_conovocatoria','evaluador.id','=','evaluador_conovocatoria.id_evaluador')
@@ -120,9 +120,9 @@ class ConvocatoriaController extends Controller
          
             $correo = $eva->correo;
             $nombres = $eva->nombre." ".$eva->apellido;
-            Mail::send("emails.test", $datos, function($mensaje) use($nombres,$correo){
-                $mensaje -> to($correo, $nombres) -> subject("Asignacion como evaluador");   
-            });
+            //Mail::send("emails.test", $datos, function($mensaje) use($nombres,$correo){
+                //$mensaje -> to($correo, $nombres) -> subject("Asignacion como evaluador");   
+            //});
             break;
         }
         
