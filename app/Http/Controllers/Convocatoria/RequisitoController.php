@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Convocatoria\RequisitoCreateRequest;
-use App\Http\Controllers\Utils\Convocatoria\Requisito as Req;
+use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
 use App\Requisito;
 class RequisitoController extends Controller
 {
@@ -38,7 +38,7 @@ class RequisitoController extends Controller
 
     public function requirements(Request $request){
         $convActual = request()->session()->get('convocatoria');
-        $requerimients = (new Req)->getRequisitos($convActual);
+        $requerimients = (new RequisitoComp)->getRequisitos($convActual);
         $notaActual = DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 1)->exists();
         $datoNota = null;
         if ($notaActual) {

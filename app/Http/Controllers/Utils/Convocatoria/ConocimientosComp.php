@@ -7,7 +7,7 @@ use App\Requerimiento;
 use App\Porcentaje;
 use App\Tematica;
 
-class Conocimiento
+class ConocimientoComp
 {   
     public function getRequerimientos($id_conv){
         $requests =Requerimiento::select('auxiliatura.nombre_aux','auxiliatura.cod_aux','requerimiento.id')

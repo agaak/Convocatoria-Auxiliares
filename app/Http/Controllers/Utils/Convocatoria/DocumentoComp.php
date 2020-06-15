@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Utils\Convocatoria;
 
-use App\Requisito;
+use App\Documento;
 
-class Requisito
+class DocumentoComp
 {   
-    public function getRequisitos($id_conv){
-        $requests=Requisito::where('id_convocatoria', $id_conv)
+    public function getDocumentos($id_conv){
+        $requests=Documento::where('id_convocatoria', $id_conv)
                             ->orderBy('id', 'ASC')
                             ->get();
         return $requests;
