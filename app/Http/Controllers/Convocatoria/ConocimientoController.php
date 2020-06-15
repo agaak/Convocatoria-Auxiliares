@@ -12,7 +12,7 @@ use App\Calificacion_final;
 use App\Documento;
 use App\EventoImportante;
 use App\Http\Requests\Convocatoria\TematicaEditRequest;
-use App\Http\Controllers\Utils\Convocatoria\Conocimiento as UtilsCon;
+use App\Http\Controllers\Utils\Convocatoria\ConocimientoComp;
 use App\Merito;
 use App\Requerimiento;
 use App\Requisito;
@@ -23,7 +23,7 @@ class ConocimientoController extends Controller
         $id_conv = $request->session()->get('convocatoria');
         $tipo = DB::table('convocatoria')->where('id',$id_conv)
             ->value('id_tipo_convocatoria');
-        $utilsConocimiento= new UtilsCon;
+        $utilsConocimiento= new ConocimientoComp;
         $requests = $utilsConocimiento->getRequerimientos($id_conv);
         $porcentajes = $utilsConocimiento->getPorcentajes($id_conv);
         $tems = $utilsConocimiento->getItems($id_conv);

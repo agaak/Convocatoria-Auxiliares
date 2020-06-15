@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Utils\Convocatoria;
 
 use App\Merito;
 
-class Merito
+class MeritoComp
 {   
     public function getMeritos($id_conv){
         

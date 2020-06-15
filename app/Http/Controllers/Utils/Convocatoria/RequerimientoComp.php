@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Utils\Convocatoria;
 
 use App\Requerimiento;
 
-class Requerimiento
+class RequerimientoComp
 {   
     public function getRequerimientos($id_conv){
         $requests=Requerimiento::select('requerimiento.*','nombre_aux','cod_aux')

@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Convocatoria\EventoCreateRequest;
 use App\Http\Requests\Convocatoria\EventoUpdateRequest;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Utils\Convocatoria\Evento;
+use App\Http\Controllers\Utils\Convocatoria\EventoComp;
 use App\EventoImportante;
 
 class EventoController extends Controller
@@ -16,7 +16,7 @@ class EventoController extends Controller
     
     public function importantDates(Request $request){
         $convActual = $request->session()->get('convocatoria');
-        $importantDatesList = (new Evento)->getEventos($convActual);
+        $importantDatesList = (new EventoComp)->getEventos($convActual);
         $convocatoria = Convocatoria::select('fecha_inicio','fecha_final')
                                         ->where('id',$convActual)->get();
         return view('convocatory.eventos', compact('importantDatesList','convocatoria'));

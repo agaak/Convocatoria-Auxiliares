@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Convocatoria;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MeritoEditRequest;
 use App\Http\Requests\MeritoRequest;
-use App\Http\Controllers\Utils\Convocatoria\Merito as Merit;
+use App\Http\Controllers\Utils\Convocatoria\MeritoComp;
 use App\Merito;
 use App\Calificacion_final;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class MeritoController extends Controller
     public function index()
     {
         $idConv = session()->get('convocatoria');
-        $listaOrdenada = (new Merit)->getMeritos($idConv);
+        $listaOrdenada = (new MeritoComp)->getMeritos($idConv);
         $porcentajesConvocatoria = Calificacion_final::where('id_convocatoria',$idConv)->first();
         return view('convocatory.meritos', compact('listaOrdenada','porcentajesConvocatoria'));
     }

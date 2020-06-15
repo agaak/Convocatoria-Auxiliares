@@ -6,7 +6,7 @@ use App\Convocatoria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Convocatoria\RequerimientoCreateRequest;
-use App\Http\Controllers\Utils\Convocatoria\Requerimiento as Req;
+use App\Http\Controllers\Utils\Convocatoria\RequerimientoComp;
 use Illuminate\Support\Facades\DB;
 use App\Requerimiento;
 use App\Porcentaje;
@@ -62,7 +62,7 @@ class RequerimientoController extends Controller
         $id_conv = $request->session()->get('convocatoria');
         $tipo = DB::table('convocatoria')->where('id',$id_conv)
             ->value('id_tipo_convocatoria');
-        $requests= (new Req)->getRequerimientos($id_conv);
+        $requests= (new RequerimientoComp)->getRequerimientos($id_conv);
         $auxs_res = [];
         foreach($requests as $aux){
             array_push($auxs_res, $aux->id_auxiliatura);    

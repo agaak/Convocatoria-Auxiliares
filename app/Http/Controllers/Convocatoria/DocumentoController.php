@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Convocatoria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Utils\Convocatoria\Documento as Doc;
+use App\Http\Controllers\Utils\Convocatoria\DocumentoComp;
 use App\Documento;
 class DocumentoController extends Controller
 {
@@ -41,7 +41,7 @@ class DocumentoController extends Controller
 
     public function documentos(Request $request){
         $convActual = request()->session()->get('convocatoria');
-        $documentos= (new Doc)->getDocumentos($convActual);
+        $documentos= (new DocumentoComp)->getDocumentos($convActual);
         $notaActual = DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 2)->exists();
         $datoNotaDoc = null;
         if ($notaActual) {
