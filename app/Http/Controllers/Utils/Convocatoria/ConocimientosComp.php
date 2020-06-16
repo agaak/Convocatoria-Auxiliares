@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Utils\Convocatoria;
 
-use App\Documento;
 use App\Requerimiento;
 use App\Porcentaje;
 use App\Tematica;

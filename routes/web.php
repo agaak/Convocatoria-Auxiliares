@@ -82,6 +82,11 @@ Route::get('convocatoria/download/{id}', 'ConvocatoriaController@download')->nam
 
 Route::post('convocatoria/pre-postulacion', 'PrePostulanteController@exportPDF')->name('exportPDF');
 
+Route::get('evaluador', 'Evaluador\EvaluadorController@index')->name('evaluador.index');
+Route::get('evaluador/{id}', 'Evaluador\EvaluarMController@index')->name('evaluar.index');
+
+Route::get('evaluador/{id}/merito', 'Evaluador\CalificacionMController@index')->name('evaluarM.index');
+
 
 
 

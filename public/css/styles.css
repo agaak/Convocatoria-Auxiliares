@@ -304,3 +304,52 @@ input[type=number] {
 .content-login {
     height: 80vh;
 }
+
+/* navbar lateral del evaluador */
+
+.menu {
+    list-style: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.menu-link {
+    
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: .5em 1em;
+}
+
+.menu-link:hover {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.616);
+}
+
+.menu-icono::before {
+    display: inline-block;
+    margin-right: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+.mis-convocatorias {
+    width: 200px;
+}
+
+.eva-title {
+    font-weight: bold;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.convocatoria-actual {
+    border-top: 1px solid white;
+}

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Utils\Convocatoria;
 
-use App\Merito;
+use Illuminate\Support\Facades\DB;
 
 class MeritoComp
 {   
     public function getMeritos($id_conv){
         
-        $meritList = Merito::where('id_convocatoria', $id_conv)
+        $meritList = DB::table('merito')->where('id_convocatoria', $id_conv)
                             ->orderBy('id', 'ASC')
                             ->get();
 
