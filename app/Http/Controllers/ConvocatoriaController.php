@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Convocatoria;
 use App\Tipo_evaluador;
+use App\EvaluadorConocimientos;
 use App\EvaluadorAuxiliatura;
 use App\EvaluadorTematica;
-use App\Http\Requests\ConvocatoriaRequest;
-use App\Http\Controllers\Utils\ConvocatoriaComp as Convos;
 use App\Requerimiento;
 use App\Tipo;
+use App\Http\Requests\ConvocatoriaRequest;
+use App\Http\Controllers\Utils\ConvocatoriaComp as Convos;
+use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
-use App\EvaluadorConocimientos;
+
 
 class ConvocatoriaController extends Controller
 {
@@ -84,49 +86,27 @@ class ConvocatoriaController extends Controller
         Convocatoria::where('id', $id)->update([
             'publicado' => true
         ]);
-        $evaluadores = EvaluadorConocimientos::select('evaluador.*','convocatoria.titulo','evaluador_conovocatoria.id  as id_eva_con')
-            ->join('evaluador_conovocatoria','evaluador.id','=','evaluador_conovocatoria.id_evaluador')
-            ->where('evaluador_conovocatoria.id_convocatoria',$id)
-            ->join('convocatoria','evaluador_conovocatoria.id_convocatoria','=','convocatoria.id')
-            ->groupBy('evaluador.id','convocatoria.titulo','evaluador_conovocatoria.id')
-            ->get();
-
+        $evaluadorUtils =  new EvaluadorComp();
+        $evaluadores = $evaluadorUtils->getEvaluadoresConvo($id);
         foreach($evaluadores as $eva){
-            $ro = Tipo_evaluador::select('tipo_rol_evaluador.id','tipo_rol_evaluador.nombre')
-                ->where('id_evaluador_convocatoria',$eva->id_eva_con)
-                ->join('tipo_rol_evaluador','tipo_evaluador.id_rol_evaluador','=','tipo_rol_evaluador.id')
-                ->get();
-
-            $lista_aux = EvaluadorAuxiliatura::select('auxiliatura.nombre_aux as nombre') 
-            ->join('evaluador_conovocatoria','evaluador_auxiliatura.id_evaluador_convocatoria','=','evaluador_conovocatoria.id') 
-            ->where('evaluador_conovocatoria.id',$eva->id_eva_con)
-            ->join('auxiliatura','evaluador_auxiliatura.id_auxiliatura','=','auxiliatura.id')->get();
-            
-            $lista_tem = EvaluadorTematica::select('tematica.nombre') 
-            ->join('evaluador_conovocatoria','evaluador_tematica.id_evaluador_convocatoria','=','evaluador_conovocatoria.id')
-            ->where('evaluador_conovocatoria.id',$eva->id_eva_con)
-            ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')->get();
-       
+            $roles = $evaluadorUtils->getRolesEvaluador($eva->id_eva_con);
+            $lista_aux = $evaluadorUtils->getAuxsEvaluador($eva->id_eva_con);
+            $lista_tem = $evaluadorUtils->getTemsEvaluador($eva->id_eva_con);
+            $correo = $eva->correo;
+            $nombres = $eva->nombre." ".$eva->apellido;
             $datos=[    
                 "titulo" => $eva->titulo,
                 "ci" =>  $eva->ci,
-                "correo" =>  $eva->correo,
                 "usuario" =>  $eva->nombre,
-                "nombres" => $eva->nombre." ".$eva->apellido,
-                "rol" => $ro,
+                "nombres" => $nombres,
+                "rol" => $roles,
                 "tematicas" =>  $lista_tem,
                 "auxiliaturas" =>  $lista_aux
             ];
-         
-            $correo = $eva->correo;
-            $nombres = $eva->nombre." ".$eva->apellido;
             //Mail::send("emails.test", $datos, function($mensaje) use($nombres,$correo){
                 //$mensaje -> to($correo, $nombres) -> subject("Asignacion como evaluador");   
             //});
-            break;
         }
-        
-        
         return back();
     }
 

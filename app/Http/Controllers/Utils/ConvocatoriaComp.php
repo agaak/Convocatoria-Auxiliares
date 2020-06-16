@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Utils;
 
 use App\Convocatoria;
+use App\EvaluadorConocimientos;
 
 class ConvocatoriaComp
 {   
@@ -17,4 +18,16 @@ class ConvocatoriaComp
         ->get();
         return $requests;
     }
+
+    public function getEvaluadoresConvo($id){
+        $requests = EvaluadorConocimientos::select('evaluador.*','convocatoria.titulo','evaluador_conovocatoria.id  as id_eva_con')
+        ->join('evaluador_conovocatoria','evaluador.id','=','evaluador_conovocatoria.id_evaluador')
+        ->where('evaluador_conovocatoria.id_convocatoria',$id)
+        ->join('convocatoria','evaluador_conovocatoria.id_convocatoria','=','convocatoria.id')
+        ->groupBy('evaluador.id','convocatoria.titulo','evaluador_conovocatoria.id')
+        ->get();
+        return $requests;
+    }
+
+    
 }
