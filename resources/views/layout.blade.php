@@ -64,23 +64,46 @@
                             return $direction;
                         }
                     @endphp
-                    <a class="navbar-brand" href="#"></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse navbar-collapse-color" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link {{ activeMenu('convocatoria') }}" href="{{ route('convocatoria.index') }}">Convocatorias</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ activeMenu('resultados') }}" href="{{ route('results') }}">Resultados</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ activeMenu('admision') }}" href="{{ route('proceduresDocs') }}">Tramites y documentos</a>
-                            </li>
-                        </ul>
-                    </div>
+
+                    @if (auth()->check())
+                        @if (!auth()->user()->hasRoles(['evaluador']))
+                            <a class="navbar-brand" href="#"></a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse navbar-collapse-color" id="navbarNav">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ activeMenu('convocatoria') }}" href="{{ route('convocatoria.index') }}">Convocatorias</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ activeMenu('resultados') }}" href="{{ route('results') }}">Resultados</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ activeMenu('admision') }}" href="{{ route('proceduresDocs') }}">Tramites y documentos</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endif
+                    @else
+                        <a class="navbar-brand" href="#"></a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse navbar-collapse-color" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ activeMenu('convocatoria') }}" href="{{ route('convocatoria.index') }}">Convocatorias</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ activeMenu('resultados') }}" href="{{ route('results') }}">Resultados</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ activeMenu('admision') }}" href="{{ route('proceduresDocs') }}">Tramites y documentos</a>
+                                </li>
+                            </ul>
+                        </div>
+                    @endif
                 </nav>
             </div>
         
@@ -88,7 +111,7 @@
         
     
         @yield('content')
-    
+     
         <!-- Footer -->
         <footer class="footer-personal">
             <div class="text-center py-3">© 2020 Copyright:
