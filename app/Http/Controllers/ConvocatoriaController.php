@@ -19,7 +19,7 @@ class ConvocatoriaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'roles:administrador'])->except('index');
+        $this->middleware(['auth', 'roles:administrador'])->except('index','download');
     }
     /**
      * Display a listing of the resource.
@@ -31,12 +31,12 @@ class ConvocatoriaController extends Controller
         $anioActual = date("Y");
         $tipos = Tipo::get();
         $convos =  (new Convos)->getConvocatorias();
+        $convosPublicas =  (new Convos)->getConvocatoriasPublicas();
         session()->forget('convocatoria');
         $auxs = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
             ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();
-        return view('convocatoria', compact('tipos','anioActual','convos', 'auxs'));
-        //return $auxs;
+        return view('convocatoria', compact('tipos','anioActual','convos', 'auxs','convosPublicas'));
     }
 
     /**

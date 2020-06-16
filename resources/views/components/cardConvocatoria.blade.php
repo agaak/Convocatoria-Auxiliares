@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-4 mb-3 mt-3">
     <div class="card text-center" style="height: 375px">
         <div class="card-header"
             style="font-size:16px; background: #0A091B; color: white; height: 65px;">
@@ -31,10 +31,12 @@
                                 class="btn btn-sm">{{ csrf_field() }}Administrar</a>
                         @endif
                         @if (auth()->user()->hasRoles(['evaluador']))
-                                    <p>options</p>
+                                    <p>options evaluador</p>
                         @endif
                     @else
-                        <a type="button" onclick="listaAux({{ $auxs }}, {{ $convo->id }})" class="btn btn-success text-white" data-toggle="modal" data-target="#postulanteModal">
+                        <a type="button" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#">
+                        Ver </a>
+                        <a type="button" onclick="listaAux({{ $auxs }}, {{ $convo->id }})" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#postulanteModal">
                             Postular ahora </a>
                     @endif
                     <a href="{{ route('convocatoria.download',$convo->id ) }}" style="color:white;"

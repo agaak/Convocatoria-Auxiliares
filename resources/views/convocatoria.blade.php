@@ -2,21 +2,20 @@
 
 @section('content')
 <div class="overflow-auto content" style="width: 100vw; height: 77vh;">
+    
     <h3 class="text-uppercase text-left">Convocatorias</h3>
 
+    {{-- Boton para crear una nueva convocatoria --}}
     @if (auth()->check())
         @if (auth()->user()->hasRoles(['administrador']))
-            
-    <div class="container">
-
-        {{-- Boton para crear una nueva convocatoria --}}
-        <div class="row my-3">
-            <a type="button" data-toggle="modal" data-target="#convocatoriaModal">
-                <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
-                <span class="mx-1">Crear Convocatoria</span>
-            </a>
-        </div>
-    </div>
+            <div class="container">
+                <div class="row my-3">
+                    <a type="button" data-toggle="modal" data-target="#convocatoriaModal">
+                        <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
+                        <span class="mx-1">Crear Convocatoria</span>
+                    </a>
+                </div>
+            </div>
         @endif
     @endif
     {{-- Postulante --}}
@@ -83,19 +82,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="container">
-        @if (auth()->check())
-            @if (auth()->user()->hasRoles(['administrador']))
-                <p>Ejemplo si es Administrador</p>
-            @endif
-            @if (auth()->user()->hasRoles(['evaluador']))
-                <p>Ejemplo si es Evaluador</p>
-            @endif
-        @else
-            <p>Ejemplo si es Visitante</p>
-        @endif
     </div>
 
     {{-- Moadal pra crear nueva convocatoria --}}
@@ -208,134 +194,22 @@
         </div>
     </div>
 
-@if($convos->isEmpty())
-    <h1>No hay convocatorias</h1>
-@else
-    @component('components.carruselConvocatoria', 
-        ['convos' => $convos, 'auxs' => $auxs])
-    @endcomponent
-    {{--
+    {{-- Carrusel de cards con datos grals. de una convocatoria --}}
     @if (auth()->check())        
         @if (auth()->user()->hasRoles(['administrador']))
-            <div class="container text-center my-3">
-                    <div class="row mx-auto my-auto">
-                        @if(count($convos)>3)
-                            <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-                                <div class="carousel-inner w-100" role="listbox">
-                                    @php $num = 0; @endphp
-                        @endif
-                                    @foreach($convos as $convo)
-                                        @if(count($convos)>3)
-                                            @if($num++ == 0)
-                                                <div class="carousel-item active">
-                                                @else
-                                                <div class="carousel-item">
-                                            @endif
-                                        @endif
-                                        
-                                       
-                                        @component('components.cardConvocatoria', 
-                                            ['convo' => $convo, 'auxs' => $auxs])
-                                        @endcomponent
-                                        @if(count($convos)>3) </div> @endif
-                                    @endforeach
-                                @if(count($convos)>3)
-                                </div>
-                                <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"
-                                    style="height: 40px; width: 40px;"></span>
-                                <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"
-                                        style="height: 40px; width: 40px;"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                                </div> @endif
-                    </div>
-            </div>
-        @else
-            @if($convo->publicado)
-                <div class="container text-center my-3">
-                    <div class="row mx-auto my-auto">
-                        @if(count($convos)>3)
-                            <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-                                <div class="carousel-inner w-100" role="listbox">
-                                    @php $num = 0; @endphp
-                        @endif
-                                    @foreach($convos as $convo)
-                                        @if(count($convos)>3)
-                                            @if($num++ == 0)
-                                                <div class="carousel-item active">
-                                                @else
-                                                <div class="carousel-item">
-                                            @endif
-                                        @endif
-                                        
-                                      
-                                        @component('components.cardConvocatoria', 
-                                            ['convo' => $convo, 'auxs' => $auxs])
-                                        @endcomponent
-                                        @if(count($convos)>3) </div> @endif
-                                    @endforeach
-                                @if(count($convos)>3)
-                                </div>
-                                <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"
-                                    style="height: 40px; width: 40px;"></span>
-                                <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"
-                                        style="height: 40px; width: 40px;"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                                </div> @endif
-                    </div>
-                </div>
-            @endif 
+            @component('components.carruselConvocatoria', 
+                ['convos' => $convos, 'auxs' => $auxs])
+            @endcomponent
+        @else 
+            @component('components.carruselConvocatoria', 
+                ['convos' => $convosPublicas, 'auxs' => $auxs])
+            @endcomponent 
         @endif
     @else
-        @if($convo->publicado)
-            <div class="container text-center my-3">
-                <div class="row mx-auto my-auto">
-                    @if(count($convos)>3)
-                        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-                            <div class="carousel-inner w-100" role="listbox">
-                                @php $num = 0; @endphp
-                    @endif
-                                @foreach($convos as $convo)
-                                    @if(count($convos)>3)
-                                        @if($num++ == 0)
-                                            <div class="carousel-item active">
-                                            @else
-                                            <div class="carousel-item">
-                                        @endif
-                                    @endif
-                                    
-                                     @component('components.cardConvocatoria', 
-                                        ['convo' => $convo, 'auxs' => $auxs])
-                                    @endcomponent
-                                    @if(count($convos)>3) </div> @endif
-                                @endforeach
-                            @if(count($convos)>3)
-                            </div>
-                            <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"
-                                style="height: 40px; width: 40px;"></span>
-                            <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"
-                                    style="height: 40px; width: 40px;"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                            </div> @endif
-                </div>
-            </div>
-        @endif
-    @endif 
-    --}}
-@endif
+        @component('components.carruselConvocatoria', 
+            ['convos' => $convosPublicas, 'auxs' => $auxs])
+        @endcomponent 
+    @endif
+
     </div>
 @endsection

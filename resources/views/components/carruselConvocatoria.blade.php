@@ -1,3 +1,4 @@
+@if($convos->isNotEmpty())
 <div class="container text-center my-3">
         <div class="row mx-auto my-auto">
             @if(count($convos)>3)
@@ -18,6 +19,7 @@
                             @component('components.cardConvocatoria', 
                                 ['convo' => $convo, 'auxs' => $auxs])
                             @endcomponent
+                            
                             @if(count($convos)>3) </div> @endif
                         @endforeach
                     @if(count($convos)>3)
@@ -35,3 +37,4 @@
                     </div> @endif
         </div>
     </div>
+@endif
