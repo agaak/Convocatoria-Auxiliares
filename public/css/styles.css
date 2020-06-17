@@ -353,3 +353,46 @@ input[type=number] {
 .convocatoria-actual {
     border-top: 1px solid white;
 }
+
+/* Card personal de evaluador mis convocatorias */
+
+.card-personal {
+    border: 1px solid black;
+    margin-bottom: 1rem;
+    border-radius: 5px 5px;
+}
+
+.card-personal-title {
+    display: block;
+    padding: .8rem;
+    border-bottom: 1px solid black;
+    color: white;
+    background-color: #343a40;
+}
+.card-personal-title:hover {
+    text-decoration: none;
+    color: rgb(207, 207, 207);
+}
+
+.card-personal-body {
+    padding: .8rem;
+}
+
+.astronauta {
+    width: 500px;
+    height: 500px;
+    background-image: url('/img/astronauta.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: rotate(55deg);
+    margin-left: 5rem;
+}
+
+.texto-personal {
+    font-style: italic;
+    color: #29205E;
+    font-size: 24px;
+    position: absolute;
+    top: 330px;
+    left: 750px;
+}

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Evaluador;
 
-use Illuminate\Http\Request;
 use App\EvaluadorConocimientos;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class EvaluarMController extends Controller
+class CalificarController extends Controller
 {
-    public function index($id) {
+    public function index(){
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
-        return view('evaluador.calificacion', compact('convs', 'id'));
+        return view('evaluador.calificar', compact('convs'));
     }
 }

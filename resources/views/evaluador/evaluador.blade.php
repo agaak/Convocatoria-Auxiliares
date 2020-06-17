@@ -1,11 +1,14 @@
 @extends('evaluador.layoutEvaluador')
 
 @section('content-evaluador')
-    <div>
-        <h2>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto nam doloremque laborum nostrum,
-            molestias praesentium. Suscipit natus vero nulla ea dolore nihil ex earum eum eveniet? Soluta asperiores at optio.
-        </h2>
+    <div class="m-4">
+        <h3 class="mb-4 text-center">Lista de Mis Convocatorias</h3>
+        @foreach ($convs as $conv)
+            <div class="card-personal">
+                <a class="card-personal-title" href="{{ route('helper.redirect', $conv->id) }}">{{ $conv->titulo }}</a>
+                <p class="card-personal-body">{{ $conv->descripcion_convocatoria }}</p>
+            </div>
+        @endforeach
     </div>
     
 @endsection
