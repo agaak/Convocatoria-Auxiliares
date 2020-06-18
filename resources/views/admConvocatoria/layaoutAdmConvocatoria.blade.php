@@ -15,9 +15,7 @@
                 {{-- <li class="navbar-item {{ activeMenuConten('convocatoria/adm-convocatoria') }}">
                     <a class="link-list" href="{{ route('admConvocatoria') }}">Ver convocatoria</a>
                 </li> --}}
-                {{-- <li class="navbar-item {{ activeMenuConten('convocatoria/adm-postulantes') }}">
-                    <a class="link-list" href="{{ route('admPostulantes') }}">Postulantes</a>
-                </li> --}}
+                
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-conocimientos') }}">
                     <a class="link-list" href="{{ route('admConocimientos') }}">Comision de evaluación de conocimientos</a>
                 </li>
@@ -26,6 +24,9 @@
                 </li>
                 {{-- <li class="navbar-item {{ activeMenuConten('convocatoria/adm-resultados') }}">
                     <a class="link-list" href="{{ route('admResultados') }}">resultados</a> --}}
+                </li>
+                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-postulantes') }}">
+                    <a class="link-list" href="{{ route('admPostulantes') }}">Postulantes</a>
                 </li>
             </ul>
         </nav>
