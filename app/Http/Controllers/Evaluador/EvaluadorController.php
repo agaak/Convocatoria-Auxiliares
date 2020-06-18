@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 class EvaluadorController extends Controller
 {
     public function index() {
-        
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
         return view('evaluador.evaluador', compact('convs'));
     }

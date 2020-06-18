@@ -402,8 +402,12 @@ document.querySelector('.mis-convocatorias .menu-icono').addEventListener('click
     $('.mis-convocatorias .menu').toggleClass('d-none');
 });
 
-document.querySelector('.convocatoria-actual .menu-icono').addEventListener('click', () => {
-    $('.convocatoria-actual .menu').toggleClass('d-none');
+document.querySelector('.btn-1').addEventListener('click', () => {
+    $('.menu-1').toggleClass('d-none');
+});
+
+document.querySelector('.btn-2').addEventListener('click', () => {
+    $('.menu-2').toggleClass('d-none');
 });
 
 // fin de los scripts de la navegacion del evaluador

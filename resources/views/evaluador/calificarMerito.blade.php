@@ -1,7 +1,7 @@
 @extends('evaluador.layoutEvaluador')
 
 @section('content-evaluador')
-    <div>
+    <div class="contenido-mis-convocatorias">
         <h2>
             Calificacion de meritos
         </h2>
