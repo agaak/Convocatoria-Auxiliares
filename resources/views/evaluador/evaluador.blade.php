@@ -1,7 +1,7 @@
 @extends('evaluador.layoutEvaluador')
 
 @section('content-evaluador')
-    <div class="m-4">
+    <div class="m-4 contenido-mis-convocatorias">
         <h3 class="mb-4 text-center">Lista de Mis Convocatorias</h3>
         @foreach ($convs as $conv)
             <div class="card-personal">
@@ -10,5 +10,4 @@
             </div>
         @endforeach
     </div>
-    
 @endsection
