@@ -25,6 +25,10 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <p class="mb-0 text-center">Convocatoria Válida del
+                    <span class="font-weight-bold">{{ date("d/m/Y", strtotime($fechaConv[0]->fecha_inicio)) }}</span> al
+                    <span class="font-weight-bold">{{ date("d/m/Y", strtotime($fechaConv[0]->fecha_final)) }}</span>
+                </p>
                 <div class="modal-body">
                     <form method="POST" action="{{ route('importantDateSave') }}"
                         id="important-dates-create">
@@ -100,6 +104,10 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <p class="mb-0 text-center">Convocatoria Válida del
+                    <span class="font-weight-bold">{{ date("d/m/Y", strtotime($fechaConv[0]->fecha_inicio)) }}</span> al
+                    <span class="font-weight-bold">{{ date("d/m/Y", strtotime($fechaConv[0]->fecha_final)) }}</span>
+                </p>
                 <div class="modal-body">
                     <form method="POST" action="{{ route('importantDatesUpdate') }}"
                         id="important-dates-update">
