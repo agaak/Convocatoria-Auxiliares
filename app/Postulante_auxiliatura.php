@@ -9,5 +9,4 @@ class Postulante_auxiliatura extends Model
     //
     protected $table='postulante_auxiliatura';
 
-    protected $fillable=['id_postulante', 'id_auxiliatura', 'observacion'];
 }

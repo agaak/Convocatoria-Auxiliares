@@ -60,7 +60,9 @@ Route::post('/convocatoria/calificacion-conocimientos/pdf', ['as' => 'knowledgeR
 // Controladores de la administracion de convocatoria
 Route::get('convocatoria/adm-convocatoria', 'AdmConvocatoria\AdmConvocatoriaController@index')->name('admConvocatoria');
 Route::get('convocatoria/adm-convocatoria/{id}', 'AdmConvocatoria\AdmConvocatoriaController@inicio')->name('adminConvocatoria');
+
 Route::get('convocatoria/adm-postulantes', 'AdmConvocatoria\AdmPostulantesController@index')->name('admPostulantes');
+Route::post('convocatoria/adm-postulantes','AdmConvocatoria\AdmPostulantesController@create')->name('admPostulanteCreate');
 
 Route::get('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosController@index')->name('admConocimientos');
 Route::post('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosController@store')->name('admConoStore');

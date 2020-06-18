@@ -252,6 +252,73 @@ function comprobar(listaEva) {
     }
 }
 
+function comprobarRotulo(listaRotulos,listaAux) {
+    document.getElementById("bttn-post").disabled = false;
+    let existe = true;
+    for (const item of listaRotulos) {
+        if($('#adm-post-rotulo').val() == item['id']) {
+            existe = false;
+            $('#err').removeClass('error');
+            $('#rotulo-no-existe').removeClass('d-none');
+            $('#rotulo-existe').addClass('d-none');
+            setTimeout(() => {
+                $('#rotulo-no-existe').addClass('d-none');
+            }, 5000);
+            document.getElementById("id-conv-postulante").value = item['id_convocatoria'];
+            document.getElementById("post-cod").value = item['cod_sis'];
+            document.getElementById("post-nom").value = item['nombre'];
+            document.getElementById("post-ape").value = item['apellido'];
+            document.getElementById("post-cor").value = item['correo'];
+            document.getElementById("post-dir").value = item['direccion'];
+            document.getElementById("post-ci").value = item['ci'];
+            document.getElementById("post-tel").value = item['telefono'];
+            document.getElementById("post-cod").disabled = false;
+            document.getElementById("post-nom").disabled = false;
+            document.getElementById("post-ape").disabled = false;
+            document.getElementById("post-dir").disabled = false;
+            document.getElementById("post-cor").disabled = false;
+            document.getElementById("post-ci").disabled = false;
+            document.getElementById("post-tel").disabled = false;
+            document.getElementById("post-hojas").disabled = false;
+            var auxs = listaAux[item['id']];
+            var selectem = document.getElementById("auxiliaturas");
+            $('#auxiliaturas').find('option').remove().end() ;
+            for(i = 0; i < auxs.length; i++){
+                var option = new Option(auxs[i].nombre_aux, auxs[i].id_aux);
+                option.selected = true;
+                selectem.append(option);
+            }
+            break;
+        }
+    }
+    if (existe) {
+        document.getElementById("bttn-post").disabled = true;
+        var selectem = document.getElementById("auxiliaturas");
+        $('#auxiliaturas').find('option').remove().end() ;
+        $('#rotulo-existe').removeClass('d-none');
+        $('#rotulo-no-existe').addClass('d-none');
+        setTimeout(() => {
+            $('#rotulo-existe').addClass('d-none');
+        }, 5000);
+        document.getElementById("id-conv-postulante").value = "";
+        document.getElementById("post-cod").value = "";
+        document.getElementById("post-nom").value = "";
+        document.getElementById("post-ape").value = "";
+        document.getElementById("post-cor").value = "";
+        document.getElementById("post-dir").value = "";
+        document.getElementById("post-ci").value = "";
+        document.getElementById("post-tel").value = "";
+        document.getElementById("post-cod").disabled = true;
+        document.getElementById("post-nom").disabled = true;
+        document.getElementById("post-ape").disabled = true;
+        document.getElementById("post-dir").disabled = true;
+        document.getElementById("post-cor").disabled = true;
+        document.getElementById("post-ci").disabled = true;
+        document.getElementById("post-tel").disabled = true;
+        document.getElementById("post-hojas").disabled = true;
+    }
+}
+
 
 $('#recipeCarousel').carousel({
     interval: 10000

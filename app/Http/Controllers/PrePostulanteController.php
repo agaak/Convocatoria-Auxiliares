@@ -6,6 +6,7 @@ use App\PrePostulante;
 use App\Requerimiento;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
+use App\PrePostulanteAuxiliatura;
 
 class PrePostulanteController extends Controller
 {
@@ -23,11 +24,10 @@ class PrePostulanteController extends Controller
         $postulante->save();
         
         foreach (request()->input('auxiliaturas') as $aux) {
-            DB::table('pre_postulante_auxiliatura')->insert([
-                'id_pre_postulante' => $postulante->id,
-                'id_auxiliatura' => $aux,
-                'observacion' => 'ninguna'
-            ]);
+            $postulante_aux = new PrePostulanteAuxiliatura();
+            $postulante_aux->id_pre_postulante = $postulante->id;
+            $postulante_aux->id_auxiliatura = $aux;
+            $postulante_aux->save();
         }
 
         $auxiliaturas = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')

@@ -1,8 +1,133 @@
 @extends('admConvocatoria.layaoutAdmConvocatoria')
 
 @section('content-adm-convocatoria')
-<div class="overflow-auto content">
-    <h1>Postulantes</h1>
+<div class="overflow-auto content" style="width: 100vw; height: 77vh;">
+
+    <h3 class="text-uppercase">Postulantes</h3>
+
+
+    <div class="container">
+        <div class="row my-3">
+            <a type="button" data-toggle="modal" data-target="#storePostulanteModal">
+                <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
+                <span class="mx-1">Registrar Postulante</span>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="storePostulanteModal" tabindex="-1" role="dialog" aria-labelledby="postModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="postModalTitle">Registro Postulante</h5>
+                <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <form method="POST" action="{{ route('admPostulanteCreate') }}" id="form-create-postulante">
+                    {{ csrf_field() }}
+                    
+                    <input type="hidden" name="id-conv-postulante" id="id-conv-postulante" value="">
+                    <div class="form-group row pr-0 mb-3">
+                        <div class="col-auto">
+                        <label for="adm-post-rotulo"  class="col-form-label col-form-label">Rotulo:</label>
+                        </div>
+                        <div class="col-4 px-0">
+                            <input type="number" name="adm-post-rotulo" placeholder="Ingrese su rotulo" class="form-control form-control" id="adm-post-rotulo" required>
+                        </div> <div class="col-auto">
+                            <button type="button" class="btn btn-primary" onclick="comprobarRotulo({{ $listaRotulos }}, {{ $listaAux }})">Comprobar Postulante</button>
+                        </div>
+                        {!! $errors->first('adm-post-rotulo', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
+                    </div>
+                    <div class="d-none text-left col-sm-12 mt-0" id="rotulo-no-existe">
+                        <strong class="text-primary">El rotulo ingresado exite</strong>
+                    </div>
+                    <div class="d-none text-left col-sm-12 mt-0" id="rotulo-existe">
+                        <strong class="text-danger">El rotulo ingresado no existe</strong>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label for="adm-cono-nombre" class="col-sm-5 col-form-label pr-0">N° Hojas:</label>
+                                <div class="col-sm-7 pl-0">
+                                    <input class="form-control" type="text" disabled id="post-hojas" name="hojas" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label for="adm-cono-nombre" class="col-sm-5 col-form-label mx-0 pr-0">Código SIS:</label>
+                                <div class="col-sm-7 mx-0 pl-0">
+                                    <input class="form-control mx-0" type="text" disabled id="post-cod" pattern="[0-9]+" name="cod-sis" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-block">Auxiliatura:<br>
+                            <select name="auxiliaturas[]" class="select2" readonly id="auxiliaturas" multiple="multiple" required>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-group row">
+                        <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Nombres:</label>
+                        <div class="col-sm-9">
+                        <input type="text" name="postulante-nombre" disabled id="post-nom" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Apellidos:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" disabled id="post-ape" name="postulante-apellidos" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Dirección:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" disabled id="post-dir" name="postulante-direccion" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="adm-cono-correo"  class="col-sm-3 col-form-label">Correo:</label>
+                        <div class="input-group col-sm-9">
+                            <input type="email" class="form-control mt-0" id="post-cor" name="correo-direccion" disabled aria-label="Recipient's username" 
+                                aria-describedby="basic-addon2" required>
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon2">@</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label for="adm-cono-nombre" class="col-sm-4 col-form-label">Teléfono:</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="text" disabled id="post-tel" name="telefono" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group row">
+                                <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Carnet:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" disabled id="post-ci" name="ci" pattern="[0-9]{4,10}" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-info" form="form-create-postulante" id="bttn-post" disabled>Guardar</button>
+            </div>
+        </div>
+    </div>
 </div>
-    
+
+</div>
 @endsection

@@ -29,11 +29,11 @@ class CreatePostulanteTable extends Migration
         });
 
         Schema::create('pre_postulante_auxiliatura', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('id_pre_postulante');
             $table->foreign('id_pre_postulante')->references('id')->on('pre_postulante')->onDelete('cascade');
             $table->integer('id_auxiliatura');
             $table->foreign('id_auxiliatura')->references('id')->on('auxiliatura')->onDelete('cascade');
-            $table->string('observacion');
             $table->timestamps();
         });
 
@@ -41,8 +41,10 @@ class CreatePostulanteTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('apellido');
-            $table->string('carrera');
+            $table->string('direccion');
             $table->string('correo');
+            $table->string('cod_sis');
+            $table->integer('telefono');
             $table->integer('ci');
             $table->timestamps();
         });
@@ -53,8 +55,8 @@ class CreatePostulanteTable extends Migration
             $table->foreign('id_postulante')->references('id')->on('postulante')->onDelete('cascade');
             $table->integer('id_auxiliatura');
             $table->foreign('id_auxiliatura')->references('id')->on('auxiliatura')->onDelete('cascade');
-            $table->string('observacion');
-            $table->boolean('habilitado',false);
+            $table->string('observacion')->nullable();
+            $table->boolean('habilitado')->nullable();
             $table->timestamps();
         });
 
