@@ -9,7 +9,7 @@
 
     <!-- Table -->
     <div class="table-requests1 vertical-align: middle; mt-3">
-        <table class="table table-bordered" style="text-align:center">
+        <table id= "table_id" class="table table-bordered" style="text-align:center">
         <thead class="thead-dark" style="text-align: center">
         <tr>
                 @if ($tipoConvocatoria==2)
