@@ -15,11 +15,12 @@ use App\Role;
 use Illuminate\Support\Facades\App;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
-Route::get('roles', function(){
-	return \App\Role::with('user')->get();
-});
 
-Route::get('/', ['as' => 'home', 'uses' => 'NavbarController@home']);
+// Route::get('/', ['as' => 'home', 'uses' => 'NavbarController@home']);
+
+Route::get('/', function(){
+	return redirect()->route('convocatoria.index');
+});
 
 Route::get('/resultados', ['as' => 'results', 'uses' => 'NavbarController@results']);
 
@@ -88,6 +89,8 @@ Route::get('evaluador', 'Evaluador\EvaluadorController@index')->name('evaluador.
 Route::get('evaluador/calificar', 'Evaluador\CalificarController@index')->name('calificar.index');
 
 Route::get('evaluador/calificar/merito', 'Evaluador\CalificarMeritoController@index')->name('calificarMerito.index');
+
+Route::get('evaluador/calificar/conocimiento', 'Evaluador\CalificarConocController@index')->name('calificarConoc.index');
 
 Route::get('evaluador/calificar/{id}', function($id) {
 	session()->put('convocatoria', $id) ;

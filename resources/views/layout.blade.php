@@ -24,7 +24,7 @@
         <header class="container-navbar">
             
             <div class="logo-title">
-                <a href="{{ route('home') }}">
+                <a href="{{ route('convocatoria.index') }}">
                     <img src="{{ asset('img/logo.png')}}" width="55" height="90">
                 </a>
                 <h1 class="logo-title-body text-uppercase">
@@ -49,7 +49,7 @@
                             <div class="dropdown-menu color-fondo px-1">
                                 @guest
                                 <a class="dropdown-item nav-link my-1 login {{ activeMenu('login') }}" href="{{ route('login') }}">Iniciar sesión</a>
-                                <a class="dropdown-item nav-link my-1 login {{ activeMenu('register') }}" href="{{ route('register') }}">Registrar</a>
+                                {{-- <a class="dropdown-item nav-link my-1 login {{ activeMenu('register') }}" href="{{ route('register') }}">Registrar</a> --}}
                                 @else
                                 <a class="dropdown-item nav-link login" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
                                 @endguest

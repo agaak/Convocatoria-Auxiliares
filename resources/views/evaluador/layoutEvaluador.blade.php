@@ -28,14 +28,14 @@
                                 <a class="menu-link menu-icono btn-2" href="#">{{ $tipoConv === 1? 'Temáticas': 'Auxiliaturas' }}</a>
                                 <ul class="menu menu-2 d-none">
                                     @foreach ($auxsTemsEval as $item)
-                                        @if ($tipoConv === 1)
-                                            <li class="menu-item ml-3"><a class="menu-link" href="#">{{ $item->nombre }}</a></li>
+                                        @if ($tipoConv === 1) 
+                                            <li class="menu-item ml-3"><a class="menu-link" href="{{ route('calificarConoc.index') }}">{{ $item->nombre }}</a></li>
                                         @else 
                                             <li class="menu-item ml-3">
                                                 <a class="menu-link menu-icono btn-3" href="#">{{ $item->nombre }}</a>
                                                 <ul class="menu menu-3">
-                                                    <li class="menu-item ml-3"><a class="menu-link" href="#">Examen Oral</a></li>
-                                                    <li class="menu-item ml-3"><a class="menu-link" href="#">Examen Escrito</a></li>
+                                                    <li class="menu-item ml-3"><a class="menu-link" href="{{ route('calificarConoc.index') }}">Examen Oral</a></li>
+                                                    <li class="menu-item ml-3"><a class="menu-link" href="{{ route('calificarConoc.index') }}">Examen Escrito</a></li>
                                                 </ul>
                                             </li>
                                         @endif

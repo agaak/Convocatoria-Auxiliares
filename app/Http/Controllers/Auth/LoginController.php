@@ -41,6 +41,6 @@ class LoginController extends Controller
         if (auth()->user()->hasRoles(['evaluador']))
             return '/evaluador';
         else 
-            return '/';
+            return '/convocatoria';
     }
 }
