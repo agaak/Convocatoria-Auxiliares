@@ -6,7 +6,7 @@
     <style>
         
         .container {
-            margin: 0 calc(100vw / 3);
+            margin: 0 1rem;
         }
         .my-5 {
             margin-top: 2rem;
@@ -21,6 +21,9 @@
         }
         .font-weight-normal {
             font-weight: inherit;
+        }
+        body {
+            width: 720px;
         }
 
     </style>
