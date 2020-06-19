@@ -87,7 +87,7 @@ Route::get('evaluador/{id}', 'Evaluador\EvaluarMController@index')->name('evalua
 
 Route::get('evaluador/{id}/merito', 'Evaluador\CalificacionMController@index')->name('evaluarM.index');
 
-
+Route::get('evaluador/merito/{idEst}', 'Evaluador\CalificacionMController@calificarMeritos')->name('evaluarM.calificarMeritos');
 
 
 
