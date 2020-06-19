@@ -27,7 +27,7 @@
                 </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-postulantes') }}">
                     <a class="link-list" href="{{ route('admPostulantes') }}">Postulantes</a>
-                </li> 
+                </li>
             </ul>
         </nav>
 

@@ -5,7 +5,6 @@
 
     <h3 class="text-uppercase">Postulantes</h3>
 
-
     <div class="container">
         <div class="row my-3">
             <a type="button" data-toggle="modal" data-target="#storePostulanteModal">
@@ -15,6 +14,30 @@
         </div>
     </div>
 
+    <!-- Table -->
+    <div class="table-requests1">
+        <table class="table table-bordered" style="text-align:center">
+        <thead class="thead-dark">
+            <tr> 
+            <th style="font-weight: normal" scope="col">CI</th>
+            <th style="font-weight: normal" scope="col">Nombres</th>
+            <th style="font-weight: normal" scope="col">Apellidos</th>
+            <th style="font-weight: normal" scope="col">Estado</th>
+            </tr>
+        </thead>
+        <tbody style="background-color: white">
+            @foreach($listPostulantes as $item)
+                <tr>
+                <th style="font-weight: normal">{{ $item->ci }}</th>
+                <th style="font-weight: normal">{{ $item->nombre }}</th>
+                <th style="font-weight: normal">{{ $item->apellido }}</th>
+                <th style="font-weight: normal">{{ $item->habilitado }}</th>
+                </tr>
+            @endforeach
+        </tbody>
+        </table>
+    </div>
+    <br>
 
     <div class="modal fade" id="storePostulanteModal" tabindex="-1" role="dialog" aria-labelledby="postModalTitle"
     aria-hidden="true">
@@ -128,6 +151,8 @@
         </div>
     </div>
 </div>
-
 </div>
 @endsection
+
+    
+    

@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="{{ asset('css/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/b-html5-1.6.2/rg-1.1.2/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+
 </head>
 
 <body>
@@ -130,6 +135,21 @@
     <script src="{{ asset('js/select2.js') }}"></script>
     <script src="{{ asset('js/es.js') }}"></script>
     <script src="{{ asset('js/scripts.js') }}"></script>
+
+    <!-- Datatables -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    
+    <script>
+    $(document).ready(function() {
+        $('#table_id').DataTable({
+          "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+          },"bLengthChange": false
+          
+        });
+      });
+    </script>
 </body>
 
 </html>
