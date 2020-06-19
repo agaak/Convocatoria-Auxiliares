@@ -15,7 +15,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/b-html5-1.6.2/rg-1.1.2/datatables.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.bootstrap4.min.css">
+    
 </head>
 
 <body>
@@ -139,6 +142,7 @@
     <!-- Datatables -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
     
     <script>
     $(document).ready(function() {
@@ -149,6 +153,25 @@
           
         });
       });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+        $('#example').DataTable( {
+            
+            "columnDefs": [
+            { "visible": false, "targets": 0 }
+            ],
+            "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+          },"bLengthChange": false,
+            //order: [[0, 'asc']], 
+            orderFixed: [ 0, 'asc' ],
+            rowGroup: {
+                dataSrc: 0
+            }
+        } );
+    } );
     </script>
 </body>
 
