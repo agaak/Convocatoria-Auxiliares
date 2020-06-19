@@ -15,6 +15,7 @@ class CreatePostulanteTable extends Migration
     {
         Schema::create('pre_postulante', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('rotulo');
             $table->integer('id_convocatoria');
             $table->string('nombre');
             $table->string('apellido');

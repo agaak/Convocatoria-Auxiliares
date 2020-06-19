@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Utils\ConvocatoriaComp;
 use App\PrePostulante;
 use App\Requerimiento;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,10 @@ class PrePostulanteController extends Controller
 {
     public function exportPDF() {
 
+        $numRandom = new ConvocatoriaComp();
+        
         $postulante = new PrePostulante();
+        $postulante->rotulo = $numRandom->uniqidReal();
         $postulante->id_convocatoria = request()->input('id-conv-postulante');
         $postulante->nombre = request()->input('postulante-nombre');
         $postulante->apellido = request()->input('postulante-apellidos');
@@ -33,7 +37,7 @@ class PrePostulanteController extends Controller
         $auxiliaturas = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
         ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
         ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();
-
+        // return view('postulantePDF.postulante', compact('postulante', 'auxiliaturas'));
         $pdf = PDF::loadView('postulantePDF.postulante', compact('postulante', 'auxiliaturas'));
 
         return $pdf->download('rotulo-postulante.pdf');

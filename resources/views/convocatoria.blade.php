@@ -40,36 +40,45 @@
                                 </select>
                             </label>
                         </div>
-                        <div class="form-group">
-                            <label class="d-block">Nombres:
-                                <input class="form-control" type="text" id="post-nom" placeholder="Ingrese sus nombres" name="postulante-nombre" required>
+                        <div class="form-row mb-3">
+                            <label class="col-auto col-form-label" for="post-nom">Nombres:
                             </label>
+                            <div class="col-sm">
+                                <input class="form-control" type="text" id="post-nom" placeholder="Ingrese sus nombres" name="postulante-nombre"
+                                pattern="[a-zA-z ]+" title="Solo se permite carateres alfabeticos y espacios." required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="d-block">Apellidos:
-                                <input class="form-control" type="text" id="post-ape" placeholder="Ingrese sus apellidos" name="postulante-apellidos" required>
-                            </label>
+                        <div class="form-row mb-3">
+                            <label class="col-auto col-form-label" for="post-ape">Apellidos:</label>
+                            <div class="col-sm">
+                                <input class="form-control" type="text" id="post-ape" placeholder="Ingrese sus apellidos" name="postulante-apellidos"
+                                pattern="[a-zA-z ]+" title="Solo se permite carateres alfabeticos y espacios." required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="d-block">Dirección:
+                        <div class="form-row mb-3">
+                            <label class="col-auto col-form-label" for="post-dir">Dirección:</label>
+                            <div class="col-sm">
                                 <input class="form-control" type="text" id="post-dir" placeholder="Ingrese su dirección" name="postulante-direccion" required>
-                            </label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="d-block">Correo electrónico:
+                        <div class="form-row mb-3">
+                            <label class="col-auto col-form-label" for="post-cod">Código SIS:</label>
+                            <div class="col-sm">
+                                <input class="form-control" type="text" id="post-cod" placeholder="Ingrese su SIS" pattern="[0-9]{9}" name="cod-sis"
+                                title="Este campo contiene 9 caracteres numéricos obligatorios." required>
+                            </div>
+                        </div>
+                        <div class="form-row mb-3">
+                            <label class="col-auto col-form-label" for="post-cor">Correo electrónico:</label>
+                            <div class="col-sm">
                                 <input class="form-control" type="email" id="post-cor" name="correo-direccion" placeholder="ejemplo@algo.com" required>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label class="d-block">Código SIS:
-                                <input class="form-control" type="text" id="post-cod" placeholder="Ingrese su SIS" pattern="[0-9]+" name="cod-sis" required>
-                            </label>
+                            </div>
                         </div>
                         <div class="form-row">
-                            <label class="col-6">Teléfono:
+                            <label class="col-sm-6">Teléfono:
                                 <input class="form-control" type="number" placeholder="Ingrese su numero teléfonico" id="post-tel" name="telefono" required>
                             </label>
-                            <label class="col-6">CI:
+                            <label class="col-sm-6">CI:
                                 <input class="form-control" type="text" id="post-ci" placeholder="Ingrese su C.I." name="ci" pattern="[0-9]{4,10}"
                                 title="Solo se aceptan caracteres numéricos, como mínimo 4 y máximo 10." required>
                             </label>
