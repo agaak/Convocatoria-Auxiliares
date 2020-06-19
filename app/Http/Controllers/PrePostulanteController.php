@@ -34,9 +34,10 @@ class PrePostulanteController extends Controller
             $postulante_aux->save();
         }
 
-        $auxiliaturas = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
-        ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
-        ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();
+        $auxiliaturas = PrePostulanteAuxiliatura::select('auxiliatura.*')
+        ->where('id_pre_postulante',$postulante->id)
+        ->join('auxiliatura','pre_postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
+        ->get();
         // return view('postulantePDF.postulante', compact('postulante', 'auxiliaturas'));
         $pdf = PDF::loadView('postulantePDF.postulante', compact('postulante', 'auxiliaturas'));
 
