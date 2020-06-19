@@ -12,9 +12,9 @@ class EvaluadorController extends Controller
 {
     public function index() {
         session()->forget('convocatoria');
-        // session()->put('convocatoria', $id) ;
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
-        return $convs;//view('evaluador.evaluador', compact('convs'));
+        session()->put('evaluador', $convs[0]['pivot']['id_evaluador']);
+        return view('evaluador.evaluador', compact('convs')); 
     }
 
 

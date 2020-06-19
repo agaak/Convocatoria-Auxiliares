@@ -17,7 +17,7 @@
                 @if (request()->is('evaluador/calificar*'))
                     <h3 class="eva-title">Convocatoria actual</h3>
                     <a class="menu-link menu-icono btn-1" href="{{ request()->is('evaluador/calificar')? '#': route('calificar.index') }}">Calificar</a>
-                    <ul class="menu menu-1 {{ request()->is('evaluador/calificar/merito')? '':'d-none'}}">
+                    <ul class="menu menu-1 {{ request()->is('evaluador/calificar/*')? '':'d-none'}}">
                     @foreach ($roles as $rol)
                         @if ($rol->nombre == 'Meritos')
                             <li class="menu-item ml-3"><a class="menu-link" href="#">Requisito</a></li>
@@ -26,7 +26,7 @@
                         @if ($rol->nombre == 'Conocimientos')
                             <li class="menu-item ml-3">
                                 <a class="menu-link menu-icono btn-2" href="#">{{ $tipoConv === 1? 'Temáticas': 'Auxiliaturas' }}</a>
-                                <ul class="menu menu-2 d-none">
+                                <ul class="menu menu-2 {{ request()->is('evaluador/calificar/*')? '':'d-none'}}">
                                     @foreach ($auxsTemsEval as $item)
                                         @if ($tipoConv === 1) 
                                             <li class="menu-item ml-3"><a class="menu-link" href="{{ route('calificarConoc.index') }}">{{ $item->nombre }}</a></li>

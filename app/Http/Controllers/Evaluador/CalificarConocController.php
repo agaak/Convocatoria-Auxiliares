@@ -15,12 +15,9 @@ class CalificarConocController extends Controller
 {
     public function index(){
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
-        foreach ($convs as $conv) {
-            if ($conv->id == session()->get('convocatoria'))
-                $pivot = $conv->pivot;
-        }
-        $idEC = EvaluadorConovocatoria::where('id_convocatoria', $pivot['id_convocatoria'])->
-                                        where('id_evaluador', $pivot['id_evaluador'])->value('id');
+        
+        $idEC = EvaluadorConovocatoria::where('id_convocatoria', session()->get('convocatoria'))->
+                                        where('id_evaluador', session()->get('evaluador'))->value('id');
         $rolsEval = new EvaluadorComp();
         $roles = $rolsEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
