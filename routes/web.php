@@ -94,7 +94,7 @@ Route::get('evaluador/calificar/{id}', function($id) {
 	return redirect()->route('calificar.index');
 })->name('helper.redirect');
 
-
+Route::get('evaluador/merito/{idEst}', 'Evaluador\CalificacionMController@calificarMeritos')->name('evaluarM.calificarMeritos');
 
 
 

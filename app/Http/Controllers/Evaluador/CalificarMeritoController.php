@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Evaluador;
 
 use App\Convocatoria;
+use App\Postulante;
 use Illuminate\Http\Request;
 use App\EvaluadorConocimientos;
 use App\EvaluadorConovocatoria;
@@ -24,6 +25,12 @@ class CalificarMeritoController extends Controller
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
 
         $auxsTemsEval = $tipoConv === 1? $rolsEval->getTemsEvaluador($idEC) :$rolsEval->getAuxsEvaluador($idEC);
-        return view('evaluador.calificarMerito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval'));
+
+        $postulantes= Postulante::select('postulante.*', 'calf_final_postulante_merito.nota_final_merito as nota')
+        ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
+        ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
+        ->get();
+
+        return view('evaluador.calificarMerito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes'));
     }
 }
