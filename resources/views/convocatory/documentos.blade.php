@@ -7,13 +7,14 @@
   <h3 class="text-uppercase text-left">Documentos</h3>
 
   <!-- Button trigger modal -->
-  <div class="my-3" style="margin-left: 3ch">
-    <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#documentosModal">
-      <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
-      <span class="mx-1">Añadir documento</span>
-    </a>
-  </div>
-  
+  @if (!session()->get('ver'))    
+    <div class="my-3" style="margin-left: 3ch">
+      <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#documentosModal">
+        <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
+        <span class="mx-1">Añadir documento</span>
+      </a>
+    </div>
+  @endif
   {{-- Visualizar Tabla de documentos --}}
   @php  $alphas = 65  @endphp
   @component('components.convocatoria.tablaDocumentos', 
@@ -25,9 +26,12 @@
       {{ csrf_field() }}
       <div class="form-group">
         <label for="nota-doc">Nota(*)</label>
-        <input class="btn btn-info btn-sm mx-3" type="submit" value="Guardar nota">
-        <textarea class="form-control my-2" id="nota-doc" name="nota-doc" placeholder="Ingrese la nota respectiva"
-          rows="3">{{ $datoNotaDoc === null? '': $datoNotaDoc->descripcion }}</textarea>
+        @if (!session()->get('ver'))
+          <input class="btn btn-info btn-sm mx-3" type="submit" value="Guardar nota">
+        @endif
+        <textarea class="form-control my-2" id="nota-doc" name="nota-doc" 
+        placeholder="Ingrese la nota respectiva" {{ session()->get('ver')? 'readonly': '' }}
+        rows="3">{{ $datoNotaDoc === null? '': $datoNotaDoc->descripcion }}</textarea>
       </div>
     </form>
   </div>

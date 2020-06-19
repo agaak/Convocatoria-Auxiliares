@@ -7,12 +7,14 @@
   <h3 class="text-uppercase text-left">Seccion Requisitos</h3>
 
   <!-- Button trigger modal -->
-  <div class="my-3" style="margin-left: 3ch">
-    <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#requirementsModal">
-      <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
-      <span class="mx-1">Añadir requisito</span>
-    </a>
-  </div>
+  @if (!session()->get('ver'))
+    <div class="my-3" style="margin-left: 3ch">
+      <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#requirementsModal">
+        <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
+        <span class="mx-1">Añadir requisito</span>
+      </a>
+    </div>
+  @endif
   {{-- Visualizar Tabla de requisitos --}}
   @php $alphas = 65 @endphp
   @component('components.convocatoria.tablaRequisitos', 
@@ -24,9 +26,12 @@
       {{ csrf_field() }}
       <div class="form-group">
         <label for="nota-requisito">Nota(*)</label>
-        <input class="btn btn-info btn-sm mx-3" type="submit" value="Guardar nota">
-        <textarea class="form-control my-2" id="nota-requisito" name="nota-requisito" placeholder="Ingrese la nota respectiva"
-          rows="3">{{ $datoNota === null? '': $datoNota->descripcion }}</textarea>
+        @if (!session()->get('ver'))
+          <input class="btn btn-info btn-sm mx-3" type="submit" value="Guardar nota">
+        @endif
+        <textarea class="form-control my-2" id="nota-requisito" name="nota-requisito"
+        placeholder="Ingrese la nota respectiva" {{session()->get('ver')? 'readonly': ''}} 
+        rows="3">{{ $datoNota === null? '': $datoNota->descripcion }}</textarea>
       </div>
     </form>
   </div>

@@ -124,7 +124,8 @@ class ConvocatoriaController extends Controller
      */
     public function edit($id)
     {
-        session()->put('convocatoria', $id) ;
+        session()->put('convocatoria', $id);
+        session()->put('ver', false);
         return redirect()->route('requests');
     }
 

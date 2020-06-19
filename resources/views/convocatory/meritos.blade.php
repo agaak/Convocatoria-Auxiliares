@@ -7,8 +7,8 @@
     <h3 class="text-uppercase text-left">Calificación de Méritos</h3>
 
     {{-- Descripcion del contenido y adjunto un icono para edita esta descripcion en un modal --}}
-    <div class="row">
-        <div class="card border-dark mb-3 col-md-11">
+    <div class="row ml-1 mr-1 {{session()->get('ver')? 'my-4': ''}}">
+        <div class="card border-dark {{session()->get('ver')? 'col-md-12': 'col-md-11'}}">
             <div class="card-body">
                 <p class="card-text">La calificación de méritos se se basará en los documentos
                     presentados por el postulante y se realizará sobre la base de <strong> 100 </strong> puntos,
@@ -16,10 +16,12 @@
                     de la calificación final.</p>
             </div>
         </div>
-        <a class="col-md-1 my-auto" type="button" data-toggle="modal" data-target="#porcentajeModal"
-            onclick="editPorcentajes({{ $porcentajesConvocatoria->porcentaje_merito??0 }})" >
-            <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-        </a>
+        @if (!session()->get('ver'))
+            <a class="col-md-1 my-auto text-center" type="button" data-toggle="modal" data-target="#porcentajeModal"
+                onclick="editPorcentajes({{ $porcentajesConvocatoria->porcentaje_merito??0 }})" >
+                <img src="{{ asset('img/pen.png') }}" width="30" height="30">
+            </a>
+        @endif
     </div>
 
     {{-- Modal de la descripcion del contenido para cambiar dato nota y porcentaje --}}
@@ -65,17 +67,19 @@
     </div>
 
     {{-- Botones para añadir merito y submerito que ademas abren los modales respectivos --}}
-    <div class="row my-3" style="margin-left: 3ch">
-        <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#meritModal">
-            <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
-            <span class="mx-1">Añadir mérito</span>
-        </a>
-        <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
-            data-target="#subMeritModal">
-            <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
-            <span class="mx-1">Añadir submérito</span>
-        </a>
-    </div>
+    @if (!session()->get('ver'))
+        <div class="row my-3" style="margin-left: 3ch">
+            <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#meritModal">
+                <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
+                <span class="mx-1">Añadir mérito</span>
+            </a>
+            <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
+                data-target="#subMeritModal">
+                <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
+                <span class="mx-1">Añadir submérito</span>
+            </a>
+        </div>  
+    @endif
 
     {{-- Modal de editar merito --}}
 

@@ -93,9 +93,15 @@ Route::get('evaluador/calificar/merito', 'Evaluador\CalificarMeritoController@in
 Route::get('evaluador/calificar/conocimiento', 'Evaluador\CalificarConocController@index')->name('calificarConoc.index');
 
 Route::get('evaluador/calificar/{id}', function($id) {
-	session()->put('convocatoria', $id) ;
+	session()->put('convocatoria', $id);
 	return redirect()->route('calificar.index');
 })->name('helper.redirect');
+
+Route::get('convocatoria/ver/{id}', function($id) {
+	session()->put('convocatoria', $id);
+	session()->put('ver', true);
+	return redirect()->route('requests');
+})->name('helper.redirect.ver');
 
 Route::get('evaluador/merito/{idEst}', 'Evaluador\CalificacionMController@calificarMeritos')->name('evaluarM.calificarMeritos');
 
