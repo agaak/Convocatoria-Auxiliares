@@ -15,10 +15,11 @@
     </div>
 
     <!-- Table -->
-    <div class="table-requests1">
-        <table class="table table-bordered" style="text-align:center">
+    <div style="text-align:left">
+        <table id="example" class="table table-bordered" style="text-align:left">
         <thead class="thead-dark">
             <tr> 
+            <th style="font-weight: normal" scope="col">Item</th>
             <th style="font-weight: normal" scope="col">CI</th>
             <th style="font-weight: normal" scope="col">Nombres</th>
             <th style="font-weight: normal" scope="col">Apellidos</th>
@@ -28,6 +29,7 @@
         <tbody style="background-color: white">
             @foreach($listPostulantes as $item)
                 <tr>
+                <th style="font-weight: normal">{{$item->nombre_aux}}</th>
                 <th style="font-weight: normal">{{ $item->ci }}</th>
                 <th style="font-weight: normal">{{ $item->nombre }}</th>
                 <th style="font-weight: normal">{{ $item->apellido }}</th>

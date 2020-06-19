@@ -31,11 +31,12 @@ class AdmPostulantesController extends Controller
         ->get();
         $listaAux = collect($listaAux)->groupBy('id');
         $listPostulantes = Postulante_auxiliatura::select('postulante_auxiliatura.*',
-        'postulante.*')
+        'postulante.*','auxiliatura.nombre_aux')
         ->join('postulante','postulante_auxiliatura.id_postulante','=','postulante.id')
         ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
+        ->join('auxiliatura','postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
         ->where('id_convocatoria',$id_conv)
-        ->groupBy('postulante_auxiliatura.id','postulante.id')->get();
+        /* ->groupBy('postulante_auxiliatura.id','postulante.id') */->get();
 
         return view('admConvocatoria.admPostulantes',compact('listPostulantes','listaAux','listaRotulos'));
     }
