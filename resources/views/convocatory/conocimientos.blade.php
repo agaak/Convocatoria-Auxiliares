@@ -6,7 +6,7 @@
 
   <h3 class="text-uppercase">Calificacion de Conocimientos</h3>
 
-  <div class="card border-dark mb-3">
+  <div class="card border-dark mb-3 {{session()->get('ver')? 'my-4': ''}}">
     <div class="card-body">
       <p class="card-text">La calificación de conocimientos se realiza sobre la base de <strong> 100 </strong> puntos,
         equivalentes al <strong> {{ $porcentajesConvocatoria->porcentaje_conocimiento??"_ _ _" }}% </strong>
@@ -15,18 +15,20 @@
   </div>
 
   <!-- Button trigger modal -->
-  <div class="row my-3" style="margin-left: 3ch">
-    <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#tematicaModal">
-      <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
-      <span class="mx-1">Añadir Tematica</span>
-    </a>
-    <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
-      data-target="#auxiliaturaModal"
-      @if($requests->isNotEmpty()) onclick="selectAuxiliaturaModal({{ json_encode($porcentajes) }}, {{ json_encode($tems) }})" @endif>
-      <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-      <span class="mx-1">Editar Auxiliatura</span>
-    </a>
-  </div>
+  @if (!session()->get('ver'))
+    <div class="row my-3" style="margin-left: 3ch">
+      <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#tematicaModal">
+        <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
+        <span class="mx-1">Añadir Tematica</span>
+      </a>
+      <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
+        data-target="#auxiliaturaModal"
+        @if($requests->isNotEmpty()) onclick="selectAuxiliaturaModal({{ json_encode($porcentajes) }}, {{ json_encode($tems) }})" @endif>
+        <img src="{{ asset('img/pen.png') }}" width="30" height="30">
+        <span class="mx-1">Editar Auxiliatura</span>
+      </a>
+    </div>  
+  @endif
 
   {{-- Visualizar Tabla de estructura de conocimientos --}}
   @component('components.convocatoria.tablaConocimientos', 
@@ -169,21 +171,22 @@
       </div>
     </div>
   </div>
-
-  <div class="my-4 py-5 text-center">
-    {!! $errors->first('finalizo', '<strong class="message-error text-danger">:message</strong>') !!}
-    <form action="{{ route('knowledgeRatingFinish') }}" enctype="multipart/form-data" method="POST" accept-charset="UTF-8">
-      {{ csrf_field() }}
-      <div class="custom-file col-sm-4" lang="es">
-        <input type="file" class="custom-file-input" id="upload-pdf" name="upload-pdf" lang="es" required>
-        <label class="custom-file-label" style="text-align: left;" for="customFileLang">Seleccionar PDF</label>
-        <input type="hidden" name="finalizo" value=""> 
-      </div><br>
-      <button type="submit" class="btn btn-info mt-3" tabindex="-1" role="button" aria-disabled="true">
-        Finalizar
-      </button>
-    </form>
-  </div>
+  @if (!session()->get('ver'))
+    <div class="my-4 py-5 text-center">
+      {!! $errors->first('finalizo', '<strong class="message-error text-danger">:message</strong>') !!}
+      <form action="{{ route('knowledgeRatingFinish') }}" enctype="multipart/form-data" method="POST" accept-charset="UTF-8">
+        {{ csrf_field() }}
+        <div class="custom-file col-sm-4" lang="es">
+          <input type="file" class="custom-file-input" id="upload-pdf" name="upload-pdf" lang="es" required>
+          <label class="custom-file-label" style="text-align: left;" for="customFileLang">Seleccionar PDF</label>
+          <input type="hidden" name="finalizo" value=""> 
+        </div><br>
+        <button type="submit" class="btn btn-info mt-3" tabindex="-1" role="button" aria-disabled="true">
+          Finalizar
+        </button>
+      </form>
+    </div>
+  @endif
 </div>
 <script>
 

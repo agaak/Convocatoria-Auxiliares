@@ -7,12 +7,14 @@
     <h3 class="text-uppercase text-left">Seccion eventos importantes</h3>
 
     <!-- Button trigger modal -->
-    <div class="my-3" style="margin-left: 3ch">
-        <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#importantDatesModalCreate">
-            <img src="{{ asset('img/calendarAdd.png') }}" width="30" height="30">
-            <span class="mx-1">Añadir Evento</span>
-        </a>
-    </div>
+    @if (!session()->get('ver'))
+        <div class="my-3" style="margin-left: 3ch">
+            <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#importantDatesModalCreate">
+                <img src="{{ asset('img/calendarAdd.png') }}" width="30" height="30">
+                <span class="mx-1">Añadir Evento</span>
+            </a>
+        </div>
+    @endif
 
     {{-- Crear Base de datos --}}
     <div class="modal fade" id="importantDatesModalCreate" tabindex="-1" role="dialog"

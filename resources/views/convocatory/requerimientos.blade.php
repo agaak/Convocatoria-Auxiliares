@@ -7,12 +7,14 @@
   <h3 class="text-uppercase text-left">seccion Requerimientos</h3>
 
   <!-- Button trigger modal -->
-  <div class="my-3" style="margin-left: 3ch">
-    <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#requestModal">
-      <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
-      <span class="mx-1">Añadir requerimiento</span>
-    </a>
-  </div> 
+  @if (!session()->get('ver'))
+    <div class="my-3" style="margin-left: 3ch">
+      <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#requestModal">
+        <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
+        <span class="mx-1">Añadir requerimiento</span>
+      </a>
+    </div> 
+  @endif 
 
   <!-- Modal -->
   <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="requestTitle"

@@ -29,18 +29,18 @@
                             <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                 style="background-color:#2F2D4A; color:white;"
                                 class="btn btn-sm">{{ csrf_field() }}Administrar</a>
+                            <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a> 
                         @endif
                         @if (auth()->user()->hasRoles(['evaluador']))
                                     <p>options evaluador</p>
                         @endif
                     @else
-                        <a type="button" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#">
-                        Ver </a>
+                        <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a> 
                         <a type="button" onclick="listaAux({{ $auxs }}, {{ $convo->id }})" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#postulanteModal">
                             Postular ahora </a>
-                    @endif
+                    @endif                      
                     <a href="{{ route('convocatoria.download',$convo->id ) }}" style="color:white;"
-                        class="btn btn-info btn-sm">Descargar PDF</a>                            
+                    class="btn btn-info btn-sm">Descargar PDF</a>
                     </div>
                     <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
                     convocatoria esta en curso.</div>
@@ -51,6 +51,7 @@
                     <a href="{{ route('convocatoria.show',$convo->id ) }}"
                     style="background-color:#61DE4D;color:rgb(255, 255, 255);"
                     class="btn btn-sm">{{ csrf_field() }}Publicar</a>
+                    <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a>
                     </div>
                     <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
                     convocatoria esta lista para publicarse.</div>
