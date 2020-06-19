@@ -9,6 +9,12 @@ use App\PrePostulante;
 use App\Auxiliatura;
 use App\Postulante_auxiliatura;
 use App\Postulante_conovocatoria;
+use App\PostuCalifConoc;
+use App\PostuCalifConocFinal;
+use App\PostuCalifMerito;
+use App\PostuCalifMeritoFinal;
+use App\Requerimiento;
+use App\Merito;
 
 class AdmPostulantesController extends Controller
 {
@@ -49,6 +55,7 @@ class AdmPostulantesController extends Controller
         $postulante_con->id_postulante =  $postulante->id;
         $postulante_con->id_convocatoria = request()->input('id-conv-postulante');
         $postulante_con->save();
+
         $arreglo = request()->input('auxiliaturas'); 
         foreach ($arreglo as $aux) {
             $postulante_aux = new Postulante_auxiliatura();
@@ -56,7 +63,50 @@ class AdmPostulantesController extends Controller
             $postulante_aux->id_auxiliatura = $aux;
             $postulante_aux->observacion = "ninguna";
             $postulante_aux->save();
+            $post_calf_conoc_fin = new PostuCalifConocFinal();
+            $post_calf_conoc_fin->id_convocatoria = session()->get('convocatoria');
+            $post_calf_conoc_fin->id_postulante = $postulante->id; 
+            $post_calf_conoc_fin->id_auxiliatura = $aux;
+            $post_calf_conoc_fin->save();
+
+            $porcentajes = Requerimiento::select('porcentaje.*')
+            ->where('requerimiento.id_convocatoria',session()->get('convocatoria'))
+            ->join('porcentaje','porcentaje.id_requerimiento','=','requerimiento.id')
+            ->where('porcentaje.id_auxiliatura', $aux)
+            ->where('porcentaje.porcentaje','>','0')
+            ->get();
+            
+            foreach($porcentajes as $por){
+                $post_calf_conoc = new PostuCalifConoc();
+                $post_calf_conoc->id_postulante = $postulante->id;
+                $post_calf_conoc->id_porcentaje = $por->id;
+                $post_calf_conoc->id_calf_final = $post_calf_conoc_fin->id;
+                $post_calf_conoc->save();
+            }
+           
         }
+
+        $post_calf_merit_fin = new PostuCalifMeritoFinal();
+        $post_calf_merit_fin->id_convocatoria = session()->get('convocatoria');
+        $post_calf_merit_fin->id_postulante = $postulante->id; 
+        $post_calf_merit_fin->save();
+
+
+        $meritos = Merito::where('id_convocatoria',session()->get('convocatoria'))->get();
+        
+        foreach($meritos as $merit){
+            $meritoExist = Merito::where('id_convocatoria',session()->get('convocatoria'))
+            ->where('id_submerito',$merit->id)
+            ->get();
+            if($meritoExist->isEmpty()){
+                $post_calf_merit = new PostuCalifMerito();
+                $post_calf_merit->id_postulante = $postulante->id;
+                $post_calf_merit->id_merito = $merit->id; 
+                $post_calf_merit->id_calf_final = $post_calf_merit_fin->id;
+                $post_calf_merit->save();
+            }
+        }
+        
         return back();
     }
 }

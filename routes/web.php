@@ -90,7 +90,9 @@ Route::get('evaluador/calificar', 'Evaluador\CalificarController@index')->name('
 
 Route::get('evaluador/calificar/merito', 'Evaluador\CalificarMeritoController@index')->name('calificarMerito.index');
 
-Route::get('evaluador/calificar/conocimiento', 'Evaluador\CalificarConocController@index')->name('calificarConoc.index');
+Route::get('evaluador/calificar/conocimiento/{id}', 'Evaluador\CalificarConocController@index')->name('calificarConoc.index');
+Route::get('evaluador/calificar/conocimiento/oral', 'Evaluador\CalificarConocController@oral')->name('calificarConoc.oral');
+Route::get('evaluador/calificar/conocimiento/escrito', 'Evaluador\CalificarConocController@escrito')->name('calificarConoc.escrito');
 
 Route::get('evaluador/calificar/{id}', function($id) {
 	session()->put('convocatoria', $id);

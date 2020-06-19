@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCalificacionMeritoTable extends Migration
+class CreateCalfConocPostulanteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateCalificacionMeritoTable extends Migration
      */
     public function up()
     {
-        Schema::create('calificacion_merito', function (Blueprint $table) {
+        Schema::create('calif_conoc_post', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_postulante');
             $table->foreign('id_postulante')->references('id')->on('postulante') ->onDelete('cascade');
-            $table->integer('id_merito');
-            $table->foreign('id_merito')->references('id')->on('merito') ->onDelete('cascade');
-            $table->integer('calificacion');
+            $table->integer('id_porcentaje');
+            $table->foreign('id_porcentaje')->references('id')->on('porcentaje') ->onDelete('cascade');
+            $table->integer('id_calf_final');
+            $table->foreign('id_calf_final')->references('id')->on('calf_fin_postulante_conoc') ->onDelete('cascade');
+            $table->integer('calificacion')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreateCalificacionMeritoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('calificacion_merito');
+        Schema::dropIfExists('calif_conoc_post');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCalificacionFinalPostulanteTable extends Migration
+class CreateCalfFinConocPostulante extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateCalificacionFinalPostulanteTable extends Migration
      */
     public function up()
     {
-        Schema::create('calf_final_postulante_merito', function (Blueprint $table) {
+        Schema::create('calf_fin_postulante_conoc', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_convocatoria');
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria') ->onDelete('cascade');
             $table->integer('id_postulante');
             $table->foreign('id_postulante')->references('id')->on('postulante') ->onDelete('cascade');
-            $table->integer('nota_final_merito')->nullable();
+            $table->integer('id_auxiliatura');
+            $table->foreign('id_auxiliatura')->references('id')->on('auxiliatura') ->onDelete('cascade');
+            $table->integer('nota_final_conoc')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreateCalificacionFinalPostulanteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('calificacion_final_postulante');
+        Schema::dropIfExists('calf_fin_postulante_conoc');
     }
 }

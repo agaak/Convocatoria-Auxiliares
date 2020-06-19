@@ -9,9 +9,9 @@
         
         <h3>Calificacion</h3>
 
-        {{-- @component('components.calificaciones.tablaPostulantesConoc',
+        @component('components.calificaciones.tablaPostulantesConoc',
             ['postulantes'=>$postulantes])
-        @endcomponent --}}
+        @endcomponent
     
     </div>
     

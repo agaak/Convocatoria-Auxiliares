@@ -35,7 +35,7 @@ class CreateUnidadAcademicaTable extends Migration
             $table->year('gestion');
             $table->boolean('publicado');
             $table->boolean('creado');
-            $table->string('ruta_pdf')->nullable();;
+            $table->string('ruta_pdf')->nullable();
             $table->date('fecha_inicio');
             $table->date('fecha_final');
 

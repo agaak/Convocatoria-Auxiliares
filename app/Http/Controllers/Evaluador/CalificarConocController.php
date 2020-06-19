@@ -8,27 +8,26 @@ use App\EvaluadorConovocatoria;
 use Illuminate\Http\Request;
 use App\Postulante;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
+use App\Http\Controllers\Utils\Evaluador\MenuDina;
+use App\Http\Controllers\Utils\Evaluador\PostulanteComp;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\ConvocatoriaComp;
 
 class CalificarConocController extends Controller
 {
-    public function index(){
-        $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
+    public function index($id_tem){
+        $menu = new MenuDina();
+        $convs = $menu->getConvs(); 
         
-        $idEC = EvaluadorConovocatoria::where('id_convocatoria', session()->get('convocatoria'))->
-                                        where('id_evaluador', session()->get('evaluador'))->value('id');
-        $rolsEval = new EvaluadorComp();
-        $roles = $rolsEval->getRolesEvaluador($idEC);
+        $compEval = new EvaluadorComp();
+        $idEC = $compEval->getIdEvaConv();
+        $roles = $compEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
+        $auxsTemsEval = $tipoConv === 1? $compEval->getTemsEvaluador($idEC) :$compEval->getAuxsEvaluador($idEC);
 
-        $auxsTemsEval = $tipoConv === 1? $rolsEval->getTemsEvaluador($idEC) :$rolsEval->getAuxsEvaluador($idEC);
+        $compEval = new PostulanteComp();
+        $postulantes= $compEval->getPostulantesByTem($id_tem);
 
-        $postulantes= Postulante::select('postulante.*', 'calf_final_postulante_merito.nota_final_merito as nota')
-        ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
-        ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
-        ->get();
-
-        return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes'));
+        return $auxsTemsEval;//view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes'));
     }
 }

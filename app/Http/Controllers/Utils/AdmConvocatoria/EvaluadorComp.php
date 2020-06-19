@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Utils\AdmConvocatoria;
 
 use App\EvaluadorConocimientos;
+use App\EvaluadorConovocatoria;
 use App\EvaluadorTematica;
 use App\EvaluadorAuxiliatura;
 use App\Tipo_evaluador;
@@ -10,6 +11,12 @@ use App\Tipo_evaluador;
 class EvaluadorComp
 {   
     
+    public function getIdEvaConv(){
+        $request = EvaluadorConovocatoria::where('id_convocatoria', session()->get('convocatoria'))->
+        where('id_evaluador', session()->get('evaluador'))->value('id');
+        return $request;
+    }
+
     public function getEvaluadoresConvo($id){
         $requests = EvaluadorConocimientos::select('evaluador.*','convocatoria.titulo','evaluador_conovocatoria.id  as id_eva_con')
         ->join('evaluador_conovocatoria','evaluador.id','=','evaluador_conovocatoria.id_evaluador')
@@ -21,7 +28,7 @@ class EvaluadorComp
     }
 
     public function getAuxsEvaluador($id_eva_conv){
-        $requests = EvaluadorAuxiliatura::select('auxiliatura.nombre_aux as nombre') 
+        $requests = EvaluadorAuxiliatura::select('auxiliatura.nombre_aux as nombre','auxiliatura.id') 
         ->join('evaluador_conovocatoria','evaluador_auxiliatura.id_evaluador_convocatoria','=','evaluador_conovocatoria.id') 
         ->where('evaluador_conovocatoria.id',$id_eva_conv)
         ->join('auxiliatura','evaluador_auxiliatura.id_auxiliatura','=','auxiliatura.id')->get();
@@ -29,7 +36,7 @@ class EvaluadorComp
     }
 
     public function getTemsEvaluador($id_eva_conv){
-        $requests = EvaluadorTematica::select('tematica.nombre') 
+        $requests = EvaluadorTematica::select('tematica.nombre', 'tematica.id') 
         ->join('evaluador_conovocatoria','evaluador_tematica.id_evaluador_convocatoria','=','evaluador_conovocatoria.id')
         ->where('evaluador_conovocatoria.id',$id_eva_conv)
         ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')->get();
