@@ -9,6 +9,7 @@ use App\Http\Requests\Convocatoria\ConocimientoCreateRequest;
 use App\Tematica;
 use App\Porcentaje;
 use App\Calificacion_final;
+use App\Convocatoria;
 use App\Documento;
 use App\EventoImportante;
 use App\Http\Requests\Convocatoria\TematicaEditRequest;
@@ -21,8 +22,11 @@ class ConocimientoController extends Controller
 {
     public function knowledgeRating(Request $request){
         $id_conv = $request->session()->get('convocatoria');
-        $tipo = DB::table('convocatoria')->where('id',$id_conv)
-            ->value('id_tipo_convocatoria');
+        $convActual = DB::table('convocatoria')->find($id_conv);
+
+        $rutaPDF = $convActual->ruta_pdf;
+
+        $tipo = $convActual->id_tipo_convocatoria;
         $utilsConocimiento= new ConocimientosComp;
         $requests = $utilsConocimiento->getRequerimientos($id_conv);
         $porcentajes = $utilsConocimiento->getPorcentajes($id_conv);
@@ -38,7 +42,7 @@ class ConocimientoController extends Controller
             
         $porcentajesConvocatoria = Calificacion_final::where('id_convocatoria',session()
                                                     ->get('convocatoria'))->first();
-        return view('convocatory.conocimientos', compact('tematics', 'requests','porcentajes','tems','porcentajesConvocatoria'));
+        return view('convocatory.conocimientos', compact('tematics', 'requests','porcentajes','tems','porcentajesConvocatoria', 'rutaPDF'));
     }
 
     public function knowledgeRatingTematicValid(ConocimientoCreateRequest $request){
@@ -104,7 +108,26 @@ class ConocimientoController extends Controller
     }
     
     public function knowledgeRatingFinish(Request $request){
+        
         $id_conv = session()->get('convocatoria');
+        
+        $convActual = Convocatoria::find($id_conv);
+
+        if (!$convActual->creado) {
+            if(str_contains($request->file('upload-pdf')->getClientOriginalName(),'.pdf')){
+                DB::table('convocatoria')->where('id', $id_conv)->update([
+                    'ruta_pdf' => $request->file('upload-pdf')->storeAs('public', $convActual->id.request()->file('upload-pdf')->getClientOriginalName()),
+                    'creado' => true
+                ]);
+            } else {
+                request()->validate([
+                    'finalizo' => 'required'
+                ],[
+                    'finalizo.required' => 'El archivo debe ser PDF.'
+                ]);
+            }
+        }
+
         $porcen_max = Porcentaje::select(DB::raw('sum(porcentaje) as porc_count, requerimiento.id_auxiliatura'))
             ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
             ->where('requerimiento.id_convocatoria',$id_conv)
@@ -198,19 +221,7 @@ class ConocimientoController extends Controller
                 'finalizo.required' => 'La suma de los porcentajes de las tematicas de una auxiliaturas no es el 100%.'
             ]);
         }
-        if(str_contains($request->file('upload-pdf')->getClientOriginalName(),'.pdf')){
-            DB::table('convocatoria')->where('id', $id_conv)->update([
-                'ruta_pdf' => $request -> file('upload-pdf') -> store('public'),
-                'creado' => true
-            ]);
-            return redirect()->route('convocatoria.index'); 
-        } else {
-            request()->validate([
-                'finalizo' => 'required'
-            ],[
-                'finalizo.required' => 'El archivo debe ser PDF.'
-            ]);
-        }
+        return redirect()->route('convocatoria.index');
     }
 
     public function knowledgeRatingPdf(Request $request){

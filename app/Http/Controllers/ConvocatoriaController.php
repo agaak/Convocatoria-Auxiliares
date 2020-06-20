@@ -113,7 +113,7 @@ class ConvocatoriaController extends Controller
     public function download($id)
     {
         $file = Convocatoria::where('id', $id)->value('ruta_pdf');
-        return Storage::download($file);
+        return Storage::download($file, substr($file, 7 + strlen($id)));
     }
 
     /**
