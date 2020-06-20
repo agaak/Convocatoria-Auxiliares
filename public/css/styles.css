@@ -81,19 +81,28 @@ body {
     text-shadow: 1px 1px 2px gray;
 }
 
+.login {
+    color: black !important;
+    border-radius: 10px 10px;
+}
+
 .navbar-collapse-color ul li {
     padding: 0 10px;
 }
 
 .navbar-collapse-color ul li a:hover,
 .navbar-collapse-color ul li a.activate,
-.login:hover,
 .login.activate {
     box-shadow: 0 0 5px black inset;
     background-color: white;
     color: #001523 !important;
 }
 
+.login:hover {
+    box-shadow: 0 0 5px black;
+    background-color: white;
+    color: #001523 !important;
+}
 
 /* Contenido  entre el header y el footer*/
 .content-div {

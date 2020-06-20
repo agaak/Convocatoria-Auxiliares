@@ -113,11 +113,10 @@ class ConocimientoController extends Controller
         
         $convActual = Convocatoria::find($id_conv);
 
-        if (!$convActual->creado) {
+        if (!$convActual->ruta_pdf) {
             if(str_contains($request->file('upload-pdf')->getClientOriginalName(),'.pdf')){
-                DB::table('convocatoria')->where('id', $id_conv)->update([
-                    'ruta_pdf' => $request->file('upload-pdf')->storeAs('public', $convActual->id.request()->file('upload-pdf')->getClientOriginalName()),
-                    'creado' => true
+                Convocatoria::where('id', $id_conv)->update([
+                    'ruta_pdf' => $request->file('upload-pdf')->storeAs('public', $convActual->id.request()->file('upload-pdf')->getClientOriginalName())
                 ]);
             } else {
                 request()->validate([
@@ -221,6 +220,9 @@ class ConocimientoController extends Controller
                 'finalizo.required' => 'La suma de los porcentajes de las tematicas de una auxiliaturas no es el 100%.'
             ]);
         }
+        Convocatoria::where('id', $id_conv)->update([
+            'creado' => true
+        ]);
         return redirect()->route('convocatoria.index');
     }
 
