@@ -1,5 +1,6 @@
 <?php
 
+use App\Calificacion_final;
 use App\Merito;
 use Illuminate\Database\Seeder;
 
@@ -41,6 +42,11 @@ class MeritoSeeder extends Seeder
             'id_submerito' => 3,
             'descripcion_merito' => 'SegundoSegundo subMerito de la convocatoira',
             'porcentaje' => 25,
+        ]);
+        Calificacion_final::create([
+            'id_convocatoria' => 1,
+            'porcentaje_merito' => 45,
+            'porcentaje_conocimiento' => 55
         ]);
     }
 }
