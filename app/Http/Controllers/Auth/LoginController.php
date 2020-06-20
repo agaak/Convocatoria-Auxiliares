@@ -43,4 +43,8 @@ class LoginController extends Controller
         else 
             return '/convocatoria';
     }
+    protected function username()
+    {
+        return 'userToken';
+    }
 }

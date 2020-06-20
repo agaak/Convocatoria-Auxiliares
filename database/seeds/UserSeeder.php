@@ -15,13 +15,15 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'admin',
             'password' => bcrypt('admin123'),
-            'email' => 'admin@gmail.com'
+            'email' => 'admin@gmail.com',
+            'userToken' => '123456'
         ]);
 
         User::create([
             'name' => 'publica',
             'password' => bcrypt('publica123'),
-            'email' => 'publica@gmail.com'
+            'email' => 'publica@gmail.com',
+            'userToken' => '654321'
         ]);
     }
 
