@@ -16,7 +16,7 @@ use App\Http\Controllers\Utils\ConvocatoriaComp;
 
 class CalificarConocController extends Controller
 {
-    public function index($id_tem){
+    public function index($id_tem,$nom){
         $menu = new MenuDina();
         $convs = $menu->getConvs(); 
         
@@ -27,26 +27,37 @@ class CalificarConocController extends Controller
         $auxsTemsEval = $tipoConv === 1? $compEval->getTemsEvaluador($idEC) :$compEval->getAuxsEvaluador($idEC);
 
         $compEval = new PostulanteComp();
-        $postulantes= $compEval->getPostulantesByTem($id_tem);
+        $postulantes= $tipoConv === 1? $compEval->getPostulantesByTem($id_tem) : $compEval->getPostulantesByAux($id_tem,$nom); 
 
         return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes','id_tem'));
     }
 
     public function store(Request $request){
         $cont = 0;
-        foreach($request->input('nota') as $nota) {
-            $id_post = $request->input('id-post')[$cont++];
-            foreach ($request->input('id_nota') as $ids) {
-                $parseID = explode(',',$ids);
-                if(intval($parseID[1]) == $id_post){
-                    PostuCalifConoc::where('id', intval($parseID[0]))->update([
-                        'calificacion' => $nota
-                    ]);
-                    $test = "yes";
-                }  
+        $test = "no";
+        if ($request->input('id-tipo') == 1) {
+            foreach($request->input('nota') as $nota) {
+                $id_post = $request->input('id-post')[$cont++];
+                foreach ($request->input('id_nota') as $ids) {
+                    $parseID = explode(',',$ids);
+                    if(intval($parseID[1]) == $id_post){
+                        PostuCalifConoc::where('id', intval($parseID[0]))->update([
+                            'calificacion' => $nota
+                        ]);
+                    }  
+                }
+                
             }
-            
+        } else {
+            foreach ($request->input('nota') as $nota) {
+                PostuCalifConoc::where('id', $request->input('id-post')[$cont++])->update([
+                    'calificacion' => $nota
+                ]);
+                $test = "yes";
+            }
         }
+        
+        
         return back();
     }
 }
