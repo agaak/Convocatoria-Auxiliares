@@ -4,26 +4,29 @@
 <div class="overflow-auto content" style="width: 100vw; height: 77vh;">
 
     <h3 class="text-uppercase">Postulantes</h3>
-
-    <div class="container">
+    {{-- Triger modal --}}
+    <button type="button" class="btn btn-dark my-3" data-toggle="modal" 
+    data-target="#storePostulanteModal" >Registrar postulante</button>
+    
+    {{-- <div class="container">
         <div class="row my-3">
             <a type="button" data-toggle="modal" data-target="#storePostulanteModal">
                 <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
                 <span class="mx-1">Registrar Postulante</span>
             </a>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Table -->
-    <div style="text-align:left">
-        <table id="example" class="table table-bordered" style="text-align:left">
+    <div class="table-requests1" >
+        <table id="postulantes" class="table table-bordered" style="width:100%" style="text-align:left">
         <thead class="thead-dark">
             <tr> 
             <th style="font-weight: normal" scope="col">Item</th>
             <th style="font-weight: normal" scope="col">CI</th>
             <th style="font-weight: normal" scope="col">Nombres</th>
             <th style="font-weight: normal" scope="col">Apellidos</th>
-            <th style="font-weight: normal" scope="col">Estado</th>
+            <th style="font-weight: normal" scope="col">Habilitado</th>
             </tr>
         </thead>
         <tbody style="background-color: white">
