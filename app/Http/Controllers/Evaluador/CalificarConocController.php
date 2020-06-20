@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Evaluador;
 use App\Convocatoria;
 use App\EvaluadorConocimientos;
 use App\EvaluadorConovocatoria;
+use App\PostuCalifConoc;
 use Illuminate\Http\Request;
 use App\Postulante;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
@@ -28,6 +29,24 @@ class CalificarConocController extends Controller
         $compEval = new PostulanteComp();
         $postulantes= $compEval->getPostulantesByTem($id_tem);
 
-        return $auxsTemsEval;//view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes'));
+        return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes','id_tem'));
+    }
+
+    public function store(Request $request){
+        $cont = 0;
+        foreach($request->input('nota') as $nota) {
+            $id_post = $request->input('id-post')[$cont++];
+            foreach ($request->input('id_nota') as $ids) {
+                $parseID = explode(',',$ids);
+                if(intval($parseID[1]) == $id_post){
+                    PostuCalifConoc::where('id', intval($parseID[0]))->update([
+                        'calificacion' => $nota
+                    ]);
+                    $test = "yes";
+                }  
+            }
+            
+        }
+        return back();
     }
 }

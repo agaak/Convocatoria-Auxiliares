@@ -7,7 +7,13 @@
 
         <h2> Calificacion de conocimientos</h2>
         
-        <h3>Calificacion</h3>
+        <h3>Calificacion 
+            @foreach ($auxsTemsEval as $item)
+                @if ($item->id == $id_tem)
+                    {{ $item->nombre }}
+                @endif    
+            @endforeach
+        </h3>
 
         @component('components.calificaciones.tablaPostulantesConoc',
             ['postulantes'=>$postulantes])
