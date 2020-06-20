@@ -22,7 +22,7 @@
                             @if (auth()->user()->hasRoles(['evaluador']))
                             <td class="text-center">
                                     {{ csrf_field() }}
-                                <input type="hidden" name="id-post[]" value="{{ $item->id }}">
+                                <input type="hidden" name="id-post[]" value="{{ $item->id_nota}}">
                                 <input name="nota[]" type="number" class="form-control form-control-sm"
                                     placeholder="-" min="0" max="100" value="{{$item->calificacion}}" required style="text-align: center;"></td>
                             @else 

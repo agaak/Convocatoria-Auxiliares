@@ -50,7 +50,8 @@ class CalificarConocController extends Controller
             }
         } else {
             foreach ($request->input('nota') as $nota) {
-                PostuCalifConoc::where('id', $request->input('id-post')[$cont++])->update([
+                $id_post = $request->input('id-post')[$cont++];
+                PostuCalifConoc::where('id', $id_post)->update([
                     'calificacion' => $nota
                 ]);
                 $test = "yes";
