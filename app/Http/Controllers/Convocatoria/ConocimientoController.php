@@ -108,6 +108,7 @@ class ConocimientoController extends Controller
     }
     
     public function knowledgeRatingFinish(Request $request){
+        
         $id_conv = session()->get('convocatoria');
         
         $convActual = Convocatoria::find($id_conv);
@@ -115,7 +116,7 @@ class ConocimientoController extends Controller
         if (!$convActual->creado) {
             if(str_contains($request->file('upload-pdf')->getClientOriginalName(),'.pdf')){
                 DB::table('convocatoria')->where('id', $id_conv)->update([
-                    'ruta_pdf' => $request->file('upload-pdf')->store('public'),
+                    'ruta_pdf' => $request->file('upload-pdf')->storeAs('public', $convActual->id.request()->file('upload-pdf')->getClientOriginalName()),
                     'creado' => true
                 ]);
             } else {
