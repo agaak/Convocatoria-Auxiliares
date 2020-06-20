@@ -26,5 +26,20 @@ class EventoSeeder extends Seeder
             'fecha_inicio' => '2020-06-22',
             'fecha_final' => '2020-07-01'
         ]);
+
+        EventoImportante::create([
+            'id_convocatoria' => 2,
+            'titulo_evento' => 'Entrega de planilla de documentos',
+            'lugar_evento' => 'Laboratorio Informatica y Sistemas',
+            'fecha_inicio' => '2020-11-11',
+            'fecha_final' => '2020-12-12'
+        ]);
+        EventoImportante::create([
+            'id_convocatoria' => 2,
+            'titulo_evento' => 'Revision del rotulo del estudiante',
+            'lugar_evento' => 'Secretaría Informatica y Sistemas',
+            'fecha_inicio' => '2020-12-12',
+            'fecha_final' => '2021-01-01'
+        ]);
     }
 }

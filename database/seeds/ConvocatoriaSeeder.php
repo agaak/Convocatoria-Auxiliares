@@ -114,5 +114,113 @@ class ConvocatoriaSeeder extends Seeder
             'id_tematica' => 4, 
             'porcentaje' => 10
         ]);
+
+        Convocatoria::create([
+            'id_unidad_academica' => 1,              
+            'id_tipo_convocatoria'=> 2,
+            'titulo'=> 'Convocatoria a concurso de méritos y prueba de conocimientos para optar a auxiliatura de docencia',
+            'descripcion_convocatoria'=> 'Se precisa auxiliatura de docencia para la Carreras de Ing. Informática e Ing.
+            De Sistemas de la Facultad de Ciencias y Tecnología, convoca al concurso de méritos y
+            examen de competencia para la provisión de Auxiliares de Docencia, tomando como
+            base los requerimientos que se tienen programados para la gestión 2021.',
+            'gestion'=> 2021,
+            'publicado'=> false,
+            'creado'=> false,
+            'fecha_inicio'=> '06/06/2020',
+            'fecha_final'=> '08/08/2021'
+        ]);
+
+        $idReq1 = Requerimiento::create([
+            'id_convocatoria' =>  2,
+            'id_auxiliatura' => 1,
+            'horas_mes' => 80,
+            'cant_aux' => 4
+        ]);
+        $idReq2 = Requerimiento::create([
+            'id_convocatoria' =>  2,
+            'id_auxiliatura' => 2,
+            'horas_mes' => 70,
+            'cant_aux' => 3
+        ]);
+        $idReq3 = Requerimiento::create([
+            'id_convocatoria' =>  2,
+            'id_auxiliatura' => 3,
+            'horas_mes' => 50,
+            'cant_aux' => 1
+        ]);
+        $idReq4 = Requerimiento::create([
+            'id_convocatoria' =>  2,
+            'id_auxiliatura' => 4,
+            'horas_mes' => 40,
+            'cant_aux' => 1
+        ]);
+
+        Requisito::create([
+            'id_convocatoria' =>  2,
+            'descripcion' => "Queda expresamente prohibido la participación de estudiantes que hubiesen
+            obtenido ya un título profesional en alguna de las carreras de la Universidad
+            Mayor de San Simon o de cualquier otra del Sistema de la Universidad Boliviana
+            (RCU No. 63/2018). Aún en caso de encontrarse cursando otra carrera con
+            admisión especial. (Certificación emitida por el Departamento de Registros e
+            Inscripciones)."
+        ]);
+        
+        Documento::create([
+            'id_convocatoria' =>  2,
+            'descripcion' => "Kardex actualizado a la gestión 1/2019 (periodos cumplidos a la fecha), expedido
+            por Oficina de Kardex de la Facultad de Ciencias y Tecnología."
+        ]);
+
+        Porcentaje::create([
+            'id_requerimiento' => $idReq1->id,
+            'id_auxiliatura' => 1,
+            'id_tematica' => 1, 
+            'porcentaje' => 60
+        ]);
+        Porcentaje::create([
+            'id_requerimiento' => $idReq1->id,
+            'id_auxiliatura' => 1,
+            'id_tematica' => 2, 
+            'porcentaje' => 40
+        ]);
+
+        Porcentaje::create([
+            'id_requerimiento' => $idReq2->id,
+            'id_auxiliatura' => 2,
+            'id_tematica' => 1, 
+            'porcentaje' => 20
+        ]);
+        Porcentaje::create([
+            'id_requerimiento' => $idReq2->id,
+            'id_auxiliatura' => 2,
+            'id_tematica' => 2, 
+            'porcentaje' => 80
+        ]);
+
+        Porcentaje::create([
+            'id_requerimiento' => $idReq3->id,
+            'id_auxiliatura' => 3,
+            'id_tematica' => 1, 
+            'porcentaje' => 50
+        ]);
+        Porcentaje::create([
+            'id_requerimiento' => $idReq3->id,
+            'id_auxiliatura' => 3,
+            'id_tematica' => 2, 
+            'porcentaje' => 50
+        ]);
+
+        Porcentaje::create([
+            'id_requerimiento' => $idReq4->id,
+            'id_auxiliatura' => 4,
+            'id_tematica' => 1, 
+            'porcentaje' => 70
+        ]);
+        Porcentaje::create([
+            'id_requerimiento' => $idReq4->id,
+            'id_auxiliatura' => 4,
+            'id_tematica' => 2, 
+            'porcentaje' => 30
+        ]);
     }
 }
