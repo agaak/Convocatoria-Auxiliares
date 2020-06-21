@@ -398,16 +398,18 @@ function listaAux(datos, id) {
 
 // scripts de la navegacion de evaluador
 
-document.querySelector('.mis-convocatorias .menu-icono').addEventListener('click', () => {
-    $('.mis-convocatorias .menu').toggleClass('d-none');
-});
-
-document.querySelector('.btn-1').addEventListener('click', () => {
-    $('.menu-1').toggleClass('d-none');
-});
-
-document.querySelector('.btn-2').addEventListener('click', () => {
-    $('.menu-2').toggleClass('d-none');
-});
+if ((window.location.pathname).match(/calificar/) !== null) {
+    document.querySelector('.mis-convocatorias .menu-icono').addEventListener('click', () => {
+        $('.mis-convocatorias .menu').toggleClass('d-none');
+    });
+    
+    document.querySelector('.btn-2').addEventListener('click', () => {
+        $('.menu-2').toggleClass('d-none');
+    });
+} else if ((window.location.pathname).match(/evaluador/) !== null) {
+    document.querySelector('.mis-convocatorias .menu-icono').addEventListener('click', () => {
+        $('.mis-convocatorias .menu').toggleClass('d-none');
+    });
+}
 
 // fin de los scripts de la navegacion del evaluador
