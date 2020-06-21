@@ -10,23 +10,37 @@
           </thead>
           <tbody class="bg-white">
 
-              @foreach($lista as $item)
-                  <tr>
-                      <td class="text-center">{{ $item->descripcion_merito }}</td>
-                      <td class="text-center">{{ $item->porcentaje }}</td>
-                      <td class="text-center">
-                        @if(($item->calificacion)==null) -
-                        @else {{$item->calificacion}}
-                        @endif
-                      </td>
-                      <td class="text-center">
-                            <a type="button" data-toggle="modal" data-target="#modalCalificar" onclick="">
-                                <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-                            </a>
-                      </td>
-                  </tr>
-              @endforeach
-
+          @foreach($listaMeritos as $item)
+                <tr class="{{ $item[0] === null? 'table-secondary': 'table-light' }}">
+                    <td class="{{ $item[0] === null? 'font-weight-bold ': 'text-lowercase' }}"
+                        style="padding-left: {{ espacios($item[1]) }}px;">{{ $item[1] }}</td>
+                    <td class="text-center">{{ $item[2] }}</td>
+                    @if (!session()->get('ver'))
+                        <td>
+                        @foreach($lista as $item2)
+                            @if( ($item2->id) == $item[3] )
+                                @if( ($item2->calificacion) == 0 )
+                                    -
+                                @else
+                                    {{$item2->calificacion}}
+                                @endif 
+                            @else
+                            @endif
+                        @endforeach
+                        </td>
+                        <td>
+                        @foreach($lista as $item2)
+                            @if( ($item2->id) == $item[3] )
+                                <a type="button" data-toggle="modal" data-target="#modalCalificar">
+                                    <img src="{{ asset('img/pen.png') }}" width="30" height="30">
+                                </a>
+                            @else
+                            @endif
+                        @endforeach
+                        </td>
+                    @endif
+                </tr>
+            @endforeach
           </tbody>
     </table>
 </div>
