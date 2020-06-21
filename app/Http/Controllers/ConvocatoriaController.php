@@ -12,6 +12,8 @@ use App\Tipo;
 use App\Http\Requests\ConvocatoriaRequest;
 use App\Http\Controllers\Utils\ConvocatoriaComp as Convos;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
+use App\Http\Controllers\Utils\ConvocatoriaComp;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
@@ -87,8 +89,12 @@ class ConvocatoriaController extends Controller
             'publicado' => true
         ]);
         $evaluadorUtils =  new EvaluadorComp();
+        $convUtils = new ConvocatoriaComp();
         $evaluadores = $evaluadorUtils->getEvaluadoresConvo($id);
         foreach($evaluadores as $eva){
+
+            $contrasenia = $convUtils->uniqidReal();
+
             $roles = $evaluadorUtils->getRolesEvaluador($eva->id_eva_con);
             $lista_aux = $evaluadorUtils->getAuxsEvaluador($eva->id_eva_con);
             $lista_tem = $evaluadorUtils->getTemsEvaluador($eva->id_eva_con);
@@ -103,6 +109,13 @@ class ConvocatoriaController extends Controller
                 "tematicas" =>  $lista_tem,
                 "auxiliaturas" =>  $lista_aux
             ];
+
+            // User::create([
+            //     'name' => $eva->nombres,
+            //     'password' => bcrypt($contrasenia),
+            //     'email' => $correo,
+            //     'userToken' => $eva->ci
+            // ]);
             //Mail::send("emails.test", $datos, function($mensaje) use($nombres,$correo){
                 //$mensaje -> to($correo, $nombres) -> subject("Asignacion como evaluador");   
             //});
@@ -113,7 +126,7 @@ class ConvocatoriaController extends Controller
     public function download($id)
     {
         $file = Convocatoria::where('id', $id)->value('ruta_pdf');
-        return Storage::download($file);
+        return Storage::download($file, substr($file, 7 + strlen($id)));
     }
 
     /**

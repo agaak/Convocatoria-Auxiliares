@@ -7,11 +7,23 @@
 
         <h2> Calificacion de conocimientos</h2>
         
-        <h3>Calificacion</h3>
-
-        @component('components.calificaciones.tablaPostulantesConoc',
-            ['postulantes'=>$postulantes])
-        @endcomponent
+        <h3>Calificacion 
+            @foreach ($auxsTemsEval as $item)
+                @if ($item->id == $id_tem)
+                    {{ $item->nombre }}
+                @endif    
+            @endforeach
+        </h3>
+        @if ($tipoConv === 1)
+            @component('components.calificaciones.tablaPostulantesConocByTem',
+                ['postulantes'=>$postulantes])
+            @endcomponent 
+        @else
+            @component('components.calificaciones.tablaPostulantesConocByAux',
+                ['postulantes'=>$postulantes])
+            @endcomponent 
+        @endif
+        
     
     </div>
     
