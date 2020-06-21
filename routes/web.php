@@ -105,7 +105,8 @@ Route::get('convocatoria/ver/{id}', function($id) {
 
 Route::get('evaluador/merito/{idEst}', 'Evaluador\CalificacionMController@calificarMeritos')->name('evaluarM.calificarMeritos');
 
-
+//Lista estado de postulantes
+Route::get('convocatoria/adm-postulantes/habilitados','PDFpostulantesController@listHabilitados');
 
 // Estos siempres al final son un caso especial
 Route::resource('convocatoria/calificacion-meritos', 'Convocatoria\MeritoController');

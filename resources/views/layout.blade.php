@@ -170,7 +170,7 @@
             $('#postulantes').DataTable( {
                 "pageLength":25,
                 responsive: true,
-                dom: 'Bfrtip',
+                /* dom: 'Bfrtip',
                 buttons: [
                     {
                         extend: 'pdfHtml5',
@@ -182,7 +182,7 @@
                         doc.content[1].table.widths = ['30%','10%','15%','25%','15%']
                         }
                     }
-                ],
+                ], */
                 "columnDefs": [
                 { "orderable": false},
                 { "visible": false, "targets": 0 }
