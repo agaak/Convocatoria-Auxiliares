@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\DB;
 
 class MeritoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('view');
+    }
     /**
      * Display a listing of the resource.
      *

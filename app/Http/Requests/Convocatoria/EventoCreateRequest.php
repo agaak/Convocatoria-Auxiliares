@@ -39,14 +39,14 @@ class EventoCreateRequest extends FormRequest
     public function messages()
     {
         $convActual = Convocatoria::where('id', request()->session()->get('convocatoria'));
-        $fechaIniConv = $convActual->value('fecha_inicio').' 00:00:00';
-        $fechaFinConv = $convActual->value('fecha_final').' 23:59:59';
+        $fechaIniConv = date_create($convActual->value('fecha_inicio').' 00:00:00');
+        $fechaFinConv = date_create($convActual->value('fecha_final').' 23:59:59');
         return [
-            'fecha-ini-evento-evento.required' => 'El campo Fecha Inicio es obligatorio.',
-            'fecha-fin-evento-evento.required' => 'El campo Fecha Final es obligatorio.',
-            'fecha-ini-evento-evento.after_or_equal' => 'La Fecha Inicio debe ser una fecha posterior o igual a '.$fechaIniConv.'.',
-            'fecha-fin-evento-evento.before_or_equal' => 'La Fecha Final debe ser una fecha anterior o igual a '.$fechaFinConv.'.',
-            'fecha-fin-evento-evento.after_or_equal' => 'La Fecha Final debe ser una fecha posterior o igual a la fecha inicial.'
+            'fecha-ini-evento.required' => 'El campo Fecha Inicio es obligatorio.',
+            'fecha-fin-evento.required' => 'El campo Fecha Final es obligatorio.',
+            'fecha-ini-evento.after_or_equal' => 'La Fecha Inicio debe ser una fecha posterior o igual a '.date_format($fechaIniConv, 'd/m/Y H:i:s').'.',
+            'fecha-fin-evento.before_or_equal' => 'La Fecha Final debe ser una fecha anterior o igual a '.date_format($fechaFinConv, 'd/m/Y H:i:s').'.',
+            'fecha-fin-evento.after_or_equal' => 'La Fecha Final debe ser una fecha posterior o igual a la fecha inicial.'
         ];
     }
 }

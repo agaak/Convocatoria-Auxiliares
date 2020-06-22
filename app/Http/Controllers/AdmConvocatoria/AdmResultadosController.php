@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 
 class AdmResultadosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:administrador']);
+    }
     public function index()
     {
         return view('admConvocatoria.admResultados');

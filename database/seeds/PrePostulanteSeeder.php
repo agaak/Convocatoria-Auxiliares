@@ -15,7 +15,7 @@ class PrePostulanteSeeder extends Seeder
     {
 
         $prePos1 = PrePostulante::create([
-            'rotulo' => 12312301,
+            'rotulo' => 12312310,
             'id_convocatoria' => 1,
             'nombre' => 'Alejando',
             'apellido' => 'Calderon Agreda',
@@ -40,7 +40,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos2 = PrePostulante::create([
-            'rotulo' => 12312302,
+            'rotulo' => 12312311,
             'id_convocatoria' => 1,
             'nombre' => 'Karen',
             'apellido' => 'Mamani Lopez',
@@ -61,7 +61,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos3 = PrePostulante::create([
-            'rotulo' => 12312303,
+            'rotulo' => 12312312,
             'id_convocatoria' => 1,
             'nombre' => 'Alejandro',
             'apellido' => 'Colque Canchari',
@@ -78,7 +78,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos4 = PrePostulante::create([
-            'rotulo' =>12312304,
+            'rotulo' =>12312313,
             'id_convocatoria' => 1,
             'nombre' => 'Gustavo',
             'apellido' => 'Zanahoria Tomate',
@@ -95,7 +95,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos5 = PrePostulante::create([
-            'rotulo' =>12312305,
+            'rotulo' =>12312314,
             'id_convocatoria' => 1,
             'nombre' => 'Elias',
             'apellido' => 'Laura Flores',
@@ -116,7 +116,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos6 = PrePostulante::create([
-            'rotulo' => 12312306,
+            'rotulo' => 12312315,
             'id_convocatoria' => 1,
             'nombre' => 'Carlos',
             'apellido' => 'Torrico Lupe',
@@ -137,7 +137,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos7 = PrePostulante::create([
-            'rotulo' => 12312307,
+            'rotulo' => 12312316,
             'id_convocatoria' => 1,
             'nombre' => 'Erwin',
             'apellido' => 'Nuñez del Prado',
@@ -154,7 +154,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos8 = PrePostulante::create([
-            'rotulo' => 12312308,
+            'rotulo' => 12312317,
             'id_convocatoria' => 1,
             'nombre' => 'Diego',
             'apellido' => 'Colque Mamani',
@@ -171,7 +171,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos9 = PrePostulante::create([
-            'rotulo' =>12312309,
+            'rotulo' =>12312318,
             'id_convocatoria' => 1,
             'nombre' => 'Jaime',
             'apellido' => 'Alfonso Lopez',
@@ -196,7 +196,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos10 = PrePostulante::create([
-            'rotulo' => 12312310,
+            'rotulo' => 12312319,
             'id_convocatoria' => 1,
             'nombre' => 'Francisco',
             'apellido' => 'Onofre Arrazola',
@@ -217,7 +217,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos11 = PrePostulante::create([
-            'rotulo' => 22312301,
+            'rotulo' => 12312320,
             'id_convocatoria' => 2,
             'nombre' => 'Antonio',
             'apellido' => 'Calderon Agreda',
@@ -242,7 +242,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos12 = PrePostulante::create([
-            'rotulo' => 32312302,
+            'rotulo' => 12312321,
             'id_convocatoria' => 2,
             'nombre' => 'Miguel',
             'apellido' => 'Mamani Lopez',
@@ -263,7 +263,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos13 = PrePostulante::create([
-            'rotulo' => 42312303,
+            'rotulo' => 12312322,
             'id_convocatoria' => 2,
             'nombre' => 'Rafael',
             'apellido' => 'Colque Canchari',
@@ -280,7 +280,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos14 = PrePostulante::create([
-            'rotulo' => 52312304,
+            'rotulo' => 12312323,
             'id_convocatoria' => 2,
             'nombre' => 'Antonia',
             'apellido' => 'Zanahoria Tomate',
@@ -297,7 +297,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos15 = PrePostulante::create([
-            'rotulo' => 62312305,
+            'rotulo' => 12312324,
             'id_convocatoria' => 2,
             'nombre' => 'Sara',
             'apellido' => 'Laura Flores',
@@ -318,7 +318,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos16 = PrePostulante::create([
-            'rotulo' => 72312306,
+            'rotulo' => 12312325,
             'id_convocatoria' => 2,
             'nombre' => 'Lucia',
             'apellido' => 'Torrico Lupe',
@@ -339,7 +339,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos17 = PrePostulante::create([
-            'rotulo' => 82312307,
+            'rotulo' => 12312326,
             'id_convocatoria' => 2,
             'nombre' => 'Dolores',
             'apellido' => 'Nuñez del Prado',
@@ -356,7 +356,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos18 = PrePostulante::create([
-            'rotulo' => 92312308,
+            'rotulo' => 12312327,
             'id_convocatoria' => 2,
             'nombre' => 'Paula',
             'apellido' => 'Colque Mamani',
@@ -373,7 +373,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos19 = PrePostulante::create([
-            'rotulo' => 29312309,
+            'rotulo' => 12312328,
             'id_convocatoria' => 2,
             'nombre' => 'Manuela',
             'apellido' => 'Alfonso Lopez',
@@ -398,7 +398,7 @@ class PrePostulanteSeeder extends Seeder
         ]);
 
         $prePos20 = PrePostulante::create([
-            'rotulo' => 39312310,
+            'rotulo' => 12312329,
             'id_convocatoria' => 2,
             'nombre' => 'Jesus',
             'apellido' => 'Onofre Arrazola',

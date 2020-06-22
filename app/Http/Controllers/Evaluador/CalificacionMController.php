@@ -11,6 +11,11 @@ use App\Http\Controllers\Utils\Convocatoria\MeritoComp;
 
 class CalificacionMController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:evaluador']);
+    }
+    
     public function index($id){
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
         session()->put('convocatoria',$id);

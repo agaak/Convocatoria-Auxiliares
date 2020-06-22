@@ -256,7 +256,7 @@ function comprobarRotulo(listaRotulos,listaAux) {
     document.getElementById("bttn-post").disabled = false;
     let existe = true;
     for (const item of listaRotulos) {
-        if($('#adm-post-rotulo').val() == item['id']) {
+        if($('#adm-post-rotulo').val() == item['rotulo']) {
             existe = false;
             $('#err').removeClass('error');
             $('#rotulo-no-existe').removeClass('d-none');

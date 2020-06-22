@@ -20,6 +20,11 @@ use App\Merito;
 
 class AdmPostulantesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:administrador']);
+    }
+    
     public function index()
     {
         $id_conv = session()->get('convocatoria');

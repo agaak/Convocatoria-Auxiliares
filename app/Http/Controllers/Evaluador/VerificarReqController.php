@@ -16,6 +16,11 @@ use App\Http\Controllers\Utils\Evaluador\MenuDina;
 
 class VerificarReqController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:evaluador']);
+    }
+    
     public function index($idPostulante) {
         $idConv = session()->get('convocatoria');
 

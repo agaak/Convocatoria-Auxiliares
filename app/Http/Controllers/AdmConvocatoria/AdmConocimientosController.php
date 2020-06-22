@@ -18,6 +18,11 @@ use App\Tipo_evaluador;
 
 class AdmConocimientosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:administrador']);
+    }
+
     public function index()
     {
         $id_conv = session()->get('convocatoria');

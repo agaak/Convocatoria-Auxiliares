@@ -386,16 +386,31 @@ input[type=number] {
 .card-personal-body {
     padding: .8rem;
 }
-
-/* .astronauta {
+/* Error 500 */
+.astronauta {
+    position: relative;
+    margin: 0 auto;
     width: 500px;
     height: 500px;
     background-image: url('/img/astronauta.png');
     background-size: contain;
     background-repeat: no-repeat;
-    transform: rotate(55deg);
-    margin-left: 5rem;
-} */
+}
+.error-500 {
+    text-align: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.text-error {
+    position: absolute;
+    top: 45px;
+    left: 230px;
+    color: blueviolet;
+    font-style: italic;
+    transform: rotate(-45deg);
+}
+/* Fin de error 500 */
 
 /* .texto-personal {
     font-style: italic;

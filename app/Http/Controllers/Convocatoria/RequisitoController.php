@@ -10,6 +10,11 @@ use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
 use App\Requisito;
 class RequisitoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('view');
+    }
+    
     public function requirementsValid(RequisitoCreateRequest $request){
         $requisito = new Requisito();
         $requisito -> id_convocatoria=$request->session()->get('convocatoria');

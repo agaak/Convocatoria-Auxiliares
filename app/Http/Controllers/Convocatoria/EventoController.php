@@ -13,6 +13,10 @@ use App\EventoImportante;
 
 class EventoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('view');
+    }
     
     public function importantDates(Request $request){
         $convActual = $request->session()->get('convocatoria');
