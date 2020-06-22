@@ -81,19 +81,28 @@ body {
     text-shadow: 1px 1px 2px gray;
 }
 
+.login {
+    color: black !important;
+    border-radius: 10px 10px;
+}
+
 .navbar-collapse-color ul li {
     padding: 0 10px;
 }
 
 .navbar-collapse-color ul li a:hover,
 .navbar-collapse-color ul li a.activate,
-.login:hover,
 .login.activate {
     box-shadow: 0 0 5px black inset;
     background-color: white;
     color: #001523 !important;
 }
 
+.login:hover {
+    box-shadow: 0 0 5px black;
+    background-color: white;
+    color: #001523 !important;
+}
 
 /* Contenido  entre el header y el footer*/
 .content-div {
@@ -378,7 +387,7 @@ input[type=number] {
     padding: .8rem;
 }
 
-.astronauta {
+/* .astronauta {
     width: 500px;
     height: 500px;
     background-image: url('/img/astronauta.png');
@@ -386,17 +395,18 @@ input[type=number] {
     background-repeat: no-repeat;
     transform: rotate(55deg);
     margin-left: 5rem;
-}
+} */
 
-.texto-personal {
+/* .texto-personal {
     font-style: italic;
     color: #29205E;
     font-size: 24px;
     position: absolute;
     top: 320px;
     left: 770px;
-}
+} */
 
 .contenido-mis-convocatorias {
     width: 100%;
+    margin: 0 1rem;
 }

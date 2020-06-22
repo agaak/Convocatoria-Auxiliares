@@ -7,73 +7,44 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Postulante;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Utils\Convocatoria\MeritoComp;
 
 class CalificacionMController extends Controller
 {
     public function index($id){
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
         session()->put('convocatoria',$id);
-        $postulantes= Postulante::select('postulante.*', 'calf_final_postulante_merito.nota_final_merito as nota')
+        $postulantes= Postulante::select('postulante.*', 'calf_final_postulante_merito.nota_final_merito as nota', 'calf_final_postulante_merito.id as idNF')
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
         ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
         ->get();
         return $postulantes;//view('evaluador.calificarMeritos', compact('convs', 'id', 'postulantes'));
     }
 
-    public function calificarMeritos( $idEst){
+    public function calificarMeritos($idEst){
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
         $id= session()->get('convocatoria');
-        $lista=$this->ordenar($id, $idEst); 
-        return view('evaluador.calificarMeritosEstudiante',compact('convs','id', 'lista'));
-    }
+        $estudiante=DB::table('postulante')->where('id', $idEst)->get();
+        $idNotaFinalMerito=DB::table('calf_final_postulante_merito')
+                            ->where('calf_final_postulante_merito.id_postulante', $idEst)
+                            ->where('calf_final_postulante_merito.id_convocatoria',$id)
+                            ->select( 'calf_final_postulante_merito.*')
+                            ->get();
+        $notaFinalMerito=DB::table('calf_final_postulante_merito')
+                            ->join('calificacion_merito', 'calificacion_merito.id_calf_final','=', 'calf_final_postulante_merito.id')
+                            ->where('calf_final_postulante_merito.id_postulante', $idEst)
+                            ->where('calf_final_postulante_merito.id_convocatoria',$id)
+                            ->select(    
+                                    DB::raw('COUNT(calificacion_merito.id_postulante) as numero'), 
+                                    DB::raw('SUM(calificacion_merito.calificacion) as m_total'))
+                            ->get();
+        $lista= DB::table('calificacion_merito')->select('merito.*', 'calificacion_merito.calificacion as calificacion')
+                    ->join('merito', 'merito.id', '=', 'calificacion_merito.id_merito')
+                    ->where('merito.id_convocatoria', $id)
+                    ->where('calificacion_merito.id_postulante', $idEst)
+                    ->get(); 
+        $listaMeritos=(new MeritoComp)->getMeritos($id);
 
-    function ordenar($id, $idEst){
-        $meritList = DB::table('calificacion_merito')->select('merito.*', 'calificacion_merito.calificacion as calificacion')
-                        ->join('merito', 'merito.id', '=', 'calificacion_merito.id_merito')
-                        ->where('merito.id_convocatoria', $id)
-                        ->where('calificacion_merito.id_postulante', $idEst)
-                        ->get();
-        $llenarLista = [];
-        $listaInicial = [];
-        foreach ($meritList as $value) {
-            $listaInicial = [];
-            array_push($listaInicial, $value->id_submerito);
-            array_push($listaInicial, $value->descripcion_merito);
-            array_push($listaInicial, $value->porcentaje);
-            array_push($listaInicial, $value->id);
-            array_push($listaInicial, $value->calificacion);
-            array_push($listaInicial, false);
-            $llenarLista[$value->id] = $listaInicial;
-        } 
-        function buscarPerteneciente($original, $identificador, $arreglo, $caracteres, $cadena) {
-            $contador = 1;
-            $cadenaTempral = "";
-            foreach ($original as $key => $value) {
-                if ($value[0] !== null) {
-                    $value[5]=true;
-                    if($value[0] === $identificador) {
-                        $cadenaTemporal = $cadena.$contador;
-                        $value[1] = chr($caracteres).$cadenaTemporal.') '.$value[1];
-                        array_push($arreglo, $value);
-                        $arreglo = buscarPerteneciente($original ,$key, $arreglo, $caracteres, $cadenaTemporal.'.');
-                        $contador++;
-                    }
-                }
-            }
-            return $arreglo;
-        }
-
-        $listaOrdenada = [];
-        $caracteres = 321;
-        foreach ($llenarLista as $key => $value) {
-            if ($value[0] === null) {
-                $value[1] = chr($caracteres).') '.$value[1];
-                array_push($listaOrdenada, $value);
-                $listaOrdenada = buscarPerteneciente($llenarLista, $key, $listaOrdenada, $caracteres, '.');
-                $caracteres++;
-            }
-        }
-
-        return $listaOrdenada;
+        return view('evaluador.calificarMeritosEstudiante',compact('convs','id', 'lista', 'estudiante', 'listaMeritos','idNotaFinalMerito','notaFinalMerito'));
     }
 }

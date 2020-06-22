@@ -14,10 +14,16 @@
                 @endif    
             @endforeach
         </h3>
-
-        @component('components.calificaciones.tablaPostulantesConoc',
-            ['postulantes'=>$postulantes])
-        @endcomponent
+        @if ($tipoConv === 1)
+            @component('components.calificaciones.tablaPostulantesConocByTem',
+                ['postulantes'=>$postulantes])
+            @endcomponent 
+        @else
+            @component('components.calificaciones.tablaPostulantesConocByAux',
+                ['postulantes'=>$postulantes])
+            @endcomponent 
+        @endif
+        
     
     </div>
     

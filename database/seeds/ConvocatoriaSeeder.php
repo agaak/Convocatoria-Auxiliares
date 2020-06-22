@@ -118,7 +118,7 @@ class ConvocatoriaSeeder extends Seeder
         Convocatoria::create([
             'id_unidad_academica' => 1,              
             'id_tipo_convocatoria'=> 2,
-            'titulo'=> 'Convocatoria a concurso de méritos y prueba de conocimientos para optar a auxiliatura de docencia',
+            'titulo'=> 'Convocatoria para optar a Auxiliatura de Docencia',
             'descripcion_convocatoria'=> 'Se precisa auxiliatura de docencia para la Carreras de Ing. Informática e Ing.
             De Sistemas de la Facultad de Ciencias y Tecnología, convoca al concurso de méritos y
             examen de competencia para la provisión de Auxiliares de Docencia, tomando como

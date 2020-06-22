@@ -96,7 +96,7 @@ Route::put('evaluador/calificar/requisitos/actualizar','Evaluador\VerificarReqCo
 
 Route::get('evaluador/calificar/merito', 'Evaluador\CalificarMeritoController@index')->name('calificarMerito.index');
 
-Route::get('evaluador/calificar/conocimiento/{id}', 'Evaluador\CalificarConocController@index')->name('calificarConoc.index');
+Route::get('evaluador/calificar/conocimiento/{id}/{tem}', 'Evaluador\CalificarConocController@index')->name('calificarConoc.index');
 Route::post('evaluador/calificar/conocimiento', 'Evaluador\CalificarConocController@store')->name('calificarConoc.store');
 Route::get('evaluador/calificar/conocimiento/oral', 'Evaluador\CalificarConocController@oral')->name('calificarConoc.oral');
 Route::get('evaluador/calificar/conocimiento/escrito', 'Evaluador\CalificarConocController@escrito')->name('calificarConoc.escrito');
@@ -114,7 +114,8 @@ Route::get('convocatoria/ver/{id}', function($id) {
 
 Route::get('evaluador/merito/{idEst}', 'Evaluador\CalificacionMController@calificarMeritos')->name('evaluarM.calificarMeritos');
 
-
+//Lista estado de postulantes
+Route::get('convocatoria/adm-postulantes/habilitados','PDFpostulantesController@listHabilitados');
 
 // Estos siempres al final son un caso especial
 Route::resource('convocatoria/calificacion-meritos', 'Convocatoria\MeritoController');
