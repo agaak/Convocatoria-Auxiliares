@@ -249,16 +249,16 @@ class AdmConocimientosController extends Controller
 
     public function email($id)
     {
-        return 1;
-        $id_conv = session()->get('convocatoria');
+    
+       $id_conv = session()->get('convocatoria');
 
-        $id_eva_conv = EvaluadorConovocatoria::where('id_convocatoria',$id_conv)
-            ->where('id_evaluador',$id)->value('id');
+        // $id_eva_conv = EvaluadorConovocatoria::where('id_convocatoria',$id_conv)
+        //     ->where('id_evaluador',$id)->value('id');
             
-        EvaluadorTematica::where('id_evaluador_convocatoria',$id_eva_conv)->delete();
-        EvaluadorAuxiliatura::where('id_evaluador_convocatoria',$id_eva_conv)->delete();
+        // EvaluadorTematica::where('id_evaluador_convocatoria',$id_eva_conv)->delete();
+        // EvaluadorAuxiliatura::where('id_evaluador_convocatoria',$id_eva_conv)->delete();
 
-        Tipo_evaluador::where('id_evaluador_convocatoria',$id_eva_conv)->where('id_rol_evaluador','2')->delete();
+        // Tipo_evaluador::where('id_evaluador_convocatoria',$id_eva_conv)->where('id_rol_evaluador','2')->delete();
 
         
         return back();
