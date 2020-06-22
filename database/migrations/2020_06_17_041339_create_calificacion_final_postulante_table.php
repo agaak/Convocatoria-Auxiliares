@@ -19,7 +19,7 @@ class CreateCalificacionFinalPostulanteTable extends Migration
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria') ->onDelete('cascade');
             $table->integer('id_postulante');
             $table->foreign('id_postulante')->references('id')->on('postulante') ->onDelete('cascade');
-            $table->integer('nota_final_merito')->nullable();
+            $table->double('nota_final_merito', 2, 2)->nullable();
             $table->timestamps();
         });
     }

@@ -21,7 +21,7 @@ class CreateCalificacionMeritoTable extends Migration
             $table->foreign('id_merito')->references('id')->on('merito') ->onDelete('cascade');
             $table->integer('id_calf_final');
             $table->foreign('id_calf_final')->references('id')->on('calf_final_postulante_merito') ->onDelete('cascade');
-            $table->integer('calificacion')->nullable();
+            $table->double('calificacion', 2, 2)->nullable();
             $table->timestamps();
         });
     }

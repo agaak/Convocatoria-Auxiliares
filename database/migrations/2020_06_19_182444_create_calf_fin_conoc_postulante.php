@@ -21,7 +21,7 @@ class CreateCalfFinConocPostulante extends Migration
             $table->foreign('id_postulante')->references('id')->on('postulante') ->onDelete('cascade');
             $table->integer('id_auxiliatura');
             $table->foreign('id_auxiliatura')->references('id')->on('auxiliatura') ->onDelete('cascade');
-            $table->integer('nota_final_conoc')->nullable();
+            $table->double('nota_final_conoc', 2, 2)->nullable();
             $table->timestamps();
         });
     }

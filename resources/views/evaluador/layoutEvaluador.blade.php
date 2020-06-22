@@ -19,7 +19,7 @@
                     <ul class="menu">
                     @foreach ($roles as $rol)
                         @if ($rol->nombre == 'Meritos')
-                            <li class="menu-item"><a class="menu-link" href="#">Requisito</a></li>
+                            <li class="menu-item"><a class="menu-link" href="{{ route('calificarRequisitosPost.index') }}">Requisito</a></li>
                             <li class="menu-item"><a class="menu-link" href="{{ route('calificarMerito.index') }}">Merito</a></li>
                         @endif
                         @if ($rol->nombre == 'Conocimientos')

@@ -90,6 +90,7 @@ Route::get('evaluador', 'Evaluador\EvaluadorController@index')->name('evaluador.
 Route::get('evaluador/calificar', 'Evaluador\CalificarController@index')->name('calificar.index');
 
 
+Route::get('evaluador/calificar/requisitos','Evaluador\CalificarRequisitoController@index')->name('calificarRequisitosPost.index');
 Route::get('evaluador/calificar/requisitos/{idPostulante}','Evaluador\VerificarReqController@index')->name('calificarRequisito.index');
 Route::put('evaluador/calificar/requisitos/actualizar','Evaluador\VerificarReqController@update')->name('calificarRequisito.update');
 
