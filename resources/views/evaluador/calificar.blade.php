@@ -8,7 +8,7 @@
                 <div class="row text-center my-4">
                     <div class="col-sm-6">
                         <div class="card-personal">
-                            <a class="card-personal-title" href="">Requisito</a>
+                            <a class="card-personal-title" href="{{ route('calificarRequisitosPost.index') }}">Requisito</a>
                             <p class="card-personal-body">Descripción de los requisitos de esta convocatoria</p>
                         </div>
                     </div>

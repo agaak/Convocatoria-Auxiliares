@@ -32,7 +32,8 @@
                             <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a> 
                         @endif
                         @if (auth()->user()->hasRoles(['evaluador']))
-                                    <p>options evaluador</p>
+                        <a href="{{ route('helper.redirect', $convo->id) }}" style="background-color:#2F2D4A; color:white;"
+                            class="btn btn-sm">{{ csrf_field() }}Evaluar</a>
                         @endif
                     @else
                         <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a> 
@@ -40,7 +41,7 @@
                             Postular ahora </a>
                     @endif                      
                     <a href="{{ route('convocatoria.download',$convo->id ) }}" style="color:white;"
-                    class="btn btn-info btn-sm">Descargar PDF</a>
+                    class="btn btn-info btn-sm">Descargar</a>
                     </div>
                     <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
                     convocatoria esta en curso.</div>
