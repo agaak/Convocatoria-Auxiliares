@@ -98,6 +98,7 @@ class ConvocatoriaController extends Controller
             $datos=[    
                 "titulo" => $eva->titulo,
                 "ci" =>  $eva->ci,
+                "contrasenia" =>  $contrasenia,
                 "usuario" =>  $eva->nombre,
                 "nombres" => $nombres,
                 "rol" => $roles,

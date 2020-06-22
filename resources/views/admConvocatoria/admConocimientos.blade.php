@@ -50,8 +50,12 @@
                         <img src="{{ asset('img/trash.png') }}" width="25" height="30">
                       </button>
                     </form>
-                    <a class="options" href="{{ route('calificarRequisito.index', $evaluador->id) }}">
-                        <img src="{{ asset('img/email.png') }}" width="30" height="32"></a>
+                    <form class="d-inline" action="{{ route('admConocimientosEmail', $evaluador->id) }}" method="POST">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-link">
+                          <img src="{{ asset('img/email.png') }}" width="30" height="32">
+                        </button>
+                      </form>
                   </td>  
             </tr>
             @foreach ($lista_tem_aux as $tem_aux)
