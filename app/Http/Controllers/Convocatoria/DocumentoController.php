@@ -9,6 +9,10 @@ use App\Http\Controllers\Utils\Convocatoria\DocumentoComp;
 use App\Documento;
 class DocumentoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('view');
+    }
     public function documentoValid(Request $request){
         $convActual = request()->session()->get('convocatoria');
         request()->validate([

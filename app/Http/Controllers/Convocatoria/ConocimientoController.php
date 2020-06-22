@@ -20,6 +20,10 @@ use App\Requisito;
 
 class ConocimientoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('view');
+    }
     public function knowledgeRating(Request $request){
         $id_conv = $request->session()->get('convocatoria');
         $convActual = DB::table('convocatoria')->find($id_conv);

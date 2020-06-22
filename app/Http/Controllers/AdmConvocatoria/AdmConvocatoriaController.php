@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 class AdmConvocatoriaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:administrador']);
+    }
+    
     public function index()
     {   
         

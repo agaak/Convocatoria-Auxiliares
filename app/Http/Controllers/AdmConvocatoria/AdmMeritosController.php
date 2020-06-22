@@ -13,6 +13,11 @@ use App\Http\Controllers\Controller;
 
 class AdmMeritosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:administrador']);
+    }
+    
     public function index()
     {
         $id_conv = session()->get('convocatoria');

@@ -3,20 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Convocatoria;
-use App\Tipo_evaluador;
-use App\EvaluadorConocimientos;
-use App\EvaluadorAuxiliatura;
-use App\EvaluadorTematica;
 use App\Requerimiento;
 use App\Tipo;
 use App\Http\Requests\ConvocatoriaRequest;
 use App\Http\Controllers\Utils\ConvocatoriaComp as Convos;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use App\Http\Controllers\Utils\ConvocatoriaComp;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Mail;
 
 
 class ConvocatoriaController extends Controller
@@ -37,6 +31,7 @@ class ConvocatoriaController extends Controller
         $convos =  (new Convos)->getConvocatorias();
         $convosPublicas =  (new Convos)->getConvocatoriasPublicas();
         session()->forget('convocatoria');
+        session()->forget('ver');
         $auxs = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
             ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();

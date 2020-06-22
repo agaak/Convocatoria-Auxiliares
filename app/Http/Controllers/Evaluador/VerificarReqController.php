@@ -15,6 +15,11 @@ use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
 
 class VerificarReqController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:evaluador']);
+    }
+    
     public function index($idPostulante) {
         $idConv = session()->get('convocatoria');
         // $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;

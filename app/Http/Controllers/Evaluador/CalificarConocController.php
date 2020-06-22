@@ -16,6 +16,11 @@ use App\Http\Controllers\Utils\ConvocatoriaComp;
 
 class CalificarConocController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:evaluador']);
+    }
+    
     public function index($id_tem,$nom){
         $menu = new MenuDina();
         $convs = $menu->getConvs(); 

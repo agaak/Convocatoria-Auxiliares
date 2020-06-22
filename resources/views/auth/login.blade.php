@@ -38,7 +38,7 @@
                             </div>
                         </div>
 
-                        {{-- <div class="form-group row">
+                        <div class="form-group row">
                             <div class="col-md-8 ml-auto">
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -46,15 +46,15 @@
                                     </label>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="form-group row">
                             <div class="col-sm-8 ml-auto">
                                 <button type="submit" class="btn btn-primary">Iniciar sesión</button>
 
-                                {{-- <a class="btn btn-link" href="{{ route('password.request') }}">
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
                                     ¿Olvidaste tu Contraseña?
-                                </a> --}}
+                                </a>
                             </div>
                         </div>
                     </form>

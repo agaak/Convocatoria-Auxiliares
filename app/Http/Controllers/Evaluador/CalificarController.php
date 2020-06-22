@@ -12,6 +12,11 @@ use App\Http\Controllers\Utils\ConvocatoriaComp;
 
 class CalificarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:evaluador']);
+    }
+    
     public function index(){
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
         foreach ($convs as $conv) {

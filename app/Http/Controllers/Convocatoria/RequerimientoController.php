@@ -13,6 +13,11 @@ use App\Porcentaje;
 
 class RequerimientoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('view');
+    }
+
     public function create(RequerimientoCreateRequest $request){  
         $id_conv = $request->session()->get('convocatoria');
         $aux = explode('|', $request->get('id-aux'));
