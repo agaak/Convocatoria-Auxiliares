@@ -31,9 +31,9 @@
                         <td>
                         @foreach($lista as $item2)
                             @if( ($item2->id) == $item[3] )
-                                <a type="button" data-toggle="modal" data-target="#modalCalificar">
+                                <button data-toggle="modal" class="btn btn-link" onclick="mostrarModalMeritos({{ json_encode($item2) }},{{ json_encode($item)}})" data-target="#modalCalificar">
                                     <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-                                </a>
+                                </button>
                             @else
                             @endif
                         @endforeach

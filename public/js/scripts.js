@@ -413,3 +413,41 @@ if ((window.location.pathname).match(/calificar/) !== null) {
 }
 
 // fin de los scripts de la navegacion del evaluador
+
+//calificar merito estudiante
+function mostrarModalMeritos(calificacionMerito, formato){
+    document.getElementById("porcentajeMerito").innerHTML = calificacionMerito.porcentaje;
+    document.getElementById("descripcion").innerHTML=formato[1];
+    $("#idMerito").val(calificacionMerito.id);
+}
+
+function calcular(){
+    notas=document.getElementById("notasMeritos").value;
+    if((notas !== "") && (notas !== null)){
+        listaNotas=validar(notas);
+        if (listaNotas !== null){
+            console.log(document.getElementById('inlineRadio2').checked);    
+            console.log(document.getElementById('inlineRadio1').checked);
+            console.log(listaNotas);
+            $("#porcentaje").val('oki segundo');
+            $("#notaMerito").val("oki");
+        }
+    }else{
+        console.log("insertar notas");
+    }
+
+} 
+
+function validar(notas){
+    lista=notas.split("+");
+    longi=lista.length;
+    for(indice= 0; indice < longi; indice++){
+        if(isNaN(lista[indice])){
+            lista=null;
+            break;
+        }
+    }
+    return lista;
+}
+    
+//fin calificar merito estudiante

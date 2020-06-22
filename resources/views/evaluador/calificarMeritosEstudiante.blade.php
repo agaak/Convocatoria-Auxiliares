@@ -43,7 +43,7 @@
         </form>
     </div>
 
-    {{-- Modal del añadir merito --}}
+    {{-- Modal del calificar merito --}}
     <div class="modal fade" id="modalCalificar" tabindex="-1" role="dialog" aria-labelledby="meritModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -55,24 +55,55 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h6>Merito/submerito: presenta el "X" %</h6>  
-                    <p>nota merito submerito</p>
-                    <form method="POST" action="{{ route('calificacion-meritos.store') }}" id="merit-form">
-                        {{ csrf_field() }}
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="promedio" name="promedio" class="custom-control-input">
-                            <label class="custom-control-label" for="promedio">Promedio</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="puntos" name="customRadioInline1" class="custom-control-input">
-                            <label class="custom-control-label" for="puntos">Puntos</label>
+                    <h6>Merito/submerito: presenta el <span id=porcentajeMerito></span> %</h6>  
+                    <p id='descripcion'>nota merito submerito</p>
+                    
+                    <form method="POST" action="#" id="merit-form">
+                    {{ csrf_field() }}
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <p>Evaluar por:</p>
+                            </div>
+                            <div class="form-group col-md-9">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" required checked>     
+                                    <label class="form-check-label" for="inlineRadio2">Promedio</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" required>
+                                    <label class="form-check-label" for="inlineRadio1">Puntos</label>
+                                </div>                                
+                            </div>
                         </div>
 
-                        
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="inputEmail3" class="col-form-label" required>Notas:</label>       
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <input type="text" name="notasMeritos" id="notasMeritos" >
+                            </div>
+                            <div class="form-group col-md-3">
+                                <button type="button" class="btn btn-info" onclick="calcular()">Calcular</button>
+                            </div>
+                        </div>
+                        <input type="text" name="idMerito" id="idMerito" hidden readonly>
+                        <div class="form-row">
+                            <label class="col-sm-3 col-form-label" required>Nota:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control-plaintext" id="notaMerito" name="notaMerito" readonly>
+                            </div>
+                            <label class="col-sm-3 col-form-label">Porcentaje:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control-plaintext" id="porcentaje" name="porcentaje" readonly>
+                            </div>
+                        </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button   button type="submit" class="btn btn-info" form="merit-form">Guardar</button>
+                            <button type="submit" class="btn btn-info" form="merit-form" disabled="true">Guardar</button>
                         </div>
                     </form>
                 </div>
