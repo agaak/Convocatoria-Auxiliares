@@ -66,18 +66,18 @@
           @endforeach
         </div>
       </form>
+      <div>
         @if (session('errorCalificarReq')) 
         <label class="message-error text-center text-danger col-sm-12" id="errorRequisito">
           {{ session('errorCalificarReq') }}
-        </strong>
-            
+        </strong>    
         @endif
+      </div>
       <div style= "float: right;">
-        <button type="submit" class="btn btn-secondary" value="Cancelar" onclick="window.location ='{{ route("documentos") }}'">
+        <button id="bttn-cancel-requisitos" name="bttn-cancel-requisitos" type="submit" class="btn btn-secondary" value="Cancelar" onclick="window.location ='{{ route("calificarRequisitosPost.index") }}'">
           Cancelar
         </button>
-        <button type="submit" class="btn btn-info" value="Guardar" form="calificar-requisitos"
-        onclick="validarAreasRequisitos();">
+        <button id="bttn-save-requisitos" type="submit" class="btn btn-info" value="Guardar" form="calificar-requisitos">
           Guardar
         </button>
       </div>
