@@ -12,27 +12,28 @@ use App\EvaluadorConovocatoria;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
+use App\Http\Controllers\Utils\Evaluador\MenuDina;
 
 class VerificarReqController extends Controller
 {
     public function index($idPostulante) {
         $idConv = session()->get('convocatoria');
-        // $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
-        // foreach ($convs as $conv) {
-        //     if ($conv->id == $idConv)
-        //         $pivot = $conv->pivot;
-        // }
-        // $idEC = EvaluadorConovocatoria::where('id_convocatoria', $pivot['id_convocatoria'])->
-        //                                 where('id_evaluador', $pivot['id_evaluador'])->value('id');
-        // $rolsEval = new EvaluadorComp();
-        // $roles = $rolsEval->getRolesEvaluador($idEC);
-        // $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        // $auxsTemsEval = $tipoConv === 1? $rolsEval->getTemsEvaluador($idEC) :$rolsEval->getAuxsEvaluador($idEC);
-        
+
+        $menu = new MenuDina();
+        $convs = $menu->getConvs(); 
+        $compEval = new EvaluadorComp();
+        $idEC = $compEval->getIdEvaConv();
+        $roles = $compEval->getRolesEvaluador($idEC);
+        $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
+        $auxsTemsEval = $tipoConv === 1? $compEval->getTemsEvaluador($idEC) :$compEval->getAuxsEvaluador($idEC);
+
+
         $postulante = Postulante::where('id','=',$idPostulante)->first();
         $auxiliaturas = Postulante_auxiliatura::where('id_postulante','=',$idPostulante)
+                        // ->join('postulante_conovocatoria', 'postulante_auxiliatura.id_postulante', '=', 'postulante_conovocatoria.id')
                         ->join('auxiliatura', 'postulante_auxiliatura.id', '=', 'auxiliatura.id')
                         ->join('postulante_req_aux', 'postulante_auxiliatura.id', '=', 'postulante_req_aux.id')
+                        // ->where('id_convocatoria','=',$id)
                         ->get();
         $requisitos = (new RequisitoComp)->getRequisitos($idConv);
 
@@ -44,7 +45,7 @@ class VerificarReqController extends Controller
                         'observacion' => $auxiliatura->observacion,);
             }
         }
-        return view('evaluador.calificarRequisito', compact('postulante','auxiliaturas','requisitos','mapVerifications'));
+        return view('evaluador.calificarRequisito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulante','auxiliaturas','requisitos','mapVerifications'));
     }
 
     public function update(Request $request){

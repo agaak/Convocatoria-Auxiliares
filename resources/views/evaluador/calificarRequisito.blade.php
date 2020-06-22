@@ -1,9 +1,6 @@
-{{-- @extends('evaluador.layoutEvaluador')
+@extends('evaluador.layoutEvaluador')
 
-@section('content-evaluador') --}}
-@extends('layout')
-
-@section('content')
+@section('content-evaluador')
     <div class="overflow-auto content" id="editEvalRequisitos">
         <h2> Calificacion de Requisitos</h2>
         <h3> {{ $postulante->nombre.' '.$postulante->apellido }} </h3>
@@ -76,7 +73,7 @@
             
         @endif
       <div style= "float: right;">
-        <button type="submit" class="btn btn-secondary" value="Cancelar" data-dismiss="modal" onclick="window.location ='{{ route("documentos") }}'">
+        <button type="submit" class="btn btn-secondary" value="Cancelar" onclick="window.location ='{{ route("documentos") }}'">
           Cancelar
         </button>
         <button type="submit" class="btn btn-info" value="Guardar" form="calificar-requisitos"

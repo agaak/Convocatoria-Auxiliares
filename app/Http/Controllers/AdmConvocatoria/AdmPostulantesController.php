@@ -4,11 +4,13 @@ namespace App\Http\Controllers\AdmConvocatoria;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
 use App\Postulante;
 use App\PrePostulante;
 use App\Auxiliatura;
 use App\Postulante_auxiliatura;
 use App\Postulante_conovocatoria;
+use App\Postulante_req_aux;
 use App\PostuCalifConoc;
 use App\PostuCalifConocFinal;
 use App\PostuCalifMerito;
@@ -56,6 +58,7 @@ class AdmPostulantesController extends Controller
         $postulante_con->id_postulante =  $postulante->id;
         $postulante_con->id_convocatoria = request()->input('id-conv-postulante');
         $postulante_con->save();
+        $requisitos = (new RequisitoComp)->getRequisitos(session()->get('convocatoria'));
 
         $arreglo = request()->input('auxiliaturas'); 
         foreach ($arreglo as $aux) {
@@ -69,6 +72,12 @@ class AdmPostulantesController extends Controller
             $post_calf_conoc_fin->id_postulante = $postulante->id; 
             $post_calf_conoc_fin->id_auxiliatura = $aux;
             $post_calf_conoc_fin->save();
+            foreach ($requisitos as $requisito){
+                $post_calf_requisitos = new Postulante_req_aux();
+                $post_calf_requisitos->id_postulante_auxiliatura = $postulante_aux->id;
+                $post_calf_requisitos->id_requisito = $requisito->id;
+                $post_calf_requisitos->save();
+            }
 
             $porcentajes = Requerimiento::select('porcentaje.*')
             ->where('requerimiento.id_convocatoria',session()->get('convocatoria'))

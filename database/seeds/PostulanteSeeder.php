@@ -27,47 +27,18 @@ class PostulanteSeeder extends Seeder
             'ci' => 4695326
         ]);
 
-        $postAux1 = Postulante_auxiliatura::create([
-            'id_postulante' => $postulante1->id,
-            'id_auxiliatura' => 5
-        ]);
-        $postAux2 = Postulante_auxiliatura::create([
-            'id_postulante' => $postulante1->id,
-            'id_auxiliatura' => 6
-        ]);
-        $postAux3 = Postulante_auxiliatura::create([
-            'id_postulante' => $postulante1->id,
-            'id_auxiliatura' => 7
-        ]);
-        
-        Postulante_req_aux::create([
-            'id_postulante_auxiliatura' => $postAux1->id,
-            'id_requisito' => 2, 
-            'habilitado' => true,
-        ]);
-        // Postulante_req_aux::create([
-        //     'id_postulante_auxiliatura' => $postAux1->id,
-        //     'id_requisito' => 3, 
+        // $postAux1 = Postulante_auxiliatura::create([
+        //     'id_postulante' => $postulante1->id,
+        //     'id_auxiliatura' => 5
         // ]);
-        Postulante_req_aux::create([
-            'id_postulante_auxiliatura' => $postAux2->id,
-            'id_requisito' => 2, 
-            'habilitado' => false,
-            'observacion' => 'NEcesita el documento de...'
-        ]);
-        // Postulante_req_aux::create([
-        //     'id_postulante_auxiliatura' => $postAux2->id,
-        //     'id_requisito' => 3, 
+        // $postAux2 = Postulante_auxiliatura::create([
+        //     'id_postulante' => $postulante1->id,
+        //     'id_auxiliatura' => 6
         // ]);
-        Postulante_req_aux::create([
-            'id_postulante_auxiliatura' => $postAux3->id,
-            'id_requisito' => 2, 
-        ]);
-        // Postulante_req_aux::create([
-        //     'id_postulante_auxiliatura' => $postAux2->id,
-        //     'id_requisito' => 3, 
+        // $postAux3 = Postulante_auxiliatura::create([
+        //     'id_postulante' => $postulante1->id,
+        //     'id_auxiliatura' => 7
         // ]);
-        
 
         Postulante_conovocatoria::create([
             'id_postulante' => $postulante1->id,
