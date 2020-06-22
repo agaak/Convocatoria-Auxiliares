@@ -94,7 +94,11 @@
                     <form method="POST" action="{{ route('admConoStore') }}" id="from-adm-conocimientos">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="adm-cono-tipo">Auxiliatura:</label>
+                            @if ($tipoConvocatoria==2)
+                                <label for="adm-cono-tipo">Auxiliatura:</label>
+                            @else
+                                <label for="adm-cono-tipo">Tematica:</label>
+                            @endif 
                             <select id="adm-cono-tipo" name="adm-cono-tipo[]" class="select2" multiple="multiple" autofocus required>
                                 @foreach ($listaMultiselect as $item)
                                     <option value="{{ $item->id_unico }}">{{ $item->nombre }}</option>

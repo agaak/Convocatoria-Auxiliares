@@ -70,7 +70,7 @@ class AdmPostulantesController extends Controller
             $postulante_aux = new Postulante_auxiliatura();
             $postulante_aux->id_postulante = $postulante->id;
             $postulante_aux->id_auxiliatura = $aux;
-            $postulante_aux->observacion = "ninguna";
+            //$postulante_aux->observacion = "ninguna";
             $postulante_aux->save();
             $post_calf_conoc_fin = new PostuCalifConocFinal();
             $post_calf_conoc_fin->id_convocatoria = session()->get('convocatoria');

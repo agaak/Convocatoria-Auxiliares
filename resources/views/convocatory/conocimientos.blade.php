@@ -65,7 +65,12 @@
             @endif
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <input class="btn btn-info" type="submit" value="Guardar">
+              {{-- <input class="btn btn-info" type="submit" value="Guardar"> --}}
+              @if($tematics->isEmpty())
+                <input class="btn btn-info" type="submit" value="Guardar" disabled>
+              @else
+                <input class="btn btn-info" type="submit" value="Guardar">
+              @endif
             </div>
           </form>
         </div>

@@ -52,11 +52,11 @@
                           </label>
                         </div>
                         <h5 id="obsLabel{{ $auxiliatura->id.$requisito->id }}" name="obsLabel{{ $auxiliatura->id.$requisito->id }}" 
-                          style="{{ is_null($esValido)?'display:none':$esValido?'display:none':''}}"> 
+                          style="{{ is_null($esValido)?'display:none':($esValido?'display:none':'')}}"> 
                           Observacion
                         </h5>
                         <textarea id="obsText{{ $auxiliatura->id.$requisito->id }}" name="obsText{{ $auxiliatura->id.$requisito->id }}" 
-                          style="{{ is_null($esValido)?'display:none':$esValido?'display:none':''}};min-width: 80%" rows="2" >
+                          style="{{ is_null($esValido)?'display:none':($esValido?'display:none':'')}};min-width: 80%" rows="2" >
                           {{ $mapVerifications[$auxiliatura->id][$requisito->id]['observacion'] }}
                         </textarea>
                       </div>

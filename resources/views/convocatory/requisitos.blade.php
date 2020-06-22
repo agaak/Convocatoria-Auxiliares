@@ -51,7 +51,7 @@
           <form method="post" accion="{{ route('requirementValid') }}">
             {{ csrf_field() }}
             <div class="form-group">
-              <label for="exampleInputEmail1">Inciso {{ chr($alphas) }}:
+              <label for="exampleInputEmail1">Añadir inciso
               </label>
               <textarea class="form-control" id="descripcion-req" placeholder="Ingrese el requisito"
                 rows="3" name="descripcion" minlength="11" required>{{ old('descripcion') }}</textarea>

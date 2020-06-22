@@ -24,9 +24,10 @@
             <tr> 
             <th style="font-weight: normal" scope="col">Item</th>
             <th style="font-weight: normal" scope="col">CI</th>
-            <th style="font-weight: normal" scope="col">Nombres</th>
-            <th style="font-weight: normal" scope="col">Apellidos</th>
+            <th style="font-weight: normal" scope="col">Nombre</th>
+            {{-- th style="font-weight: normal" scope="col">Apellidos</th> --}}
             <th style="font-weight: normal" scope="col">Habilitado</th>
+            <th style="font-weight: normal" scope="col">Observaciones</th>
             </tr>
         </thead>
         <tbody style="background-color: white">
@@ -34,9 +35,10 @@
                 <tr>
                 <th style="font-weight: normal">{{$item->nombre_aux}}</th>
                 <th style="font-weight: normal">{{ $item->ci }}</th>
-                <th style="font-weight: normal">{{ $item->nombre }}</th>
-                <th style="font-weight: normal">{{ $item->apellido }}</th>
+                <th style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</th>
+                {{-- <th style="font-weight: normal">{{ $item->apellido }}</th> --}}
                 <th style="font-weight: normal">{{ $item->habilitado }}</th>
+                <th style="font-weight: normal">{{ $item->observacion }}</th>
                 </tr>
             @endforeach
         </tbody>
@@ -71,7 +73,7 @@
                         {!! $errors->first('adm-post-rotulo', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
                     </div>
                     <div class="d-none text-left col-sm-12 mt-0" id="rotulo-no-existe">
-                        <strong class="text-primary">El rotulo ingresado exite</strong>
+                        <strong class="text-primary">El rotulo ingresado existe</strong>
                     </div>
                     <div class="d-none text-left col-sm-12 mt-0" id="rotulo-existe">
                         <strong class="text-danger">El rotulo ingresado no existe</strong>

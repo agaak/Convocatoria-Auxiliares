@@ -51,7 +51,7 @@
           <form method="post" accion="{{ route('documentoValid') }}">
             {{ csrf_field() }}
             <div class="form-group">
-              <label for="exampleInputEmail1">Documento {{ chr($alphas) }}:
+              <label for="exampleInputEmail1">Añadir documento
               </label>
               <textarea class="form-control" id="descripcion-req" placeholder="Especifique el documento"
                 rows="3" name="descripcion"  minlength="11" required></textarea>

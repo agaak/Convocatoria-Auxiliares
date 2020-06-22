@@ -377,7 +377,7 @@ $('#recipeCarousel').carousel({
 
 setTimeout(() => {
     document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
-}, 5000);
+}, 8000);
 
 function listaAux(datos, id) {
     document.querySelectorAll(".eliminar").forEach(e => e.parentNode.removeChild(e));

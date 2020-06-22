@@ -76,7 +76,8 @@
                         </div>
                         <div class="form-row">
                             <label class="col-sm-6">Teléfono:
-                                <input class="form-control" type="number" placeholder="Ingrese su numero teléfonico" id="post-tel" name="telefono" required>
+                                <input class="form-control" type="text" placeholder="Ingrese su numero teléfonico" id="post-tel" name="telefono"
+                                pattern="[0-9]{7,8}" title="Ingrese un numero valido para celular o telefono fijo." required>
                             </label>
                             <label class="col-sm-6">CI:
                                 <input class="form-control" type="text" id="post-ci" placeholder="Ingrese su C.I." name="ci" pattern="[0-9]{4,10}"
