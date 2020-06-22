@@ -3,6 +3,7 @@
 use App\Http\Controllers\Utils\ConvocatoriaComp;
 use App\Postulante;
 use App\Postulante_auxiliatura;
+use App\Postulante_req_aux;
 use App\Postulante_conovocatoria;
 use Illuminate\Database\Seeder;
 
@@ -26,23 +27,50 @@ class PostulanteSeeder extends Seeder
             'ci' => 4695326
         ]);
 
-        Postulante_auxiliatura::create([
+        $postAux1 = Postulante_auxiliatura::create([
             'id_postulante' => $postulante1->id,
             'id_auxiliatura' => 5
         ]);
-        Postulante_auxiliatura::create([
+        $postAux2 = Postulante_auxiliatura::create([
             'id_postulante' => $postulante1->id,
             'id_auxiliatura' => 6
         ]);
-        Postulante_auxiliatura::create([
+        $postAux3 = Postulante_auxiliatura::create([
             'id_postulante' => $postulante1->id,
             'id_auxiliatura' => 7
         ]);
+        
+        Postulante_req_aux::create([
+            'id_postulante_auxiliatura' => $postAux1->id,
+            'id_requisito' => 2, 
+        ]);
+        // Postulante_req_aux::create([
+        //     'id_postulante_auxiliatura' => $postAux1->id,
+        //     'id_requisito' => 3, 
+        // ]);
+        Postulante_req_aux::create([
+            'id_postulante_auxiliatura' => $postAux2->id,
+            'id_requisito' => 2, 
+        ]);
+        // Postulante_req_aux::create([
+        //     'id_postulante_auxiliatura' => $postAux2->id,
+        //     'id_requisito' => 3, 
+        // ]);
+        Postulante_req_aux::create([
+            'id_postulante_auxiliatura' => $postAux2->id,
+            'id_requisito' => 2, 
+        ]);
+        // Postulante_req_aux::create([
+        //     'id_postulante_auxiliatura' => $postAux2->id,
+        //     'id_requisito' => 3, 
+        // ]);
+        
 
         Postulante_conovocatoria::create([
             'id_postulante' => $postulante1->id,
             'id_convocatoria' => 1
         ]);
+        
     }
 }
 

@@ -61,6 +61,17 @@ class CreatePostulanteTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('postulante_req_aux', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('id_postulante_auxiliatura');
+            $table->foreign('id_postulante_auxiliatura')->references('id')->on('postulante_auxiliatura')->onDelete('cascade');
+            $table->integer('id_requisito');
+            $table->foreign('id_requisito')->references('id')->on('requisito')->onDelete('cascade');
+            $table->string('observacion')->nullable();
+            $table->boolean('habilitado')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('postulante_conovocatoria', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_postulante');
