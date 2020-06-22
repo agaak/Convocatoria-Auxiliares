@@ -43,6 +43,7 @@ class PostulanteSeeder extends Seeder
         Postulante_req_aux::create([
             'id_postulante_auxiliatura' => $postAux1->id,
             'id_requisito' => 2, 
+            'habilitado' => true,
         ]);
         // Postulante_req_aux::create([
         //     'id_postulante_auxiliatura' => $postAux1->id,
@@ -51,13 +52,15 @@ class PostulanteSeeder extends Seeder
         Postulante_req_aux::create([
             'id_postulante_auxiliatura' => $postAux2->id,
             'id_requisito' => 2, 
+            'habilitado' => false,
+            'observacion' => 'NEcesita el documento de...'
         ]);
         // Postulante_req_aux::create([
         //     'id_postulante_auxiliatura' => $postAux2->id,
         //     'id_requisito' => 3, 
         // ]);
         Postulante_req_aux::create([
-            'id_postulante_auxiliatura' => $postAux2->id,
+            'id_postulante_auxiliatura' => $postAux3->id,
             'id_requisito' => 2, 
         ]);
         // Postulante_req_aux::create([

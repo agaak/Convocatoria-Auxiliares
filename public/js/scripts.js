@@ -411,3 +411,70 @@ document.querySelector('.btn-2').addEventListener('click', () => {
 });
 
 // fin de los scripts de la navegacion del evaluador
+
+// Inicio script de revision de requisitos
+function validarRequisito($idAuxiliatura, $idRequisito) {
+    $mapVerifications = JSON.parse(document.getElementById("mapverification").value);
+    $mapVerifications[$idAuxiliatura][$idRequisito]['esValido'] = true;
+    $('#mapverification').val( JSON.stringify($mapVerifications));
+    document.getElementById('options'+$idAuxiliatura+$idRequisito+'1').className = 'btn btn-success';
+    document.getElementById('options'+$idAuxiliatura+$idRequisito+'2').className = 'btn btn-secondary';
+
+    document.getElementById('obsLabel'+$idAuxiliatura+$idRequisito).style.display = "none";
+
+    tagTextArea = document.getElementById('obsText'+$idAuxiliatura+$idRequisito);
+    tagTextArea.style.display = 'none';
+    tagTextArea.required = false;
+    // $('#obsText'+$idAuxiliatura+$idRequisito).val('');
+}
+
+function desValidarRequisito($idAuxiliatura, $idRequisito) {
+    $mapVerifications = JSON.parse(document.getElementById("mapverification").value);
+    $mapVerifications[$idAuxiliatura][$idRequisito]['esValido'] = false;
+    $('#mapverification').val(JSON.stringify($mapVerifications));
+    document.getElementById('options'+$idAuxiliatura+$idRequisito+'1').className = "btn btn-secondary";
+    document.getElementById('options'+$idAuxiliatura+$idRequisito+'2').className = 'btn btn-danger';
+
+    document.getElementById('obsLabel'+$idAuxiliatura+$idRequisito).style.display='block';
+
+    tagTextArea = document.getElementById('obsText'+$idAuxiliatura+$idRequisito);
+    tagTextArea.style.display='block';
+    tagTextArea.required = false;
+}
+
+// function validarAreasRequisitos() {
+//     $mapVerifications = JSON.parse(document.getElementById("mapverification").value);
+//     messageError = '';
+//     auxMapVerifications = Object.keys(mapVerifications).forEach(function(auxiliaturaId){
+//         Object.keys($mapVerifications[auxiliaturaId]).forEach(
+//             function(requisitoId){
+//                 obs = document.getElementById('obsText'+auxiliaturaId+requisitoId).value;
+
+//                 if(auxMapVerifications[auxiliaturaId][requisitoId]['esValido'] !==null){
+//                     messageError = 'Necesita calificar todos los requisitos'
+//                     return false;
+//                 }else{
+//                     if(auxMapVerifications[auxiliaturaId][requisitoId]['esValido']){
+//                     }else{
+//                         if(obs === '' ){
+//                             messageError = 'No debe dejar ningun requisito incumplido sin su observacion'
+//                             return false;
+//                         }else{
+//                             auxMapVerifications[auxiliaturaId][requisitoId]['observacion'] = obs;
+//                         }
+//                     }
+//                 }
+//             }
+//         );
+//     });
+//     $('#mapverification').val(JSON.stringify(auxMapVerifications));
+//     if(messageError === ''){
+//         return true
+//     }else{
+//         document.getElementById('errorRequisito').innerHTML = messageError;
+//         return false;
+//     }
+// }
+
+
+// Fin script de revision de requisitos

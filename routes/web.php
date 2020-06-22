@@ -85,8 +85,14 @@ Route::get('convocatoria/download/{id}', 'ConvocatoriaController@download')->nam
 
 Route::post('convocatoria/pre-postulacion', 'PrePostulanteController@exportPDF')->name('exportPDF');
 
+
 Route::get('evaluador', 'Evaluador\EvaluadorController@index')->name('evaluador.index');
 Route::get('evaluador/calificar', 'Evaluador\CalificarController@index')->name('calificar.index');
+
+
+Route::get('evaluador/calificar/requisitos/{idPostulante}','Evaluador\VerificarReqController@index')->name('calificarRequisito.index');
+Route::put('evaluador/calificar/requisitos/actualizar','Evaluador\VerificarReqController@update')->name('calificarRequisito.update');
+
 
 Route::get('evaluador/calificar/merito', 'Evaluador\CalificarMeritoController@index')->name('calificarMerito.index');
 
