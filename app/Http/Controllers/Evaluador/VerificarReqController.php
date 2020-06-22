@@ -35,10 +35,8 @@ class VerificarReqController extends Controller
 
         $postulante = Postulante::where('id','=',$idPostulante)->first();
         $auxiliaturas = Postulante_auxiliatura::where('id_postulante','=',$idPostulante)
-                        // ->join('postulante_conovocatoria', 'postulante_auxiliatura.id_postulante', '=', 'postulante_conovocatoria.id')
-                        ->join('auxiliatura', 'postulante_auxiliatura.id', '=', 'auxiliatura.id')
+                        ->join('auxiliatura','postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
                         ->join('postulante_req_aux', 'postulante_auxiliatura.id', '=', 'postulante_req_aux.id')
-                        // ->where('id_convocatoria','=',$id)
                         ->orderBy('postulante_auxiliatura.id', 'ASC')
                         ->get();
         $requisitos = (new RequisitoComp)->getRequisitos($idConv);
