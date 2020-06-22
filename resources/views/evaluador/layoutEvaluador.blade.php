@@ -25,8 +25,7 @@
                         @if ($rol->nombre == 'Conocimientos')
                             <li class="menu-item">
                                 <a class="menu-link menu-icono btn-2" href="#">{{ $tipoConv === 1? 'Temáticas': 'Auxiliaturas' }}</a>
-                                <ul class="menu menu-2 {{ request()->is('evaluador/calificar')? 'd-none': 
-                                request()->is('evaluador/calificar/merito')? 'd-none': ''}}">
+                                <ul class="menu menu-2 {{ request()->is('evaluador/calificar')? 'd-none':(request()->is('evaluador/calificar/merito')? 'd-none': '')}}">
                                     @foreach ($auxsTemsEval as $item)
                                         @if ($tipoConv === 1) 
                                             <li class="menu-item ml-3">

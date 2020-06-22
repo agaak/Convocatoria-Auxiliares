@@ -64,7 +64,7 @@
                         <label for="adm-post-rotulo"  class="col-form-label col-form-label">Rotulo:</label>
                         </div>
                         <div class="col-4 px-0">
-                            <input type="number" name="adm-post-rotulo" placeholder="Ingrese su rotulo" class="form-control form-control" id="adm-post-rotulo" required>
+                            <input type="text" name="adm-post-rotulo" placeholder="Ingrese su rotulo" class="form-control form-control" id="adm-post-rotulo" required>
                         </div> <div class="col-auto">
                             <button type="button" class="btn btn-primary" onclick="comprobarRotulo({{ $listaRotulos }}, {{ $listaAux }})">Comprobar Postulante</button>
                         </div>
