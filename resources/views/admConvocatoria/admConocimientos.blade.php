@@ -39,17 +39,19 @@
             <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}">{{$evaluador->nombre}}</td>
             <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}">{{$evaluador->apellido}}</td>
             <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}">{{$evaluador->correo}}</td>
-                <td class="table-light" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
+                <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
                     <a class="options" data-toggle="modal" data-target="#editEvalConociminetos" 
                     onclick="editEvalConociminetos({{ json_encode($evaluador) }}, {{ json_encode($lista_tem_aux) }}, {{ json_encode($listaMultiselect) }})"
-                    data-dismiss="modal"><img src="{{ asset('img/pen.png') }}" width="20" height="25"></a>
+                    data-dismiss="modal"><img src="{{ asset('img/pen.png') }}" width="25" height="30"></a>
                     <form class="d-inline" action="{{ route('admConocimientosDelete', $evaluador->id) }}" method="POST">
                       {{ csrf_field() }}
                       {{ method_field('DELETE') }}
                       <button type="submit" class="btn btn-link">
-                        <img src="{{ asset('img/trash.png') }}" width="20" height="25">
+                        <img src="{{ asset('img/trash.png') }}" width="25" height="30">
                       </button>
                     </form>
+                    <a class="options" href="{{ route('calificarRequisito.index', $evaluador->id) }}">
+                        <img src="{{ asset('img/email.png') }}" width="30" height="32"></a>
                   </td>  
             </tr>
             @foreach ($lista_tem_aux as $tem_aux)
