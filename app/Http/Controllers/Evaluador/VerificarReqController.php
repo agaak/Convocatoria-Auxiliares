@@ -34,40 +34,40 @@ class VerificarReqController extends Controller
                         ->join('auxiliatura', 'postulante_auxiliatura.id', '=', 'auxiliatura.id')
                         ->join('postulante_req_aux', 'postulante_auxiliatura.id', '=', 'postulante_req_aux.id')
                         // ->where('id_convocatoria','=',$id)
+                        ->orderBy('postulante_auxiliatura.id', 'ASC')
                         ->get();
         $requisitos = (new RequisitoComp)->getRequisitos($idConv);
-
+        
         $mapVerifications = array();
         foreach ($auxiliaturas as &$auxiliatura) {
             foreach ($requisitos as $requisito) {
+              $value = Postulante_req_aux::where('id_postulante_auxiliatura','=', $auxiliatura->id)
+                                    ->where('id_requisito','=', $requisito->id)->first();
               $mapVerifications[$auxiliatura->id][$requisito->id] = array(                    
-                        'esValido' => $auxiliatura->habilitado,
-                        'observacion' => $auxiliatura->observacion,);
+                        'esValido' => $value->habilitado,
+                        'observacion' => $value->observacion,);
             }
         }
+        // dd($mapVerifications);
+
         return view('evaluador.calificarRequisito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulante','auxiliaturas','requisitos','mapVerifications'));
     }
 
     public function update(Request $request){
         $auxiliaturasReq = json_decode($request->input('mapverification'),true);
+        
         foreach (array_keys($auxiliaturasReq) as $auxiliaturaId) {
             foreach(array_keys($auxiliaturasReq[$auxiliaturaId]) as $requisitoId){
-                Postulante_req_aux::where('id_postulante_auxiliatura', $auxiliaturaId)
-                                    ->where('id_requisito', $requisitoId)
+                Postulante_req_aux::where('id_postulante_auxiliatura','=', $auxiliaturaId)
+                                    ->where('id_requisito','=', $requisitoId)
                                     ->update([
                     'observacion' => $request->input('obsText'.$auxiliaturaId.$requisitoId),
                     'habilitado' => $auxiliaturasReq[$auxiliaturaId][$requisitoId]['esValido'],
+                    // 'observacion' => null,
+                    // 'habilitado' => null,
                 ]);
             }
         }
-
-        // $this->validate($request, [
-        //     'name' => 'string|min:30|max:60',
-        //     'email' => 'unique:users,email|required'
-        // ], [
-        //     'name.*' => 'Nombre invalido',
-        //     'email.required' => 'El correo electronico es un campo obligatorio'
-        // ]);
         $validAxiliaturas = array();
         foreach (array_keys($auxiliaturasReq) as $auxiliaturaId) {
             $validAuxlitiatura = true;
@@ -85,17 +85,16 @@ class VerificarReqController extends Controller
                         // $validAuxlitiatura = false;
                         return back()->with('errorCalificarReq', 'Todos los campos observacion deben estar llenados..');
                     }else{
-                        $messageAuxiliatura = $messageAuxiliatura.', '.$observacionString;
+                        $messageAuxiliatura = $observacionString.', '.$messageAuxiliatura;
                     }
                     $validAuxlitiatura = false;
                 }
             }
-            // dd($requisitos);
             Postulante_auxiliatura::where('id', $auxiliaturaId)->update([
                 'observacion' => $messageAuxiliatura,
                 'habilitado' => $validAuxlitiatura,
             ]);
         }
-        return redirect()->route('documentos');;
+        return redirect()->route('calificarRequisitosPost.index');;
     }
 }
