@@ -17,7 +17,7 @@ class CreateNotaTable extends Migration
             $table->increments('id');
             $table->integer('id_tipo_nota');
             $table->integer('id_convocatoria');
-            $table->string('descripcion');
+            $table->text('descripcion');
 
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
             $table->foreign('id_tipo_nota')->references('id')->on('tipo_nota')->onDelete('cascade');
