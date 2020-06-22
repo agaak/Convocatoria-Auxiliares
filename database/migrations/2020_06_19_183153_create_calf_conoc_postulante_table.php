@@ -21,7 +21,7 @@ class CreateCalfConocPostulanteTable extends Migration
             $table->foreign('id_porcentaje')->references('id')->on('porcentaje') ->onDelete('cascade');
             $table->integer('id_calf_final');
             $table->foreign('id_calf_final')->references('id')->on('calf_fin_postulante_conoc') ->onDelete('cascade');
-            $table->integer('calificacion')->nullable();
+            $table->double('calificacion', 2, 2)->nullable();
             $table->timestamps();
         });
     }

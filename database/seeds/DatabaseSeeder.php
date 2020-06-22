@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->truncateTables(['unidad_academica','tipo_convocatoria','auxiliatura',
         'tematica','convocatoria','tipo_rol_evaluador','tipo_nota','roles','users',
         'user_rol', 'evento', 'merito', 'pre_postulante', 'pre_postulante_auxiliatura',
-        'calificacion_final','postulante','postulante_conovocatoria']);
+        'calificacion_final','postulante','postulante_auxiliatura','postulante_conovocatoria'
+        ]);
         // $this->call(UsersTableSeeder::class);
         $this->call(UnidadAcademicaSeeder::class);
         $this->call(TipoConvocatoriaSeeder::class);
@@ -30,18 +31,12 @@ class DatabaseSeeder extends Seeder
         $this->call(EventoSeeder::class);
         $this->call(MeritoSeeder::class);
         $this->call(PrePostulanteSeeder::class);
-        $this->call(PostulanteSeeder::class);
         
     }
 
     protected function truncateTables(array $tables){
-        
-        // DB::statement('SET FOREIGN_KEY_CHECKS =0;');
-        // DB::statement('TRUNCATE users CASCAD E');
         foreach($tables as $table){
             DB::table($table);
         }
-
-        // DB::statement('SET FOREIGN_KEY_CHECKS =1;');
     }
 }
