@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Evaluador;
 
 use App\EvaluadorConocimientos;
 use App\Http\Controllers\Controller;
+use App\Tipo;
 
 class EvaluadorController extends Controller
 {
@@ -13,6 +14,7 @@ class EvaluadorController extends Controller
     }
     
     public function index() {
+
         session()->forget('convocatoria');
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
         session()->put('evaluador', $convs[0]['pivot']['id_evaluador']);
