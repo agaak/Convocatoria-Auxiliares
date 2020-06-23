@@ -2,7 +2,7 @@
 
 @section('content-evaluador')
     <div class="m-4 contenido-mis-convocatorias">
-        <h3 class="mb-4 text-center">Lista de Mis Convocatorias</h3>
+        <h3 class="mb-4">Mis Convocatorias</h3>
         @foreach ($convs as $conv)
             <div class="card-personal">
                 <a class="card-personal-title" href="{{ route('helper.redirect', $conv->id) }}">{{ $conv->titulo }}</a>
