@@ -72,10 +72,14 @@
                         @if ($postulante->nombre_aux==$aux->nombre_aux)
                         <tr>
                         <td>{{ $postulante->nombre }} {{ $postulante->apellido }}</td>
-                            @if ($postulante->habilitado==false)
-                                <td >No</td>
+                            @if ($postulante->habilitado===null)
+                                <td >-</td>
                             @else
+                            @if ($postulante->habilitado)
                                 <td >Si</td>
+                            @else
+                                <td >No</td>
+                            @endif
                             @endif
                             <td>{{ $postulante->observacion}}</td>
                         </tr>

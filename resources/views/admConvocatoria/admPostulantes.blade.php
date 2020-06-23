@@ -37,7 +37,16 @@
                 <th style="font-weight: normal">{{ $item->ci }}</th>
                 <th style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</th>
                 {{-- <th style="font-weight: normal">{{ $item->apellido }}</th> --}}
-                <th style="font-weight: normal">{{ $item->habilitado }}</th>
+                @if ($item->habilitado===null)
+                    <th >-</th>
+                @else
+                    @if ($item->habilitado)
+                        <th >Si</th>
+                    @else
+                        <th >No</th>
+                    @endif
+                @endif
+                {{-- <th style="font-weight: normal">{{ $item->habilitado }}</th> --}}
                 <th style="font-weight: normal">{{ $item->observacion }}</th>
                 </tr>
             @endforeach
