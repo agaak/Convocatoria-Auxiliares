@@ -107,6 +107,8 @@ Route::get('convocatoria/ver/{id}', function($id) {
 })->name('helper.redirect.ver');
 
 Route::get('evaluador/merito/{idEst}', 'Evaluador\CalificacionMController@calificarMeritos')->name('evaluarM.calificarMeritos');
+Route::post('evaluador/merito/calificar-merito', 'Evaluador\CalificacionMController@calificarMeritoEspecifico')->name('evaluarM.calificarMeritoEspecifico');
+Route::post('evaluador/merito/calificar-merito-final', 'Evaluador\CalificacionMController@calificarMeritoFinal')->name('evaluarM.calificarMeritoFinal');
 
 //Lista estado de postulantes
 Route::get('convocatoria/adm-postulantes/habilitados','PDFpostulantesController@listHabilitados');

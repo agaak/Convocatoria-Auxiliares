@@ -17,7 +17,7 @@
             <td>{{ $indice++ }}</td>
             <td>{{ $postulante->ci }}</td>
             <td>{{ $postulante->nombre }} {{$postulante->apellido}}</td>
-            @if($postulante->nota > 0)  <td>$postulante->nota</td> @else <td>-</td> @endif
+            @if($postulante->nota > 0)  <td>{{$postulante->nota}}</td> @else <td>-</td> @endif
             <td><a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}"><img
                 src="{{ asset('img/pen.png') }}" width="25" height="25"></a></td>
         </tr>@endforeach

@@ -18,7 +18,7 @@ class CalificacionMController extends Controller
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
         ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
         ->get();
-        return $postulantes;//view('evaluador.calificarMeritos', compact('convs', 'id', 'postulantes'));
+        return view('evaluador.calificarMeritos', compact('convs', 'id', 'postulantes'));
     }
 
     public function calificarMeritos($idEst){
@@ -38,7 +38,7 @@ class CalificacionMController extends Controller
                                     DB::raw('COUNT(calificacion_merito.id_postulante) as numero'), 
                                     DB::raw('SUM(calificacion_merito.calificacion) as m_total'))
                             ->get();
-        $lista= DB::table('calificacion_merito')->select('merito.*', 'calificacion_merito.calificacion as calificacion')
+        $lista= DB::table('calificacion_merito')->select('merito.*', 'calificacion_merito.calificacion as calificacion', 'calificacion_merito.id as idCalificacion')
                     ->join('merito', 'merito.id', '=', 'calificacion_merito.id_merito')
                     ->where('merito.id_convocatoria', $id)
                     ->where('calificacion_merito.id_postulante', $idEst)
@@ -46,5 +46,25 @@ class CalificacionMController extends Controller
         $listaMeritos=(new MeritoComp)->getMeritos($id);
 
         return view('evaluador.calificarMeritosEstudiante',compact('convs','id', 'lista', 'estudiante', 'listaMeritos','idNotaFinalMerito','notaFinalMerito'));
+    }
+
+    public function calificarMeritoEspecifico(){
+        $var= DB::table('calificacion_merito')->where('id', request()->get("idMerito"))
+                    ->update(['calificacion' => request()->get("notaMerito")]);
+        return back();
+    }
+    
+    public function calificarMeritoFinal(){
+        $id= session()->get('convocatoria');
+        $var= DB::table('calf_final_postulante_merito')->where('id', request()->get('idNotaFinalMerito'))
+                   ->update(['nota_final_merito' => request()->get("nota")]);
+
+        $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
+        session()->put('convocatoria',$id);
+        $postulantes= Postulante::select('postulante.*', 'calf_final_postulante_merito.nota_final_merito as nota', 'calf_final_postulante_merito.id as idNF')
+        ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
+        ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
+        ->get();
+        return back();
     }
 }
