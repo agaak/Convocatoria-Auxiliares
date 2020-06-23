@@ -23,6 +23,8 @@ class CalificarController extends Controller
             if ($conv->id == session()->get('convocatoria'))
                 $pivot = $conv->pivot;
         }
+        
+        session()->put('evaluador', $pivot['id_evaluador']);
         $idEC = EvaluadorConovocatoria::where('id_convocatoria', $pivot['id_convocatoria'])->
                                         where('id_evaluador', $pivot['id_evaluador'])->value('id');
         $rolsEval = new EvaluadorComp();

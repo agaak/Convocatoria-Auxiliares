@@ -27,6 +27,9 @@ class CalificarConocController extends Controller
         
         $compEval = new EvaluadorComp();
         $idEC = $compEval->getIdEvaConv();
+        // $idEC = EvaluadorConovocatoria::where('id_convocatoria', $pivot['id_convocatoria'])->
+        //                                 where('id_evaluador', $pivot['id_evaluador'])->value('id');
+
         $roles = $compEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
         $auxsTemsEval = $tipoConv === 1? $compEval->getTemsEvaluador($idEC) :$compEval->getAuxsEvaluador($idEC);
