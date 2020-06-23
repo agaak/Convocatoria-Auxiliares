@@ -9,7 +9,8 @@
                 <a class="menu-link menu-icono" href="{{ request()->is('evaluador')? '#': route('evaluador.index') }}">Mis convocatorias</a>
                 <ul class="menu">
                     @foreach ($convs as $conv)
-                        <li class="menu-item ml-3"><a class="menu-link" href="{{ route('helper.redirect', $conv->id) }}">{{ $conv->titulo }}</a></li>
+                        <li class="menu-item ml-3"><a class="menu-link" 
+                        href="{{ route('helper.redirect', $conv->id) }}">Convocatoria para auxiliares de {{ $conv->id_tipo_convocatoria === 1? 'laboratorio': 'docencia' }} de la gestion {{ $conv->gestion }}</a></li>
                     @endforeach
                 </ul>
             </div>

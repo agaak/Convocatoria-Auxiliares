@@ -484,7 +484,18 @@ function desValidarRequisito($idAuxiliatura, $idRequisito) {
 function mostrarModalMeritos(calificacionMerito, formato){
     document.getElementById("porcentajeMerito").innerHTML = calificacionMerito.porcentaje;
     document.getElementById("descripcion").innerHTML=formato[1];
-    $("#idMerito").val(calificacionMerito.id);
+    $("#idMerito").val(calificacionMerito.idCalificacion);
+    $("#procentajeMer").val(calificacionMerito.porcentaje);
+}
+
+function verificarNotasMerito(lst){
+    rs=true;
+    for(k=0; k<lst.length; k++){
+        aux=parseInt(lst[k]);
+        console.log(aux);
+        rs= rs && (aux < 101);
+    }
+    return rs;
 }
 
 function calcular(){
@@ -492,13 +503,45 @@ function calcular(){
     if((notas !== "") && (notas !== null)){
         listaNotas=validar(notas);
         if (listaNotas !== null){
-            console.log(document.getElementById('inlineRadio2').checked);    
-            console.log(document.getElementById('inlineRadio1').checked);
-            console.log(listaNotas);
-            $("#porcentaje").val('oki segundo');
-            $("#notaMerito").val("oki");
+
+            if(document.getElementById('inlineRadio2').checked){
+                if(verificarNotasMerito(listaNotas)){
+                    notadelMerito= 0;
+                    for(var i2 = 0; i2 < listaNotas.length; i2++){
+                        numero = parseInt(listaNotas[i2]);
+                        notadelMerito+= numero;
+                    }
+                    notadelMerito=notadelMerito/(listaNotas.length);
+                    multiplicador=parseInt($("#procentajeMer").val())/100;
+                    $("#porcentaje").val($("#procentajeMer").val());
+                    $("#notaMerito").val(Math.round(notadelMerito*multiplicador));
+                    document.getElementById("guardar").disabled=false;
+                }else{
+                    console.log('las notas no deven pasar de 100');
+                }
+            }    
+            else if(document.getElementById('inlineRadio1').checked){
+                notadelMerito= 0;
+                for(var i2 = 0; i2 < listaNotas.length; i2++){
+                    numero = parseInt(listaNotas[i2]);
+                    notadelMerito+= numero;
+                }
+                maximo=parseInt($("#procentajeMer").val());
+                if(notadelMerito>maximo){
+                    $("#porcentaje").val(maximo);
+                    $("#notaMerito").val(maximo);
+                }else{
+                    $("#porcentaje").val(maximo);
+                    $("#notaMerito").val(Math.round(notadelMerito));
+                    document.getElementById('guardar').disabled=false;
+                }
+            }else{
+                console.log('selecionar una opcion');
+            }
         }
     }else{
+        $("#porcentaje").val('');
+        $("#notaMerito").val('');
         console.log("insertar notas");
     }
 

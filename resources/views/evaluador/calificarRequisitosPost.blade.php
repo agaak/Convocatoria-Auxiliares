@@ -32,10 +32,14 @@
             @foreach ($item->nombre_aux as $auxs_post)
                 @if($cont++ == 0)
                     <td >{{$auxs_post->nombre_aux}}</td>
-                    @if ($auxs_post->habilitado == null)
+                    @if ($auxs_post->habilitado === null)
                         <td class="text-center">-</td>
                     @else
-                    <td >{{ $auxs_post->habilitado }}</td>
+                        @if ($auxs_post->habilitado)
+                        <td class="text-center">Si</td>
+                        @else
+                        <td class="text-center">No</td>
+                        @endif
                     @endif
                     <td >{{ $auxs_post->observacion }}</td>  
                 @endif 
@@ -50,11 +54,17 @@
                 @if($cont++ > 0)
                 <tr>
                 <td >{{$auxs_post->nombre_aux}}</td>
-                @if ($auxs_post->habilitado == null)
+                @if ($auxs_post->habilitado === null)
                         <td class="text-center">-</td>
+                        
                     @else
-                    <td >{{ $auxs_post->habilitado }}</td>
-                    @endif 
+                    @if ($auxs_post->habilitado)
+                    <td class="text-center">Si</td>
+                    @else
+                    <td class="text-center">No</td>
+                    @endif
+                    
+                @endif 
                 <td >{{ $auxs_post->observacion }}</td> 
                 </tr>   
                 @endif
