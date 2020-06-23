@@ -8,7 +8,8 @@ use App\EvaluadorConocimientos;
 class ConvocatoriaComp
 {   
     public function getConvocatorias(){
-        $requests= Convocatoria::where('id_unidad_academica',1)->get();
+        $requests= Convocatoria::where('id_unidad_academica',1)
+        ->orderBy('id','ASC')->get();
         return $requests;
     }
 

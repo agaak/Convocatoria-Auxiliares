@@ -50,6 +50,28 @@ class AdmPostulantesController extends Controller
 
 
     public function create(Request $request){
+        
+        $existe = Postulante::where('ci',request()->input('ci'))
+            ->orWhere('cod_sis',request()->input('cod-sis'))->get();
+        $existeConvo = [];
+        if($existe->isNotEmpty()){
+            foreach($existe as $postu){
+                $existeConvo = Postulante_conovocatoria::
+                    where('id_convocatoria',request()->input('id-conv-postulante'))
+                    ->where('id_postulante',$postu['id'])->get();
+                if($existeConvo->isNotEmpty()){
+                    break;
+                }
+            }
+            if(count($existeConvo)>0){
+                request()->validate([
+                    'ci' => 'unique:postulante,ci'
+                ],[
+                    'ci.unique' => 'El postulante ya se encuentra registrado.'
+                ]); 
+            }
+        }
+        
         $postulante = new Postulante();
         $postulante->nombre = request()->input('postulante-nombre');
         $postulante->apellido = request()->input('postulante-apellidos');
@@ -59,9 +81,11 @@ class AdmPostulantesController extends Controller
         $postulante->telefono = request()->input('telefono');
         $postulante->ci = request()->input('ci');
         $postulante->save();
+        
         $postulante_con = new Postulante_conovocatoria();
         $postulante_con->id_postulante =  $postulante->id;
         $postulante_con->id_convocatoria = request()->input('id-conv-postulante');
+        $postulante_con->calificando =  false;
         $postulante_con->save();
         $requisitos = (new RequisitoComp)->getRequisitos(session()->get('convocatoria'));
 

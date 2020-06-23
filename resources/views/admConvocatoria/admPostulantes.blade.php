@@ -72,6 +72,7 @@
                         </div>
                         {!! $errors->first('adm-post-rotulo', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
                     </div>
+                    {!! $errors->first('ci', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
                     <div class="d-none text-left col-sm-12 mt-0" id="rotulo-no-existe">
                         <strong class="text-primary">El rotulo ingresado existe</strong>
                     </div>
@@ -151,6 +152,13 @@
                     </div>
                 </form>
             </div>
+            @if($errors->any())
+                            <script>
+                                window.onload = () => {
+                                    $('#storePostulanteModal').modal('show');
+                                }
+                            </script>
+            @endif
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 <button type="submit" class="btn btn-info" form="form-create-postulante" id="bttn-post" disabled>Guardar</button>

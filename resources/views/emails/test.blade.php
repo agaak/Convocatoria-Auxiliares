@@ -10,8 +10,8 @@
     <h2 class="mx-2 my-2">"Usted fue designado como Evaluador"</h2>
     <p class="mx-2"><strong>{{$nombres}}</strong> fue designado como evaluador de la {{$titulo}} </p><br>
 
-    <p style="text-align: center">Su usuario es: <strong>{{$usuario}} </strong></p>
-    <p style="text-align: center">Su contraseña es: <strong>{{$ci}} </strong></p> <br>
+    <p style="text-align: center">Su usuario es: <strong>{{$ci}} </strong></p>
+    <p style="text-align: center">Su contraseña es: <strong>{{$contrasenia}} </strong></p> <br>
 
     @foreach ($rol as $item)
     <div class="card border-dark mb-3">

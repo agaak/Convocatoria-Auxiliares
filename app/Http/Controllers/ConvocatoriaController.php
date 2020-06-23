@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Convocatoria;
 use App\Requerimiento;
 use App\Tipo;
+use App\User;
+use App\UserRol;
 use App\Http\Requests\ConvocatoriaRequest;
 use App\Http\Controllers\Utils\ConvocatoriaComp as Convos;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use App\Http\Controllers\Utils\ConvocatoriaComp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 
 class ConvocatoriaController extends Controller
@@ -80,42 +83,51 @@ class ConvocatoriaController extends Controller
      */
     public function show($id)
     {
-        Convocatoria::where('id', $id)->update([
-            'publicado' => true
-        ]);
         $evaluadorUtils =  new EvaluadorComp();
         $convUtils = new ConvocatoriaComp();
         $evaluadores = $evaluadorUtils->getEvaluadoresConvo($id);
         foreach($evaluadores as $eva){
-
-            $contrasenia = $convUtils->uniqidReal();
-
             $roles = $evaluadorUtils->getRolesEvaluador($eva->id_eva_con);
             $lista_aux = $evaluadorUtils->getAuxsEvaluador($eva->id_eva_con);
             $lista_tem = $evaluadorUtils->getTemsEvaluador($eva->id_eva_con);
             $correo = $eva->correo;
             $nombres = $eva->nombre." ".$eva->apellido;
+
+            $contrasenia = $convUtils->uniqidReal();
             $datos=[    
                 "titulo" => $eva->titulo,
                 "ci" =>  $eva->ci,
                 "contrasenia" =>  $contrasenia,
-                "usuario" =>  $eva->nombre,
+                "usuario" =>  $eva->ci,
                 "nombres" => $nombres,
                 "rol" => $roles,
                 "tematicas" =>  $lista_tem,
                 "auxiliaturas" =>  $lista_aux
             ];
-
-            // User::create([
-            //     'name' => $eva->nombres,
-            //     'password' => bcrypt($contrasenia),
-            //     'email' => $correo,
-            //     'userToken' => $eva->ci
-            // ]);
-            //Mail::send("emails.test", $datos, function($mensaje) use($nombres,$correo){
-                //$mensaje -> to($correo, $nombres) -> subject("Asignacion como evaluador");   
-            //});
+            if(!User::where('userToken',$eva->ci)->exists()){
+                $user = new User();
+                $user->name = $nombres;
+                $user->password = bcrypt($contrasenia);
+                $user->email = $correo;
+                $user->userToken = $eva->ci;
+                $user->save();
+                UserRol::create([
+                    'user_id' => $user->id,
+                    'role_id' => 2
+                ]);
+            }else{
+                User::where('userToken',$eva->ci)->update([
+                    'password' => bcrypt($contrasenia),
+                ]);  
+            }
+            
+            Mail::send("emails.test", $datos, function($mensaje) use($nombres,$correo){
+                $mensaje -> to($correo, $nombres) -> subject("Asignacion como evaluador");   
+            });
         }
+        Convocatoria::where('id', $id)->update([
+            'publicado' => true
+        ]);
         return back();
     }
 

@@ -78,7 +78,7 @@ class CreatePostulanteTable extends Migration
             $table->foreign('id_postulante')->references('id')->on('postulante')->onDelete('cascade');
             $table->integer('id_convocatoria');
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
-            
+            $table->boolean('calificando')->nullable();
             $table->timestamps();
         });
         

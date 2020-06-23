@@ -11,9 +11,14 @@ use App\EvaluadorTematica;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdmConvocatoria\AdmConocimientosRequest;
+use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
+use App\Http\Controllers\Utils\ConvocatoriaComp;
 use App\Porcentaje;
 use App\Requerimiento;
 use App\Tipo_evaluador;
+use App\User;
+use App\UserRol;
+use Illuminate\Support\Facades\Mail;
 
 
 class AdmConocimientosController extends Controller
@@ -249,16 +254,51 @@ class AdmConocimientosController extends Controller
 
     public function email($id)
     {
-    
-       $id_conv = session()->get('convocatoria');
+        $evaluadorUtils =  new EvaluadorComp();
+        $convUtils = new ConvocatoriaComp();
 
-        // $id_eva_conv = EvaluadorConovocatoria::where('id_convocatoria',$id_conv)
-        //     ->where('id_evaluador',$id)->value('id');
+        $id_eva_con = EvaluadorConovocatoria::where('id_convocatoria',session()->get('convocatoria'))
+            ->where('id_evaluador',$id)->value('id');
             
-        // EvaluadorTematica::where('id_evaluador_convocatoria',$id_eva_conv)->delete();
-        // EvaluadorAuxiliatura::where('id_evaluador_convocatoria',$id_eva_conv)->delete();
+        $roles = $evaluadorUtils->getRolesEvaluador($id_eva_con);
+        $lista_aux = $evaluadorUtils->getAuxsEvaluador($id_eva_con);
+        $lista_tem = $evaluadorUtils->getTemsEvaluador($id_eva_con);
+        $eva = EvaluadorConocimientos::where('id',$id)->first();
+        //return $eva;
+        $correo = $eva->correo;
+        $nombres = $eva->nombre." ".$eva->apellido;
 
-        // Tipo_evaluador::where('id_evaluador_convocatoria',$id_eva_conv)->where('id_rol_evaluador','2')->delete();
+        $contrasenia = $convUtils->uniqidReal();
+        $datos=[    
+            "titulo" => $eva->titulo,
+            "ci" =>  $eva->ci,
+            "contrasenia" =>  $contrasenia,
+            "usuario" =>  $eva->ci,
+            "nombres" => $nombres,
+            "rol" => $roles,
+            "tematicas" =>  $lista_tem,
+            "auxiliaturas" =>  $lista_aux
+        ];
+        if(!User::where('userToken',$eva->ci)->exists()){
+            $user = new User();
+            $user->name = $nombres;
+            $user->password = bcrypt($contrasenia);
+            $user->email = $correo;
+            $user->userToken = $eva->ci;
+            $user->save();
+            UserRol::create([
+                'user_id' => $user->id,
+                'role_id' => 2
+            ]);
+        }else{
+            User::where('userToken',$eva->ci)->update([
+                'password' => bcrypt($contrasenia),
+            ]);  
+        }
+        
+        Mail::send("emails.test", $datos, function($mensaje) use($nombres,$correo){
+            $mensaje -> to($correo, $nombres) -> subject("Asignacion como evaluador");   
+        });
 
         
         return back();

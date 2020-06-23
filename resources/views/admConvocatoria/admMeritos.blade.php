@@ -41,6 +41,12 @@
                             <img src="{{ asset('img/trash.png') }}" width="26" height="26">
                         </button>    
                     </form>
+                    <form class="d-inline" action="{{ route('admConocimientosEmail', $item->id) }}" method="POST">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-link">
+                          <img src="{{ asset('img/email.png') }}" width="30" height="32">
+                        </button>
+                      </form>
                 </th>
                 </tr>
             @endforeach
