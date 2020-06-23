@@ -6,6 +6,7 @@ use App\EvaluadorConocimientos;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Postulante;
+use App\Postulante_conovocatoria;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Utils\Convocatoria\MeritoComp;
 
@@ -29,6 +30,24 @@ class CalificacionMController extends Controller
     public function calificarMeritos($idEst){
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
         $id= session()->get('convocatoria');
+
+        $existe = Postulante_conovocatoria::where('id_postulante',$idEst)
+            ->value('calificando_merito');
+        if($existe){
+            if(session()->has('id-pos')){
+                if(session()->get('id-pos') != $idEst){
+                    return redirect()->route('calificarMerito.index');
+                }
+            }else{
+                return redirect()->route('calificarMerito.index');
+            }
+            // return redirect()->route('calificarMerito.index');
+        }
+        session()->put('id-pos',$idEst);
+        Postulante_conovocatoria::where('id_postulante', $idEst)->update([
+            'calificando_merito' => true,
+        ]);
+
         $estudiante=DB::table('postulante')->where('id', $idEst)->get();
         $idNotaFinalMerito=DB::table('calf_final_postulante_merito')
                             ->where('calf_final_postulante_merito.id_postulante', $idEst)
@@ -70,6 +89,10 @@ class CalificacionMController extends Controller
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
         ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
         ->get();
-        return back();
+        Postulante_conovocatoria::where('id_postulante', session()->get('id-pos'))->update([
+            'calificando_merito' => false,
+        ]);
+        session()->forget('id-pos');
+        return redirect()->route('calificarMerito.index');
     }
 }

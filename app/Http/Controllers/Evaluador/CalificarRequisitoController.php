@@ -19,7 +19,7 @@ use App\Postulante_conovocatoria;
 class CalificarRequisitoController extends Controller
 {
 public function index(){
-        if(session()->get('id-pos')){
+        if(session()->has('id-pos')){
             Postulante_conovocatoria::where('id_postulante', session()->get('id-pos'))->update([
                 'calificando_requisito' => false,
             ]);

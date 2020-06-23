@@ -18,6 +18,13 @@ class CalificarMeritoController extends Controller
     }
     
     public function index() {
+        if(session()->has('id-pos')){
+            Postulante_conovocatoria::where('id_postulante', session()->get('id-pos'))->update([
+                'calificando_merito' => false,
+            ]);
+            session()->forget('id-pos');
+        }
+
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
         foreach ($convs as $conv) {
             if ($conv->id == session()->get('convocatoria'))
