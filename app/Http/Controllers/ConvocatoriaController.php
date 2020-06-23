@@ -111,10 +111,10 @@ class ConvocatoriaController extends Controller
                 $user->email = $correo;
                 $user->userToken = $eva->ci;
                 $user->save();
-                UserRol::create([
-                    'user_id' => $user->id,
-                    'role_id' => 2
-                ]);
+                $userRol = new UserRol();
+                $userRol->user_id = $user->id;
+                $userRol->role_id = 2;
+                $userRol->save();
             }else{
                 User::where('userToken',$eva->ci)->update([
                     'password' => bcrypt($contrasenia),

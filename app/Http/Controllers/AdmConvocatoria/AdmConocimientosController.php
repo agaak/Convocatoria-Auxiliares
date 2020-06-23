@@ -264,7 +264,7 @@ class AdmConocimientosController extends Controller
         $lista_aux = $evaluadorUtils->getAuxsEvaluador($id_eva_con);
         $lista_tem = $evaluadorUtils->getTemsEvaluador($id_eva_con);
         $eva = EvaluadorConocimientos::where('id',$id)->first();
-        //return $eva;
+        
         $correo = $eva->correo;
         $nombres = $eva->nombre." ".$eva->apellido;
 
@@ -286,10 +286,10 @@ class AdmConocimientosController extends Controller
             $user->email = $correo;
             $user->userToken = $eva->ci;
             $user->save();
-            UserRol::create([
-                'user_id' => $user->id,
-                'role_id' => 2
-            ]);
+            $userRol = new UserRol();
+            $userRol->user_id = $user->id;
+            $userRol->role_id = 2;
+            $userRol->save();
         }else{
             User::where('userToken',$eva->ci)->update([
                 'password' => bcrypt($contrasenia),

@@ -6,6 +6,7 @@ use App\Convocatoria;
 use App\Postulante;
 use App\Postulante_auxiliatura;
 use App\Postulante_req_aux;
+use App\Postulante_conovocatoria;
 use Illuminate\Http\Request;
 use App\EvaluadorConocimientos;
 use App\EvaluadorConovocatoria;
@@ -24,6 +25,15 @@ class VerificarReqController extends Controller
     public function index($idPostulante) {
         $idConv = session()->get('convocatoria');
 
+        $existe = Postulante_conovocatoria::where('id_postulante',$idPostulante)
+            ->value('calificando_requisito');
+        if($existe){
+            return redirect()->route('calificarRequisitosPost.index');
+        }
+        session()->put('id-pos',$idPostulante);
+        Postulante_conovocatoria::where('id_postulante', $idPostulante)->update([
+            'calificando_requisito' => true,
+        ]);
         $menu = new MenuDina();
         $convs = $menu->getConvs(); 
         $compEval = new EvaluadorComp();
@@ -53,12 +63,13 @@ class VerificarReqController extends Controller
         }
         // dd($mapVerifications);
 
-        return view('evaluador.calificarRequisito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulante','auxiliaturas','requisitos','mapVerifications'));
+        return view('evaluador.calificarRequisito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulante','auxiliaturas','requisitos','mapVerifications','idPostulante'));
     }
 
     public function update(Request $request){
-        $auxiliaturasReq = json_decode($request->input('mapverification'),true);
         
+        $auxiliaturasReq = json_decode($request->input('mapverification'),true);
+        //return $request;
         foreach (array_keys($auxiliaturasReq) as $auxiliaturaId) {
             foreach(array_keys($auxiliaturasReq[$auxiliaturaId]) as $requisitoId){
                 Postulante_req_aux::where('id_postulante_auxiliatura','=', $auxiliaturaId)
@@ -78,6 +89,9 @@ class VerificarReqController extends Controller
             foreach(array_keys($auxiliaturasReq[$auxiliaturaId]) as $requisitoId){
                 if($auxiliaturasReq[$auxiliaturaId][$requisitoId]['esValido'] ===null){
                     // $validAuxlitiatura = false;
+                    Postulante_conovocatoria::where('id_postulante', request()->input('id-postulante'))->update([
+                        'calificando_requisito' => false,
+                    ]);
                     return back()->with('errorCalificarReq', 'Hay requisitos no calificados.');
                     //error de no seleccionar como tru o false el requisito
                 }else if($auxiliaturasReq[$auxiliaturaId][$requisitoId]['esValido']){
@@ -86,6 +100,9 @@ class VerificarReqController extends Controller
                     $observacionString =$request->input('obsText'.$auxiliaturaId.$requisitoId);
                     if($observacionString == ''){
                         // $validAuxlitiatura = false;
+                        Postulante_conovocatoria::where('id_postulante', request()->input('id-postulante'))->update([
+                            'calificando_requisito' => false,
+                        ]);
                         return back()->with('errorCalificarReq', 'Todos los campos observacion deben estar llenados..');
                     }else{
                         $messageAuxiliatura = $observacionString.', '.$messageAuxiliatura;
@@ -98,6 +115,9 @@ class VerificarReqController extends Controller
                 'habilitado' => $validAuxlitiatura,
             ]);
         }
-        return redirect()->route('calificarRequisitosPost.index');;
+        Postulante_conovocatoria::where('id_postulante', request()->input('id-postulante'))->update([
+            'calificando_requisito' => false,
+        ]);
+        return redirect()->route('calificarRequisitosPost.index');
     }
 }

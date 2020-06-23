@@ -85,7 +85,8 @@ class AdmPostulantesController extends Controller
         $postulante_con = new Postulante_conovocatoria();
         $postulante_con->id_postulante =  $postulante->id;
         $postulante_con->id_convocatoria = request()->input('id-conv-postulante');
-        $postulante_con->calificando =  false;
+        $postulante_con->calificando_merito =  false;
+        $postulante_con->calificando_requisito =  false;
         $postulante_con->save();
         $requisitos = (new RequisitoComp)->getRequisitos(session()->get('convocatoria'));
 

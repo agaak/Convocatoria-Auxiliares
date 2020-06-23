@@ -14,10 +14,17 @@ use App\Http\Controllers\Utils\Evaluador\MenuDina;
 use App\Http\Controllers\Utils\Evaluador\PostulanteComp;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\ConvocatoriaComp;
+use App\Postulante_conovocatoria;
 
 class CalificarRequisitoController extends Controller
 {
 public function index(){
+        if(session()->get('id-pos')){
+            Postulante_conovocatoria::where('id_postulante', session()->get('id-pos'))->update([
+                'calificando_requisito' => false,
+            ]);
+            session()->forget('id-pos');
+        }
         $menu = new MenuDina();
         $convs = $menu->getConvs(); 
         
