@@ -24,21 +24,21 @@
         @component('components.calificaciones.tablaCalificacionesMerito',['lista'=>$lista, 'listaMeritos'=>$listaMeritos])
         @endcomponent
 
-        <form action="#" methos="POSt">
-              
+        <form action="{{ route('evaluarM.calificarMeritoFinal') }}" method="POSt" id="merit-nota-form">
+            {{ csrf_field() }}  
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <input type="hidden" name="idNotaFinalMerito" id="idNotaFinalMerito" value="{{$idNotaFinalMerito[0]->id}}" readonly>
+                    <input form='merit-nota-form' type="hidden" name="idNotaFinalMerito" id="idNotaFinalMerito" value="{{$idNotaFinalMerito[0]->id}}" readonly>
                 </div>
                 <div class="form-group col-md-6">
                     <label class="">Nota Final</label>
-                    <input type="text" class="form-control" id="nota"  value="{{$notaFinalMerito[0]->m_total}}" readonly>
+                    <input form='merit-nota-form' type="text" class="form-control" id="nota"  name='nota' value="{{$notaFinalMerito[0]->m_total}}" readonly>
                 </div>
             </div>
             
             <div class="modal-footer">
                 <a class="btn btn-secondary" href="{{ route('calificarMerito.index') }}">Cancelar</a>
-                <button   button type="submit" class="btn btn-info" form="merit-form">Guardar</button>
+                <button type="submit" class="btn btn-info" form='merit-nota-form'>Guardar</button>
             </div>
         </form>
     </div>
@@ -58,9 +58,11 @@
                     <h6>Merito/submerito: presenta el <span id=porcentajeMerito></span> %</h6>  
                     <p id='descripcion'>nota merito submerito</p>
                     
-                    <form method="POST" action="#" id="merit-form">
+                    <form method="POST" action="{{ route('evaluarM.calificarMeritoEspecifico') }}" id="merit-form">
                     {{ csrf_field() }}
-
+                        <input type="text" name="idMerito" id="idMerito" hidden readonly>
+                        <input type="text" name="procentajeMer" id="procentajeMer" hidden readonly>
+                        
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <p>Evaluar por:</p>
@@ -89,7 +91,7 @@
                                 <button type="button" class="btn btn-info" onclick="calcular()">Calcular</button>
                             </div>
                         </div>
-                        <input type="text" name="idMerito" id="idMerito" hidden readonly>
+                        
                         <div class="form-row">
                             <label class="col-sm-3 col-form-label" required>Nota:</label>
                             <div class="col-sm-3">
@@ -103,7 +105,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-info" form="merit-form" disabled="true">Guardar</button>
+                            <button type="submit" class="btn btn-info" id="guardar" form="merit-form" disabled="true">Guardar</button>
                         </div>
                     </form>
                 </div>
