@@ -35,11 +35,12 @@ class PDFpostulantesController extends Controller
         ->join('auxiliatura','postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
         ->where('id_convocatoria',$id_conv)->get();
         /* ->groupBy('postulante_auxiliatura.id','postulante.id') ->get();*/
-        
+        //return $listaAux;
         $dompdf = new Dompdf();
         $dompdf->set_paper('legal', 'portrait');
         $dompdf = PDF::loadView('postulantePDF.listaHabilitados', compact('listaAux','listPostulantes'));
         //return view('postulantePDF.listaHabilitados', compact('listaAux', 'listPostulantes'));
+        
         return  $dompdf->download('lista-Habilitados.pdf');
     }
 }
