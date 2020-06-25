@@ -3,21 +3,20 @@
 namespace App\Http\Controllers\AdmConvocatoria;
 
 
-use App\Convocatoria;
-use App\EvaluadorAuxiliatura;
-use App\EvaluadorConocimientos;
-use App\EvaluadorConovocatoria;
-use App\EvaluadorTematica;
+use App\Models\Convocatoria;
+use App\Models\EvaluadorAuxiliatura;
+use App\Models\EvaluadorConocimientos;
+use App\Models\EvaluadorConovocatoria;
+use App\Models\EvaluadorTematica;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\AdmConvocatoria\AdmConocimientosRequest;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use App\Http\Controllers\Utils\ConvocatoriaComp;
-use App\Porcentaje;
-use App\Requerimiento;
-use App\Tipo_evaluador;
-use App\User;
-use App\UserRol;
+use App\Models\Porcentaje;
+use App\Models\Requerimiento;
+use App\Models\Tipo_evaluador;
+use App\Models\User;
+use App\Models\UserRol;
 use Illuminate\Support\Facades\Mail;
 
 

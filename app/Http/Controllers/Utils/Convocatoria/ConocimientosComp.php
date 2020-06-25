@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Utils\Convocatoria;
 
-use App\Requerimiento;
-use App\Porcentaje;
-use App\Tematica;
+use App\Models\Requerimiento;
+use App\Models\Porcentaje;
+use App\Models\Tematica;
 
 class ConocimientosComp
 {   

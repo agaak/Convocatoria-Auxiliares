@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Convocatoria;
 
-use App\Convocatoria;
+use App\Models\Convocatoria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Convocatoria\EventoCreateRequest;
 use App\Http\Requests\Convocatoria\EventoUpdateRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Utils\Convocatoria\EventoComp;
-use App\EventoImportante;
+use App\Models\EventoImportante;
 
 class EventoController extends Controller
 {

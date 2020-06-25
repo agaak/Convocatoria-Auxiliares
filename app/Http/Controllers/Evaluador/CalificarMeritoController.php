@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Evaluador;
 
-use App\Convocatoria;
-use App\Postulante;
+use App\Models\Convocatoria;
+use App\Models\Postulante;
 use Illuminate\Http\Request;
-use App\EvaluadorConocimientos;
-use App\EvaluadorConovocatoria;
+use App\Models\EvaluadorConocimientos;
+use App\Models\EvaluadorConovocatoria;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 

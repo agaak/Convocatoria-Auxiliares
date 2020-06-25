@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Tematica;
+use App\Models\Tematica;
 
 class TematicaSeeder extends Seeder
 {

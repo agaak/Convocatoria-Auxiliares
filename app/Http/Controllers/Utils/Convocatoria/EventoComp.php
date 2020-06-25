@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Utils\Convocatoria;
 
-use App\EventoImportante;
+use App\Models\EventoImportante;
 
 class EventoComp
 {   

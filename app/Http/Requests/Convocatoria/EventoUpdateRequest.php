@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Requests\Convocatoria;
-use App\Convocatoria;
-use App\EventoImportante;
+use App\Models\Convocatoria;
+use App\Models\EventoImportante;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;

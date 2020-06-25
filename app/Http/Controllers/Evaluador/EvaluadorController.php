@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Evaluador;
 
-use App\EvaluadorConocimientos;
+use App\Models\EvaluadorConocimientos;
 use App\Http\Controllers\Controller;
-use App\Tipo;
+use App\Models\Tipo;
 
 class EvaluadorController extends Controller
 {

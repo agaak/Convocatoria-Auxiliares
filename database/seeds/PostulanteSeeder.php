@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Utils\ConvocatoriaComp;
-use App\Postulante;
-use App\Postulante_auxiliatura;
-use App\Postulante_req_aux;
-use App\Postulante_conovocatoria;
+use App\Models\Postulante;
+use App\Models\Postulante_auxiliatura;
+use App\Models\Postulante_req_aux;
+use App\Models\Postulante_conovocatoria;
 use Illuminate\Database\Seeder;
 
 class PostulanteSeeder extends Seeder

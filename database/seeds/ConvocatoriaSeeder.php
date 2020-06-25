@@ -1,11 +1,11 @@
 <?php
 
-use App\Convocatoria;
-use App\EventoImportante;
-use App\Porcentaje;
-use App\Documento;
-use App\Requerimiento;
-use App\Requisito;
+use App\Models\Convocatoria;
+use App\Models\EventoImportante;
+use App\Models\Porcentaje;
+use App\Models\Documento;
+use App\Models\Requerimiento;
+use App\Models\Requisito;
 use Illuminate\Database\Seeder;
 
 class ConvocatoriaSeeder extends Seeder

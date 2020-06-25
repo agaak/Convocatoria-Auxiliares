@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Convocatoria\RequisitoCreateRequest;
 use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
-use App\Requisito;
+use App\Models\Requisito;
 class RequisitoController extends Controller
 {
     public function __construct()

@@ -1,6 +1,6 @@
 <?php
 
-use App\EventoImportante;
+use App\Models\EventoImportante;
 use Illuminate\Database\Seeder;
 
 class EventoSeeder extends Seeder

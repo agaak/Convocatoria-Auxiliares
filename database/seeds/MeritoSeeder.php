@@ -1,7 +1,7 @@
 <?php
 
-use App\Calificacion_final;
-use App\Merito;
+use App\Models\Calificacion_final;
+use App\Models\Merito;
 use Illuminate\Database\Seeder;
 
 class MeritoSeeder extends Seeder

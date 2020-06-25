@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Utils\Evaluador;
 
-use App\EvaluadorConocimientos;
-use App\Tipo_evaluador;
-use App\Convocatoria;
+use App\Models\EvaluadorConocimientos;
+use App\Models\Tipo_evaluador;
+use App\Models\Convocatoria;
 
 class MenuDina
 {   

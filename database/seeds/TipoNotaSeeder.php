@@ -1,6 +1,6 @@
 <?php
 
-use App\TipoNota;
+use App\Models\TipoNota;
 use Illuminate\Database\Seeder;
 
 class TipoNotaSeeder extends Seeder

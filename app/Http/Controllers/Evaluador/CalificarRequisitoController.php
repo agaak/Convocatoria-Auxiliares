@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Evaluador;
 
-use App\Convocatoria;
-use App\EvaluadorConocimientos;
-use App\EvaluadorConovocatoria;
-use App\PostuCalifConoc;
-use App\Postulante_auxiliatura;
+use App\Models\Convocatoria;
+use App\Models\EvaluadorConocimientos;
+use App\Models\EvaluadorConovocatoria;
+use App\Models\PostuCalifConoc;
+use App\Models\Postulante_auxiliatura;
 use Illuminate\Http\Request;
-use App\Postulante;
+use App\Models\Postulante;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use App\Http\Controllers\Utils\Evaluador\MenuDina;
 use App\Http\Controllers\Utils\Evaluador\PostulanteComp;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\ConvocatoriaComp;
-use App\Postulante_conovocatoria;
+use App\Models\Postulante_conovocatoria;
 
 class CalificarRequisitoController extends Controller
 {

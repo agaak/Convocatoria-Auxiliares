@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\AdmConvocatoria;
 
-use App\EvaluadorConocimientos;
-use App\EvaluadorConovocatoria;
-use App\Tipo_evaluador;
+use App\Models\EvaluadorConocimientos;
+use App\Models\EvaluadorConovocatoria;
+use App\Models\Tipo_evaluador;
 use App\Http\Requests\AdmConvocatoria\AdmMeritosRequest;
 use App\Http\Requests\AdmConvocatoria\AdmMeritosUpdateRequest;
 use Illuminate\Support\Facades\DB;

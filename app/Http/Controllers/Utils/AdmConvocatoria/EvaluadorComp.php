@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Utils\AdmConvocatoria;
 
-use App\EvaluadorConocimientos;
-use App\EvaluadorConovocatoria;
-use App\EvaluadorTematica;
-use App\EvaluadorAuxiliatura;
-use App\Tipo_evaluador;
+use App\Models\EvaluadorConocimientos;
+use App\Models\EvaluadorConovocatoria;
+use App\Models\EvaluadorTematica;
+use App\Models\EvaluadorAuxiliatura;
+use App\Models\Tipo_evaluador;
 
 class EvaluadorComp
 {   

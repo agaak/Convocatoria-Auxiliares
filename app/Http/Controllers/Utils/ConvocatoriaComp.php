@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Utils;
 
-use App\Convocatoria;
-use App\EvaluadorConocimientos;
+use App\Models\Convocatoria;
+use App\Models\EvaluadorConocimientos;
 
 class ConvocatoriaComp
 {   

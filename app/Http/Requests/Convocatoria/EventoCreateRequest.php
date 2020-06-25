@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Convocatoria;
-use App\Convocatoria;
+use App\Models\Convocatoria;
 
 use Illuminate\Foundation\Http\FormRequest;
 

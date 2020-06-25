@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MeritoEditRequest;
 use App\Http\Requests\MeritoRequest;
 use App\Http\Controllers\Utils\Convocatoria\MeritoComp;
-use App\Merito;
-use App\Calificacion_final;
+use App\Models\Merito;
+use App\Models\Calificacion_final;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

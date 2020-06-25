@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Evaluador;
 
-use App\Convocatoria;
-use App\Postulante;
-use App\Postulante_auxiliatura;
-use App\Postulante_req_aux;
-use App\Postulante_conovocatoria;
+use App\Models\Convocatoria;
+use App\Models\Postulante;
+use App\Models\Postulante_auxiliatura;
+use App\Models\Postulante_req_aux;
+use App\Models\Postulante_conovocatoria;
 use Illuminate\Http\Request;
-use App\EvaluadorConocimientos;
-use App\EvaluadorConovocatoria;
+use App\Models\EvaluadorConocimientos;
+use App\Models\EvaluadorConovocatoria;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;

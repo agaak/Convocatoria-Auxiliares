@@ -1,7 +1,7 @@
 <?php
 
-use App\PrePostulante;
-use App\PrePostulanteAuxiliatura;
+use App\Models\PrePostulante;
+use App\Models\PrePostulanteAuxiliatura;
 use Illuminate\Database\Seeder;
 
 class PrePostulanteSeeder extends Seeder

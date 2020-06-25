@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Utils\Convocatoria\DocumentoComp;
-use App\Documento;
+use App\Models\Documento;
 class DocumentoController extends Controller
 {
     public function __construct()

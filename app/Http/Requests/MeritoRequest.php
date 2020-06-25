@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Merito;
+use App\Models\Merito;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Factory as ValidacionPersonal;
 

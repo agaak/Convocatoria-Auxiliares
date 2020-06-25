@@ -1,6 +1,6 @@
 <?php
 
-use App\Tipo_rol_evaluador;
+use App\Models\Tipo_rol_evaluador;
 use Illuminate\Database\Seeder;
 
 class TipoRolEvaluadorSeeder extends Seeder

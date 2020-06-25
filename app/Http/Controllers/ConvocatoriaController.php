@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Convocatoria;
-use App\Requerimiento;
-use App\Tipo;
-use App\User;
-use App\UserRol;
+use App\Models\Convocatoria;
+use App\Models\Requerimiento;
+use App\Models\Tipo;
+use App\Models\User;
+use App\Models\UserRol;
 use App\Http\Requests\ConvocatoriaRequest;
 use App\Http\Controllers\Utils\ConvocatoriaComp as Convos;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;

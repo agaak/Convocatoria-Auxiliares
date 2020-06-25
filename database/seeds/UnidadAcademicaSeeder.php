@@ -1,5 +1,5 @@
 <?php
-use App\UnidadAcademica;
+use App\Models\UnidadAcademica;
 use Illuminate\Database\Seeder;
 
 class UnidadAcademicaSeeder extends Seeder

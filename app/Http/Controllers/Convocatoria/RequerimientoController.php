@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Convocatoria;
 
-use App\Convocatoria;
+use App\Models\Convocatoria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Convocatoria\RequerimientoCreateRequest;
 use App\Http\Controllers\Utils\Convocatoria\RequerimientoComp;
 use Illuminate\Support\Facades\DB;
-use App\Requerimiento;
-use App\Porcentaje;
+use App\Models\Requerimiento;
+use App\Models\Porcentaje;
 
 class RequerimientoController extends Controller
 {

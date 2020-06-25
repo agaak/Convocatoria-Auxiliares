@@ -11,7 +11,7 @@
 |
 */
 
-use App\Role;
+use App\Models\Role;
 use Illuminate\Support\Facades\App;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 

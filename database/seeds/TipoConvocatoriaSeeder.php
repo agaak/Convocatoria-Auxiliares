@@ -1,5 +1,5 @@
 <?php
-use App\Tipo;
+use App\Models\Tipo;
 use Illuminate\Database\Seeder;
 
 class TipoConvocatoriaSeeder extends Seeder

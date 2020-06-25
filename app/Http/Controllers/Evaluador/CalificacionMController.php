@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Evaluador;
 
-use App\EvaluadorConocimientos;
+use App\Models\EvaluadorConocimientos;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Postulante;
-use App\Postulante_conovocatoria;
+use App\Models\Postulante;
+use App\Models\Postulante_conovocatoria;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Utils\Convocatoria\MeritoComp;
 

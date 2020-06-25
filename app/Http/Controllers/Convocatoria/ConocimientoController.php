@@ -6,17 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Convocatoria\ConocimientoCreateRequest;
-use App\Tematica;
-use App\Porcentaje;
-use App\Calificacion_final;
-use App\Convocatoria;
-use App\Documento;
-use App\EventoImportante;
+use App\Models\Tematica;
+use App\Models\Porcentaje;
+use App\Models\Calificacion_final;
+use App\Models\Convocatoria;
+use App\Models\Documento;
+use App\Models\EventoImportante;
 use App\Http\Requests\Convocatoria\TematicaEditRequest;
 use App\Http\Controllers\Utils\Convocatoria\ConocimientosComp;
-use App\Merito;
-use App\Requerimiento;
-use App\Requisito;
+use App\Models\Merito;
+use App\Models\Requerimiento;
+use App\Models\Requisito;
 
 class ConocimientoController extends Controller
 {

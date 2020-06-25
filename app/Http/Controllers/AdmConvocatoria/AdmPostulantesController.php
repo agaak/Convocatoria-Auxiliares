@@ -5,18 +5,18 @@ namespace App\Http\Controllers\AdmConvocatoria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
-use App\Postulante;
-use App\PrePostulante;
-use App\Auxiliatura;
-use App\Postulante_auxiliatura;
-use App\Postulante_conovocatoria;
-use App\Postulante_req_aux;
-use App\PostuCalifConoc;
-use App\PostuCalifConocFinal;
-use App\PostuCalifMerito;
-use App\PostuCalifMeritoFinal;
-use App\Requerimiento;
-use App\Merito;
+use App\Models\Postulante;
+use App\Models\PrePostulante;
+use App\Models\Auxiliatura;
+use App\Models\Postulante_auxiliatura;
+use App\Models\Postulante_conovocatoria;
+use App\Models\Postulante_req_aux;
+use App\Models\PostuCalifConoc;
+use App\Models\PostuCalifConocFinal;
+use App\Models\PostuCalifMerito;
+use App\Models\PostuCalifMeritoFinal;
+use App\Models\Requerimiento;
+use App\Models\Merito;
 
 class AdmPostulantesController extends Controller
 {
