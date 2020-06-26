@@ -12,6 +12,7 @@ use App\Http\Controllers\Utils\ConvocatoriaComp as Convos;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use App\Http\Controllers\Utils\ConvocatoriaComp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 

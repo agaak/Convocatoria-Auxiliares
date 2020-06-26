@@ -4,6 +4,15 @@
             style="font-size:16px; background: #0A091B; color: white; height: 65px;">
             {{ $convo->titulo }}
         </div>
+        @php
+            $meses = ["Enero", "Febrero", "Marzo", "Abril" ,"Mayo" ,"Junio" ,"Julio" ,"Agosto" ,"Septiembre" ,"Octubre" ,"Noviembre" ,"Diciembre"];
+        @endphp
+        <p class="m-0 bg-info font-weight-bold">
+            Termina el:
+            {{ date('j', strtotime($convo->fecha_final)) }} de
+            {{ $meses[substr($convo->fecha_final, 5, -3) - 1] }} del
+            {{ date('Y', strtotime($convo->fecha_final)) }}
+        </p>
         <div class="card-body overflow-auto" data-spy="scroll" style="height: 100px">
             <p class="card-text">{{ $convo->descripcion_convocatoria }}</p>
         </div>
