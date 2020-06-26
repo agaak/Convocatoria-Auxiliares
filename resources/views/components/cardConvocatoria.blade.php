@@ -7,14 +7,16 @@
         @php
             $meses = ["Enero", "Febrero", "Marzo", "Abril" ,"Mayo" ,"Junio" ,"Julio" ,"Agosto" ,"Septiembre" ,"Octubre" ,"Noviembre" ,"Diciembre"];
         @endphp
-        <p class="m-0 bg-info font-weight-bold">
-            Termina el:
-            {{ date('j', strtotime($convo->fecha_final)) }} de
-            {{ $meses[substr($convo->fecha_final, 5, -3) - 1] }} del
-            {{ date('Y', strtotime($convo->fecha_final)) }}
-        </p>
         <div class="card-body overflow-auto" data-spy="scroll" style="height: 100px">
             <p class="card-text">{{ $convo->descripcion_convocatoria }}</p>
+        </div>
+        <div class="card-footer p-0">
+            <p class="m-0 text-muted font-weight-bold bg-light">
+                Finaliza el:
+                {{ date('j', strtotime($convo->fecha_final)) }} de
+                {{ $meses[substr($convo->fecha_final, 5, -3) - 1] }} del
+                {{ date('Y', strtotime($convo->fecha_final)) }}
+            </p>
         </div>
         <div class="card-footer text-muted">
             @if (auth()->check())
@@ -76,6 +78,7 @@
                 <div class="card-footer text-muted" style="height: 50px; font-size:14px;">Esta convocatoria se
                 encuentra incompleta.</div>
             @endif
-    </div>
+            
+        </div>
     {{ $slot }}
 </div>

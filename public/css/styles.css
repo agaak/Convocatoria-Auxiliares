@@ -93,13 +93,11 @@ body {
 .navbar-collapse-color ul li a:hover,
 .navbar-collapse-color ul li a.activate,
 .login.activate {
-    box-shadow: 0 0 5px black inset;
     background-color: white;
     color: #001523 !important;
 }
 
 .login:hover {
-    box-shadow: 0 0 5px black;
     background-color: white;
     color: #001523 !important;
 }
@@ -139,6 +137,12 @@ body {
 
 .navbar-item:hover {
     background-color: rgb(13, 99, 156);
+}
+
+.container-list-ver {
+    padding: 0;
+    list-style: none;
+    border-bottom: 1px solid white;
 }
 
 .navbar-lateral-active {
@@ -185,6 +189,20 @@ body {
 
 .link-list:hover {
     color: white;
+    text-decoration: none;
+}
+
+.navbar-item-ver .link-list:hover {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar-item-ver .navbar-lateral-active {
+    color: white;
+    font-weight: bold;
+    background-color: transparent;
+    box-shadow: 0 10px 5px -5px rgba(0, 0, 0, 0);
     text-decoration: none;
 }
 

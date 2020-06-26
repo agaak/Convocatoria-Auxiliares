@@ -11,6 +11,12 @@
                 }
             @endphp
             <h2 class="text-uppercase title-navbar">nueva convocatoria</h2>
+            @if (session()->get('ver'))
+                <ul class="container-list-ver m-2">
+                    <li class="navbar-item-ver"><a href="" class="link-list {{ activeMenuConten('convocatoria/*') }}">Ver Detalles</a></li>
+                    <li class="navbar-item-ver mb-2"><a href="{{ route('listHabilitados') }}" class="link-list">Ver Resultados</a></li>
+                </ul>
+            @endif
             <ul class="container-list">
                 <li class="navbar-item {{ activeMenuConten('convocatoria/requerimientos') }}">
                     <a class="link-list" href="{{ route('requests') }}">Requerimientos</a>
@@ -32,7 +38,7 @@
                 </li>
             </ul>
         </nav>
-
+ 
         @yield('content-convocatory')
 
     </div>

@@ -121,6 +121,12 @@ Route::post('evaluador/merito/calificar-merito-final', 'Evaluador\CalificacionMC
 //Lista estado de postulantes
 Route::get('convocatoria/adm-postulantes/habilitados','PDFpostulantesController@listHabilitados');
 
+Route::get('convocatoria/lista-habilitados', 'VerConvocatoria\ListEnabledController@index')->name('listHabilitados');
+Route::get('convocatoria/notas-merito', 'VerConvocatoria\NotasMeritoController@index')->name('notasMerito');
+Route::get('convocatoria/notas-conocimiento-tematica', 'VerConvocatoria\NotasTematicaController@index')->name('notasTematica');
+Route::get('convocatoria/notas-conocimiento-aux', 'VerConvocatoria\NotasAuxiliaturaController@index')->name('notasAuxiliatura');
+Route::get('convocatoria/notas-finales', 'VerConvocatoria\NotasFinalesController@index')->name('notasFinales');
+
 // Estos siempres al final son un caso especial
 Route::resource('convocatoria/calificacion-meritos', 'Convocatoria\MeritoController');
 Route::resource('convocatoria', 'ConvocatoriaController');
