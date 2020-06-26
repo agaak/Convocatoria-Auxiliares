@@ -1,10 +1,11 @@
 <div class="table-requests">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
           <thead class="thead-dark text-center">
               <tr>
                   <th class="font-weight-normal" scope="col">N°</th>
-                  <th class="font-weight-normal" scope="col">Nombres Completos</th>
                   <th class="font-weight-normal" scope="col">Carnet</th>
+                  <th class="font-weight-normal" scope="col">Apellidos</th>
+                  <th class="font-weight-normal" scope="col">Nombres</th> 
                   <th class="font-weight-normal" style="width: 90px" scope="col">Nota</th>
               </tr>
           </thead>
@@ -15,8 +16,9 @@
                 @foreach ($postulantes as $item)
                     <tr>
                         <td class="text-center">{{ $cont++ }}</td>
-                        <td class="text-center">{{ $item->apellido.' '.$item->nombre }}</td>
                         <td class="text-center">{{ $item->ci }}</td>
+                        <td class="text-center">{{ $item->apellido }}</td>
+                        <td class="text-center">{{ $item->nombre }}</td>
                         
                         @if (auth()->check())
                             @if (auth()->user()->hasRoles(['evaluador']))
