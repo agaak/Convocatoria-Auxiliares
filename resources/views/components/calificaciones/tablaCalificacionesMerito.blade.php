@@ -5,7 +5,11 @@
                   <th class="font-weight-normal" scope="col">Descripcion de Meritos</th>
                   <th class="font-weight-normal" scope="col">Porcentaje</th>
                   <th class="font-weight-normal" scope="col">Nota</th>
-                  <th class="font-weight-normal" scope="col">Editar</th>
+                  @if (auth()->check())
+                    @if (auth()->user()->hasRoles(['evaluador']))
+                        <th class="font-weight-normal" scope="col">Calificar</th>
+                    @endif
+                  @endif
               </tr>
           </thead>
           <tbody class="bg-white">
@@ -28,12 +32,16 @@
                             @endif
                         @endforeach
                         </td>
-                        <td>
+                        <td class="text-center">
                         @foreach($lista as $item2)
                             @if( ($item2->id) == $item[3] )
-                                <button data-toggle="modal" class="btn btn-link" onclick="mostrarModalMeritos({{ json_encode($item2) }},{{ json_encode($item)}})" data-target="#modalCalificar">
-                                    <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-                                </button>
+                                @if (auth()->check())
+                                    @if (auth()->user()->hasRoles(['evaluador']))
+                                        <button data-toggle="modal" class="btn btn-link" onclick="mostrarModalMeritos({{ json_encode($item2) }},{{ json_encode($item)}})" data-target="#modalCalificar">
+                                            <img src="{{ asset('img/pen.png') }}" width="30" height="30">
+                                        </button>
+                                    @endif
+                                @endif
                             @else
                             @endif
                         @endforeach
