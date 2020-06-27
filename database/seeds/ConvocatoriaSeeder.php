@@ -63,6 +63,23 @@ class ConvocatoriaSeeder extends Seeder
             departamento de Registros e Inscripciones. "
         ]);
         
+        Requisito::create([
+            'id_convocatoria' =>  1,
+            'descripcion' => "Para administrador de Laboratorio de Mantenimiento de Hardware podrán
+            presentarse además estudiantes de Ing. Electrónica. Estudiante regular es aquel que está
+            inscrito en la gestión académica vigente y cumple los requisitos exigidos para seguir una
+            carrera universitaria y el rendimiento académico, haber aprobado más de la mitad de las
+            materias curriculares que corresponde al semestre anterior, certificado por el
+            departamento de Registros e Inscripciones. "
+        ]);
+
+        Requisito::create([
+            'id_convocatoria' =>  1,
+            'descripcion' => "La Universidad Mayor de San Simon o de cualquier otra del Sistema de la Universidad Boliviana
+            (RCU No. 63/2018). Aún en caso de encontrarse cursando otra carrera con
+            admisión especial."
+        ]);
+
         Documento::create([
             'id_convocatoria' =>  1,
             'descripcion' => "Presentar solicitud escrita dirigida a la Jefatura de Departamento de Informática y Sistemas
@@ -164,6 +181,23 @@ class ConvocatoriaSeeder extends Seeder
             admisión especial. (Certificación emitida por el Departamento de Registros e
             Inscripciones)."
         ]);
+
+        Requisito::create([
+            'id_convocatoria' =>  2,
+            'descripcion' => "Prohibido la participación de estudiantes que hubiesen
+            obtenido ya un título profesional en alguna de las carreras de la Universidad
+            Mayor de San Simon o de cualquier otra del Sistema de la Universidad Boliviana
+            (RCU No. 63/2018). Aún en caso de encontrarse cursando otra carrera con
+            admisión especial."
+        ]);
+
+        Requisito::create([
+            'id_convocatoria' =>  2,
+            'descripcion' => "La Universidad Mayor de San Simon o de cualquier otra del Sistema de la Universidad Boliviana
+            (RCU No. 63/2018). Aún en caso de encontrarse cursando otra carrera con
+            admisión especial."
+        ]);
+
         
         Documento::create([
             'id_convocatoria' =>  2,

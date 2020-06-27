@@ -31,12 +31,13 @@ class AdmPostulantesController extends Controller
         
         $listaRotulos = PrePostulante::where('id_convocatoria',$id_conv)->get();
        
-        $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id')
-        ->join('requerimiento','auxiliatura.id','=','requerimiento.id_auxiliatura')
+        $listaAux = PrePostulante::select('pre_postulante.id','nombre_aux','auxiliatura.id as id_aux')
         ->where('id_convocatoria',$id_conv)
+        ->join('pre_postulante_auxiliatura','pre_postulante.id','=','id_pre_postulante')
+        ->join('auxiliatura','pre_postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
         ->get();
-
         $listaAux = collect($listaAux)->groupBy('id');
+
         $listPostulantes = Postulante_auxiliatura::select('postulante_auxiliatura.*',
         'postulante.*','auxiliatura.nombre_aux')
         ->join('postulante','postulante_auxiliatura.id_postulante','=','postulante.id')
@@ -96,34 +97,42 @@ class AdmPostulantesController extends Controller
             $postulante_aux = new Postulante_auxiliatura();
             $postulante_aux->id_postulante = $postulante->id;
             $postulante_aux->id_auxiliatura = $aux;
-            //$postulante_aux->observacion = "ninguna";
+            $postulante_aux->id_convocatoria = session()->get('convocatoria');
             $postulante_aux->save();
-            $post_calf_conoc_fin = new PostuCalifConocFinal();
-            $post_calf_conoc_fin->id_convocatoria = session()->get('convocatoria');
-            $post_calf_conoc_fin->id_postulante = $postulante->id; 
-            $post_calf_conoc_fin->id_auxiliatura = $aux;
-            $post_calf_conoc_fin->save();
+
             foreach ($requisitos as $requisito){
                 $post_calf_requisitos = new Postulante_req_aux();
                 $post_calf_requisitos->id_postulante_auxiliatura = $postulante_aux->id;
                 $post_calf_requisitos->id_requisito = $requisito->id;
                 $post_calf_requisitos->save();
             }
-
-            $porcentajes = Requerimiento::select('porcentaje.*')
-            ->where('requerimiento.id_convocatoria',session()->get('convocatoria'))
-            ->join('porcentaje','porcentaje.id_requerimiento','=','requerimiento.id')
-            ->where('porcentaje.id_auxiliatura', $aux)
-            ->where('porcentaje.porcentaje','>','0')
-            ->get();
             
-            foreach($porcentajes as $por){
-                $post_calf_conoc = new PostuCalifConoc();
-                $post_calf_conoc->id_postulante = $postulante->id;
-                $post_calf_conoc->id_porcentaje = $por->id;
-                $post_calf_conoc->id_calf_final = $post_calf_conoc_fin->id;
-                $post_calf_conoc->save();
-            }
+            // $post_calf_conoc_fin = new PostuCalifConocFinal();
+            // $post_calf_conoc_fin->id_convocatoria = session()->get('convocatoria');
+            // $post_calf_conoc_fin->id_postulante = $postulante->id; 
+            // $post_calf_conoc_fin->id_auxiliatura = $aux;
+            // $post_calf_conoc_fin->save();
+            // foreach ($requisitos as $requisito){
+            //     $post_calf_requisitos = new Postulante_req_aux();
+            //     $post_calf_requisitos->id_postulante_auxiliatura = $postulante_aux->id;
+            //     $post_calf_requisitos->id_requisito = $requisito->id;
+            //     $post_calf_requisitos->save();
+            // }
+
+            // $porcentajes = Requerimiento::select('porcentaje.*')
+            // ->where('requerimiento.id_convocatoria',session()->get('convocatoria'))
+            // ->join('porcentaje','porcentaje.id_requerimiento','=','requerimiento.id')
+            // ->where('porcentaje.id_auxiliatura', $aux)
+            // ->where('porcentaje.porcentaje','>','0')
+            // ->get();
+            
+            // foreach($porcentajes as $por){
+            //     $post_calf_conoc = new PostuCalifConoc();
+            //     $post_calf_conoc->id_postulante = $postulante->id;
+            //     $post_calf_conoc->id_porcentaje = $por->id;
+            //     $post_calf_conoc->id_calf_final = $post_calf_conoc_fin->id;
+            //     $post_calf_conoc->save();
+            // }
            
         }
 

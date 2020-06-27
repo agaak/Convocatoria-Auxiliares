@@ -36,7 +36,6 @@ public function index(){
 
         $listPostulanteAux = Postulante_auxiliatura::select('postulante_auxiliatura.observacion', 'postulante_auxiliatura.id_postulante',
         'postulante_auxiliatura.habilitado','auxiliatura.nombre_aux')
-        ->join('postulante_conovocatoria','postulante_conovocatoria.id_postulante','=','postulante_auxiliatura.id_postulante')
         ->where('id_convocatoria',session()->get('convocatoria'))
         ->join('auxiliatura','postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
         ->get();

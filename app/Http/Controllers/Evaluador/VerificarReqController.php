@@ -6,6 +6,9 @@ use App\Models\Convocatoria;
 use App\Models\Postulante;
 use App\Models\Postulante_auxiliatura;
 use App\Models\Postulante_req_aux;
+use App\Models\PostuCalifConocFinal;
+use App\Models\PostuCalifConoc;
+use App\Models\Requerimiento;
 use App\Models\Postulante_conovocatoria;
 use Illuminate\Http\Request;
 use App\Models\EvaluadorConocimientos;
@@ -114,6 +117,35 @@ class VerificarReqController extends Controller
                 'observacion' => $messageAuxiliatura,
                 'habilitado' => $validAuxlitiatura,
             ]);
+            $aux = Postulante_auxiliatura::where('id', $auxiliaturaId)->value('id_auxiliatura');
+            if($validAuxlitiatura){
+               
+                $post_calf_conoc_fin = new PostuCalifConocFinal();
+                $post_calf_conoc_fin->id_convocatoria = session()->get('convocatoria');
+                $post_calf_conoc_fin->id_postulante = request()->input('id-postulante'); 
+                $post_calf_conoc_fin->id_auxiliatura = $aux;
+                $post_calf_conoc_fin->save();
+                
+
+                $porcentajes = Requerimiento::select('porcentaje.*')
+                ->where('requerimiento.id_convocatoria',session()->get('convocatoria'))
+                ->join('porcentaje','porcentaje.id_requerimiento','=','requerimiento.id')
+                ->where('porcentaje.id_auxiliatura', $aux)
+                ->where('porcentaje.porcentaje','>','0')
+                ->get();
+                
+                foreach($porcentajes as $por){
+                    $post_calf_conoc = new PostuCalifConoc();
+                    $post_calf_conoc->id_postulante = request()->input('id-postulante');
+                    $post_calf_conoc->id_porcentaje = $por->id;
+                    $post_calf_conoc->id_calf_final = $post_calf_conoc_fin->id;
+                    $post_calf_conoc->save();
+                }
+
+            }else{
+                PostuCalifConocFinal::where('id_auxiliatura',$aux)
+                ->where('id_postulante',request()->input('id-postulante'))->delete(); 
+            }
         }
         Postulante_conovocatoria::where('id_postulante', request()->input('id-postulante'))->update([
             'calificando_requisito' => false,
