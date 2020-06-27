@@ -13,7 +13,11 @@
             <h2 class="text-uppercase title-navbar">convocatoria actual</h2>
             <ul class="container-list-ver m-2">
                 <li class="navbar-item-ver"><a href="{{ route('requests') }}" class="link-list">Ver Detalles</a></li>
-                <li class="navbar-item-ver mb-2"><a href="{{ route('listHabilitados') }}" class="link-list {{ activeMenuConten('convocatoria/*') }}">Ver Resultados</a></li>
+                <li class="navbar-item-ver mb-2">
+                    <a href="{{ route('listHabilitados') }}" class="link-list navbar-lateral-active">
+                        <img src="{{ asset('img/navigation.svg') }}" width="15" height="15" class="mb-1"> Ver Resultados
+                    </a>
+                </li>
             </ul>
             <ul class="container-list">
                 <li class="navbar-item {{ activeMenuConten('convocatoria/lista-habilitados') }}">

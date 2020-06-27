@@ -31,7 +31,7 @@
         <header class="container-navbar">
             
             <div class="logo-title">
-                <a href="{{ route('convocatoria.index') }}">
+                <a href="/">
                     <img src="{{ asset('img/logo.png')}}" width="55" height="90">
                 </a>
                 <h1 class="logo-title-body text-uppercase">
@@ -64,73 +64,59 @@
                           </div>
                     </time>
                 </div>
-                <nav class="navbar navbar-expand-lg navbar-dark container-bar">
-                    @php
-                        function activeMenu($url) {
-                            $direction = '';
-                            if (request()->is($url)) {
-                                $direction = 'activate';
-                            } elseif (request()->is($url.'/*')) {
-                                $direction = 'activate';
-                            }
-                            return $direction;
+                @php
+                    function activeMenu($url) {
+                        $direction = '';
+                        if (request()->is($url)) {
+                            $direction = 'activate';
+                        } elseif (request()->is($url.'/*')) {
+                            $direction = 'activate';
                         }
-                    @endphp
-
-                    @if (auth()->check())
-                        @if (!auth()->user()->hasRoles(['evaluador']))
-                            <a class="navbar-brand" href="#"></a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse navbar-collapse-color" id="navbarNav">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ activeMenu('convocatoria') }}" href="{{ route('convocatoria.index') }}">Convocatorias</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ activeMenu('resultados') }}" href="{{ route('results') }}">Resultados</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ activeMenu('admision') }}" href="{{ route('proceduresDocs') }}">Tramites y documentos</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        @else 
-                            <a class="navbar-brand" href="#"></a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse navbar-collapse-color" id="navbarNav">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ activeMenu('convocatoria') }}" href="{{ route('convocatoria.index') }}">Convocatorias</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ activeMenu('evaluador*') }}" href="{{ route('evaluador.index') }}">Evaluar</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        @endif
-                    @else
-                        <a class="navbar-brand" href="#"></a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse navbar-collapse-color" id="navbarNav">
-                            <ul class="navbar-nav">
+                        return $direction;
+                    }
+                @endphp
+                <nav class="navbar navbar-expand-lg navbar-dark container-bar">
+                    <a class="navbar-brand" href="#"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse navbar-collapse-color" id="navbarNav">
+                        <ul class="navbar-nav">
+                            
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown-toggle {{ activeMenu('convocatoria') }}" href="#" role="button" id="convocatoriaLinks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Convocatorias
+                                    </a>
+                                    <div class="dropdown-menu bg-dark p-1" aria-labelledby="convocatoriaLinks">
+                                        <a class="dropdown-item {{ activeMenu('convocatoria') }}" href="{{ route('convocatoria.index') }}">Vigentes</a>
+                                        <a class="dropdown-item {{ activeMenu('convocatorias-pasadas') }}" href="{{ route('convsPasadas') }}">Pasadas</a>
+                                    </div>
+                                </div>
+                            </li>
+                            @if (auth()->check() && auth()->user()->hasRoles(['administrador']))
                                 <li class="nav-item">
-                                    <a class="nav-link {{ activeMenu('convocatoria') }}" href="{{ route('convocatoria.index') }}">Convocatorias</a>
+                                    <div class="dropdown">
+                                        <a class="nav-link dropdown-toggle {{ activeMenu('catalogo') }}" href="#" role="button" id="catalogoLinks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Catalogo
+                                        </a>
+                                        <div class="dropdown-menu bg-dark p-1" aria-labelledby="catalogoLinks">
+                                            <a class="dropdown-item {{ activeMenu('catalogo/docencia') }}" href="{{ route('docencia.index') }}">Docencia</a>
+                                            <a class="dropdown-item {{ activeMenu('catalogo/laboratorio') }}" href="{{ route('laboratorio.index') }}">Laboratorio</a>
+                                        </div>
+                                    </div>
                                 </li>
+                            @endif
+                            @if (auth()->check() && auth()->user()->hasRoles(['evaluador']))
                                 <li class="nav-item">
-                                    <a class="nav-link {{ activeMenu('resultados') }}" href="{{ route('results') }}">Resultados</a>
+                                    <a class="nav-link {{ activeMenu('evaluador') }}" href="{{ route('evaluador.index') }}">Evaluar</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ activeMenu('admision') }}" href="{{ route('proceduresDocs') }}">Tramites y documentos</a>
-                                </li>
-                            </ul>
-                        </div>
-                    @endif
+                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link {{ activeMenu('avisos') }}" href="/avisos">Avisos</a>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
             </div>
         

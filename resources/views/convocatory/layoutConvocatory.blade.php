@@ -13,7 +13,11 @@
             <h2 class="text-uppercase title-navbar">nueva convocatoria</h2>
             @if (session()->get('ver'))
                 <ul class="container-list-ver m-2">
-                    <li class="navbar-item-ver"><a href="" class="link-list {{ activeMenuConten('convocatoria/*') }}">Ver Detalles</a></li>
+                    <li class="navbar-item-ver">
+                        <a href="{{ route('requests') }}" class="link-list navbar-lateral-active">
+                            <img src="{{ asset('img/navigation.svg') }}" width="15" height="15" class="mb-1"> Ver Detalles
+                        </a>
+                    </li>
                     <li class="navbar-item-ver mb-2"><a href="{{ route('listHabilitados') }}" class="link-list">Ver Resultados</a></li>
                 </ul>
             @endif
