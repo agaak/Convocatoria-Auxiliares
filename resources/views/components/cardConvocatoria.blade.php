@@ -47,9 +47,12 @@
                             class="btn btn-sm">{{ csrf_field() }}Evaluar</a>
                         @endif
                     @else
-                        <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a> 
-                        <a type="button" onclick="listaAux({{ $auxs }}, {{ $convo->id }})" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#postulanteModal">
-                            Postular ahora </a>
+                        <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a>
+                        @if ($convo->pre_posts_habilitado)
+                            <a type="button" onclick="listaAux({{ $auxs }}, {{ $convo->id }})" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#postulanteModal">
+                                Postular ahora
+                            </a>
+                        @endif
                     @endif                      
                     <a href="{{ route('convocatoria.download',$convo->id ) }}" style="color:white;"
                     class="btn btn-info btn-sm">Descargar</a>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
 use App\Models\Postulante;
 use App\Models\PrePostulante;
 use App\Models\Auxiliatura;
+use App\Models\Convocatoria;
 use App\Models\Postulante_auxiliatura;
 use App\Models\Postulante_conovocatoria;
 use App\Models\Postulante_req_aux;
@@ -47,7 +48,8 @@ class AdmPostulantesController extends Controller
         ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
         ->where('requerimiento.id_convocatoria',$id_conv)->get();
         
-        return view('admConvocatoria.admPostulantes',compact('listPostulantes','listaAux','listaRotulos'));
+        $prePostulante = Convocatoria::find($id_conv);
+        return view('admConvocatoria.admPostulantes',compact('listPostulantes','listaAux','listaRotulos','prePostulante'));
     }
 
 
@@ -157,6 +159,20 @@ class AdmPostulantesController extends Controller
             }
         }
         
+        return back();
+    }
+
+    public function habilitar($id) {
+        $convocatoria = Convocatoria::find($id);
+        if ($convocatoria->pre_posts_habilitado) {
+            Convocatoria::where('id', $id)->update([
+                'pre_posts_habilitado' => false
+            ]);
+        } else {
+            Convocatoria::where('id', $id)->update([
+                'pre_posts_habilitado' => true
+            ]);
+        }
         return back();
     }
 }

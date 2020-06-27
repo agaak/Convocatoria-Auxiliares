@@ -5,8 +5,17 @@
 
     <h3 class="text-uppercase">Postulantes</h3>
     {{-- Triger modal --}}
-    <button type="button" class="btn btn-dark my-3" data-toggle="modal" 
-    data-target="#storePostulanteModal" >Registrar postulante</button>
+    <div class="row mr-1 ml-1">
+        <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
+        data-target="#storePostulanteModal">Registrar postulante</button>
+        <div class="col"></div>
+        @if ($prePostulante->pre_posts_habilitado)
+            <a href="{{ route('habilitarPostulante', $prePostulante->id) }}" id="pre-posts-habilitar" type="button" class="btn btn-secondary my-3 col-xs-2">Deshabilitar Postulanciones</a> 
+        @else
+            <a href="{{ route('habilitarPostulante', $prePostulante->id) }}" id="pre-posts-habilitar" type="button" class="btn btn-success my-3 col-xs-2">Habilitar Postulanciones</a>  
+        @endif
+    </div>
+    {{-- <button type="button" class="btn btn-secondary">Habilitar Postulantes</button> --}}
     
     {{-- <div class="container">
         <div class="row my-3">
