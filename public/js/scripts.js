@@ -560,3 +560,8 @@ function validar(notas){
 }
     
 //fin calificar merito estudiante
+
+$('#pre-posts-habilitar').on('click', () => {
+    res = confirm('Esta seguro de habilitar o desabilitar a los PRE POSTULANTES');
+    if (!res) event.preventDefault();
+});

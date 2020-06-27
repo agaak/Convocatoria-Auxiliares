@@ -127,7 +127,8 @@ class ConvocatoriaController extends Controller
             // });
         }
         Convocatoria::where('id', $id)->update([
-            'publicado' => true
+            'publicado' => true,
+            'pre_posts_habilitado' => true
         ]);
         return back();
     }
