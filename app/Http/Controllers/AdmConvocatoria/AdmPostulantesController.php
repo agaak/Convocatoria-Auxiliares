@@ -31,20 +31,21 @@ class AdmPostulantesController extends Controller
         
         $listaRotulos = PrePostulante::where('id_convocatoria',$id_conv)->get();
        
-        $listaAux = PrePostulante::select('pre_postulante.id','nombre_aux','auxiliatura.id as id_aux')
+        $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id')
+        ->join('requerimiento','auxiliatura.id','=','requerimiento.id_auxiliatura')
         ->where('id_convocatoria',$id_conv)
-        ->join('pre_postulante_auxiliatura','pre_postulante.id','=','id_pre_postulante')
-        ->join('auxiliatura','pre_postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
         ->get();
+
         $listaAux = collect($listaAux)->groupBy('id');
         $listPostulantes = Postulante_auxiliatura::select('postulante_auxiliatura.*',
         'postulante.*','auxiliatura.nombre_aux')
         ->join('postulante','postulante_auxiliatura.id_postulante','=','postulante.id')
         ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
         ->join('auxiliatura','postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
-        ->where('id_convocatoria',$id_conv)
-        /* ->groupBy('postulante_auxiliatura.id','postulante.id') */->get();
-
+        ->join('requerimiento','auxiliatura.id','=','requerimiento.id_auxiliatura')
+        ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
+        ->where('requerimiento.id_convocatoria',$id_conv)->get();
+        
         return view('admConvocatoria.admPostulantes',compact('listPostulantes','listaAux','listaRotulos'));
     }
 
