@@ -19,12 +19,12 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 // Route::get('/', ['as' => 'home', 'uses' => 'NavbarController@home']);
 
 Route::get('/', function(){
-	return redirect()->route('convocatoria.index');
+	return view('home');
 });
 
-Route::get('/resultados', ['as' => 'results', 'uses' => 'NavbarController@results']);
-
-Route::get('/tramites-documentos', ['as' => 'proceduresDocs', 'uses' => 'NavbarController@proceduresDocs']);
+Route::get('avisos', function(){
+	return view('avisos');
+});
 
 Route::get('/convocatoria/requerimientos', ['as' => 'requests', 'uses' => 'Convocatoria\RequerimientoController@requests']);
 Route::post('/convocatoria/requerimientos', ['as' => 'create', 'uses' => 'Convocatoria\RequerimientoController@create']);
@@ -127,6 +127,11 @@ Route::get('convocatoria/notas-merito', 'VerConvocatoria\NotasMeritoController@i
 Route::get('convocatoria/notas-conocimiento-tematica', 'VerConvocatoria\NotasTematicaController@index')->name('notasTematica');
 Route::get('convocatoria/notas-conocimiento-aux', 'VerConvocatoria\NotasAuxiliaturaController@index')->name('notasAuxiliatura');
 Route::get('convocatoria/notas-finales', 'VerConvocatoria\NotasFinalesController@index')->name('notasFinales');
+
+Route::get('convocatorias-pasadas', 'ConvocatoriaPController@index')->name('convsPasadas');
+
+Route::get('catalogo/docencia', 'Catalogo\DocenciaController@index')->name('docencia.index');
+Route::get('catalogo/laboratorio', 'Catalogo\LaboratorioController@index')->name('laboratorio.index');
 
 // Estos siempres al final son un caso especial
 Route::resource('convocatoria/calificacion-meritos', 'Convocatoria\MeritoController');
