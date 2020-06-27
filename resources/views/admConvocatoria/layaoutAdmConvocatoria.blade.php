@@ -22,11 +22,11 @@
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-meritos') }}">
                     <a class="link-list" href="{{ route('admMeritos') }}">Comision de evaluacion de méritos</a>
                 </li>
-                {{-- <li class="navbar-item {{ activeMenuConten('convocatoria/adm-resultados') }}">
-                    <a class="link-list" href="{{ route('admResultados') }}">resultados</a> --}}
-                </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-postulantes') }}">
                     <a class="link-list" href="{{ route('admPostulantes') }}">Postulantes</a>
+                </li>
+                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-resultados') }}">
+                    <a class="link-list" href="{{ route('admResultados') }}">Resultados</a>
                 </li>
             </ul>
         </nav>
