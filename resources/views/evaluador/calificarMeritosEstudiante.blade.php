@@ -58,7 +58,16 @@
                     <h6>Merito/submerito: presenta el <span id=porcentajeMerito></span> %</h6>  
                     <p id='descripcion'>nota merito submerito</p>
                     
-                    <form method="POST" action="{{ route('evaluarM.calificarMeritoEspecifico') }}" id="merit-form">
+                    <script>
+                        function marcarTipoCalificacionMerito(){
+                            if(document.getElementById('inlineRadio2').checked==true){
+                                document.getElementById('notasMeritos').setAttribute("placeholder", "50+60+90");
+                            }else if(document.getElementById('inlineRadio1').checked==true){
+                                document.getElementById('notasMeritos').setAttribute("placeholder", "2+1+2+2");                            }
+                        }
+                    </script>
+
+                    <form method="POST" action="{{ route('evaluarM.calificarMeritoEspecifico') }}" id="merit-form" name="testform">
                     {{ csrf_field() }}
                         <input type="text" name="idMerito" id="idMerito" hidden readonly>
                         <input type="text" name="procentajeMer" id="procentajeMer" hidden readonly>
@@ -67,13 +76,13 @@
                             <div class="form-group col-md-3">
                                 <p>Evaluar por:</p>
                             </div>
-                            <div class="form-group col-md-9">
+                            <div class="form-group col-md-9" >
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" required checked>     
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" required checked  onclick='marcarTipoCalificacionMerito()' >     
                                     <label class="form-check-label" for="inlineRadio2">Promedio</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" required>
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" required  onclick='marcarTipoCalificacionMerito()' >
                                     <label class="form-check-label" for="inlineRadio1">Puntos</label>
                                 </div>                                
                             </div>
@@ -81,11 +90,11 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-3">
-                                <label for="inputEmail3" class="col-form-label" required>Notas:</label>       
+                                <label for="input" class="col-form-label" required>Notas:</label>       
                             </div>
                             
                             <div class="form-group col-md-6">
-                                <input type="text" name="notasMeritos" id="notasMeritos" >
+                                <input type="text" name="notasMeritos" id="notasMeritos" placeholder="50+60+90" >
                             </div>
                             <div class="form-group col-md-3">
                                 <button type="button" class="btn btn-info" onclick="calcular()">Calcular</button>
@@ -93,13 +102,13 @@
                         </div>
                         
                         <div class="form-row">
-                            <label class="col-sm-3 col-form-label" required>Nota:</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control-plaintext" id="notaMerito" name="notaMerito" readonly>
-                            </div>
                             <label class="col-sm-3 col-form-label">Porcentaje:</label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control-plaintext" id="porcentaje" name="porcentaje" readonly>
+                            </div>
+                            <label class="col-sm-3 col-form-label" required>Nota:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control-plaintext" id="notaMerito" name="notaMerito" readonly>
                             </div>
                         </div>
 

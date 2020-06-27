@@ -3,10 +3,16 @@
       <thead class="thead-dark">
         <tr>
           <th style="font-weight: normal" scope="col">#</th>
-          <th style="font-weight: normal" scope="col">Ci</th>
-          <th style="font-weight: normal" scope="col">Estudiante</th>
-          <th style="font-weight: normal" scope="col">Nota</th>
-          <th style="font-weight: normal" scope="col">Editar</th>
+          <th style="font-weight: normal" scope="col">CI</th>
+          <th style="font-weight: normal" scope="col">Nombres Completos</th>
+          <th style="font-weight: normal" scope="col">Nota Final</th>
+          @if (auth()->check())
+            @if (auth()->user()->hasRoles(['evaluador']))
+              <th style="font-weight: normal" scope="col">Calificar</th>
+            @else
+              <th style="font-weight: normal" scope="col">Ver detalles</th>
+            @endif
+          @endif    
         </tr>
       </thead>
       <tbody style="background-color: white">
@@ -18,8 +24,18 @@
             <td>{{ $postulante->ci }}</td>
             <td>{{ $postulante->nombre }} {{$postulante->apellido}}</td>
             @if($postulante->nota > 0)  <td>{{$postulante->nota}}</td> @else <td>-</td> @endif
-            <td><a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}"><img
-                src="{{ asset('img/pen.png') }}" width="25" height="25"></a></td>
+            <td>
+              @if (auth()->check())
+                @if (auth()->user()->hasRoles(['evaluador']))
+                  <a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}"><img
+                    src="{{ asset('img/pen.png') }}" width="25" height="25">
+                  </a>
+                @else
+                  <a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}">Ver
+                  </a>
+                @endif
+              @endif  
+            </td>
         </tr>@endforeach
       </tbody>
     </table>

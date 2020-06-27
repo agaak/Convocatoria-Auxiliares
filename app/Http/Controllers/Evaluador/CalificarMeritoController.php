@@ -7,6 +7,7 @@ use App\Models\Postulante;
 use Illuminate\Http\Request;
 use App\Models\EvaluadorConocimientos;
 use App\Models\EvaluadorConovocatoria;
+use App\Models\Postulante_conovocatoria;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 

@@ -481,6 +481,7 @@ function desValidarRequisito($idAuxiliatura, $idRequisito) {
 
 // Fin script de revision de requisitos
 //calificar merito estudiante
+
 function mostrarModalMeritos(calificacionMerito, formato){
     document.getElementById("porcentajeMerito").innerHTML = calificacionMerito.porcentaje;
     document.getElementById("descripcion").innerHTML=formato[1];
