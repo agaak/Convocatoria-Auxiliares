@@ -425,3 +425,10 @@ input[type=number] {
     width: 100%;
     margin: 0 1rem;
 }
+/*Datatable row styles*/
+.aprobado {
+    background-color: #CBDAFF !important;
+  }
+  .red {
+    background-color: white !important;
+  }

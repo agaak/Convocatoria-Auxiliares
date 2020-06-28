@@ -54,8 +54,16 @@
                         <tr>
                           <th style="font-weight: normal">{{ $item->ci }}</th>
                           <th style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</th>
-                          <th style="font-weight: normal">{{ $item->nota_final_conoc }}</th>
-                          <th style="font-weight: normal">{{ $item->nota_final_merito}}</th>
+                          @if ($item->nota_final_conoc===null)
+                            <th style="font-weight: normal">-</th>
+                          @else
+                            <th style="font-weight: normal">{{ $item->nota_final_conoc }}</th>
+                          @endif
+                          @if ($item->nota_final_merito===null)
+                            <th style="font-weight: normal">-</th>
+                          @else
+                            <th style="font-weight: normal">{{ $item->nota_final_merito }}</th>
+                          @endif
                           <th style="font-weight: normal">-</th>
                           </tr>
                       @endforeach
@@ -81,11 +89,20 @@
     <script>
       $(document).ready(function() {
           $('#notas{{ $auxiliatura->id}}').DataTable({
+            "rowCallback": function( row, data, index ) {
+                var notafinal = /* parseFloat */(data[4]),
+                    $node = this.api().row(row).nodes().to$();
+                    
+                if (notafinal == '-'/*  50.0 */ ) {
+                  $node.addClass('aprobado')
+                }
+            }  ,
             "pageLength":50,
           "language": {
               "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
           },"bLengthChange": false,responsive: true,
           order: [[1, 'asc']], 
+          
           });
       
       });
