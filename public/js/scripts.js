@@ -566,3 +566,11 @@ $('#pre-posts-habilitar').on('click', () => {
     res = confirm('Esta seguro de habilitar o desabilitar a los PRE POSTULANTES');
     if (!res) event.preventDefault();
 });
+
+// Auxiliaturas del laboratorio
+
+function cargarAuxLab(auxiliatura) {
+    $('#nombre-aux-lab').val(auxiliatura['nombre_aux']);
+    $('#codigo-aux-lab').val(auxiliatura['cod_aux']);
+    $('#id-aux-lab').val(auxiliatura['id']);
+}
