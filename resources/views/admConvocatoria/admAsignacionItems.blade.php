@@ -2,7 +2,7 @@
 
 @section('content-adm-convocatoria')
 <div class="overflow-auto content">
-    <h1>Ver Convocatoria</h1>
+    <h1>Asignacion de items</h1>
 </div>
     
 @endsection

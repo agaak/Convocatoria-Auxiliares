@@ -15,17 +15,7 @@
             <a href="{{ route('habilitarPostulante', $prePostulante->id) }}" id="pre-posts-habilitar" type="button" class="btn btn-success my-3 col-xs-2">Habilitar Postulanciones</a>  
         @endif
     </div>
-    {{-- <button type="button" class="btn btn-secondary">Habilitar Postulantes</button> --}}
     
-    {{-- <div class="container">
-        <div class="row my-3">
-            <a type="button" data-toggle="modal" data-target="#storePostulanteModal">
-                <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
-                <span class="mx-1">Registrar Postulante</span>
-            </a>
-        </div>
-    </div> --}}
-
     <!-- Table -->
     <div class="table-requests1" >
         <table id="postulantes" class="table table-bordered" style="width:100%" style="text-align:left">

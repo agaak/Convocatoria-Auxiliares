@@ -60,6 +60,7 @@ Route::post('/convocatoria/calificacion-conocimientos/finalizar', ['as' => 'know
 Route::post('/convocatoria/calificacion-conocimientos/pdf', ['as' => 'knowledgeRatingPdf', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingPdf']);
 // Controladores de la administracion de convocatoria
 Route::get('convocatoria/adm-convocatoria', 'AdmConvocatoria\AdmConvocatoriaController@index')->name('admConvocatoria');
+
 Route::get('convocatoria/adm-convocatoria/{id}', 'AdmConvocatoria\AdmConvocatoriaController@inicio')->name('adminConvocatoria');
 
 Route::get('convocatoria/adm-postulantes', 'AdmConvocatoria\AdmPostulantesController@index')->name('admPostulantes');
@@ -80,6 +81,7 @@ Route::delete('convocatoria/adm-meritos/{id}', 'AdmConvocatoria\AdmMeritosContro
 
 Route::get('convocatoria/adm-resultados', 'AdmConvocatoria\AdmResultadosController@index')->name('admResultados');
 
+Route::get('convocatoria/adm-asignacion', 'AdmConvocatoria\AdmAsignacionController@index')->name('admAsignacion');
 
 
 Route::get('convocatoria/download/{id}', 'ConvocatoriaController@download')->name('convocatoria.download');

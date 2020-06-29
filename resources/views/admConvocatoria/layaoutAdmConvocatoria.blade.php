@@ -12,10 +12,6 @@
             @endphp
             <h2 class="text-uppercase title-navbar">titulo convocatoria</h2>
             <ul class="container-list">
-                {{-- <li class="navbar-item {{ activeMenuConten('convocatoria/adm-convocatoria') }}">
-                    <a class="link-list" href="{{ route('admConvocatoria') }}">Ver convocatoria</a>
-                </li> --}}
-                
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-conocimientos') }}">
                     <a class="link-list" href="{{ route('admConocimientos') }}">Comision de evaluación de conocimientos</a>
                 </li>
@@ -27,6 +23,9 @@
                 </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-resultados') }}">
                     <a class="link-list" href="{{ route('admResultados') }}">Resultados</a>
+                </li>
+                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-asignacion') }}">
+                    <a class="link-list" href="{{ route('admAsignacion') }}">Asignacion de Items</a>
                 </li>
             </ul>
         </nav>
