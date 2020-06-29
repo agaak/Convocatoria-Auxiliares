@@ -136,6 +136,7 @@ Route::get('catalogo/docencia', 'Catalogo\DocenciaController@index')->name('doce
 
 Route::get('catalogo/laboratorio', 'Catalogo\LaboratorioController@index')->name('laboratorio.index');
 Route::post('catalogo/laboratorio', 'Catalogo\LaboratorioController@save')->name('laboratorio.save');
+Route::put('catalogo/laboratorio', 'Catalogo\LaboratorioController@update')->name('laboratorio.update');
 Route::delete('catalogo/laboratorio/{id}', 'Catalogo\LaboratorioController@delete')->name('laboratorio.delete');
 
 // Estos siempres al final son un caso especial

@@ -19,13 +19,13 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label class="d-block">Nombre:
-                                    <input type="text" class="form-control" name="nombre-auxs-lab" value="{{ old('nombre-auxs-lab') }}" required>
+                                    <input type="text" class="form-control" name="nombre-auxs-lab" placeholder="Ingrese el Nombre de Auxiliatura" value="{{ old('nombre-auxs-lab') }}" required>
                                 </label>
                                 {!! $errors->first('nombre-auxs-lab', '<strong class="message-error text-danger">:message</strong>') !!}
                             </div>
                             <div class="form-group">
                                 <label class="d-block">Código:
-                                    <input type="text" class="form-control" name="codigo-auxs-lab" value="{{ old('codigo-auxs-lab') }}"
+                                    <input type="text" class="form-control" name="codigo-auxs-lab" placeholder="Ingrese el Código de Auxiliatura" value="{{ old('codigo-auxs-lab') }}"
                                     onkeyup="javascript:this.value=this.value.toUpperCase()" required>
                                 </label>
                                 {!! $errors->first('codigo-auxs-lab', '<strong class="message-error text-danger">:message</strong>') !!}
@@ -47,8 +47,58 @@
             </div>
         </div>
         
+        {{-- Modal para editar auxiliaturas --}}
+
+        <div class="modal fade" id="editarAuxiliaturas" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Auxiliatura</h5>
+                        <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" accion="{{ route('laboratorio.update') }}">
+                            {{ csrf_field() }} {{ method_field('PUT') }}
+                            <input type="hidden" id="id-aux-lab" name="id-auxiliatura">
+                            <div class="form-group">
+                                <label class="d-block">Nombre:
+                                    <input type="text" id="nombre-aux-lab" class="form-control" name="nombre-auxs-edit" value="{{ old('nombre-auxs-edit') }}" required>
+                                </label>
+                                {!! $errors->first('nombre-auxs-edit', '<strong class="message-error text-danger">:message</strong>') !!}
+                            </div>
+                            <div class="form-group">
+                                <label class="d-block">Código:
+                                    <input type="text" id="codigo-aux-lab" class="form-control" name="codigo-auxs-edit" value="{{ old('codigo-auxs-edit') }}"
+                                    onkeyup="javascript:this.value=this.value.toUpperCase()" required>
+                                </label>
+                                {!! $errors->first('codigo-auxs-edit', '<strong class="message-error text-danger">:message</strong>') !!}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <input class="btn btn-info" type="submit" value="Guardar">
+                            </div>
+                        </form>
+                        @if ($errors->has('nombre-auxs-edit') || $errors->has('codigo-auxs-edit'))
+                            <script>
+                                window.onload = () => {
+                                    $('#editarAuxiliaturas').modal('show');
+                                }
+                            </script>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Contenido de la vista de la boratorios --}}
+
         <div class="container">
             <h3 class="text-uppercase text-left mb-3">Laboratorio</h3>
+
+            {{-- Seccion para navegar entre auxiliatura y tematica --}}
+
             <ul class="nav nav-pills mb-3" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a class="nav-link active" id="pills-auxiliaturas-tab" data-toggle="pill" 
@@ -88,7 +138,7 @@
                                     <td>{{ $auxiliaturas[$i]->cod_aux }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-link p-1" data-toggle="modal" data-target="#editarAuxiliaturas" data-dismiss="modal"
-                                        onclick="">
+                                        onclick="cargarAuxLab({{ $auxiliaturas[$i] }})">
                                             <img src="{{ asset('img/pen.png') }}" width="25" height="25">
                                         </button> 
                                         <form class="d-inline" action="{{ route('laboratorio.delete', $auxiliaturas[$i]->id) }}" method="POST">

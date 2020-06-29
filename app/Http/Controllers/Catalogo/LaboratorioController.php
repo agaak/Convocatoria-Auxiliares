@@ -11,7 +11,8 @@ class LaboratorioController extends Controller
 {
     public function index() {
 
-        $auxiliaturas = Auxiliatura::where('id_unidad_academica', auth()->user()->unidad_academica_id)->orderBy('id', 'ASC')->get();
+        $auxiliaturas = Auxiliatura::where('id_unidad_academica', auth()->user()->unidad_academica_id)
+        ->where('id_tipo_convocatoria', 1)->orderBy('id', 'ASC')->get();
 
         return view('catalogo.laboratorio', compact('auxiliaturas'));
     }
@@ -31,7 +32,26 @@ class LaboratorioController extends Controller
             'nombre_aux' => request()->input('nombre-auxs-lab'),
             'cod_aux' => request()->input('codigo-auxs-lab')
         ]);
-        
+
+        return back();
+    }
+
+    public function update() {
+        $idAuxiliatura = request()->input('id-auxiliatura');
+
+        request()->validate([
+            'nombre-auxs-edit' => 'unique:auxiliatura,nombre_aux,'.$idAuxiliatura,
+            'codigo-auxs-edit' => 'unique:auxiliatura,cod_aux,'.$idAuxiliatura
+        ], [
+            'nombre-auxs-edit.unique' => 'El nombre de auxiliatura ya existe.',
+            'codigo-auxs-edit.unique' => 'El código de auxiliatura ya existe.'
+        ]);
+
+        Auxiliatura::where('id', $idAuxiliatura)->update([
+            'nombre_aux' => request()->input('nombre-auxs-edit'),
+            'cod_aux' => request()->input('codigo-auxs-edit')
+        ]);
+
         return back();
     }
 
