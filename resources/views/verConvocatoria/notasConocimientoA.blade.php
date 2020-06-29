@@ -58,6 +58,7 @@
             </div>
             @php $initContent = false @endphp
           @endforeach
+          
       </div>
 </div>
 </div>
