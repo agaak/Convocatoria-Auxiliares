@@ -24,18 +24,20 @@
             <td>{{ $postulante->ci }}</td>
             <td>{{ $postulante->nombre }} {{$postulante->apellido}}</td>
             @if($postulante->nota > 0)  <td>{{$postulante->nota}}</td> @else <td>-</td> @endif
-            <td>
-              @if (auth()->check())
+            @if (auth()->check())
                 @if (auth()->user()->hasRoles(['evaluador']))
+            <td>
+              
                   <a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}"><img
                     src="{{ asset('img/pen.png') }}" width="25" height="25">
                   </a>
                 @else
                   <a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}">Ver
                   </a>
-                @endif
-              @endif  
+                
             </td>
+            @endif
+              @endif 
         </tr>@endforeach
       </tbody>
     </table>
