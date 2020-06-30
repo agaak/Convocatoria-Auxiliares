@@ -126,6 +126,7 @@ Route::get('convocatoria/adm-postulantes/habilitados','PDFpostulantesController@
 
 Route::get('convocatoria/lista-habilitados', 'VerConvocatoria\ListEnabledController@index')->name('listHabilitados');
 Route::get('convocatoria/notas-merito', 'VerConvocatoria\NotasMeritoController@index')->name('notasMerito');
+Route::get('convocatoria/notas-merito/{est}', 'VerConvocatoria\NotasMeritoController@meritos')->name('notasMeritoEst');
 Route::get('convocatoria/notas-conocimiento-tematica', 'VerConvocatoria\NotasTematicaController@index')->name('notasTematica');
 Route::get('convocatoria/notas-conocimiento-aux', 'VerConvocatoria\NotasAuxiliaturaController@index')->name('notasAuxiliatura');
 Route::get('convocatoria/notas-finales', 'VerConvocatoria\NotasFinalesController@index')->name('notasFinales');

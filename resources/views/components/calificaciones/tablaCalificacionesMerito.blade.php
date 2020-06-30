@@ -46,7 +46,21 @@
                             @endif
                         @endforeach
                         </td>
+                    @else
+                    <td>
+                        @foreach($lista as $item2)
+                            @if( ($item2->id) == $item[3] )
+                                @if( ($item2->calificacion) == 0 )
+                                    -
+                                @else
+                                    {{$item2->calificacion}}
+                                @endif 
+                            @else
+                            @endif
+                        @endforeach
+                        </td>
                     @endif
+
                 </tr>
             @endforeach
           </tbody>
