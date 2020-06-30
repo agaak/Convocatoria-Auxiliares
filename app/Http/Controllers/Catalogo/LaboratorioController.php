@@ -6,15 +6,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Auxiliatura;
 use App\Models\Requerimiento;
+use App\Models\Tematica;
 
 class LaboratorioController extends Controller
 {
     public function index() {
 
-        $auxiliaturas = Auxiliatura::where('id_unidad_academica', auth()->user()->unidad_academica_id)
+        $idUnidadAcademica = auth()->user()->unidad_academica_id;
+
+        $auxiliaturas = Auxiliatura::where('id_unidad_academica', $idUnidadAcademica)
         ->where('id_tipo_convocatoria', 1)->orderBy('id', 'ASC')->get();
 
-        return view('catalogo.laboratorio', compact('auxiliaturas'));
+        $tematicas = Tematica::where('id_unidad_academica', $idUnidadAcademica)
+        ->where('id_tipo_convocatoria', 1)->orderBy('id', 'ASC')->get();
+
+        return view('catalogo.laboratorio', compact('auxiliaturas', 'tematicas'));
     }
 
     public function save() {

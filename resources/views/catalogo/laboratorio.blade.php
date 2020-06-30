@@ -120,9 +120,6 @@
                         <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
                         <span class="mx-1">Añadir Auxiliatura</span>
                     </a>
-                    <div class="text-center">
-                        {!! $errors->first('existe', '<strong class="message-error text-danger">:message</strong>') !!}
-                    </div>
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
@@ -165,11 +162,54 @@
                     </table>
                 </div>
 
-            <div class="tab-pane fade" id="pills-tematicas" role="tabpanel" aria-labelledby="pills-tematicas-tab">tematicas</div>
+                {{-- Seccion de las tematicas --}}
 
+                <div class="tab-pane fade" id="pills-tematicas" role="tabpanel" aria-labelledby="pills-tematicas-tab">
+                    <a class="mb-3" type="button" data-toggle="modal" data-target="#agregarTematicas">
+                        <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
+                        <span class="mx-1">Añadir Temática</span>
+                    </a>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                            <th scope="col">Nro.</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col" class="text-center">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            @for ($i = 0; $i < count($tematicas); $i++)
+                                <tr>
+                                    <th scope="row">{{ $i+1 }}</th>
+                                    <td>{{ $tematicas[$i]->nombre }}</td>
+                                    <td class="text-center">
+
+                                        @if ($tematicas[$i]->habilitado)
+                                            <button class="btn btn-link p-1" data-toggle="modal" data-target="#editarTematicas"
+                                            data-dismiss="modal" onclick="cargarAuxLab({{ $tematicas[$i] }})">
+                                                <img src="{{ asset('img/pen.png') }}" width="25" height="25">
+                                            </button>
+                                        @endif
+                                        <form class="d-inline" action="" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <button type="submit" class="btn btn-link p-1">
+                                                @if ($tematicas[$i]->habilitado) 
+                                                    <img src="{{ asset('img/enable.png') }}" width="25" height="25">
+                                                @else
+                                                    <img src="{{ asset('img/disable.png') }}" width="25" height="25">
+                                                @endif
+                                            </button>    
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-
 
     </div>
 @endsection
