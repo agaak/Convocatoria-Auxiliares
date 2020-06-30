@@ -133,6 +133,8 @@ Route::get('convocatoria/notas-finales', 'VerConvocatoria\NotasFinalesController
 Route::get('convocatorias-pasadas', 'ConvocatoriaPController@index')->name('convsPasadas');
 
 Route::get('catalogo/docencia', 'Catalogo\DocenciaController@index')->name('docencia.index');
+Route::post('catalogo/docencia', 'Catalogo\DocenciaController@save')->name('docencia.save');
+Route::put('catalogo/docencia', 'Catalogo\DocenciaController@update')->name('docencia.update');
 
 Route::get('catalogo/laboratorio', 'Catalogo\LaboratorioController@index')->name('laboratorio.index');
 Route::post('catalogo/laboratorio', 'Catalogo\LaboratorioController@save')->name('laboratorio.save');

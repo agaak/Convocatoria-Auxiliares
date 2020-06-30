@@ -132,7 +132,7 @@
                             <th scope="col" class="text-center">Opciones</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="bg-white">
                             @for ($i = 0; $i < count($auxiliaturas); $i++)
                                 <tr>
                                     <th scope="row">{{ $i+1 }}</th>

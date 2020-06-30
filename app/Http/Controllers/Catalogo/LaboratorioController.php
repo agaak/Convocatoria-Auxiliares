@@ -56,6 +56,7 @@ class LaboratorioController extends Controller
     }
 
     public function enable($id) {
+        
         if (Auxiliatura::find($id)->habilitado) {
             Auxiliatura::where('id', $id)->update([
                 'habilitado' => false
