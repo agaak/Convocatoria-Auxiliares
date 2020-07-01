@@ -7,6 +7,7 @@ body {
     width: 100%;
     /*max-width: 1366px; */
     margin: auto;
+    background-color: #E7E7E7;
 }
 
 /* Barra de navegación */
@@ -450,3 +451,114 @@ input[type=number] {
   .red {
     background-color: white !important;
   }
+
+/* Carrusel del home */
+
+.container-carousel {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.icono-carousel {
+    width: 40px !important;
+    height: 40px !important;
+    background-color: gray !important;
+    border-radius: 5px;
+}
+
+.carousel-links {
+    position: absolute;
+    bottom: 38rem;
+    right: 32rem;
+}
+
+.carousel-links-2 {
+    position: absolute;
+    bottom: 38rem;
+    right: 10rem;
+}
+
+.carousel-links a{
+    display: inline-block;
+    list-style: none;
+    font-style: italic;
+    font-size: 1.4rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: .2rem;
+    border-radius: 2px;
+}
+
+.carousel-links a:hover{
+    text-decoration: none;
+    color: teal !important;
+}
+
+@media (max-width: 1200px) {
+    .carousel-links {
+        bottom: 1rem;
+        right: 0;
+        left: 0;
+        text-align: center;
+    }
+    .carousel-links a{
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-links{
+        display: block !important;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 468px) {
+    .carousel-links a{
+        font-size: .8rem;
+    }
+}
+
+/* Cards de Anuncios */
+
+.list-cards {
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+}
+
+.list-cards .card {
+    margin: 1rem;
+    border: 1px solid #E7E7E7;
+}
+
+@media (max-width: 850px) {
+    .list-cards {
+        grid-template-columns: 50% 50%;
+    }
+}
+
+@media (max-width: 500px) {
+    .list-cards {
+        grid-template-columns: 100%;
+    }
+    .list-cards .card {
+        margin: 1rem .2rem;
+    }
+}
+
+.btn-home {
+    background-color: #E7E7E7;
+    text-align: right;
+}
+
+.list-cards .card .card-header {
+    background-color: #001523;
+    color: white;
+}
+
+.btn-home a {
+    margin-top: .1rem;
+    font-weight: bold;
+    margin-bottom: .1rem;
+    border-radius: 10px !important;
+}
