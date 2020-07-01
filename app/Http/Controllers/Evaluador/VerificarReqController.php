@@ -86,6 +86,9 @@ class VerificarReqController extends Controller
             }
         }
         $validAxiliaturas = array();
+        
+        $isErrorReq = false;
+        $isErrorObs = false;
         foreach (array_keys($auxiliaturasReq) as $auxiliaturaId) {
             $validAuxlitiatura = true;
             $messageAuxiliatura = '';
@@ -95,7 +98,8 @@ class VerificarReqController extends Controller
                     Postulante_conovocatoria::where('id_postulante', request()->input('id-postulante'))->update([
                         'calificando_requisito' => false,
                     ]);
-                    return back()->with('errorCalificarReq', 'Hay requisitos no calificados.');
+                    // $isErrorReq = true;
+                    // return back()->with('errorCalificarReq', 'Hay requisitos no calificados.');
                     //error de no seleccionar como tru o false el requisito
                 }else if($auxiliaturasReq[$auxiliaturaId][$requisitoId]['esValido']){
                     $validAuxlitiatura = $validAuxlitiatura && true;
@@ -106,7 +110,8 @@ class VerificarReqController extends Controller
                         Postulante_conovocatoria::where('id_postulante', request()->input('id-postulante'))->update([
                             'calificando_requisito' => false,
                         ]);
-                        return back()->with('errorCalificarReq', 'Todos los campos observacion deben estar llenados..');
+                        $isErrorObs = true;
+                        // return back()->with('errorCalificarReq', 'Todos los campos observacion deben estar llenados..');
                     }else{
                         $messageAuxiliatura = $observacionString.', '.$messageAuxiliatura;
                     }
@@ -150,6 +155,12 @@ class VerificarReqController extends Controller
         Postulante_conovocatoria::where('id_postulante', request()->input('id-postulante'))->update([
             'calificando_requisito' => false,
         ]);
+        if($isErrorReq){
+            return back()->with('errorCalificarReq', 'Hay requisitos no calificados.');
+        } else if($isErrorObs){
+            return back()->with('errorCalificarReq', 'Todos los campos observacion deben estar llenados..');
+
+        }
         return redirect()->route('calificarRequisitosPost.index');
     }
 }
