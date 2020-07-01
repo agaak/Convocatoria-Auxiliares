@@ -8,7 +8,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Nueva Tematica</h5>
+                        <h5 class="modal-title">Nueva Temática</h5>
                         <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -32,6 +32,44 @@
                             <script>
                                 window.onload = () => {
                                     $('#agregarTematicas').modal('show');
+                                }
+                            </script>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Modal para editar tematicas --}}
+
+        <div class="modal fade" id="editarTematicas" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Temática</h5>
+                        <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" accion="{{ route('laboratorio.update') }}">
+                            {{ csrf_field() }} {{ method_field('PUT') }}
+                            <input type="hidden" id="id-tem-lab" name="id-tematica">
+                            <div class="form-group">
+                                <label class="d-block">Nombre:
+                                    <input type="text" class="form-control" id="nombre-tem-id" name="nombre-tem-edit" value="{{ old('nombre-tem-edit') }}" required>
+                                </label>
+                                {!! $errors->first('nombre-tem-edit', '<strong class="message-error text-danger">:message</strong>') !!}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <input class="btn btn-info" type="submit" value="Guardar">
+                            </div>
+                        </form>
+                        @if ($errors->has('nombre-tem-edit'))
+                            <script>
+                                window.onload = () => {
+                                    $('#editarTematicas').modal('show');
                                 }
                             </script>
                         @endif

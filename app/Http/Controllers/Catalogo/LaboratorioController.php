@@ -64,20 +64,41 @@ class LaboratorioController extends Controller
     }
 
     public function update() {
-        $idAuxiliatura = request()->input('id-auxiliatura');
 
-        request()->validate([
-            'nombre-auxs-edit' => 'unique:auxiliatura,nombre_aux,'.$idAuxiliatura,
-            'codigo-auxs-edit' => 'unique:auxiliatura,cod_aux,'.$idAuxiliatura
-        ], [
-            'nombre-auxs-edit.unique' => 'El nombre de auxiliatura ya existe.',
-            'codigo-auxs-edit.unique' => 'El código de auxiliatura ya existe.'
-        ]);
+        $idUnidadAcademica = auth()->user()->unidad_academica_id;
 
-        Auxiliatura::where('id', $idAuxiliatura)->update([
-            'nombre_aux' => request()->input('nombre-auxs-edit'),
-            'cod_aux' => request()->input('codigo-auxs-edit')
-        ]);
+        if (request()->has('nombre-auxs-edit')) {
+
+            $idAuxiliatura = request()->input('id-auxiliatura');
+
+            request()->validate([
+                'nombre-auxs-edit' => 'unique:auxiliatura,nombre_aux,'.$idAuxiliatura,
+                'codigo-auxs-edit' => 'unique:auxiliatura,cod_aux,'.$idAuxiliatura
+            ], [
+                'nombre-auxs-edit.unique' => 'El nombre de auxiliatura ya existe.',
+                'codigo-auxs-edit.unique' => 'El código de auxiliatura ya existe.'
+            ]);
+
+            Auxiliatura::where('id', $idAuxiliatura)->update([
+                'nombre_aux' => request()->input('nombre-auxs-edit'),
+                'cod_aux' => request()->input('codigo-auxs-edit')
+            ]);
+
+        } else {
+
+            $idTematica = request()->input('id-tematica');
+
+            request()->validate([
+                'nombre-tem-edit' => 'unique:tematica,nombre,'.$idTematica.',id,id_unidad_academica,'.$idUnidadAcademica,
+            ], [
+                'nombre-tem-edit.unique' => 'El nombre de la temática ya existe.',
+            ]);
+
+            Tematica::where('id', $idTematica)->update([
+                'nombre' => request()->input('nombre-tem-edit')
+            ]);
+
+        }
 
         return back();
     }
