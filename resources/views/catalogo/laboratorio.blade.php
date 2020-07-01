@@ -19,14 +19,15 @@
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label class="d-block">Nombre:
-                                    <input type="text" class="form-control" name="nombre-auxs-lab" placeholder="Ingrese el Nombre de Auxiliatura" value="{{ old('nombre-auxs-lab') }}" required>
+                                    <input type="text" class="form-control" name="nombre-auxs-lab" 
+                                    placeholder="Ingrese el Nombre de Auxiliatura" value="{{ old('nombre-auxs-lab') }}" required>
                                 </label>
                                 {!! $errors->first('nombre-auxs-lab', '<strong class="message-error text-danger">:message</strong>') !!}
                             </div>
                             <div class="form-group">
                                 <label class="d-block">Código:
-                                    <input type="text" class="form-control" name="codigo-auxs-lab" placeholder="Ingrese el Código de Auxiliatura" value="{{ old('codigo-auxs-lab') }}"
-                                    onkeyup="javascript:this.value=this.value.toUpperCase()" required>
+                                    <input type="text" class="form-control" name="codigo-auxs-lab" placeholder="Ingrese el Código de Auxiliatura" 
+                                    value="{{ old('codigo-auxs-lab') }}" onkeyup="javascript:this.value=this.value.toUpperCase()" required>
                                 </label>
                                 {!! $errors->first('codigo-auxs-lab', '<strong class="message-error text-danger">:message</strong>') !!}
                             </div>
@@ -64,7 +65,8 @@
                             <input type="hidden" id="id-aux-lab" name="id-auxiliatura">
                             <div class="form-group">
                                 <label class="d-block">Nombre:
-                                    <input type="text" id="nombre-aux-lab" class="form-control" name="nombre-auxs-edit" value="{{ old('nombre-auxs-edit') }}" required>
+                                    <input type="text" id="nombre-aux-lab" class="form-control"
+                                    name="nombre-auxs-edit" value="{{ old('nombre-auxs-edit') }}" required>
                                 </label>
                                 {!! $errors->first('nombre-auxs-edit', '<strong class="message-error text-danger">:message</strong>') !!}
                             </div>
@@ -130,25 +132,32 @@
                             <th scope="col" class="text-center">Opciones</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="bg-white">
                             @for ($i = 0; $i < count($auxiliaturas); $i++)
                                 <tr>
                                     <th scope="row">{{ $i+1 }}</th>
                                     <td>{{ $auxiliaturas[$i]->nombre_aux }}</td>
                                     <td>{{ $auxiliaturas[$i]->cod_aux }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-link p-1" data-toggle="modal" data-target="#editarAuxiliaturas" data-dismiss="modal"
-                                        onclick="cargarAuxLab({{ $auxiliaturas[$i] }})">
-                                            <img src="{{ asset('img/pen.png') }}" width="25" height="25">
-                                        </button> 
-                                        <form class="d-inline" action="{{ route('laboratorio.delete', $auxiliaturas[$i]->id) }}" method="POST">
+
+                                        @if ($auxiliaturas[$i]->habilitado)
+                                            <button class="btn btn-link p-1" data-toggle="modal" data-target="#editarAuxiliaturas"
+                                            data-dismiss="modal" onclick="cargarAuxLab({{ $auxiliaturas[$i] }})">
+                                                <img src="{{ asset('img/pen.png') }}" width="25" height="25">
+                                            </button>
+                                        @endif
+                                        <form class="d-inline" action="{{ route('laboratorio.enable', $auxiliaturas[$i]->id) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
-                                            <input type="hidden" name="exite" value="">
                                             <button type="submit" class="btn btn-link p-1">
-                                                <img src="{{ asset('img/trash.png') }}" width="25" height="25">
+                                                @if ($auxiliaturas[$i]->habilitado) 
+                                                    <img src="{{ asset('img/enable.png') }}" width="25" height="25">
+                                                @else
+                                                    <img src="{{ asset('img/disable.png') }}" width="25" height="25">
+                                                @endif
                                             </button>    
                                         </form>
+
                                     </td>
                                 </tr>
                             @endfor

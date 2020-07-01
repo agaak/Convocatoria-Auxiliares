@@ -55,20 +55,18 @@ class LaboratorioController extends Controller
         return back();
     }
 
-    public function delete($id) {
-        $requerimientos = Requerimiento::get();
-
-        foreach($requerimientos as $requerimiento) {
-            if ($requerimiento->id_auxiliatura == $id) {
-                request()->validate([
-                    'existe' => 'required'
-                ], [
-                    'existe.required' => 'La Auxiliatura no puede ser eliminada, porque esta esta usando en una Convocatoria.'
-                ]);
-            }
+    public function enable($id) {
+        
+        if (Auxiliatura::find($id)->habilitado) {
+            Auxiliatura::where('id', $id)->update([
+                'habilitado' => false
+            ]);
+        } else {
+            Auxiliatura::where('id', $id)->update([
+                'habilitado' => true
+            ]);
         }
-
-        Auxiliatura::where('id', $id)->delete();
+        
         return back();
     }
 }
