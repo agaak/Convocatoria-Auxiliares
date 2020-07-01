@@ -567,10 +567,17 @@ $('#pre-posts-habilitar').on('click', () => {
     if (!res) event.preventDefault();
 });
 
-// Auxiliaturas del laboratorio
+// Auxiliaturas del laboratorio y docencia
 
 function cargarAuxLab(auxiliatura) {
     $('#nombre-aux-lab').val(auxiliatura['nombre_aux']);
     $('#codigo-aux-lab').val(auxiliatura['cod_aux']);
     $('#id-aux-lab').val(auxiliatura['id']);
+}
+
+// Tematica de laboratorio
+
+function cargarAuxTem(tematica){
+    $('#nombre-tem-id').val(tematica['nombre']);
+    $('#id-tem-lab').val(tematica['id']);
 }

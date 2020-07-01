@@ -165,7 +165,24 @@
                 </table>
             </div>
 
-        <div class="tab-pane fade" id="pills-tematicas" role="tabpanel" aria-labelledby="pills-tematicas-tab">tematicas</div>
+            <div class="tab-pane fade" id="pills-tematicas" role="tabpanel" aria-labelledby="pills-tematicas-tab">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">Nro.</th>
+                        <th scope="col">Nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        @for ($i = 0; $i < count($tematicas); $i++)
+                            <tr>
+                                <th scope="row">{{ $i+1 }}</th>
+                                <td>{{ $tematicas[$i]->nombre }}</td>
+                            </tr>
+                        @endfor
+                    </tbody>
+                </table>
+            </div>
 
         </div>
     </div>
