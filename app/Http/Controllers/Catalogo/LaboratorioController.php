@@ -24,21 +24,42 @@ class LaboratorioController extends Controller
     }
 
     public function save() {
-        request()->validate([
-            'nombre-auxs-lab' => 'unique:auxiliatura,nombre_aux',
-            'codigo-auxs-lab' => 'unique:auxiliatura,cod_aux'
-        ], [
-            'nombre-auxs-lab.unique' => 'El nombre de auxiliatura ya existe.',
-            'codigo-auxs-lab.unique' => 'El código de auxiliatura ya existe.'
-        ]);
 
-        Auxiliatura::create([
-            'id_unidad_academica' => auth()->user()->unidad_academica_id,
-            'id_tipo_convocatoria' => 1,
-            'nombre_aux' => request()->input('nombre-auxs-lab'),
-            'cod_aux' => request()->input('codigo-auxs-lab')
-        ]);
+        $idUnidadAcademica = auth()->user()->unidad_academica_id;
 
+        if (request()->has('nombre-auxs-lab')) {
+
+            request()->validate([
+                'nombre-auxs-lab' => 'unique:auxiliatura,nombre_aux',
+                'codigo-auxs-lab' => 'unique:auxiliatura,cod_aux'
+            ], [
+                'nombre-auxs-lab.unique' => 'El nombre de auxiliatura ya existe.',
+                'codigo-auxs-lab.unique' => 'El código de auxiliatura ya existe.'
+            ]);
+    
+            Auxiliatura::create([
+                'id_unidad_academica' => $idUnidadAcademica,
+                'id_tipo_convocatoria' => 1,
+                'nombre_aux' => request()->input('nombre-auxs-lab'),
+                'cod_aux' => request()->input('codigo-auxs-lab')
+            ]);
+
+        } else {
+
+            request()->validate([
+                'nombre-tem-lab' => 'unique:tematica,nombre,0,id,id_unidad_academica,'.$idUnidadAcademica
+            ], [
+                'nombre-tem-lab.unique' => 'El nombre de la temática ya existe.'
+            ]);
+
+            Tematica::create([
+                'id_unidad_academica' => $idUnidadAcademica,
+                'id_tipo_convocatoria' => 1,
+                'nombre' => request()->input('nombre-tem-lab')
+            ]);
+
+        }
+        
         return back();
     }
 
