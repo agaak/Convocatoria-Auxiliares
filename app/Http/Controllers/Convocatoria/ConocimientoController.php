@@ -42,6 +42,7 @@ class ConocimientoController extends Controller
         }
         $tematics=Tematica::where('id_unidad_academica',1)
             ->where('id_tipo_convocatoria',$tipo)
+            ->where('habilitado', true)
             ->whereNotIn('id', $tem_res)->get();
             
         $porcentajesConvocatoria = Calificacion_final::where('id_convocatoria',session()

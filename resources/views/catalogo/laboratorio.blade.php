@@ -265,11 +265,12 @@
                                                 <img src="{{ asset('img/pen.png') }}" width="25" height="25">
                                             </button>
                                         @endif
-                                        <form class="d-inline" action="" method="POST">
+                                        <form class="d-inline" action="{{ route('laboratorio.enable', $tematicas[$i]->id) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
+                                            <input type="hidden" name="tematica">
                                             <button type="submit" class="btn btn-link p-1">
-                                                @if ($tematicas[$i]->habilitado) 
+                                                @if ($tematicas[$i]->habilitado)
                                                     <img src="{{ asset('img/enable.png') }}" width="25" height="25">
                                                 @else
                                                     <img src="{{ asset('img/disable.png') }}" width="25" height="25">

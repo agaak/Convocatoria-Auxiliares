@@ -104,15 +104,31 @@ class LaboratorioController extends Controller
     }
 
     public function enable($id) {
-        
-        if (Auxiliatura::find($id)->habilitado) {
-            Auxiliatura::where('id', $id)->update([
-                'habilitado' => false
-            ]);
+
+        if (request()->has('tematica')) {
+
+            if (Tematica::find($id)->habilitado) {
+                Tematica::where('id', $id)->update([
+                    'habilitado' => false
+                ]);
+            } else {
+                Tematica::where('id', $id)->update([
+                    'habilitado' => true
+                ]);
+            }
+            
         } else {
-            Auxiliatura::where('id', $id)->update([
-                'habilitado' => true
-            ]);
+
+            if (Auxiliatura::find($id)->habilitado) {
+                Auxiliatura::where('id', $id)->update([
+                    'habilitado' => false
+                ]);
+            } else {
+                Auxiliatura::where('id', $id)->update([
+                    'habilitado' => true
+                ]);
+            }
+
         }
         
         return back();
