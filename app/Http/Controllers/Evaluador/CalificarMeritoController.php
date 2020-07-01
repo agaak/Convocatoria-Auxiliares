@@ -39,11 +39,14 @@ class CalificarMeritoController extends Controller
 
         $auxsTemsEval = $tipoConv === 1? $rolsEval->getTemsEvaluador($idEC) :$rolsEval->getAuxsEvaluador($idEC);
 
-        $postulantes= Postulante::select('postulante.*', 'calf_final_postulante_merito.nota_final_merito as nota')
+        $postulantes= Postulante::select('postulante.nombre', 'postulante.apellido', 'postulante.ci', 'postulante.id', 'calf_final_postulante_merito.nota_final_merito as nota')
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
         ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
-        ->get();
-
+        ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
+        ->where('postulante_auxiliatura.habilitado',true)
+        ->orderBy('postulante.apellido','ASC')
+        ->get() ;
+        $postulantes = collect($postulantes)->unique('id');
         return view('evaluador.calificarMerito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes'));
     }
 }

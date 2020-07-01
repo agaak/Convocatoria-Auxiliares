@@ -126,6 +126,7 @@ Route::get('convocatoria/adm-postulantes/habilitados','PDFpostulantesController@
 
 Route::get('convocatoria/lista-habilitados', 'VerConvocatoria\ListEnabledController@index')->name('listHabilitados');
 Route::get('convocatoria/notas-merito', 'VerConvocatoria\NotasMeritoController@index')->name('notasMerito');
+Route::get('convocatoria/notas-merito/{est}', 'VerConvocatoria\NotasMeritoController@meritos')->name('notasMeritoEst');
 Route::get('convocatoria/notas-conocimiento-tematica', 'VerConvocatoria\NotasTematicaController@index')->name('notasTematica');
 Route::get('convocatoria/notas-conocimiento-aux', 'VerConvocatoria\NotasAuxiliaturaController@index')->name('notasAuxiliatura');
 Route::get('convocatoria/notas-finales', 'VerConvocatoria\NotasFinalesController@index')->name('notasFinales');
@@ -133,11 +134,13 @@ Route::get('convocatoria/notas-finales', 'VerConvocatoria\NotasFinalesController
 Route::get('convocatorias-pasadas', 'ConvocatoriaPController@index')->name('convsPasadas');
 
 Route::get('catalogo/docencia', 'Catalogo\DocenciaController@index')->name('docencia.index');
+Route::post('catalogo/docencia', 'Catalogo\DocenciaController@save')->name('docencia.save');
+Route::put('catalogo/docencia', 'Catalogo\DocenciaController@update')->name('docencia.update');
 
 Route::get('catalogo/laboratorio', 'Catalogo\LaboratorioController@index')->name('laboratorio.index');
 Route::post('catalogo/laboratorio', 'Catalogo\LaboratorioController@save')->name('laboratorio.save');
 Route::put('catalogo/laboratorio', 'Catalogo\LaboratorioController@update')->name('laboratorio.update');
-Route::delete('catalogo/laboratorio/{id}', 'Catalogo\LaboratorioController@delete')->name('laboratorio.delete');
+Route::delete('catalogo/laboratorio/{id}', 'Catalogo\LaboratorioController@enable')->name('laboratorio.enable');
 
 // Estos siempres al final son un caso especial
 Route::resource('convocatoria/calificacion-meritos', 'Convocatoria\MeritoController');

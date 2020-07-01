@@ -70,10 +70,11 @@ class RequerimientoController extends Controller
         $requests= (new RequerimientoComp)->getRequerimientos($id_conv);
         $auxs_res = [];
         foreach($requests as $aux){
-            array_push($auxs_res, $aux->id_auxiliatura);    
+            array_push($auxs_res, $aux->id_auxiliatura);  
         }
         $auxs=DB::table('auxiliatura')->where('id_unidad_academica',1)
             ->where('id_tipo_convocatoria',$tipo)
+            ->where('habilitado', true)
             ->whereNotIn('id', $auxs_res)->get();
         
         return view('convocatory.requerimientos', compact('requests','auxs')); 
