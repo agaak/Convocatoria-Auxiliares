@@ -30,8 +30,8 @@ class LaboratorioController extends Controller
         if (request()->has('nombre-auxs-lab')) {
 
             request()->validate([
-                'nombre-auxs-lab' => 'unique:auxiliatura,nombre_aux',
-                'codigo-auxs-lab' => 'unique:auxiliatura,cod_aux'
+                'nombre-auxs-lab' => 'unique:auxiliatura,nombre_aux,0,id,id_unidad_academica,'.$idUnidadAcademica,
+                'codigo-auxs-lab' => 'unique:auxiliatura,cod_aux,0,id,id_unidad_academica,'.$idUnidadAcademica
             ], [
                 'nombre-auxs-lab.unique' => 'El nombre de auxiliatura ya existe.',
                 'codigo-auxs-lab.unique' => 'El código de auxiliatura ya existe.'
@@ -72,8 +72,8 @@ class LaboratorioController extends Controller
             $idAuxiliatura = request()->input('id-auxiliatura');
 
             request()->validate([
-                'nombre-auxs-edit' => 'unique:auxiliatura,nombre_aux,'.$idAuxiliatura,
-                'codigo-auxs-edit' => 'unique:auxiliatura,cod_aux,'.$idAuxiliatura
+                'nombre-auxs-edit' => 'unique:auxiliatura,nombre_aux,'.$idAuxiliatura.',id,id_unidad_academica,'.$idUnidadAcademica,
+                'codigo-auxs-edit' => 'unique:auxiliatura,cod_aux,'.$idAuxiliatura.',id,id_unidad_academica,'.$idUnidadAcademica
             ], [
                 'nombre-auxs-edit.unique' => 'El nombre de auxiliatura ya existe.',
                 'codigo-auxs-edit.unique' => 'El código de auxiliatura ya existe.'
@@ -116,7 +116,7 @@ class LaboratorioController extends Controller
                     'habilitado' => true
                 ]);
             }
-            
+
         } else {
 
             if (Auxiliatura::find($id)->habilitado) {
