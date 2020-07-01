@@ -10,14 +10,15 @@ use App\Models\Auxiliatura;
 use App\Models\Postulante_auxiliatura;
 use App\Models\Postulante_conovocatoria;
 use App\Models\Convocatoria;
+use App\Models\Tematica;
+use App\Http\Controllers\Utils\Evaluador\PostulanteComp;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use Dompdf\Dompdf;
 
 class PDFpostulantesController extends Controller
 {
-    public function listHabilitados()
-    {
+    public function listHabilitados(){
         $id_conv = session()->get('convocatoria');
 
         $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id')
@@ -42,8 +43,8 @@ class PDFpostulantesController extends Controller
         
         return  $dompdf->download('lista-Habilitados.pdf');
     }
-    public function listNotasFinales()
-    {   
+
+    public function listNotasFinales(){   
         $id_conv = session()->get('convocatoria');
         
         $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id')
@@ -62,7 +63,7 @@ class PDFpostulantesController extends Controller
         ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
         ->join('calf_fin_postulante_conoc','postulante.id','=','calf_fin_postulante_conoc.id_postulante')
         ->join('calf_final_postulante_merito','postulante.id','=','calf_final_postulante_merito.id_postulante')
-        //->where('postulante_auxiliatura.habilitado', true)
+        ->where('postulante_auxiliatura.habilitado', true)
         ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','calf_fin_postulante_conoc.nota_final_conoc','calf_final_postulante_merito.nota_final_merito')
         ->get();
         
@@ -93,4 +94,29 @@ class PDFpostulantesController extends Controller
         
         return  $dompdf->download('Notas_meritos.pdf');
     }
+
+    public function listNotasTematica($id_tem,$nom_tem){
+        $id_conv = session()->get('convocatoria');
+        $nom_tem_db = strcmp($nom_tem,'escrito') == 0? 'Examen escrito' : 'Examen oral';
+        $nom_tematica = Tematica::where('id',$id_tem)->get();
+        $nom_tematica= $nom_tematica[0]['nombre'];
+
+        $titulo_conv= Convocatoria::select('convocatoria.titulo')
+        ->where('convocatoria.id',$id_conv)->get();
+        $titulo_conv=$titulo_conv[0]['titulo'];
+
+        $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
+        $compEval = new PostulanteComp();
+        $postulantes= $tipoConv === 1? 
+        $compEval->getPostulantesByTem($id_tem) : $compEval->getPostulantesByAux($id_tem,$nom_tem);
+
+        $dompdf = new Dompdf();
+        $dompdf->set_paper('letter', 'portrait');
+        $dompdf = PDF::loadView('postulantePDF.listaTematica', compact('nom_tem_db','postulantes','titulo_conv'));
+        //return view('postulantePDF.listaHabilitados', compact('listaAux', 'listPostulantes'));
+        
+        return  $dompdf->download('Notas_finales.pdf');
+        //return $nom_tematica;
+    }
+
 }
