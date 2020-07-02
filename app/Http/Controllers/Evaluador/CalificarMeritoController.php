@@ -7,6 +7,7 @@ use App\Models\Postulante;
 use Illuminate\Http\Request;
 use App\Models\EvaluadorConocimientos;
 use App\Models\EvaluadorConovocatoria;
+use App\Models\PostuCalifMeritoFinal;
 use App\Models\Postulante_conovocatoria;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
@@ -46,11 +47,27 @@ class CalificarMeritoController extends Controller
         ->where('postulante_auxiliatura.habilitado',true)
         ->orderBy('postulante.apellido','ASC')
         ->get() ;
-        $postulantes = collect($postulantes)->unique('id');
-        $entregado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
+        $postulantes = collect($postulantes)->unique('id'); 
+        $entregado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','entregado')->get()->isNotEmpty();
-        $publicado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
+        $publicado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','publicado')->get()->isNotEmpty();
         return view('evaluador.calificarMerito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes','entregado','publicado'));
+    }
+
+    public function entregar(Request $request){
+        $listPostulantes = PostuCalifMeritoFinal::where('id_convocatoria',session()->get('convocatoria'))
+        ->where('nota_final_merito',null)->get();
+        if($listPostulantes->isNotEmpty()){
+            request()->validate([
+                'id-evaluador' => 'required'
+            ],[
+                'id-evaluador.required' => 'No se puede entregar. Hay Postulantes sin calificar.'
+            ]);
+        }
+        PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))->update([
+            'estado' => 'entregado',
+        ]);
+        return back();
     }
 }

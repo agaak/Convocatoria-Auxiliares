@@ -52,15 +52,13 @@
                     </td>  
                 @else
                     <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
-                        <a class="options" href="{{ route('admHabilitadosPost', $item->id) }}">
-                        <img src="{{ asset('img/pen.png') }}" width="20" height="25"></a>
+                        <a class="options" href="{{ route('admHabilitadosPost', $item->id) }}">Ver</a>
                     </td>
                 @endif
             @else 
-            <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
-                <a class="options" href="{{ route('admHabilitadosPost', $item->id) }}">
-                <img src="{{ asset('img/pen.png') }}" width="20" height="25"></a>
-            </td>
+                <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
+                    <a class="options" href="{{ route('admHabilitadosPost', $item->id) }}">Ver</a>
+                </td>
             @endif
             </tr>
             @php $cont = 0; @endphp

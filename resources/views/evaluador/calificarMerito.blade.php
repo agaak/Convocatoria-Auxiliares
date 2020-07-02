@@ -13,7 +13,8 @@
         </div>
 
         <div class="text-center">
-            <form class="d-inline" action="{{ route('entregarHabilitados') }}"
+            {!! $errors->first('id-evaluador', '<strong class="message-error text-danger">:message</strong>') !!}<br>
+            <form class="d-inline" action="{{ route('entregarMeritos') }}"
                 method="POST" id="evaluador-meritos-delete">
                 {{ csrf_field() }}
                 <input type="hidden"  name="id-evaluador">

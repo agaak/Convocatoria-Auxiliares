@@ -63,7 +63,7 @@ class CalificarRequisitoController extends Controller
             request()->validate([
                 'id-evaluador' => 'required'
             ],[
-                'id-evaluador' => 'No se puede entregar. Hay Postulantes sin calificar.'
+                'id-evaluador.required' => 'No se puede entregar. Hay Postulantes sin calificar.'
             ]);
         }
         Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))->update([

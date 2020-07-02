@@ -10,6 +10,7 @@
         ['listPostulantes' => $listPostulantes])
     @endcomponent
     <div class="text-center">
+        {!! $errors->first('id-evaluador', '<strong class="message-error text-danger">:message</strong>') !!}<br>
         <form class="d-inline" action="{{ route('entregarHabilitados') }}"
             method="POST" id="evaluador-meritos-delete">
             {{ csrf_field() }}
