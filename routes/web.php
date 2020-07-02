@@ -22,9 +22,10 @@ Route::get('/', function(){
 	return view('home');
 });
 
-Route::get('avisos', function(){
-	return view('avisos');
-});
+Route::get('/avisos', 'Aviso\AvisosController@index')->name('avisos');
+// Route::get('avisos', function(){
+// 	return view('avisos');
+// });
 
 Route::get('/convocatoria/requerimientos', ['as' => 'requests', 'uses' => 'Convocatoria\RequerimientoController@requests']);
 Route::post('/convocatoria/requerimientos', ['as' => 'create', 'uses' => 'Convocatoria\RequerimientoController@create']);
@@ -76,6 +77,10 @@ Route::post('convocatoria/adm-postulantes','AdmConvocatoria\AdmPostulantesContro
 Route::get('convocatoria/adm-postulantes/habilitar/{id}','AdmConvocatoria\AdmPostulantesController@habilitar')->name('habilitarPostulante');
 
 Route::get('convocatoria/adm-avisos', 'AdmConvocatoria\AdmAvisosController@index')->name('admAvisos');
+Route::post('convocatoria/adm-avisos', 'AdmConvocatoria\AdmAvisosController@create')->name('admAvisos.create');
+Route::put('convocatoria/adm-avisos', 'AdmConvocatoria\AdmAvisosController@update')->name('admAvisos.update');
+Route::delete('convocatoria/adm-avisos/{id}', 'AdmConvocatoria\AdmAvisosController@delete')->name('admAvisos.delete');
+
 
 Route::get('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosController@index')->name('admConocimientos');
 Route::post('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosController@store')->name('admConoStore');
