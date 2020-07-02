@@ -47,6 +47,10 @@ class CalificarMeritoController extends Controller
         ->orderBy('postulante.apellido','ASC')
         ->get() ;
         $postulantes = collect($postulantes)->unique('id');
-        return view('evaluador.calificarMerito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes'));
+        $entregado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
+            ->where('estado','entregado')->get()->isNotEmpty();
+        $publicado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
+            ->where('estado','publicado')->get()->isNotEmpty();
+        return view('evaluador.calificarMerito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes','entregado','publicado'));
     }
 }

@@ -65,6 +65,7 @@ Route::get('convocatoria/adm-habilitados/{id}', 'AdmResultados\AdmHabilitadosCon
 Route::post('convocatoria/adm-habilitados', 'AdmResultados\AdmHabilitadosController@publicar')->name('admHabilitados.publicar');
 Route::get('convocatoria/adm-res-conocimientos', 'AdmResultados\AdmConocimientosController@index')->name('admResConocimientos');
 Route::get('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@index')->name('admResMeritos');
+Route::get('convocatoria/adm-notas-merito/{est}', 'AdmResultados\AdmMeritosController@meritos')->name('notasResMeritoEst');
 Route::get('convocatoria/adm-res-nota-final', 'AdmResultados\AdmNotasFinalesController@index')->name('admResNotaFinal');
 Route::get('convocatoria/adm-asignaciones', 'AdmResultados\AdmAsignacionController@index')->name('admResAsignaciones');
 // ADM Secretaria

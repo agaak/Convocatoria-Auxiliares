@@ -1,6 +1,6 @@
-@extends('verConvocatoria.layoutVerConvocatoria')
+@extends('admResultados.layaoutAdmResultados')
 
-@section('content-resultados')
+@section('content-adm-resultados')
     <div class="overflow-auto content center">
         <h3>Detalles de notas de meritos</h3>
         <h6>
@@ -23,7 +23,7 @@
         @endcomponent
         <div class="col-7">
             <div class="float-right">
-            <a class="btn btn-secondary center" href="{{ route('notasMerito') }}">Cancelar</a>
+            <a class="btn btn-secondary center" href="{{ route('admResMeritos') }}">Atras</a>
             </div>
         </div>
     </div>

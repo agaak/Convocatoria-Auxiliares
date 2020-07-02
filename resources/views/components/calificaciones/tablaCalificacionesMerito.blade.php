@@ -3,11 +3,11 @@
           <thead class="thead-dark">
               <tr>
                   <th class="font-weight-normal" scope="col">Descripcion de Meritos</th>
-                  <th class="font-weight-normal" scope="col">Porcentaje</th>
-                  <th class="font-weight-normal" scope="col">Nota</th>
+                  <th class="font-weight-normal text-center" scope="col">Porcentaje</th>
+                  <th class="font-weight-normal text-center" scope="col">Nota</th>
                   @if (auth()->check())
                     @if (auth()->user()->hasRoles(['evaluador']))
-                        <th class="font-weight-normal" scope="col">Calificar</th>
+                        <th class="font-weight-normal text-center" scope="col">Calificar</th>
                     @endif
                   @endif
               </tr>
@@ -20,7 +20,7 @@
                         style="padding-left: {{ espacios($item[1]) }}px;">{{ $item[1] }}</td>
                     <td class="text-center">{{ $item[2] }}</td>
                     @if (!session()->get('ver'))
-                        <td>
+                        <th class="text-center">
                         @foreach($lista as $item2)
                             @if( ($item2->id) == $item[3] )
                                 @if( ($item2->calificacion) == 0 )
@@ -31,23 +31,24 @@
                             @else
                             @endif
                         @endforeach
-                        </td>
-                        <td class="text-center">
-                        @foreach($lista as $item2)
-                            @if( ($item2->id) == $item[3] )
-                                @if (auth()->check())
-                                    @if (auth()->user()->hasRoles(['evaluador']))
-                                        <button data-toggle="modal" class="btn btn-link" onclick="mostrarModalMeritos({{ json_encode($item2) }},{{ json_encode($item)}})" data-target="#modalCalificar">
-                                            <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-                                        </button>
-                                    @endif
+                        </th>
+                        @if (auth()->check())
+                            @if (auth()->user()->hasRoles(['evaluador']))
+                            <td class="text-center">
+                            @foreach($lista as $item2)
+                                @if( ($item2->id) == $item[3] )
+                                    <button data-toggle="modal" class="btn btn-link" onclick="mostrarModalMeritos({{ json_encode($item2) }},{{ json_encode($item)}})" data-target="#modalCalificar">
+                                            <img src="{{ asset('img/pen.png') }}" width="25" height="25">
+                                    </button>
                                 @endif
-                            @else
+                            @endforeach
+                            </td>
                             @endif
-                        @endforeach
-                        </td>
+                        @endif
+                        
+                        
                     @else
-                    <td>
+                    <td class="text-center">
                         @foreach($lista as $item2)
                             @if( ($item2->id) == $item[3] )
                                 @if( ($item2->calificacion) == 0 )
