@@ -169,7 +169,7 @@
     <script>
         $(document).ready(function() {
             $('#postulantes').DataTable( {
-                "pageLength":25,
+                "pageLength":50,
                 responsive: true,
                 /* dom: 'Bfrtip',
                 buttons: [

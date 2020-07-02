@@ -44,7 +44,12 @@
                           @else
                             <th style="font-weight: normal">{{ $item->nota_final_merito }}</th>
                           @endif
-                          <th style="font-weight: normal">-</th>
+                          @if ($item->calificacion===null)
+                            <th style="font-weight: normal">-</th>
+                          @else
+                          <th style="font-weight: normal">{{$item-> calificacion}}</th>
+                          @endif
+                          
                           </tr>
                       @endforeach
                     @endif
@@ -62,10 +67,10 @@
       $(document).ready(function() {
           $('#notas{{ $auxiliatura->id}}').DataTable({
             "rowCallback": function( row, data, index ) {
-                var notafinal = /* parseFloat */(data[4]),
+                var notafinal = (data[4]),
                     $node = this.api().row(row).nodes().to$();
                     
-                if (notafinal == '-'/*  50.0 */ ) {
+                if (notafinal > 50 ) {
                   $node.addClass('aprobado')
                 }
             }  ,

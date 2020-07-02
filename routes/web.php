@@ -139,10 +139,13 @@ Route::get('evaluador/merito/{idEst}', 'Evaluador\CalificacionMController@califi
 Route::post('evaluador/merito/calificar-merito', 'Evaluador\CalificacionMController@calificarMeritoEspecifico')->name('evaluarM.calificarMeritoEspecifico');
 Route::post('evaluador/merito/calificar-merito-final', 'Evaluador\CalificacionMController@calificarMeritoFinal')->name('evaluarM.calificarMeritoFinal');
 
-//Lista estado de postulantes
-Route::get('convocatoria/adm-postulantes/habilitados','PDFpostulantesController@listHabilitados');
+//PDFs de postulantes
+Route::get('/convocatoria/adm-postulantes/habilitadosPDF','PDFpostulantesController@listHabilitados');
+Route::get('convocatoria/notas-finales/pdf','PDFpostulantesController@listNotasFinales');
+Route::get('convocatoria/notas-merito/pdf','PDFpostulantesController@listNotasMeritos');
+/* Route::get('evaluador/calificar/conocimiento/{id}/{tem}/pdf', 'PDFpostulantesController@listNotasTematica'); */
 
-Route::get('convocatoria/lista-habilitados', 'VerConvocatoria\ListEnabledController@index')->name('listHabilitados');
+Route::get('/convocatoria/adm-postulantes/habilitados', 'VerConvocatoria\ListEnabledController@index')->name('listHabilitados');
 Route::get('convocatoria/notas-merito', 'VerConvocatoria\NotasMeritoController@index')->name('notasMerito');
 Route::get('convocatoria/notas-merito/{est}', 'VerConvocatoria\NotasMeritoController@meritos')->name('notasMeritoEst');
 Route::get('convocatoria/notas-conocimiento-tematica', 'VerConvocatoria\NotasTematicaController@index')->name('notasTematica');
