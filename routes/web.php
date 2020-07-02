@@ -73,6 +73,8 @@ Route::get('convocatoria/adm-postulantes', 'AdmConvocatoria\AdmPostulantesContro
 Route::post('convocatoria/adm-postulantes','AdmConvocatoria\AdmPostulantesController@create')->name('admPostulanteCreate');
 Route::get('convocatoria/adm-postulantes/habilitar/{id}','AdmConvocatoria\AdmPostulantesController@habilitar')->name('habilitarPostulante');
 
+Route::get('convocatoria/adm-avisos', 'AdmConvocatoria\AdmAvisosController@index')->name('admAvisos');
+
 Route::get('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosController@index')->name('admConocimientos');
 Route::post('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosController@store')->name('admConoStore');
 Route::delete('convocatoria/adm-conocimientos/{id}', 'AdmConvocatoria\AdmConocimientosController@destroy')->name('admConocimientosDelete');
@@ -138,6 +140,7 @@ Route::get('convocatoria/notas-conocimiento-aux', 'VerConvocatoria\NotasAuxiliat
 Route::get('convocatoria/notas-finales', 'VerConvocatoria\NotasFinalesController@index')->name('notasFinales');
 
 Route::get('convocatorias-pasadas', 'ConvocatoriaPController@index')->name('convsPasadas');
+Route::post('convocatorias-pasadas', 'ConvocatoriaPController@search')->name('convsPasadasBuscar');
 
 Route::get('catalogo/docencia', 'Catalogo\DocenciaController@index')->name('docencia.index');
 Route::post('catalogo/docencia', 'Catalogo\DocenciaController@save')->name('docencia.save');
