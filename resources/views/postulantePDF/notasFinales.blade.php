@@ -55,8 +55,8 @@
                     <thead>
                     <tr>
                         <th class="row_name">Nombre</th>
-                        <th class="row_con">Meritos</th>
-                        <th class="row_mer">Conocimientos</th>
+                        <th class="row_con">Conocimientos</th>
+                        <th class="row_mer">Meritos</th>
                         <th class="row_fin">Nota total</th>
                     </tr>
                     </thead>
