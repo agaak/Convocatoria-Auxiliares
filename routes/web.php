@@ -59,6 +59,12 @@ Route::post('/convocatoria/calificacion-conocimientos/aux', ['as' => 'knowledgeR
 Route::post('/convocatoria/calificacion-conocimientos/finalizar', ['as' => 'knowledgeRatingFinish', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingFinish']);
 Route::post('/convocatoria/calificacion-conocimientos/pdf', ['as' => 'knowledgeRatingPdf', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingPdf']);
 // Controladores de la administracion de convocatoria
+Route::get('convocatoria/adm-habilitados', 'AdmResultados\AdmHabilitadosController@index')->name('admHabilitados');
+Route::get('convocatoria/adm-res-conocimientos', 'AdmResultados\AdmConocimientosController@index')->name('admResConocimientos');
+Route::get('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@index')->name('admResMeritos');
+Route::get('convocatoria/adm-res-nota-final', 'AdmResultados\AdmNotasFinalesController@index')->name('admResNotaFinal');
+Route::get('convocatoria/adm-asignaciones', 'AdmResultados\AdmAsignacionController@index')->name('admResAsignaciones');
+// ADM Secretaria
 Route::get('convocatoria/adm-convocatoria', 'AdmConvocatoria\AdmConvocatoriaController@index')->name('admConvocatoria');
 
 Route::get('convocatoria/adm-convocatoria/{id}', 'AdmConvocatoria\AdmConvocatoriaController@inicio')->name('adminConvocatoria');

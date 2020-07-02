@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\EvaluadorConocimientos;
 
 class UserSeeder extends Seeder
 {
@@ -12,6 +13,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+
+        $eva = EvaluadorConocimientos::create([
+            'ci' => '654321',
+            'nombre' => 'Alan',
+            'apellido' => 'Aguilar',
+            'correo' => 'publica@gmail.com',
+        ]);
         User::create([
             'name' => 'admin',
             'password' => bcrypt('admin123'),
@@ -20,12 +28,22 @@ class UserSeeder extends Seeder
             'unidad_academica_id' => 1
         ]);
 
+       
         User::create([
-            'name' => 'Manuel Aguilar',
+            'name' => 'La Secre',
+            'password' => bcrypt('publica123'),
+            'email' => 'sistema@gmail.com',
+            'userToken' => '123123',
+            'unidad_academica_id' => 1
+        ]);
+
+        User::create([
+            'name' => 'Alan Aguilar',
             'password' => bcrypt('publica123'),
             'email' => 'publica@gmail.com',
             'userToken' => '654321',
             'unidad_academica_id' => 1
         ]);
+
     } 
 }

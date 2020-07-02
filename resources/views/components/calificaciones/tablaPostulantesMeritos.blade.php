@@ -1,5 +1,5 @@
 <div class="table-requests">
-    <table class="table table-bordered" style="text-align: center" >
+    <table class="table table-striped table-bordered" style="text-align: center" >
       <thead class="thead-dark">
         <tr>
           <th style="font-weight: normal" scope="col">#</th>

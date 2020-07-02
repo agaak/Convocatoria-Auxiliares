@@ -1,5 +1,5 @@
 <div class="table-requests">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped table-striped">
           <thead class="thead-dark text-center">
               <tr>
                   <th class="font-weight-normal" scope="col">N°</th>

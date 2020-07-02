@@ -9,7 +9,7 @@ class AdmConvocatoriaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'roles:administrador']);
+        $this->middleware(['auth', 'roles:administrador,secretaria']);
     }
     
     public function index()
@@ -21,6 +21,10 @@ class AdmConvocatoriaController extends Controller
     public function inicio($id)
     {   
         session()->put('convocatoria', $id) ;
-        return redirect()->route('admConocimientos');
+        if(auth()->user()->hasRoles(['secretaria'])){ 
+            return redirect()->route('admConocimientos');
+        } else {
+            return redirect()->route('admHabilitados');
+        }
     }
 }

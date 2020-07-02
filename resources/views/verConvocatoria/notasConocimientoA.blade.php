@@ -24,7 +24,7 @@
             <div class="tab-pane fade{{ $initContent ? " show active" : '' }}" id={{ "body".$auxiliatura->id}} 
               role="tabpanel" aria-labelledby={{ $auxiliatura->id}}>
               <div class="table-requests1">
-                  <table id= "table_id" class="table table-bordered">
+                  <table id= "table_id" class="table table-striped table-bordered">
                       <thead class="thead-dark text-left">
                           <tr>
                               <th class="font-weight-normal" scope="col">CI</th>

@@ -7,7 +7,7 @@
 
     {{-- Boton para crear una nueva convocatoria --}}
     @if (auth()->check())
-        @if (auth()->user()->hasRoles(['administrador']))
+        @if (auth()->user()->hasRoles(['secretaria']))
             <div class="container">
                 <div class="row my-3">
                     <a type="button" data-toggle="modal" data-target="#convocatoriaModal">
@@ -205,21 +205,9 @@
     </div>
 
     {{-- Carrusel de cards con datos grals. de una convocatoria --}}
-    @if (auth()->check())        
-        @if (auth()->user()->hasRoles(['administrador']))
-            @component('components.carruselConvocatoria', 
-                ['convos' => $convos, 'auxs' => $auxs])
-            @endcomponent
-        @else 
-            @component('components.carruselConvocatoria', 
-                ['convos' => $convosPublicas, 'auxs' => $auxs])
-            @endcomponent 
-        @endif
-    @else
-        @component('components.carruselConvocatoria', 
-            ['convos' => $convosPublicas, 'auxs' => $auxs])
-        @endcomponent 
-    @endif
+    @component('components.carruselConvocatoria', 
+        ['convos' => $convos, 'auxs' => $auxs])
+    @endcomponent
 
     </div>
 @endsection

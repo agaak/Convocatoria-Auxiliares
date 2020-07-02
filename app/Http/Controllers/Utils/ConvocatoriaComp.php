@@ -8,15 +8,32 @@ use App\Models\EvaluadorConocimientos;
 class ConvocatoriaComp
 {   
     public function getConvocatorias(){
-        $requests= Convocatoria::where('id_unidad_academica',1)
-        ->orderBy('id','ASC')->get();
+        if(auth()->check()){
+            $id_unidad = auth()->user()->unidad_academica_id;
+            if(auth()->user()->hasRoles(['administrador'])){              
+                $requests= Convocatoria::where('id_unidad_academica',$id_unidad)
+                    ->where('creado',true)->orderBy('id','ASC')->get();
+            } else if(auth()->user()->hasRoles(['secretaria'])){
+                $requests= Convocatoria::where('id_unidad_academica',$id_unidad)
+                    ->orderBy('id','ASC')->get();
+            } else if(auth()->user()->hasRoles(['evaluador'])){
+                $requests = EvaluadorConocimientos::where('correo', auth()->user()->email)
+                ->first()->convocatorias;
+                $requests = collect($requests)->reject(function ($value) {
+                    return !$value->publicado;
+                });
+            }
+        } else {
+            $requests= Convocatoria::where('publicado',true) 
+                ->orderBy('id','DEC')->get();
+        }
+        
         return $requests;
     }
 
     public function getConvocatoriasPublicas(){
-        $requests= Convocatoria::where('id_unidad_academica',1)
-        ->where('publicado',true)
-        ->get();
+        $requests= Convocatoria::where('publicado',true)
+        ->orderBy('id','DEC')->get();
         return $requests;
     }
 

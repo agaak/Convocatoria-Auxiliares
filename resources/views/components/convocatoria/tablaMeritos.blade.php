@@ -1,5 +1,5 @@
 <div class="table-requests {{session()->get('ver')? 'my-4': ''}}">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <thead class="thead-dark">
             <tr>
                 <th class="font-weight-normal" scope="col">Descripcion de Meritos</th>

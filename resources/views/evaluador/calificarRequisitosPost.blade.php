@@ -7,7 +7,7 @@
 
 <!-- Table -->
 <div class="table-requests1" >
-    <table class="table table-bordered" style="width:100%" style="text-align:left">
+    <table class="table table-striped table-bordered" style="width:100%" style="text-align:left">
     <thead class="thead-dark">
         <tr> 
         <th style="font-weight: normal" scope="col">N°</th>

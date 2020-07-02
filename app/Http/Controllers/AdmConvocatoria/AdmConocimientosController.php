@@ -24,7 +24,7 @@ class AdmConocimientosController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'roles:administrador']);
+        $this->middleware(['auth', 'roles:secretaria']);
     }
 
     public function index()
