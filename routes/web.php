@@ -60,6 +60,8 @@ Route::post('/convocatoria/calificacion-conocimientos/finalizar', ['as' => 'know
 Route::post('/convocatoria/calificacion-conocimientos/pdf', ['as' => 'knowledgeRatingPdf', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingPdf']);
 // Controladores de la administracion de convocatoria
 Route::get('convocatoria/adm-habilitados', 'AdmResultados\AdmHabilitadosController@index')->name('admHabilitados');
+Route::get('convocatoria/adm-habilitados/{id}', 'AdmResultados\AdmHabilitadosController@detalles')->name('admHabilitadosPost');
+Route::post('convocatoria/adm-habilitados', 'AdmResultados\AdmHabilitadosController@publicar')->name('admHabilitados.publicar');
 Route::get('convocatoria/adm-res-conocimientos', 'AdmResultados\AdmConocimientosController@index')->name('admResConocimientos');
 Route::get('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@index')->name('admResMeritos');
 Route::get('convocatoria/adm-res-nota-final', 'AdmResultados\AdmNotasFinalesController@index')->name('admResNotaFinal');
@@ -103,7 +105,7 @@ Route::get('evaluador/calificar', 'Evaluador\CalificarController@index')->name('
 Route::get('evaluador/calificar/requisitos','Evaluador\CalificarRequisitoController@index')->name('calificarRequisitosPost.index');
 Route::get('evaluador/calificar/requisitos/{idPostulante}','Evaluador\VerificarReqController@index')->name('calificarRequisito.index');
 Route::put('evaluador/calificar/requisitos/actualizar','Evaluador\VerificarReqController@update')->name('calificarRequisito.update');
-
+Route::post('evaluador/calificar/requisitos','Evaluador\CalificarRequisitoController@entregar')->name('entregarHabilitados');
 
 Route::get('evaluador/calificar/merito', 'Evaluador\CalificarMeritoController@index')->name('calificarMerito.index');
 

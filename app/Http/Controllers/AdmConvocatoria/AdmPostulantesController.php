@@ -108,33 +108,6 @@ class AdmPostulantesController extends Controller
                 $post_calf_requisitos->id_requisito = $requisito->id;
                 $post_calf_requisitos->save();
             }
-            
-            // $post_calf_conoc_fin = new PostuCalifConocFinal();
-            // $post_calf_conoc_fin->id_convocatoria = session()->get('convocatoria');
-            // $post_calf_conoc_fin->id_postulante = $postulante->id; 
-            // $post_calf_conoc_fin->id_auxiliatura = $aux;
-            // $post_calf_conoc_fin->save();
-            // foreach ($requisitos as $requisito){
-            //     $post_calf_requisitos = new Postulante_req_aux();
-            //     $post_calf_requisitos->id_postulante_auxiliatura = $postulante_aux->id;
-            //     $post_calf_requisitos->id_requisito = $requisito->id;
-            //     $post_calf_requisitos->save();
-            // }
-
-            // $porcentajes = Requerimiento::select('porcentaje.*')
-            // ->where('requerimiento.id_convocatoria',session()->get('convocatoria'))
-            // ->join('porcentaje','porcentaje.id_requerimiento','=','requerimiento.id')
-            // ->where('porcentaje.id_auxiliatura', $aux)
-            // ->where('porcentaje.porcentaje','>','0')
-            // ->get();
-            
-            // foreach($porcentajes as $por){
-            //     $post_calf_conoc = new PostuCalifConoc();
-            //     $post_calf_conoc->id_postulante = $postulante->id;
-            //     $post_calf_conoc->id_porcentaje = $por->id;
-            //     $post_calf_conoc->id_calf_final = $post_calf_conoc_fin->id;
-            //     $post_calf_conoc->save();
-            // }
            
         }
 

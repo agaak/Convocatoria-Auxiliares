@@ -2,6 +2,11 @@
 
 @section('content-resultados')
     <div class="overflow-auto content">
-        <h1>LISTA DE HABILITADOS</h1>
+        <h3> Lista de habilitados</h3>
+
+        @component('components.resultados.listaHabilitados', 
+            ['listPostulantes' => $listPostulantes])
+        @endcomponent
+
     </div>
 @endsection

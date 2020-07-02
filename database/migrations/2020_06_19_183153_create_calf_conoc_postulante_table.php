@@ -22,7 +22,7 @@ class CreateCalfConocPostulanteTable extends Migration
             $table->integer('id_calf_final');
             $table->foreign('id_calf_final')->references('id')->on('calf_fin_postulante_conoc') ->onDelete('cascade');
             $table->double('calificacion', 2, 2)->nullable();
-            $table->string('estado'); 
+            $table->string('estado')->nullable();
             $table->timestamps();
         });
     }
