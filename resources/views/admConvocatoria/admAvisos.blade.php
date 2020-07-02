@@ -8,7 +8,7 @@
   <!-- Button trigger modal -->
   <div class="row mr-1 ml-1">
     <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
-    data-target="#avisosModal">Registrar postulante</button>
+    data-target="#avisosModal">Registrar aviso</button>
   </div>
   {{-- Visualizar Tabla de avisos --}}
   @component('components.admConvocatoria.tablaAvisos', 
