@@ -581,3 +581,13 @@ function cargarAuxTem(tematica){
     $('#nombre-tem-id').val(tematica['nombre']);
     $('#id-tem-lab').val(tematica['id']);
 }
+
+// Script editar avisos
+
+
+
+function avisoEditModal(aviso) {
+    $('#idAvisoEdit').val(aviso['id']);
+    $('#avisoTituloEdit').val(aviso['titulo']);
+    $('#avisoDescripcionEdit').val(aviso['descripcion']);
+}
