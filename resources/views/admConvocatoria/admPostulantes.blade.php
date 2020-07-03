@@ -173,10 +173,10 @@
             </div>
         </div>
     </div>
-</div>
+</div>{{-- 
 <button type="button" class="btn btn-secondary">
-    <a href="/convocatoria/adm-postulantes/habilitados" style="color: #FFFF;">PDF</a>
-</button>
+    <a href="/convocatoria/adm-postulantes/habilitadosPDF" style="color: #FFFF;">PDF</a>
+</button> --}}
 </div>
 @endsection
 

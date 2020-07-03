@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lista de habilitados</title>
+    <title>{{$titulo_conv}}</title>
     <style>
-        #header,
-        #footer {
+        #header, #footer {
             position: fixed;
             left: 0;
             right: 0;
@@ -36,8 +35,10 @@
            background-color: #242D47;
             color: white;
         }
-        tr:nth-child(even) {background-color: #BEBBFF;}
+        table,th,td{border: 1px solid black;border-collapse: collapse;}
+        tr:nth-child(even) {background-color: #F3F3F3;}
         tr:hover {background-color: #f8f8f8;}
+        td{padding: 5px;}
         .table-requests1 {
             padding-top: 20px;
             width: 100%;
@@ -45,12 +46,15 @@
             margin-left: 0ch;
             margin-right: 0ch;
         }
+        .row_ci{width: 40%}
+        .row_hab{width: 15%;}
+        .row_obs{width: 45%}
         .page_break { page-break-before: auto; }
         
     </style>
 </head>
 <body>
-<h3 style="text-align: center">  {{$listaAux[0]['titulo']}}</h3>
+<h3 style="text-align: center">  {{$titulo_conv}}</h3>
 <h3 style="text-align: center">Lista de habilitados</h3>
     
         @foreach ($listaAux as $aux)
@@ -61,9 +65,9 @@
             <table >
                 <thead>
                 <tr>
-                <th>Nombre</th>
-                <th>Habilitado</th>
-                <th>Observaciones</th>
+                <th class="row_ci">Nombre</th>
+                <th class="row_hab">Habilitado</th>
+                <th class="row_obs">Observaciones</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -72,7 +76,7 @@
                     
                         @if ($postulante->nombre_aux==$aux->nombre_aux)
                         <tr>
-                        <td>{{ $postulante->nombre }} {{ $postulante->apellido }}</td>
+                        <td>{{ $postulante->apellido }} {{ $postulante->nombre }} </td>
                             @if ($postulante->habilitado===null)
                                 <td >-</td>
                             @else
