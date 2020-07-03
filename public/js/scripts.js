@@ -514,7 +514,6 @@ function calcular(){
                     }
                     notadelMerito=notadelMerito/(listaNotas.length);
                     multiplicador=parseInt($("#procentajeMer").val())/100;
-                    $("#porcentaje").val($("#procentajeMer").val());
                     $("#notaMerito").val(Math.round(notadelMerito*multiplicador));
                     document.getElementById("guardar").disabled=false;
                 }else{
@@ -529,10 +528,9 @@ function calcular(){
                 }
                 maximo=parseInt($("#procentajeMer").val());
                 if(notadelMerito>maximo){
-                    $("#porcentaje").val(maximo);
                     $("#notaMerito").val(maximo);
+                    document.getElementById('guardar').disabled=false;
                 }else{
-                    $("#porcentaje").val(maximo);
                     $("#notaMerito").val(Math.round(notadelMerito));
                     document.getElementById('guardar').disabled=false;
                 }

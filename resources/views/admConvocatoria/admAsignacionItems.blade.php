@@ -39,7 +39,7 @@
                       @php $num=1; @endphp
                     @if($listaPost->has($auxiliatura->id))
                       @foreach ($listaPost[$auxiliatura->id] as $item)
-                        <tr>
+                        <tr class="table-light">
                           <td>{{ $num++ }}</td>
                           <td>{{ $item->ci }}</td>
                           <td>{{ $item->apellido }}</td>
@@ -78,6 +78,80 @@
           @endforeach
       </div>
   </div>
+
+  <div class="col-11">
+    <div class="float-right">
+      <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
+              data-target="#invitarPostulanteModal">Invitar postulante</button>
+    </div>
+  </div>
+
+  <div class="modal fade" id="invitarPostulanteModal" tabindex="-1" role="dialog" aria-labelledby="postModalTitle"
+    aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="postModalTitle">Invitar Postulante</h5>
+                    <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" action="{{ route('admPostulanteCreate') }}" id="form-create-postulante">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="id-conv-postulante" id="id-conv-postulante" value="">
+                      <div class="form-group row pr-0 mb-3">
+                        <div class="col-auto">
+                          <label for="adm-post-rotulo"  class="col-form-label col-form-label">Carnet:</label>
+                        </div>
+                        <div class="col-4 px-0">
+                          <input type="text" name="adm-post-ci" placeholder="Ingrese su rotulo" class="form-control form-control" id="adm-post-ci" required>
+                        </div> <div class="col-auto">
+                        <button type="button" class="btn btn-primary" onclick="#">Comprobar Postulante</button>
+                      </div>
+                        {!! $errors->first('adm-post-ci', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
+                        </div>
+                        {!! $errors->first('ci', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
+                        <div class="d-none text-left col-sm-12 mt-0" id="rotulo-no-existe">
+                            <strong class="text-primary">El carnet ingresado existe</strong>
+                        </div>
+                        <div class="d-none text-left col-sm-12 mt-0" id="rotulo-existe">
+                            <strong class="text-danger">El carnet ingresado no existe</strong>
+                        </div>                        
+                        <div class="form-group row">
+                            <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Nombres:</label>
+                            <div class="col-sm-9">
+                            <input type="text" name="postulante-nombre" disabled id="post-nom" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Apellidos:</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" disabled id="post-ape" name="postulante-apellidos" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Nota final:</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" disabled id="post-ape" name="nota-final" required readonly>
+                            </div>
+                        </div>
+                  </form>
+                </div>
+                @if($errors->any())
+                                <script>
+                                    window.onload = () => {
+                                        $('#storePostulanteModal').modal('show');
+                                    }
+                                </script>
+                @endif
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-info" form="form-create-postulante" id="bttn-post" disabled>Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
     
 @endsection

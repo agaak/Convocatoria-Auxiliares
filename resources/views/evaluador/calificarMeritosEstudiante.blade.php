@@ -61,8 +61,12 @@
                     <script>
                         function marcarTipoCalificacionMerito(){
                             if(document.getElementById('inlineRadio2').checked==true){
+                                $("#notaMerito").val('');
+                                $("#notasMeritos").val('');    
                                 document.getElementById('notasMeritos').setAttribute("placeholder", "50+60+90");
                             }else if(document.getElementById('inlineRadio1').checked==true){
+                                $("#notaMerito").val('');
+                                $("#notasMeritos").val('');
                                 document.getElementById('notasMeritos').setAttribute("placeholder", "2+1+2+2");                            }
                         }
                     </script>
@@ -102,9 +106,7 @@
                         </div>
                         
                         <div class="form-row">
-                            <label class="col-sm-3 col-form-label">Porcentaje:</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control-plaintext" id="porcentaje" name="porcentaje" readonly>
                             </div>
                             <label class="col-sm-3 col-form-label" required>Nota:</label>
                             <div class="col-sm-3">
