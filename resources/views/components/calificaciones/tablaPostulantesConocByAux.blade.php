@@ -26,7 +26,7 @@
                                     {{ csrf_field() }}
                                 <input type="hidden" name="id-post[]" value="{{ $item->id_nota}}">
                                 <input name="nota[]" type="number" class="form-control form-control-sm"
-                                    placeholder="-" min="0" max="100" step="0.01" value="{{$item->calificacion}}" required style="text-align: center;"></td>
+                                    placeholder="-" min="0" max="100" step="0.01" value="{{$item->calificacion}}" style="text-align: center;"></td>
                             @else 
                                 @if ($item->calificacion != null)
                                     <td class="text-center">{{ $item->calificacion }}</td>    

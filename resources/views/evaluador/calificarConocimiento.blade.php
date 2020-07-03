@@ -22,6 +22,19 @@
             @endcomponent 
         @endif
         
+        <div class="text-center">
+            {!! $errors->first('id-evaluador', '<strong class="message-error text-danger">:message</strong>') !!}<br>
+            <form class="d-inline" action="{{ route('entregarConocimientos',['id' => $id_tem, 'tem' => $nom ]) }}"
+                method="POST" id="evaluador-meritos-delete">
+                {{ csrf_field() }}
+                <input type="hidden"  name="id-evaluador">
+                @if($entregado || $publicado)
+                    <button type="submit" class="btn btn-info" disabled>Entregar Todo</button> 
+                @else
+                    <button type="submit" class="btn btn-info">Entregar Todo</button> 
+                @endif   
+            </form>
+        </div>
     
     </div>
     

@@ -64,6 +64,7 @@ Route::get('convocatoria/adm-habilitados', 'AdmResultados\AdmHabilitadosControll
 Route::get('convocatoria/adm-habilitados/{id}', 'AdmResultados\AdmHabilitadosController@detalles')->name('admHabilitadosPost');
 Route::post('convocatoria/adm-habilitados', 'AdmResultados\AdmHabilitadosController@publicar')->name('admHabilitados.publicar');
 Route::get('convocatoria/adm-res-conocimientos', 'AdmResultados\AdmConocimientosController@index')->name('admResConocimientos');
+Route::post('convocatoria/adm-res-conocimientos/{id}/{tem}', 'AdmResultados\AdmConocimientosController@publicar')->name('admNotasTematica.publicar');
 Route::get('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@index')->name('admResMeritos');
 Route::post('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@publicar')->name('admMeritos.publicar');
 Route::get('convocatoria/adm-notas-merito/{est}', 'AdmResultados\AdmMeritosController@meritos')->name('notasResMeritoEst');
@@ -120,7 +121,11 @@ Route::get('evaluador/calificar/merito', 'Evaluador\CalificarMeritoController@in
 Route::post('evaluador/calificar/merito','Evaluador\CalificarMeritoController@entregar')->name('entregarMeritos');
 
 Route::get('evaluador/calificar/conocimiento/{id}/{tem}', 'Evaluador\CalificarConocController@index')->name('calificarConoc.index');
+
+Route::post('evaluador/calificar/conocimiento/{id}/{tem}','Evaluador\CalificarConocController@entregar')->name('entregarConocimientos');
+
 Route::post('evaluador/calificar/conocimiento', 'Evaluador\CalificarConocController@store')->name('calificarConoc.store');
+
 Route::get('evaluador/calificar/conocimiento/oral', 'Evaluador\CalificarConocController@oral')->name('calificarConoc.oral');
 Route::get('evaluador/calificar/conocimiento/escrito', 'Evaluador\CalificarConocController@escrito')->name('calificarConoc.escrito');
 

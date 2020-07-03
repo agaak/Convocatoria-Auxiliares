@@ -32,15 +32,18 @@ class CalificarConocController extends Controller
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
         $auxsTemsEval = $tipoConv === 1? $compEval->getTemsEvaluador($idEC) :$compEval->getAuxsEvaluador($idEC);
 
-        $compEval = new PostulanteComp();
-        $postulantes= $tipoConv === 1? $compEval->getPostulantesByTem($id_tem) : $compEval->getPostulantesByAux($id_tem,$nom); 
+        $compPost = new PostulanteComp();
+        $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem) : $compPost->getPostulantesByAux($id_tem,$nom); 
 
-        return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes','id_tem'));
+        $entregado = $compPost->getEntregado($postulantes);
+        $publicado = $compPost->getPublicado($postulantes);
+
+        return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 
+            'auxsTemsEval','postulantes','id_tem','nom','publicado','entregado'));
     }
 
     public function store(Request $request){
         $cont = 0;
-        $test = "no";
         if ($request->input('id-tipo') == 1) {
             foreach($request->input('nota') as $nota) {
                 $id_post = $request->input('id-post')[$cont++];
@@ -60,11 +63,25 @@ class CalificarConocController extends Controller
                 PostuCalifConoc::where('id', $id_post)->update([
                     'calificacion' => $nota
                 ]);
-                $test = "yes";
             }
         }
+        return back();
+    }
+
+    public function entregar(Request $request,$id_tem,$nom){
         
+        $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
         
+        $compPost = new PostulanteComp();
+        $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem) : $compPost->getPostulantesByAux($id_tem,$nom); 
+
+        foreach($postulantes as $postulante){
+            foreach($postulante as $nota){
+                PostuCalifConoc::where('id', $nota->id_nota)->update([
+                    'estado' => 'entregado',
+                ]);
+            }
+        }
         return back();
     }
 }

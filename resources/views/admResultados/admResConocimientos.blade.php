@@ -6,6 +6,9 @@
 
     <h3>Calificacion de Conocimientos</h3>
       
-  </div>
+    @component('components.resultados.notasByTematica', 
+      ['tematicas' => $tematicas, 'tipoConv' => $tipoConv])
+    @endcomponent
+
 </div>
 @endsection

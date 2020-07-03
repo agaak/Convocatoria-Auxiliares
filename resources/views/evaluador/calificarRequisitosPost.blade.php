@@ -15,7 +15,7 @@
             method="POST" id="evaluador-meritos-delete">
             {{ csrf_field() }}
             <input type="hidden"  name="id-evaluador">
-            @if($entregado)
+            @if($entregado || $publicado)
                 <button type="submit" class="btn btn-info" disabled>Entregar Todo</button> 
             @else
                 <button type="submit" class="btn btn-info">Entregar Todo</button> 
