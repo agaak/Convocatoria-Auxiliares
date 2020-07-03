@@ -26,14 +26,14 @@ class AdmResultadosController extends Controller
         ->where('id_convocatoria',$id_conv)
         ->get();
         $listaPost = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
-        'calf_fin_postulante_conoc.nota_final_conoc','calf_final_postulante_merito.nota_final_merito','postulante_auxiliatura.id_auxiliatura')
+        'calf_fin_postulante_conoc.nota_final_conoc','calf_final_postulante_merito.nota_final_merito','postulante_auxiliatura.id_auxiliatura','postulante_auxiliatura.calificacion as not_fin')
         ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
         ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
         ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
         ->join('calf_fin_postulante_conoc','postulante.id','=','calf_fin_postulante_conoc.id_postulante')
         ->join('calf_final_postulante_merito','postulante.id','=','calf_final_postulante_merito.id_postulante')
         ->where('postulante_auxiliatura.habilitado', true)
-        ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','calf_fin_postulante_conoc.nota_final_conoc','calf_final_postulante_merito.nota_final_merito')
+        ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','calf_fin_postulante_conoc.nota_final_conoc','calf_final_postulante_merito.nota_final_merito','not_fin')
         ->get();
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
         //return $listaPost;

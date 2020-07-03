@@ -47,24 +47,24 @@
                   </tbody>   
                 </table>
               </div>
-              @if (auth()->check())
+            @if (auth()->check())
                 @if (auth()->user()->hasRoles(['administrador']))
-            <div class="text-center">
-                <form class="d-inline" action="{{ route('admNotasTematica.publicar',['id' => $tematica->id, 'tem' => $tematica->nombre ]) }}"
-                    method="POST">
-                    {{ csrf_field() }}
-                    @if($tematica->publicado)
-                        <button type="submit" class="btn btn-info" disabled>Publicar</button> 
-                    @else
-                        @if($tematica->entregado)
-                            <button type="submit" class="btn btn-info">Publicar</button> 
-                        @else
-                            <button type="submit" class="btn btn-info" disabled>Publicar</button> 
-                        @endif
-                    @endif 
-                </form>
-            </div>
-            @endif
+                    <div class="text-center">
+                        <form class="d-inline" action="{{ route('admNotasTematica.publicar',['id' => $tematica->id, 'tem' => $tematica->nombre ]) }}"
+                            method="POST">
+                            {{ csrf_field() }}
+                            @if($tematica->publicado)
+                                <button type="submit" class="btn btn-info" >Publicar</button> 
+                            @else
+                                @if($tematica->entregado)
+                                    <button type="submit" class="btn btn-info">Publicar</button> 
+                                @else
+                                    <button type="submit" class="btn btn-info" disabled>Publicar</button> 
+                                @endif
+                            @endif 
+                        </form>
+                    </div>
+                @endif
             @endif
           </div>
           {{ $initContent = false  }}

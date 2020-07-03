@@ -29,17 +29,18 @@ class AdmHabilitadosController extends Controller
         ->get();
         $listPostulanteAux = collect($listPostulanteAux)->groupBy('id_postulante');
 
+        $publicado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
+            ->where('estado','publicado')->get()->isNotEmpty();
+        
         $listPostulantes = Postulante::select('postulante.*')
         ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
-        ->where('id_convocatoria',session()->get('convocatoria'))
-        ->where('estado','entregado')->orWhere('estado','publicado')
-        ->orderBy('apellido','ASC')->get();
-
+        ->where('id_convocatoria',session()->get('convocatoria'));
+        $listPostulantes = $publicado? $listPostulantes->where('estado','publicado') : $listPostulantes->where('estado','entregado');
+        $listPostulantes = $listPostulantes->orderBy('apellido','ASC')->get();
         foreach($listPostulantes as $item){
             $item->nombre_aux = $listPostulanteAux[$item['id']];
         }
-        $publicado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
-            ->where('estado','publicado')->get()->isNotEmpty();
+        // return $listPostulantes->get();
         return view('admResultados.admHabilitados',compact('listPostulantes','publicado'));
     }
 
