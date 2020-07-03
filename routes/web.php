@@ -142,7 +142,7 @@ Route::post('evaluador/merito/calificar-merito-final', 'Evaluador\CalificacionMC
 //PDFs de postulantes
 Route::get('/convocatoria/adm-postulantes/habilitadosPDF','PDFpostulantesController@listHabilitados');
 Route::get('convocatoria/notas-finales/pdf','PDFpostulantesController@listNotasFinales');
-Route::get('convocatoria/notas-merito/pdf','PDFpostulantesController@listNotasMeritos');
+Route::get('/convocatoria/adm-postulantes/notasMeritoPDF','PDFpostulantesController@listNotasMeritos');
 /* Route::get('evaluador/calificar/conocimiento/{id}/{tem}/pdf', 'PDFpostulantesController@listNotasTematica'); */
 
 Route::get('/convocatoria/adm-postulantes/habilitados', 'VerConvocatoria\ListEnabledController@index')->name('listHabilitados');

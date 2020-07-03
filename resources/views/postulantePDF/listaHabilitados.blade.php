@@ -76,7 +76,7 @@
                     
                         @if ($postulante->nombre_aux==$aux->nombre_aux)
                         <tr>
-                        <td>{{ $postulante->nombre }} {{ $postulante->apellido }}</td>
+                        <td>{{ $postulante->apellido }} {{ $postulante->nombre }} </td>
                             @if ($postulante->habilitado===null)
                                 <td >-</td>
                             @else

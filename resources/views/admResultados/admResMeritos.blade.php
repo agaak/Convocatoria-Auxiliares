@@ -13,12 +13,18 @@
             method="POST">
             {{ csrf_field() }}
             @if($publicado)
-              <button type="submit" class="btn btn-info" disabled>Publicar</button> 
+              <button type="submit" class="btn btn-info" disabled>Publicado</button> 
             @else
               <button type="submit" class="btn btn-info">Publicar</button> 
             @endif 
       </form>
     </div>
-
+    @if ($publicado)
+    <div class="text-right">
+      <button type="button" class="btn btn-secondary">
+        <a href="/convocatoria/adm-postulantes/notasMeritoPDF" style="color: #FFFF;">PDF</a>
+      </button>
+    </div>
+  @endif
   </div>
 @endsection

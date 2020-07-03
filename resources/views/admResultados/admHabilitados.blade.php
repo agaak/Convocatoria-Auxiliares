@@ -22,6 +22,12 @@
             @endif 
       </form>
     </div>
-
+    @if ($publicado)
+      <div class="text-right">
+        <button type="button" class="btn btn-secondary">
+          <a href="/convocatoria/adm-postulantes/habilitadosPDF" style="color: #FFFF;">PDF</a>
+        </button>
+      </div>
+    @endif
   </div>
 @endsection
