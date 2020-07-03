@@ -1,5 +1,5 @@
 <div class="table-requests {{session()->get('ver')? 'my-5': ''}}">
-    <table class="table table-bordered">
+    <table class="table table-striped table-bordered">
       <thead class="thead-dark">
         <tr>
           <th style="font-weight: normal" scope="col">#</th>

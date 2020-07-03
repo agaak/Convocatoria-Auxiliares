@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
 use App\Http\Controllers\Utils\Evaluador\MenuDina;
+use App\Http\Controllers\Utils\Evaluador\EvaluarRequisitos;
 
 class VerificarReqController extends Controller
 {
@@ -47,24 +48,10 @@ class VerificarReqController extends Controller
 
 
         $postulante = Postulante::where('id','=',$idPostulante)->first();
-        $auxiliaturas = Postulante_auxiliatura::where('id_postulante','=',$idPostulante)
-                        ->join('auxiliatura','postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
-                        ->join('postulante_req_aux', 'postulante_auxiliatura.id', '=', 'postulante_req_aux.id')
-                        ->orderBy('postulante_auxiliatura.id', 'ASC')
-                        ->get();
+        $auxiliaturas = (new EvaluarRequisitos)->getAuxiliaturas($idPostulante);
         $requisitos = (new RequisitoComp)->getRequisitos($idConv);
         
-        $mapVerifications = array();
-        foreach ($auxiliaturas as &$auxiliatura) {
-            foreach ($requisitos as $requisito) {
-              $value = Postulante_req_aux::where('id_postulante_auxiliatura','=', $auxiliatura->id)
-                                    ->where('id_requisito','=', $requisito->id)->first();
-              $mapVerifications[$auxiliatura->id][$requisito->id] = array(                    
-                        'esValido' => $value->habilitado,
-                        'observacion' => $value->observacion,);
-            }
-        }
-        // dd($mapVerifications);
+        $mapVerifications = (new EvaluarRequisitos)->getMapVerification($auxiliaturas,$requisitos);
 
         return view('evaluador.calificarRequisito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulante','auxiliaturas','requisitos','mapVerifications','idPostulante'));
     }

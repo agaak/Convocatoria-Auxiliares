@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Utils\Evaluador;
 
 use App\Models\Postulante;
 use App\Models\PostuCalifConocFinal;
+use App\Models\PostuCalifConoc;
 use App\Models\Tematica;
 class PostulanteComp
 {   
@@ -17,7 +18,8 @@ class PostulanteComp
     }
 
     public function  getPostulantesByTem($id_tem){
-        $requests = PostuCalifConocFinal::select('postulante.nombre', 'postulante.apellido', 'postulante.ci', 'postulante.id', 'calif_conoc_post.calificacion','calif_conoc_post.id as id_nota')
+        $requests = PostuCalifConocFinal::select('postulante.nombre', 'postulante.apellido', 'postulante.ci', 
+            'postulante.id', 'calif_conoc_post.calificacion','calif_conoc_post.id as id_nota')
             ->where('calf_fin_postulante_conoc.id_convocatoria', session()->get('convocatoria'))
             ->join('calif_conoc_post','calif_conoc_post.id_calf_final','=', 'calf_fin_postulante_conoc.id')
             ->join('porcentaje','porcentaje.id','=','calif_conoc_post.id_porcentaje')
@@ -54,4 +56,28 @@ class PostulanteComp
         return $requests;    
     }
     
+    public function  getPublicado($postulantes){
+        $publicado = false;
+        foreach($postulantes as $postulante){
+            foreach($postulante as $nota){
+                $publicado = $publicado || PostuCalifConoc::where('id', $nota->id_nota)->where('estado','publicado')->exists();
+                
+            }
+            if($publicado){ break; }
+        }
+        return $publicado;    
+    }
+
+    public function  getEntregado($postulantes){
+        $entregado = false;
+        foreach($postulantes as $postulante){
+            foreach($postulante as $nota){
+                $entregado = $entregado || PostuCalifConoc::where('id', $nota->id_nota)->where('estado','entregado')->exists();
+                
+            }
+            if($entregado){ break; }
+        }
+        return $entregado;    
+    }
+
 }

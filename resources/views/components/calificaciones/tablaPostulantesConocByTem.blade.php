@@ -1,10 +1,11 @@
 <div class="table-requests">
-    <table class="table table-bordered">
+    <table class="table table-striped table-bordered">
           <thead class="thead-dark text-center">
               <tr>
                   <th class="font-weight-normal" scope="col">N°</th>
-                  <th class="font-weight-normal" scope="col">Nombres Completos</th>
                   <th class="font-weight-normal" scope="col">Carnet</th>
+                  <th class="font-weight-normal" scope="col">Apellidos</th>
+                  <th class="font-weight-normal" scope="col">Nombres</th>
                   <th class="font-weight-normal" style="width: 90px" scope="col">Nota</th>
               </tr>
           </thead>
@@ -15,8 +16,9 @@
                 @foreach ($postulantes as $item)
                     <tr>
                         <td class="text-center">{{ $cont++ }}</td>
-                        <td class="text-center">{{ $item[0]->apellido.' '.$item[0]->nombre }}</td>
                         <td class="text-center">{{ $item[0]->ci }}</td>
+                        <td class="text-center">{{ $item[0]->apellido }}</td>
+                        <td class="text-center">{{ $item[0]->nombre }}</td>
                         
                         @if (auth()->check())
                             @if (auth()->user()->hasRoles(['evaluador']))
@@ -27,7 +29,7 @@
                                     @endforeach
                                     <input type="hidden" name="id-post[]" value="{{ $item[0]->id }}">
                                     <input name="nota[]" type="number" class="form-control form-control-sm"
-                                        placeholder="-" min="0" max="100" step="0.01" value="{{$item[0]->calificacion}}" required style="text-align: center;"></td>
+                                        placeholder="-" min="0" max="100" step="0.01" value="{{$item[0]->calificacion}}" style="text-align: center;"></td>
                             @else 
                                 @if ($item[0]->calificacion != null)
                                     <td class="text-center">{{ $item[0]->calificacion }}</td>    

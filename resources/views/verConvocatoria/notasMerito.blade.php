@@ -2,7 +2,7 @@
 
 @section('content-resultados')
     <div class="overflow-auto content">
-        <h1>NOTAS MERITO</h1>
+        <h3>Notas de Meritos</h3>
         @component('components.calificaciones.tablaPostulantesMeritos',['postulantes'=>$postulantes])
         @endcomponent
     </div>

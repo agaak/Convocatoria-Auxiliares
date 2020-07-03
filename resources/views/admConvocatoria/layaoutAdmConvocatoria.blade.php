@@ -21,11 +21,8 @@
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-postulantes') }}">
                     <a class="link-list" href="{{ route('admPostulantes') }}">Postulantes</a>
                 </li>
-                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-resultados') }}">
-                    <a class="link-list" href="{{ route('admResultados') }}">Resultados</a>
-                </li>
-                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-asignacion') }}">
-                    <a class="link-list" href="{{ route('admAsignacion') }}">Asignacion de Items</a>
+                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-avisos') }}">
+                    <a class="link-list" href="{{ route('admAvisos') }}">Avisos</a>
                 </li>
             </ul>
         </nav>

@@ -18,7 +18,7 @@ use App\Models\Postulante_conovocatoria;
 
 class CalificarRequisitoController extends Controller
 {
-public function index(){
+    public function index(){
         if(session()->has('id-pos')){
             Postulante_conovocatoria::where('id_postulante', session()->get('id-pos'))->update([
                 'calificando_requisito' => false,
@@ -43,12 +43,32 @@ public function index(){
 
         $listPostulantes = Postulante::select('postulante.*')
         ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
-        ->where('id_convocatoria',session()->get('convocatoria'))->get();
+        ->where('id_convocatoria',session()->get('convocatoria'))
+        ->orderBy('apellido','ASC')->get();
 
         foreach($listPostulantes as $item){
             $item->nombre_aux = $listPostulanteAux[$item['id']];
         }
+        $entregado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
+            ->where('estado','entregado')->get()->isNotEmpty();
+        $publicado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
+            ->where('estado','publicado')->get()->isNotEmpty();
+        return view('evaluador.calificarRequisitosPost', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','listPostulantes','entregado','publicado'));
+    }
 
-        return view('evaluador.calificarRequisitosPost', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','listPostulantes'));
+    public function entregar(Request $request){
+        $listPostulantes = Postulante_auxiliatura::where('id_convocatoria',session()->get('convocatoria'))
+        ->where('postulante_auxiliatura.habilitado',null)->get();
+        if($listPostulantes->isNotEmpty()){
+            request()->validate([
+                'id-evaluador' => 'required'
+            ],[
+                'id-evaluador.required' => 'No se puede entregar. Hay Postulantes sin calificar.'
+            ]);
+        }
+        Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))->update([
+            'estado' => 'entregado',
+        ]);
+        return back();
     }
 }

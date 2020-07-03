@@ -10,7 +10,7 @@
  
     <!-- Table -->
     <div class="table-requests1">
-        <table id= "table_id" class="table table-bordered" style="text-align:left">
+        <table id= "table_id" class="table table-striped table-bordered" style="text-align:left">
         <thead class="thead-dark">
             <tr> 
             <th style="font-weight: normal" scope="col">CI</th>

@@ -83,6 +83,7 @@ class CreatePostulanteTable extends Migration
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria')->onDelete('cascade');
             $table->boolean('calificando_merito');
             $table->boolean('calificando_requisito');
+            $table->string('estado')->nullable(); 
             $table->timestamps();
         });
         

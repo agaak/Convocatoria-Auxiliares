@@ -2,10 +2,10 @@
 
 @section('content-resultados')
     <div class="overflow-auto content center">
-        <h1>NOTAS MERITO</h1>
-        <h3>
+        <h3>Detalles de notas de meritos</h3>
+        <h6>
             {{ $estudiante[0]->nombre }} {{ $estudiante[0]->apellido }}
-        </h3>
+        </h6>
 
         @php
         function espacios($cadena) {

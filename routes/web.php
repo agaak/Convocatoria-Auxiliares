@@ -22,9 +22,10 @@ Route::get('/', function(){
 	return view('home');
 });
 
-Route::get('avisos', function(){
-	return view('avisos');
-});
+Route::get('/avisos', 'Aviso\AvisosController@index')->name('avisos');
+// Route::get('avisos', function(){
+// 	return view('avisos');
+// });
 
 Route::get('/convocatoria/requerimientos', ['as' => 'requests', 'uses' => 'Convocatoria\RequerimientoController@requests']);
 Route::post('/convocatoria/requerimientos', ['as' => 'create', 'uses' => 'Convocatoria\RequerimientoController@create']);
@@ -59,6 +60,17 @@ Route::post('/convocatoria/calificacion-conocimientos/aux', ['as' => 'knowledgeR
 Route::post('/convocatoria/calificacion-conocimientos/finalizar', ['as' => 'knowledgeRatingFinish', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingFinish']);
 Route::post('/convocatoria/calificacion-conocimientos/pdf', ['as' => 'knowledgeRatingPdf', 'uses' => 'Convocatoria\ConocimientoController@knowledgeRatingPdf']);
 // Controladores de la administracion de convocatoria
+Route::get('convocatoria/adm-habilitados', 'AdmResultados\AdmHabilitadosController@index')->name('admHabilitados');
+Route::get('convocatoria/adm-habilitados/{id}', 'AdmResultados\AdmHabilitadosController@detalles')->name('admHabilitadosPost');
+Route::post('convocatoria/adm-habilitados', 'AdmResultados\AdmHabilitadosController@publicar')->name('admHabilitados.publicar');
+Route::get('convocatoria/adm-res-conocimientos', 'AdmResultados\AdmConocimientosController@index')->name('admResConocimientos');
+Route::post('convocatoria/adm-res-conocimientos/{id}/{tem}', 'AdmResultados\AdmConocimientosController@publicar')->name('admNotasTematica.publicar');
+Route::get('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@index')->name('admResMeritos');
+Route::post('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@publicar')->name('admMeritos.publicar');
+Route::get('convocatoria/adm-notas-merito/{est}', 'AdmResultados\AdmMeritosController@meritos')->name('notasResMeritoEst');
+Route::get('convocatoria/adm-res-nota-final', 'AdmResultados\AdmNotasFinalesController@index')->name('admResNotaFinal');
+Route::get('convocatoria/adm-asignaciones', 'AdmResultados\AdmAsignacionController@index')->name('admResAsignaciones');
+// ADM Secretaria
 Route::get('convocatoria/adm-convocatoria', 'AdmConvocatoria\AdmConvocatoriaController@index')->name('admConvocatoria');
 
 Route::get('convocatoria/adm-convocatoria/{id}', 'AdmConvocatoria\AdmConvocatoriaController@inicio')->name('adminConvocatoria');
@@ -66,6 +78,12 @@ Route::get('convocatoria/adm-convocatoria/{id}', 'AdmConvocatoria\AdmConvocatori
 Route::get('convocatoria/adm-postulantes', 'AdmConvocatoria\AdmPostulantesController@index')->name('admPostulantes');
 Route::post('convocatoria/adm-postulantes','AdmConvocatoria\AdmPostulantesController@create')->name('admPostulanteCreate');
 Route::get('convocatoria/adm-postulantes/habilitar/{id}','AdmConvocatoria\AdmPostulantesController@habilitar')->name('habilitarPostulante');
+
+Route::get('convocatoria/adm-avisos', 'AdmConvocatoria\AdmAvisosController@index')->name('admAvisos');
+Route::post('convocatoria/adm-avisos', 'AdmConvocatoria\AdmAvisosController@create')->name('admAvisos.create');
+Route::put('convocatoria/adm-avisos', 'AdmConvocatoria\AdmAvisosController@update')->name('admAvisos.update');
+Route::delete('convocatoria/adm-avisos/{id}', 'AdmConvocatoria\AdmAvisosController@delete')->name('admAvisos.delete');
+
 
 Route::get('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosController@index')->name('admConocimientos');
 Route::post('convocatoria/adm-conocimientos', 'AdmConvocatoria\AdmConocimientosController@store')->name('admConoStore');
@@ -97,12 +115,17 @@ Route::get('evaluador/calificar', 'Evaluador\CalificarController@index')->name('
 Route::get('evaluador/calificar/requisitos','Evaluador\CalificarRequisitoController@index')->name('calificarRequisitosPost.index');
 Route::get('evaluador/calificar/requisitos/{idPostulante}','Evaluador\VerificarReqController@index')->name('calificarRequisito.index');
 Route::put('evaluador/calificar/requisitos/actualizar','Evaluador\VerificarReqController@update')->name('calificarRequisito.update');
-
+Route::post('evaluador/calificar/requisitos','Evaluador\CalificarRequisitoController@entregar')->name('entregarHabilitados');
 
 Route::get('evaluador/calificar/merito', 'Evaluador\CalificarMeritoController@index')->name('calificarMerito.index');
+Route::post('evaluador/calificar/merito','Evaluador\CalificarMeritoController@entregar')->name('entregarMeritos');
 
 Route::get('evaluador/calificar/conocimiento/{id}/{tem}', 'Evaluador\CalificarConocController@index')->name('calificarConoc.index');
+
+Route::post('evaluador/calificar/conocimiento/{id}/{tem}','Evaluador\CalificarConocController@entregar')->name('entregarConocimientos');
+
 Route::post('evaluador/calificar/conocimiento', 'Evaluador\CalificarConocController@store')->name('calificarConoc.store');
+
 Route::get('evaluador/calificar/conocimiento/oral', 'Evaluador\CalificarConocController@oral')->name('calificarConoc.oral');
 Route::get('evaluador/calificar/conocimiento/escrito', 'Evaluador\CalificarConocController@escrito')->name('calificarConoc.escrito');
 
@@ -132,6 +155,7 @@ Route::get('convocatoria/notas-conocimiento-aux', 'VerConvocatoria\NotasAuxiliat
 Route::get('convocatoria/notas-finales', 'VerConvocatoria\NotasFinalesController@index')->name('notasFinales');
 
 Route::get('convocatorias-pasadas', 'ConvocatoriaPController@index')->name('convsPasadas');
+Route::post('convocatorias-pasadas', 'ConvocatoriaPController@search')->name('convsPasadasBuscar');
 
 Route::get('catalogo/docencia', 'Catalogo\DocenciaController@index')->name('docencia.index');
 Route::post('catalogo/docencia', 'Catalogo\DocenciaController@save')->name('docencia.save');

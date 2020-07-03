@@ -17,6 +17,7 @@ class NotasMeritoController extends Controller
         ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
         ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
         ->where('postulante_auxiliatura.habilitado',true)
+        ->where('estado','publicado')
         ->orderBy('postulante.apellido','ASC')
         ->get() ;
         $postulantes = collect($postulantes)->unique('id');

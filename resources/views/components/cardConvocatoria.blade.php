@@ -32,6 +32,18 @@
                         </button>
                     </form>
                 @endif
+                @if (auth()->user()->hasRoles(['secretaria']) && !$convo->creado)
+                    <form class="d-inline"
+                        action="{{ route('convocatoria.destroy', $convo->id) }}"
+                        method="POST">
+                        {{ method_field('DELETE') }}
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-link btn-sm">
+                            <img src="{{ asset('img/trash2.png') }}"
+                                width="36" height="29">
+                        </button>
+                    </form>
+                @endif
             @endif
             @if($convo->creado)
                 @if($convo->publicado)
@@ -42,13 +54,19 @@
                                 class="btn btn-sm">{{ csrf_field() }}Administrar</a>
                             <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a> 
                         @endif
+                        @if (auth()->user()->hasRoles(['secretaria']))
+                            <a href="{{ route('adminConvocatoria',$convo->id ) }}"
+                                style="background-color:#2F2D4A; color:white;"
+                                class="btn btn-sm">{{ csrf_field() }}Administrar</a>
+                            <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a> 
+                        @endif
                         @if (auth()->user()->hasRoles(['evaluador']))
-                        <a href="{{ route('helper.redirect', $convo->id) }}" style="background-color:#2F2D4A; color:white;"
-                            class="btn btn-sm">{{ csrf_field() }}Evaluar</a>
+                            <a href="{{ route('helper.redirect', $convo->id) }}" style="background-color:#2F2D4A; color:white;"
+                                class="btn btn-sm">{{ csrf_field() }}Evaluar</a>
                         @endif
                     @else
                         <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a>
-                        @if ($convo->pre_posts_habilitado)
+                        @if ($convo->pre_posts_habilitado && !($convo->convPasada))
                             <a type="button" onclick="listaAux({{ $auxs }}, {{ $convo->id }})" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#postulanteModal">
                                 Postular ahora
                             </a>
@@ -58,28 +76,38 @@
                     class="btn btn-info btn-sm">Descargar</a>
                     </div>
                     <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
-                    convocatoria esta en curso.</div>
+                    convocatoria {{ $convo->convPasada? 'finalizo' : 'esta en curso'}}.</div>
                 @else
-                    <a href="{{ route('adminConvocatoria',$convo->id ) }}"
-                    style="background-color:#2F2D4A; color:white;"
-                    class="btn btn-sm">{{ csrf_field() }}Administrar</a>
-                    <a href="{{ route('convocatoria.show',$convo->id ) }}"
-                    style="background-color:#61DE4D;color:rgb(255, 255, 255);"
-                    class="btn btn-sm">{{ csrf_field() }}Publicar</a>
+                    @if (auth()->user()->hasRoles(['secretaria']))
+                        <a href="{{ route('adminConvocatoria',$convo->id ) }}"
+                            style="background-color:#2F2D4A; color:white;"
+                            class="btn btn-sm">{{ csrf_field() }}Administrar</a>
+                    @else
+                        <a href="{{ route('adminConvocatoria',$convo->id ) }}"
+                        style="background-color:#2F2D4A; color:white;"
+                        class="btn btn-sm">{{ csrf_field() }}Administrar</a>
+                        <a href="{{ route('convocatoria.show',$convo->id ) }}"
+                        style="background-color:#61DE4D;color:rgb(255, 255, 255);"
+                        class="btn btn-sm">{{ csrf_field() }}Publicar</a>
+                    @endif
                     <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a>
                     </div>
                     <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
                     convocatoria esta lista para publicarse.</div>
                 @endif
             @else
-                <a href="{{ route('convocatoria.edit',$convo->id ) }}"
-                style="background-color:#2F2D4A; color:white;"
-                class="btn btn-sm">{{ csrf_field() }}Editar</a>
-                <button style="background-color:#9C9C9C; color:white;" class="btn btn-sm"
-                type="button" disabled>Publicar</button>
-                </div>
-                <div class="card-footer text-muted" style="height: 50px; font-size:14px;">Esta convocatoria se
-                encuentra incompleta.</div>
+                @if (auth()->user()->hasRoles(['secretaria']))
+                    <a href="{{ route('convocatoria.edit',$convo->id ) }}"
+                    style="background-color:#2F2D4A; color:white;"
+                    class="btn btn-sm">{{ csrf_field() }}Editar</a>
+                    <button style="background-color:#9C9C9C; color:white;" class="btn btn-sm"
+                    type="button" disabled>Publicar</button>
+                @endif
+                    </div>
+                    
+                    <div class="card-footer text-muted" style="height: 50px; font-size:14px;">Esta convocatoria se
+                    encuentra incompleta.</div>
+               
             @endif
             
         </div>
