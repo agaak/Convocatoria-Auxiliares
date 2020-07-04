@@ -32,7 +32,7 @@ class AdmHabilitadosController extends Controller
         $listPostulantes = Postulante::select('postulante.*')
         ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
         ->where('id_convocatoria',session()->get('convocatoria'))
-        ->where('estado','entregado')->orWhere('estado','publicado')
+        ->where('estado','entregado')/* ->orWhere('estado','publicado') */
         ->orderBy('apellido','ASC')->get();
 
         foreach($listPostulantes as $item){

@@ -7,7 +7,7 @@
     <h3>Resultados</h3>
 
       @component('components.calificaciones.tablaNotasFinales',
-      ['listaPost'=>$listaPost, 'listaAux'=>$listaAux])
+      ['listaPost'=>$listaPost, 'listaAux'=>$listaAux, 'titulo_conv'=>$titulo_conv])
       @endcomponent
       
   </div>

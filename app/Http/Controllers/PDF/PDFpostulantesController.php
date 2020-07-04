@@ -33,9 +33,9 @@ class PDFpostulantesController extends Controller
         ->join('postulante','postulante_auxiliatura.id_postulante','=','postulante.id')
         ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
         ->join('auxiliatura','postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
-        ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
+        ->where('postulante_conovocatoria.id_convocatoria',$id_conv)->get();
         /* ->groupBy('postulante_auxiliatura.id','postulante.id') ->get();*/
-        ->orderBy('apellido','ASC')->get();
+        
         $dompdf = new Dompdf();
         $dompdf->set_paper('letter', 'portrait');
         $dompdf = PDF::loadView('postulantePDF.listaHabilitados', compact('listaAux','listPostulantes','titulo_conv'));
@@ -87,7 +87,7 @@ class PDFpostulantesController extends Controller
         $listaPost= Postulante::select('postulante.nombre','postulante.apellido','postulante.ci', 'calf_final_postulante_merito.nota_final_merito as nota')
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
         ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
-        ->orderBy('postulante.apellido','ASC')->get();
+        ->get();
         $dompdf = new Dompdf();
         $dompdf->set_paper('letter', 'portrait');
         $dompdf = PDF::loadView('postulantePDF.notasMerito', compact('listaPost','titulo_conv'));
@@ -109,7 +109,7 @@ class PDFpostulantesController extends Controller
         $compEval = new PostulanteComp();
         $postulantes= $tipoConv === 1? 
         $compEval->getPostulantesByTem($id_tem) : $compEval->getPostulantesByAux($id_tem,$nom_tem);
-
+        return $postulantes;
         $dompdf = new Dompdf();
         $dompdf->set_paper('letter', 'portrait');
         $dompdf = PDF::loadView('postulantePDF.listaTematica', compact('nom_tem_db','postulantes','titulo_conv'));

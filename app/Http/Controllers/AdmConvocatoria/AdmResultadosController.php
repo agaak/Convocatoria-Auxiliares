@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Auxiliatura;
 use App\Models\Requerimiento;
 use App\Models\Postulante;
+use App\Models\Convocatoria;
 use App\Models\Postulante_auxiliatura;
 use App\Models\Postulante_conovocatoria;
 
@@ -20,7 +21,10 @@ class AdmResultadosController extends Controller
     public function index()
     {   
         $id_conv = session()->get('convocatoria');
-        
+        $titulo_conv= Convocatoria::select('convocatoria.titulo')
+        ->where('convocatoria.id',$id_conv)->get();
+        $titulo_conv=$titulo_conv[0]['titulo'];
+
         $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id')
         ->join('requerimiento','auxiliatura.id','=','requerimiento.id_auxiliatura')
         ->where('id_convocatoria',$id_conv)
@@ -37,7 +41,7 @@ class AdmResultadosController extends Controller
         ->get();
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
         //return $listaPost;
-        return view('admConvocatoria.admResultados',compact('listaAux','listaPost'));
+        return view('admConvocatoria.admResultados',compact('listaAux','listaPost','titulo_conv'));
     }
     
 }

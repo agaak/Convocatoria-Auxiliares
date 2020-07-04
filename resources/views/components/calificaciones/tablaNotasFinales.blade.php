@@ -18,13 +18,13 @@
           <div class="tab-pane fade{{ $initContent ? " show active" : '' }}" id={{ "body".$auxiliatura->id}} 
             role="tabpanel" aria-labelledby={{ $auxiliatura->id}}>
               <div class="table-requests1">
-                <table id= "notas{{ $auxiliatura->id}}" class="table table-striped table-bordered">
+                <table id= "notas{{ $auxiliatura->id}}" class="table table-striped table-bordere d">
                   <thead class="thead-dark text-left">
                     <tr>
                       <th class="font-weight-normal" scope="col">CI</th>
                       <th class="font-weight-normal" scope="col">Nombre completo</th>
-                      <th class="font-weight-normal" scope="col">Nota conocimientos</th>
-                      <th class="font-weight-normal" scope="col">Nota meritos</th>
+                      <th class="font-weight-normal" scope="col">Conocimientos</th>
+                      <th class="font-weight-normal" scope="col">Meritos</th>
                       <th class="font-weight-normal" scope="col">Nota final</th>
                     </tr>
                   </thead>
@@ -32,22 +32,22 @@
                     @if($listaPost->has($auxiliatura->id))
                       @foreach ($listaPost[$auxiliatura->id] as $item)
                         <tr>
-                          <th style="font-weight: normal">{{ $item->ci }}</th>
-                          <th style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</th>
+                          <td style="font-weight: normal">{{ $item->ci }}</td>
+                          <td style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</td>
                           @if ($item->nota_final_conoc===null)
-                            <th style="font-weight: normal">-</th>
+                            <td style="font-weight: normal">-</td>
                           @else
-                            <th style="font-weight: normal">{{ $item->nota_final_conoc }}</th>
+                            <td style="font-weight: normal">{{ $item->nota_final_conoc }}</td>
                           @endif
                           @if ($item->nota_final_merito===null)
-                            <th style="font-weight: normal">-</th>
+                            <td style="font-weight: normal">-</td>
                           @else
-                            <th style="font-weight: normal">{{ $item->nota_final_merito }}</th>
+                            <td style="font-weight: normal">{{ $item->nota_final_merito }}</td>
                           @endif
                           @if ($item->calificacion===null)
-                            <th style="font-weight: normal">-</th>
+                            <td style="font-weight: normal">-</td>
                           @else
-                          <th style="font-weight: normal">{{$item-> calificacion}}</th>
+                          <td style="font-weight: normal">{{$item-> calificacion}}</td>
                           @endif
                           
                           </tr>
@@ -62,6 +62,9 @@
       </div>
   </div>
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js') }}"></script>
+
+
     @foreach ($listaAux as $auxiliatura)
     <script>
       $(document).ready(function() {
@@ -79,7 +82,23 @@
               "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
           },"bLengthChange": false,responsive: true,
           order: [[1, 'asc']], 
-          
+          dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        
+                        title: 'Notas finales {{ $auxiliatura->nombre_aux}}',
+                        orientation: 'portrait',
+                        pageSize: 'LETTER',
+                        customize: function ( doc ) {
+                        doc.defaultStyle.alignment = 'left';
+                        doc.styles.tableHeader.alignment = 'left';
+                        doc.defaultStyle.fontSize = '11',
+                        doc.content[1].table.widths = ['10%','50%','15%','15%','10%']
+                        }
+                        
+                    }
+                ]
           });
       
       });

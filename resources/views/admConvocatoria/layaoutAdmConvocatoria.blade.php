@@ -24,6 +24,10 @@
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-avisos') }}">
                     <a class="link-list" href="{{ route('admAvisos') }}">Avisos</a>
                 </li>
+                
+                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-resultados') }}">
+                    <a class="link-list" href="{{ route('admResultados') }}">Notasfinales</a>
+                </li>
             </ul>
         </nav>
 
