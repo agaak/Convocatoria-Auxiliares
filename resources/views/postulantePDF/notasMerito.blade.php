@@ -47,16 +47,19 @@
         tr:hover {background-color: #f8f8f8;}
         .table-requests1 {
             padding-top: 20px;
-            width: 100%;
+            width: 720px;
             font-size: 15px;
-            margin-left: 0ch;
-            margin-right: 0ch;
+            margin-left: 0;
+            margin-right: 0;
         }
         .row_ci{width: 15%}
         .row_name{width: 50%}
         .row_mer{width: 25%}
         .page_break { page-break-before: auto; }
         .aprob{background-color: aquamarine;}
+        body {
+            width: 720px;
+        }
     </style>
 </head>
 <body>

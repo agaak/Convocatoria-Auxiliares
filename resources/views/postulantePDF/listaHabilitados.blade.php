@@ -41,16 +41,18 @@
         td{padding: 5px;}
         .table-requests1 {
             padding-top: 20px;
-            width: 100%;
+            width: 720px;
             font-size: 15px;
-            margin-left: 0ch;
-            margin-right: 0ch;
+            margin-left: 0;
+            margin-right: 0;
         }
         .row_ci{width: 40%}
         .row_hab{width: 15%;}
         .row_obs{width: 45%}
         .page_break { page-break-before: auto; }
-        
+        body {
+            width: 720px;
+        }
     </style>
 </head>
 <body>

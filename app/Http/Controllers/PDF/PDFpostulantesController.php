@@ -84,14 +84,18 @@ class PDFpostulantesController extends Controller
         ->where('convocatoria.id',$id_conv)->get();
         $titulo_conv=$titulo_conv[0]['titulo'];
 
-        $listaPost= Postulante::select('postulante.nombre','postulante.apellido','postulante.ci', 'calf_final_postulante_merito.nota_final_merito as nota')
+        $listaPost= Postulante::select('postulante.nombre', 'postulante.apellido', 'postulante.ci', 'postulante.id', 'calf_final_postulante_merito.nota_final_merito as nota')
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
-        ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
-        ->get();
+        ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
+        ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
+        ->where('postulante_auxiliatura.habilitado',true)
+        ->orderBy('postulante.apellido','ASC')
+        ->get() ;
+        $listaPost = collect($listaPost)->unique('id'); 
+        
         $dompdf = new Dompdf();
         $dompdf->set_paper('letter', 'portrait');
         $dompdf = PDF::loadView('postulantePDF.notasMerito', compact('listaPost','titulo_conv'));
-        
         return  $dompdf->download('Notas_meritos.pdf');
     }
 
