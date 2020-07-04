@@ -49,7 +49,7 @@ class AdmConocimientosController extends Controller
             $tem->publicado = $publicado;
             $tem->entregado = $entregado;
         }
-        // return $tematicas;
+        /* return $tematicas; */
         return view('admResultados.admResConocimientos',compact('tematicas','tipoConv'));
     }
 

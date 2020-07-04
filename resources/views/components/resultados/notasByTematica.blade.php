@@ -59,7 +59,13 @@
                             method="POST">
                             {{ csrf_field() }}
                             @if($tematica->publicado)
-                                <button type="submit" class="btn btn-info" disabled>Publicar</button> 
+                                <button type="submit" class="btn btn-info" disabled>Publicar</button>
+                                
+                                <div class="text-right">
+                                  <button type="button" class="btn btn-secondary">
+                                    <a href="/evaluador/calificar/conocimiento/{{$tipoConv ==1? $tematica->id: $tematica->id_aux}}/{{$tematica->nombre}}/pdf" style="color: #FFFF;">PDF</a>
+                                  </button>
+                                </div>
                             @else
                                 @if($tematica->entregado)
                                     <button type="submit" class="btn btn-info">Publicar</button> 
@@ -74,6 +80,14 @@
             @endif
           </div>
           {{ $initContent = false  }}
+          {{-- @if ($tematica->publicado)
+            <div class="text-right">
+                <a href="{{ route('PDFconocimientos',['id' => $tematica->id_aux, 'tem' => $tematica->nombre ]) }}" class="btn btn-success btn-sm text-white">Ver</a>
+                <a href="/convocatoria/adm-postulantes/habilitadosPDF" style="color: #FFFF;">PDF</a>
+              
+            </div>
+          @endif --}}
           @endforeach
       </div>
+      
   </div>
