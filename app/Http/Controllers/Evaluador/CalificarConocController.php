@@ -34,9 +34,9 @@ class CalificarConocController extends Controller
 
         $compPost = new PostulanteComp();
         $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem) : $compPost->getPostulantesByAux($id_tem,$nom); 
-
-        $entregado = $compPost->getEntregado($postulantes);
-        $publicado = $compPost->getPublicado($postulantes);
+        
+        $entregado = $compPost->getEntregado($tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'));
+        $publicado = $compPost->getPublicado($tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'));
 
         return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 
             'auxsTemsEval','postulantes','id_tem','nom','publicado','entregado'));
@@ -74,6 +74,8 @@ class CalificarConocController extends Controller
         
         $compPost = new PostulanteComp();
         $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem) : $compPost->getPostulantesByAux($id_tem,$nom); 
+
+        $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id');
 
         foreach($postulantes as $postulante){
             foreach($postulante as $nota){
