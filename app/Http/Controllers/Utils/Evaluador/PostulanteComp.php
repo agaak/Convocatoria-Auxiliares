@@ -53,6 +53,8 @@ class PostulanteComp
             ->groupBy('postulante.id', 'calif_conoc_post.id')
             ->orderBy('postulante.apellido','ASC')
             ->get();
+
+            // $requests = collect($requests)->groupBy('id');
         return $requests;    
     }
     
@@ -60,7 +62,7 @@ class PostulanteComp
         $publicado = false;
         foreach($postulantes as $postulante){
             foreach($postulante as $nota){
-                $publicado = $publicado || PostuCalifConoc::where('id', $nota->id_nota)->where('estado','publicado')->exists();
+                $publicado = $publicado || PostuCalifConoc::where('id', $nota->id_nota)->where('estado','publicado')->get()->isNotEmpty();
                 
             }
             if($publicado){ break; }
@@ -72,7 +74,7 @@ class PostulanteComp
         $entregado = false;
         foreach($postulantes as $postulante){
             foreach($postulante as $nota){
-                $entregado = $entregado || PostuCalifConoc::where('id', $nota->id_nota)->where('estado','entregado')->exists();
+                $entregado = $entregado || PostuCalifConoc::where('id', $nota->id_nota)->where('estado','entregado')->get()->isNotEmpty();
                 
             }
             if($entregado){ break; }

@@ -6,7 +6,11 @@
             <li class="nav-item">
               <a class="nav-link{{ $initTabs ? " active" : '' }}" id={{ $tematica->id }} data-toggle="tab" 
                 href="#{{ "body".$tematica->id }}" role="tab" aria-controls="home" aria-selected={{ $initTabs }}>
-                {{ $tematica->nombre }}
+                @if (count($tematica->postulantes)==0)
+                  {{ $tipoConv==1? $tematica->nombre : $tematica->cod_aux.'-'.$tematica->nombre}}
+                @else
+                <strong>{{ $tipoConv==1? $tematica->nombre : $tematica->cod_aux.'-'.$tematica->nombre}}</strong>
+                @endif
               </a>
             </li>
             {{ $initTabs = false  }}
@@ -50,11 +54,11 @@
             @if (auth()->check())
                 @if (auth()->user()->hasRoles(['administrador']))
                     <div class="text-center">
-                        <form class="d-inline" action="{{ route('admNotasTematica.publicar',['id' => $tematica->id, 'tem' => $tematica->nombre ]) }}"
+                        <form class="d-inline" action="{{ route('admNotasTematica.publicar',['id' => $tematica->id_aux, 'tem' => $tematica->nombre ]) }}"
                             method="POST">
                             {{ csrf_field() }}
                             @if($tematica->publicado)
-                                <button type="submit" class="btn btn-info" >Publicar</button> 
+                                <button type="submit" class="btn btn-info" disabled>Publicar</button> 
                             @else
                                 @if($tematica->entregado)
                                     <button type="submit" class="btn btn-info">Publicar</button> 

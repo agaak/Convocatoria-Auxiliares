@@ -14,6 +14,7 @@ use App\Models\Porcentaje;
 use App\Models\Calificacion_final;
 use App\Http\Controllers\Utils\Evaluador\PostulanteComp;
 use App\Http\Controllers\Utils\Convocatoria\ConocimientosComp;
+use App\Http\Controllers\Utils\Convocatoria\RequerimientoComp;
 
 class AdmConocimientosController extends Controller
 {
@@ -27,15 +28,28 @@ class AdmConocimientosController extends Controller
         $id_conv = session()->get('convocatoria');
         $tipoConv = Convocatoria::where('id', $id_conv)->value('id_tipo_convocatoria');
         $tematicas = (new ConocimientosComp)->getItems($id_conv);
+        $tematicas= $tipoConv === 1? $tematicas : (new RequerimientoComp)->getRequerimientos2($id_conv);
+        // return $tematicas;
         $compPost = new PostulanteComp();
         foreach($tematicas as $tem){
+            
             $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($tem->id) : 
-                                           $compPost->getPostulantesByAux($tem->id,$tem->nombre); 
-            $tem->postulantes = $postulantes;
-            $tem->entregado = $compPost->getEntregado($postulantes);
-            $tem->publicado = $compPost->getPublicado($postulantes);
-        }
+                                           $compPost->getPostulantesByAux($tem->id_aux,$tem->nombre);
+            $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'); 
 
+            $entregado = $compPost->getEntregado($postulantes);
+            $publicado = $compPost->getPublicado($postulantes);
+
+            if(!$publicado){
+                if(!$entregado){
+                    $postulantes = [];
+                }
+            }                             
+            $tem->postulantes = $postulantes;
+            $tem->publicado = $publicado;
+            $tem->entregado = $entregado;
+        }
+        // return $tematicas;
         return view('admResultados.admResConocimientos',compact('tematicas','tipoConv'));
     }
 
@@ -45,7 +59,7 @@ class AdmConocimientosController extends Controller
         
         $compPost = new PostulanteComp();
         $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem) : $compPost->getPostulantesByAux($id_tem,$nom); 
-
+        $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'); 
         foreach($postulantes as $postulante){
             $postulante = collect($postulante)->groupBy('id_nota');
             // return $postulante->pop()[0]->id;
