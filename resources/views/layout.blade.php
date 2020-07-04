@@ -46,6 +46,7 @@
                 <div class="container-time">
                     <time class="text-white date-time">
                         <div class="btn-group dropleft">
+                            <span class=""></span>
                             <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @guest
                                 <img src="{{ asset('img/guest.svg') }}" width="30" height="30" class="svg-color">
@@ -59,6 +60,7 @@
                                 {{-- <a class="dropdown-item nav-link my-1 login {{ activeMenu('register') }}" href="{{ route('register') }}">Registrar</a> --}}
                                 @else
                                 <a class="dropdown-item nav-link login" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
+                                <p class="text-user">{{ auth()->user()->roles[0]['name'] }}: {{ auth()->user()->name }}</p>
                                 @endguest
                             </div>
                           </div>
@@ -169,7 +171,7 @@
     <script>
         $(document).ready(function() {
             $('#postulantes').DataTable( {
-                "pageLength":25,
+                "pageLength":50,
                 responsive: true,
                 /* dom: 'Bfrtip',
                 buttons: [
