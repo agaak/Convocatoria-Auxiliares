@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Evaluador;
 use App\Models\EvaluadorConocimientos;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Convocatoria;
 use App\Models\Postulante;
 use App\Models\Postulante_conovocatoria;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Utils\Convocatoria\MeritoComp;
+use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
+use App\Http\Controllers\Utils\Evaluador\MenuDina;
 
 class CalificacionMController extends Controller
 {
@@ -18,17 +21,22 @@ class CalificacionMController extends Controller
     }
     
     public function index($id){
-        $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
-        session()->put('convocatoria',$id);
+        $menu = new MenuDina();
+        $convs = $menu->getConvs(); 
+        $compEval = new EvaluadorComp();
+        $idEC = $compEval->getIdEvaConv();
+        $roles = $compEval->getRolesEvaluador($idEC);
+        $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
+        $auxsTemsEval = $tipoConv === 1? $compEval->getTemsEvaluador($idEC) :$compEval->getAuxsEvaluador($idEC);
+
         $postulantes= Postulante::select('postulante.*', 'calf_final_postulante_merito.nota_final_merito as nota', 'calf_final_postulante_merito.id as idNF')
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
         ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
         ->get();
-        return view('evaluador.calificarMeritos', compact('convs', 'id', 'postulantes'));
+        return view('evaluador.calificarMeritos', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','id', 'postulantes'));
     }
 
     public function calificarMeritos($idEst){
-        $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
         $id= session()->get('convocatoria');
 
         $existe = Postulante_conovocatoria::where('id_postulante',$idEst)
@@ -69,7 +77,15 @@ class CalificacionMController extends Controller
                     ->get(); 
         $listaMeritos=(new MeritoComp)->getMeritos($id);
 
-        return view('evaluador.calificarMeritosEstudiante',compact('convs','id', 'lista', 'estudiante', 'listaMeritos','idNotaFinalMerito','notaFinalMerito'));
+        $menu = new MenuDina();
+        $convs = $menu->getConvs(); 
+        $compEval = new EvaluadorComp();
+        $idEC = $compEval->getIdEvaConv();
+        $roles = $compEval->getRolesEvaluador($idEC);
+        $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
+        $auxsTemsEval = $tipoConv === 1? $compEval->getTemsEvaluador($idEC) :$compEval->getAuxsEvaluador($idEC);
+
+        return view('evaluador.calificarMeritosEstudiante',compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','id', 'lista', 'estudiante', 'listaMeritos','idNotaFinalMerito','notaFinalMerito'));
     }
 
     public function calificarMeritoEspecifico(){

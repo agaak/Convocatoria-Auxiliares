@@ -53,6 +53,7 @@
               </div>
             @if (auth()->check())
                 @if (auth()->user()->hasRoles(['administrador']))
+                  @if (!session()->get('ver'))  
                     <div class="text-center">
                         <form class="d-inline" action="{{ route('admNotasTematica.publicar',['id' => $tematica->id_aux, 'tem' => $tematica->nombre ]) }}"
                             method="POST">
@@ -68,6 +69,7 @@
                             @endif 
                         </form>
                     </div>
+                    @endif
                 @endif
             @endif
           </div>

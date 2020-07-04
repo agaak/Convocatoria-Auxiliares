@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Auxiliatura;
 use App\Models\Postulante;
+use App\Models\Calificacion_final;
 use App\Models\PostuCalifMeritoFinal;
+use App\Models\Postulante_auxiliatura;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Utils\Convocatoria\MeritoComp;
 
@@ -31,7 +33,11 @@ class AdmMeritosController extends Controller
         $postulantes = collect($postulantes)->unique('id');
         $publicado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','publicado')->get()->isNotEmpty();
-        return view('admResultados.admResMeritos', compact('postulantes','publicado'));
+        $entregado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
+            ->where('estado','entregado')->get()->isNotEmpty();
+            $entregado =true;
+            $publicado = false;
+        return view('admResultados.admResMeritos', compact('postulantes','publicado','entregado'));
     }
 
     public function meritos($idEst){
@@ -62,9 +68,21 @@ class AdmMeritosController extends Controller
     }
 
     public function publicar(){
-        PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))->update([
-            'estado' => 'publicado',
-        ]);
+        $postulantes = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
+            ->whereNotNull('nota_final_merito')->get();
+        $porcentaje = Calificacion_final::where('id_convocatoria', session()->get('convocatoria'))->value('porcentaje_merito'); 
+        foreach($postulantes as $postulante){
+            $porciento =  number_format($postulante->nota_final_merito*$porcentaje/100 ,2);
+            $nota_fin = Postulante_auxiliatura::where('id_postulante', $postulante->id_postulante)->value('calificacion');
+            $nota_fin = $porciento;
+            Postulante_auxiliatura::where('id_postulante', $postulante->id_postulante)->update([
+                'calificacion' => $nota_fin,
+            ]); 
+            PostuCalifMeritoFinal::where('id',$postulante->id)->update([
+                'estado' => 'publicado',
+            ]);
+        }
+        
         return back();
     }
 }

@@ -32,6 +32,9 @@ class AdmHabilitadosController extends Controller
         $publicado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','publicado')->get()->isNotEmpty();
         
+        $entregado =  Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
+        ->where('estado','entregado')->get()->isNotEmpty();
+        
         $listPostulantes = Postulante::select('postulante.*')
         ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
         ->where('id_convocatoria',session()->get('convocatoria'));
@@ -41,7 +44,7 @@ class AdmHabilitadosController extends Controller
             $item->nombre_aux = $listPostulanteAux[$item['id']];
         }
         // return $listPostulantes->get();
-        return view('admResultados.admHabilitados',compact('listPostulantes','publicado'));
+        return view('admResultados.admHabilitados',compact('listPostulantes','publicado','entregado'));
     }
 
     public function publicar(){

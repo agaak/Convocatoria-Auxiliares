@@ -94,9 +94,9 @@ class AdmConocimientosController extends Controller
                 $porciento =  number_format($nota_fin_conoc*$porcentaje/100 ,2);
                 $nota_fin = Postulante_auxiliatura::where('id_postulante', $id_post)->value('calificacion');
                 $nota_fin += $porciento;
-                Postulante_auxiliatura::where('id_postulante', $id_post)->update([
-                    'calificacion' => $nota_fin,
-                ]); 
+                // Postulante_auxiliatura::where('id_postulante', $id_post)->update([
+                //     'calificacion' => $nota_fin,
+                // ]); 
             }
         }
 
