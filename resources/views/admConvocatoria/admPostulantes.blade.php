@@ -24,6 +24,7 @@
             <th style="font-weight: normal" scope="col">Item</th>
             <th style="font-weight: normal" scope="col">CI</th>
             <th style="font-weight: normal" scope="col">Nombre</th>
+            <th style="font-weight: normal" scope="col" class="text-center">Fecha y Hora</th>
             {{-- th style="font-weight: normal" scope="col">Apellidos</th> --}}
             <th style="font-weight: normal" scope="col">Habilitado</th>
             <th style="font-weight: normal" scope="col">Observaciones</th>
@@ -35,6 +36,7 @@
                 <th style="font-weight: normal">{{$item->nombre_aux}}</th>
                 <th style="font-weight: normal">{{ $item->ci }}</th>
                 <th style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</th>
+                <th style="font-weight: normal" class="text-center">{{ $item->created_at }}</th>
                 {{-- <th style="font-weight: normal">{{ $item->apellido }}</th> --}}
                 @if ($item->habilitado===null)
                     <th >-</th>
