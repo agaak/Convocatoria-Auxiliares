@@ -18,6 +18,10 @@ use Dompdf\Dompdf;
 
 class PDFpostulantesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'roles:administrador,evaluador']);
+    }
     public function listHabilitados(){
         $id_conv = session()->get('convocatoria');
 
