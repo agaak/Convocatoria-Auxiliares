@@ -56,8 +56,18 @@ class CalificarMeritoController extends Controller
     }
 
     public function entregar(Request $request){
-        $listPostulantes = PostuCalifMeritoFinal::where('id_convocatoria',session()->get('convocatoria'))
-        ->where('nota_final_merito',null)->get();
+        // $listPostulantes = PostuCalifMeritoFinal::where('id_convocatoria',session()->get('convocatoria'))
+        // ->where('nota_final_merito',null)->get();
+
+        $listPostulantes= Postulante::select('postulante.nombre', 'postulante.apellido', 'postulante.ci', 'postulante.id', 'calf_final_postulante_merito.nota_final_merito as nota')
+        ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
+        ->where('nota_final_merito',null)
+        ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
+        ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
+        ->where('postulante_auxiliatura.habilitado',true)
+        ->orderBy('postulante.apellido','ASC')
+        ->get() ;
+
         if($listPostulantes->isNotEmpty()){
             request()->validate([
                 'id-evaluador' => 'required'

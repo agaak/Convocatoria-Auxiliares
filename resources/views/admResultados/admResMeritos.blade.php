@@ -15,7 +15,11 @@
             @if($publicado)
               <button type="submit" class="btn btn-info" disabled>Publicado</button> 
             @else
-              <button type="submit" class="btn btn-info">Publicar</button> 
+              @if($entregado)
+                <button type="submit" class="btn btn-info">Publicar</button> 
+              @else
+                  <button type="submit" class="btn btn-info" disabled>Publicar</button> 
+              @endif
             @endif 
       </form>
     </div>

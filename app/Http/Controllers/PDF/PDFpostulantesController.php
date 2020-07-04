@@ -97,22 +97,20 @@ class PDFpostulantesController extends Controller
 
     public function listNotasTematica($id_tem,$nom_tem){
         $id_conv = session()->get('convocatoria');
-        $nom_tem_db = strcmp($nom_tem,'escrito') == 0? 'Examen escrito' : 'Examen oral';
-        $nom_tematica = Tematica::where('id',$id_tem)->get();
-        $nom_tematica= $nom_tematica[0]['nombre'];
-
+        $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
+        
+        $nom_tematica = $tipoConv==1? Tematica::where('id',$id_tem)->value('nombre') : Auxiliatura::where('id',$id_tem)->value('nombre_aux').'-'.$nom_tem;
         $titulo_conv= Convocatoria::select('convocatoria.titulo')
         ->where('convocatoria.id',$id_conv)->get();
         $titulo_conv=$titulo_conv[0]['titulo'];
 
-        $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        $compEval = new PostulanteComp();
-        $postulantes= $tipoConv === 1? 
-        $compEval->getPostulantesByTem($id_tem) : $compEval->getPostulantesByAux($id_tem,$nom_tem);
-        return $postulantes;
+        $compPost = new PostulanteComp();
+        $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem) : $compPost->getPostulantesByAux($id_tem,$nom_tem);
+            $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'); 
+       /* return $postulantes;  */
         $dompdf = new Dompdf();
         $dompdf->set_paper('letter', 'portrait');
-        $dompdf = PDF::loadView('postulantePDF.listaTematica', compact('nom_tem_db','postulantes','titulo_conv'));
+        $dompdf = PDF::loadView('postulantePDF.listaTematica', compact('nom_tematica','postulantes','titulo_conv'));
         //return view('postulantePDF.listaHabilitados', compact('listaAux', 'listPostulantes'));
         
         return  $dompdf->download('Notas_finales.pdf');

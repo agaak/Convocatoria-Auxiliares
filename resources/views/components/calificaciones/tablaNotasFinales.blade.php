@@ -44,12 +44,11 @@
                           @else
                             <td style="font-weight: normal">{{ $item->nota_final_merito }}</td>
                           @endif
-                          @if ($item->calificacion===null)
-                            <td style="font-weight: normal">-</td>
+                          @if ($item->not_fin===null)
+                            <th style="font-weight: normal">-</th>
                           @else
-                          <td style="font-weight: normal">{{$item-> calificacion}}</td>
+                            <th style="font-weight: normal">{{ $item->not_fin }}</th>
                           @endif
-                          
                           </tr>
                       @endforeach
                     @endif
@@ -73,7 +72,7 @@
                 var notafinal = (data[4]),
                     $node = this.api().row(row).nodes().to$();
                     
-                if (notafinal > 50 ) {
+                if (notafinal > 50.0  ) {
                   $node.addClass('aprobado')
                 }
             }  ,

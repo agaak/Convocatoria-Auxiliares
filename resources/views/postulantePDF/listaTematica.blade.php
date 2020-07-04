@@ -45,7 +45,7 @@
 </head>
 <body>
 <h3 style="text-align: center">  {{$titulo_conv}} </h3>
-<h3 style="text-align: left">{{$nom_tem_db }}</h3>
+<h3 style="text-align: left">{{$nom_tematica }}</h3>
 <div class="table-request1">
     <table>
         <thead>
@@ -58,9 +58,9 @@
         <tbody>
             @foreach ($postulantes as $item)
                 <tr>
-                    <td style="font-weight: normal">{{ $item->ci }}</td>
-                    <td style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</td>
-                    <td style="font-weight: normal">{{ $item->calificacion}}</td>
+                    <td style="font-weight: normal">{{ $item[0]->ci }}</td>
+                    <td style="font-weight: normal">{{ $item[0]->apellido }} {{ $item[0]->nombre }}</td>
+                    <td style="font-weight: normal">{{ $item[0]->calificacion}}</td>
                 </tr>
             @endforeach
         </tbody>
