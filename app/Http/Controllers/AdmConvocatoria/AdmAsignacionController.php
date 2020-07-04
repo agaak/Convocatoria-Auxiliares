@@ -45,7 +45,7 @@ class AdmAsignacionController extends Controller
             $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
         
         }else if($tipoConv[0]->id == 2){
-            $listaNull = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
+            /*$listaNull = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
                     'calf_final_postulante_merito.nota_final_merito','calf_fin_postulante_conoc.nota_final_conoc','postulante_auxiliatura.id_auxiliatura')
                     ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
                     ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
@@ -58,8 +58,20 @@ class AdmAsignacionController extends Controller
                     ->join('calif_conoc_post', 'calif_conoc_post.id_calf_final','=','calf_fin_postulante_conoc.id')
                     ->where('calif_conoc_post.calificacion','=',null)
                     ->join('auxiliatura','auxiliatura.id','=','postulante_auxiliatura.id_auxiliatura')
-                    ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','nota_final_merito','nota_final_conoc')
                     ->get();
+            $listaPost = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
+                    'calf_final_postulante_merito.nota_final_merito','calf_fin_postulante_conoc.nota_final_conoc','postulante_auxiliatura.id_auxiliatura')
+                    ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
+                    ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
+                    ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
+                    ->where('postulante_auxiliatura.habilitado', true)
+                    ->join('calf_fin_postulante_conoc', 'calf_fin_postulante_conoc.id_postulante', '=', 'postulante.id')
+                    ->where('calf_fin_postulante_conoc.id_convocatoria', $id_conv)
+                    ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
+                    ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
+                    ->where('calf_fin_postulante_conoc.nota_final_conoc','!=',null)
+                    ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','nota_final_merito','nota_final_conoc')
+                    ->get();*/
             return "pizarra";
         }else{
 
