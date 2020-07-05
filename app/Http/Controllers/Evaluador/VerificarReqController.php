@@ -80,9 +80,6 @@ class VerificarReqController extends Controller
 
             foreach(array_keys($auxiliaturasReq[$postulanteAuxiliaturaId]) as $requisitoId){
                 if($auxiliaturasReq[$postulanteAuxiliaturaId][$requisitoId]['esValido'] === null){
-                    Postulante_conovocatoria::where('id_postulante', $postulanteId)->update([
-                        'calificando_requisito' => false,
-                    ]);
                     $isErrorReq = true;
                     $validAuxlitiatura = null;
                     break;
@@ -91,9 +88,6 @@ class VerificarReqController extends Controller
                 }else{
                     $observacionString =$request->input('obsText'.$postulanteAuxiliaturaId.$requisitoId);
                     if($observacionString == ''){
-                        // Postulante_conovocatoria::where('id_postulante', $postulanteId)->update([
-                        //     'calificando_requisito' => false,
-                        // ]);
                         $isErrorObs = true;
                     }else{
                         $messageAuxiliatura = $observacionString.', '.$messageAuxiliatura;
