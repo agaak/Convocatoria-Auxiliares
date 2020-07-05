@@ -32,7 +32,7 @@ class VerificarReqController extends Controller
         $existe = Postulante_conovocatoria::where('id_postulante',$idPostulante)
             ->value('calificando_requisito');
         if($existe){
-            return redirect()->route('calificarRequisitosPost.index');
+            return redirect()->route('calificarRequisitosPost.index')->with('revisando','Alguien esta revisando los requisitos de este postulante.');
         }
         session()->put('id-pos',$idPostulante);
         Postulante_conovocatoria::where('id_postulante', $idPostulante)->update([
@@ -59,65 +59,55 @@ class VerificarReqController extends Controller
     public function update(Request $request){
         
         $auxiliaturasReq = json_decode($request->input('mapverification'),true);
-        //return $request;
-        foreach (array_keys($auxiliaturasReq) as $auxiliaturaId) {
-            foreach(array_keys($auxiliaturasReq[$auxiliaturaId]) as $requisitoId){
-                Postulante_req_aux::where('id_postulante_auxiliatura','=', $auxiliaturaId)
+        $postulanteId= request()->input('id-postulante');
+        // dd($auxiliaturasReq);
+        foreach (array_keys($auxiliaturasReq) as $postulanteAuxiliaturaId) {
+            foreach(array_keys($auxiliaturasReq[$postulanteAuxiliaturaId]) as $requisitoId){
+                Postulante_req_aux::where('id_postulante_auxiliatura','=', $postulanteAuxiliaturaId)
                                     ->where('id_requisito','=', $requisitoId)
                                     ->update([
-                    'observacion' => $request->input('obsText'.$auxiliaturaId.$requisitoId),
-                    'habilitado' => $auxiliaturasReq[$auxiliaturaId][$requisitoId]['esValido'],
-                    // 'observacion' => null,
-                    // 'habilitado' => null,
+                    'observacion' => $request->input('obsText'.$postulanteAuxiliaturaId.$requisitoId),
+                    'habilitado' => $auxiliaturasReq[$postulanteAuxiliaturaId][$requisitoId]['esValido'],
                 ]);
             }
         }
-        $validAxiliaturas = array();
         
         $isErrorReq = false;
         $isErrorObs = false;
-        foreach (array_keys($auxiliaturasReq) as $auxiliaturaId) {
+        foreach (array_keys($auxiliaturasReq) as $postulanteAuxiliaturaId) {
             $validAuxlitiatura = true;
             $messageAuxiliatura = '';
-            foreach(array_keys($auxiliaturasReq[$auxiliaturaId]) as $requisitoId){
-                if($auxiliaturasReq[$auxiliaturaId][$requisitoId]['esValido'] ===null){
-                    // $validAuxlitiatura = false;
-                    Postulante_conovocatoria::where('id_postulante', request()->input('id-postulante'))->update([
-                        'calificando_requisito' => false,
-                    ]);
-                    // $isErrorReq = true;
-                    // return back()->with('errorCalificarReq', 'Hay requisitos no calificados.');
-                    //error de no seleccionar como tru o false el requisito
-                }else if($auxiliaturasReq[$auxiliaturaId][$requisitoId]['esValido']){
+
+            foreach(array_keys($auxiliaturasReq[$postulanteAuxiliaturaId]) as $requisitoId){
+                if($auxiliaturasReq[$postulanteAuxiliaturaId][$requisitoId]['esValido'] === null){
+                    $isErrorReq = true;
+                    $validAuxlitiatura = null;
+                    break;
+                }else if($auxiliaturasReq[$postulanteAuxiliaturaId][$requisitoId]['esValido']){
                     $validAuxlitiatura = $validAuxlitiatura && true;
                 }else{
-                    $observacionString =$request->input('obsText'.$auxiliaturaId.$requisitoId);
+                    $observacionString =$request->input('obsText'.$postulanteAuxiliaturaId.$requisitoId);
                     if($observacionString == ''){
-                        // $validAuxlitiatura = false;
-                        Postulante_conovocatoria::where('id_postulante', request()->input('id-postulante'))->update([
-                            'calificando_requisito' => false,
-                        ]);
                         $isErrorObs = true;
-                        // return back()->with('errorCalificarReq', 'Todos los campos observacion deben estar llenados..');
                     }else{
                         $messageAuxiliatura = $observacionString.', '.$messageAuxiliatura;
                     }
                     $validAuxlitiatura = false;
                 }
             }
-            Postulante_auxiliatura::where('id', $auxiliaturaId)->update([
+
+            Postulante_auxiliatura::where('id', $postulanteAuxiliaturaId)->update([
                 'observacion' => $messageAuxiliatura,
                 'habilitado' => $validAuxlitiatura,
             ]);
-            $aux = Postulante_auxiliatura::where('id', $auxiliaturaId)->value('id_auxiliatura');
+
+            $aux = Postulante_auxiliatura::where('id', $postulanteAuxiliaturaId)->value('id_auxiliatura');
             if($validAuxlitiatura){
-               
                 $post_calf_conoc_fin = new PostuCalifConocFinal();
                 $post_calf_conoc_fin->id_convocatoria = session()->get('convocatoria');
-                $post_calf_conoc_fin->id_postulante = request()->input('id-postulante'); 
+                $post_calf_conoc_fin->id_postulante = $postulanteId; 
                 $post_calf_conoc_fin->id_auxiliatura = $aux;
                 $post_calf_conoc_fin->save();
-                
 
                 $porcentajes = Requerimiento::select('porcentaje.*')
                 ->where('requerimiento.id_convocatoria',session()->get('convocatoria'))
@@ -128,18 +118,18 @@ class VerificarReqController extends Controller
                 
                 foreach($porcentajes as $por){
                     $post_calf_conoc = new PostuCalifConoc();
-                    $post_calf_conoc->id_postulante = request()->input('id-postulante');
+                    $post_calf_conoc->id_postulante = $postulanteId;
                     $post_calf_conoc->id_porcentaje = $por->id;
                     $post_calf_conoc->id_calf_final = $post_calf_conoc_fin->id;
                     $post_calf_conoc->save();
                 }
-
             }else{
                 PostuCalifConocFinal::where('id_auxiliatura',$aux)
-                ->where('id_postulante',request()->input('id-postulante'))->delete(); 
+                ->where('id_postulante',$postulanteId)->delete(); 
             }
         }
-        Postulante_conovocatoria::where('id_postulante', request()->input('id-postulante'))->update([
+
+        Postulante_conovocatoria::where('id_postulante', $postulanteId)->update([
             'calificando_requisito' => false,
         ]);
         if($isErrorReq){

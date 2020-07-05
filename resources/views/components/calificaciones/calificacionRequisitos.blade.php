@@ -61,7 +61,7 @@
                         
                         <h5 id="obsLabel{{ $auxiliatura->id.$requisito->id }}" name="obsLabel{{ $auxiliatura->id.$requisito->id }}" 
                           style="{{ is_null($esValido)?'display:none':($esValido?'display:none':'')}}"> 
-                          Observacion
+                           Observacion
                         </h5> 
                         @if ($esEva)
                         <textarea id="obsText{{ $auxiliatura->id.$requisito->id }}" name="obsText{{ $auxiliatura->id.$requisito->id }}" 

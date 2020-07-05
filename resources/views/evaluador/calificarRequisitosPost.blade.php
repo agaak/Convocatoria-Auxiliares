@@ -9,7 +9,11 @@
             @endif
         @endforeach
         <h3> Calificacion de requisitos</h3>
-
+            @if (session('revisando')) 
+            
+            <strong class="message-error text-danger"> {{ session('revisando') }}</strong>
+               
+            @endif
     <!-- Table -->
     @component('components.resultados.listaHabilitados', 
         ['listPostulantes' => $listPostulantes])
