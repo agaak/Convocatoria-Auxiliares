@@ -21,16 +21,29 @@ class AdmMeritosController extends Controller
     
     public function index()
     {   
+        $publicado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
+            ->where('estado','publicado')->get()->isNotEmpty();
+        $entregado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
+            ->where('estado','entregado')->get()->isNotEmpty();
         $id_conv = session()->get('convocatoria');
         $postulantes= Postulante::select('postulante.nombre', 'postulante.apellido', 'postulante.ci', 'postulante.id', 'calf_final_postulante_merito.nota_final_merito as nota')
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
         ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
         ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
-        ->where('postulante_auxiliatura.habilitado',true)
-        ->where('estado','entregado')->orWhere('estado','publicado')
-        ->orderBy('postulante.apellido','ASC')
-        ->get() ;
+        ->where('postulante_auxiliatura.habilitado',true);
+        if($publicado){
+            $postulantes=$postulantes->where('estado','publicado')
+            ->orderBy('postulante.apellido','ASC')->get() ;
+        }else{
+            if($entregado){
+                $postulantes=$postulantes->where('estado','entregado') 
+                ->orderBy('postulante.apellido','ASC')->get() ;
+            }else{
+                $postulantes=[];
+            }
+        }
         $postulantes = collect($postulantes)->unique('id');
+        
         $publicado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','publicado')->get()->isNotEmpty();
         $entregado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))

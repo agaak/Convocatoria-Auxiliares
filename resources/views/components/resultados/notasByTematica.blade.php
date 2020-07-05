@@ -55,7 +55,7 @@
                 @if (auth()->user()->hasRoles(['administrador']))
                   @if (!session()->get('ver'))  
                     <div class="text-center">
-                        <form class="d-inline" action="{{ route('admNotasTematica.publicar',['id' => $tematica->id_aux, 'tem' => $tematica->nombre ]) }}"
+                        <form class="d-inline" action="{{ route('admNotasTematica.publicar',['id' => $tipoConv ==1? $tematica->id: $tematica->id_aux, 'tem' => $tematica->nombre ]) }}"
                             method="POST">
                             {{ csrf_field() }}
                             @if($tematica->publicado)
