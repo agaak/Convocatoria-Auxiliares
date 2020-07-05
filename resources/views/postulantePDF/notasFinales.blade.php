@@ -35,7 +35,7 @@
         td{padding: 5px;}
         tr:nth-child(even) {background-color: #F3F3F3;}
         tr:hover {background-color: #f8f8f8;}
-        .table-requests1 { padding-top: 20px; width: 100%; font-size: 15px; margin-left: 0ch; margin-right: 0ch;}
+        .table-requests1 { padding-top: 20px; width: 720px; font-size: 15px;}
         .row_name{width: 55%}
         .row_con{width: 15%;}
         .row_mer{width: 15%}

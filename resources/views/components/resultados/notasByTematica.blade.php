@@ -91,3 +91,20 @@
       </div>
       
   </div>
+  <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+  @foreach ($tematicas as $tematica)
+    <script>
+      $(document).ready(function() {
+          $('#notas{{ $tematica->id}}').DataTable({
+      
+            "pageLength":50,
+          "language": {
+              "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+          },"bLengthChange": false,responsive: true,
+          order: [[2, 'asc']],"bPaginate": false
+          });
+      
+      });
+      
+  </script>
+  @endforeach 
