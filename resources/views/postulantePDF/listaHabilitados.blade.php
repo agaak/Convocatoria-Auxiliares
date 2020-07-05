@@ -46,9 +46,10 @@
             margin-left: 0;
             margin-right: 0;
         }
-        .row_ci{width: 40%}
-        .row_hab{width: 15%;}
-        .row_obs{width: 45%}
+        .row_nom{width: 25%}
+        .row_ap{width: 25%}
+        .row_hab{width: 10%;}
+        .row_obs{width: 40%}
         .page_break { page-break-before: auto; }
         body {
             width: 720px;
@@ -67,7 +68,8 @@
             <table >
                 <thead>
                 <tr>
-                <th class="row_ci">Nombre</th>
+                <th class="row_ap">Apellido</th>
+                <th class="row_nom">Nombre</th>
                 <th class="row_hab">Habilitado</th>
                 <th class="row_obs">Observaciones</th>
                 </tr>
@@ -78,7 +80,8 @@
                     
                         @if ($postulante->nombre_aux==$aux->nombre_aux)
                         <tr>
-                        <td>{{ $postulante->apellido }} {{ $postulante->nombre }} </td>
+                        <td>{{ $postulante->apellido }}</td>
+                        <td>{{ $postulante->nombre }} </td>
                             @if ($postulante->habilitado===null)
                                 <td >-</td>
                             @else

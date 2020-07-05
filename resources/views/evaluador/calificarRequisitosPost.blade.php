@@ -22,7 +22,7 @@
             @endif   
         </form>
     </div>
-    @if ($entregado)
+    @if ($entregado||$publicado)
     <div class="text-right">
       <button type="button" class="btn btn-secondary">
         <a href="/convocatoria/adm-postulantes/habilitadosPDF" style="color: #FFFF;">PDF</a>
