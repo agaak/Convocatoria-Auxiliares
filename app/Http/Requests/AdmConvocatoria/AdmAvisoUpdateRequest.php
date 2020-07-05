@@ -25,7 +25,7 @@ class AdmAvisoUpdateRequest extends FormRequest
     {
         $convActual = request()->session()->get('convocatoria');
         return [
-            'avisoTituloEdit'=> 'required|unique:aviso,titulo,0,id,id_convocatoria,'.$convActual
+            'avisoTituloEdit'=> 'required|unique:aviso,titulo_aviso,0,id,id_convocatoria,'.$convActual
         ];
     }
     

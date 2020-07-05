@@ -29,18 +29,18 @@ class AdmAvisosController extends Controller
         $aviso = new Aviso();
         $convActual = $request->session()->get('convocatoria');
         $aviso->id_convocatoria = $convActual;
-        $aviso->titulo = $request->input('avisoTitulo');
-        $aviso->descripcion = $request->input('avisoDescripcion');
+        $aviso->titulo_aviso = $request->input('avisoTitulo');
+        $aviso->descripcion_aviso = $request->input('avisoDescripcion');
         $aviso->save();
         return back();
     }
     
-    public function update(Request $request){
+    public function update(AdmAvisoUpdateRequest $request){
         $convActual = request()->session()->get('convocatoria');
         $idAviso = $request->input('idAvisoEdit');
         Aviso::where('id', $idAviso)->update([
-            'titulo' => $request->input('avisoTituloEdit'),
-            'descripcion' => $request->input('avisoDescripcionEdit') ]);
+            'titulo_aviso' => $request->input('avisoTituloEdit'),
+            'descripcion_aviso' => $request->input('avisoDescripcionEdit') ]);
         return back();
     }
 

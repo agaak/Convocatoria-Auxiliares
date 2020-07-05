@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Aviso;
+namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
 use App\Models\Aviso;
 
-class AvisosController extends Controller
+class HomeController extends Controller
 {
     // public function __construct(){
     //     $this->middleware(['auth', 'roles:secretaria']);
@@ -17,6 +16,10 @@ class AvisosController extends Controller
         $listAvisos = Aviso::join('convocatoria','aviso.id_convocatoria','=','convocatoria.id')
                               ->join('unidad_academica','convocatoria.id_unidad_academica','=','unidad_academica.id')
                               ->get();
-        return view('avisos',compact('listAvisos'));
+        if(count($listAvisos)>3){
+            $listAvisos = $listAvisos->chunk(3)[0];
+        }             
+        // dd($listAvisos);                 
+        return view('home',compact('listAvisos'));
     }
 }

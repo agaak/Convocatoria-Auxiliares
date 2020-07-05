@@ -39,7 +39,12 @@
     
     <h4 class="text-center">Anuncios</h4>
 
-    <div class="list-cards">
+    @foreach($listAvisos as $aviso)
+        @component('components.cardAviso', 
+        ['aviso' => $aviso])
+        @endcomponent
+    @endforeach
+    {{-- <div class="list-cards">
         <div class="card">
             <div class="card-header">
               Nombre o Título de la convocatoria
@@ -56,6 +61,6 @@
                 <a href="" class="btn btn-info">Ir a convocatoria</a>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 @endsection

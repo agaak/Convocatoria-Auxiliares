@@ -14,8 +14,8 @@
        @foreach($listAvisos as $aviso)
         <tr>
           <th style="font-weight: normal">{{ $number++ }}</th>
-          <th style="font-weight: normal">{{ $aviso->titulo }}</th>
-          <th style="font-weight: normal">{{ $aviso->descripcion }}</th>
+          <th style="font-weight: normal">{{ $aviso->titulo_aviso }}</th>
+          <th style="font-weight: normal">{{ $aviso->descripcion_aviso }}</th>
           <th style="font-weight: normal">{{ $aviso->updated_at }}</th>
           <th>
             <button type="submit" class="btn btn-link" data-toggle="modal" data-target="#modalUpdateAviso"

@@ -586,6 +586,6 @@ function cargarAuxTem(tematica){
 
 function avisoEditModal(aviso) {
     $('#idAvisoEdit').val(aviso['id']);
-    $('#avisoTituloEdit').val(aviso['titulo']);
-    $('#avisoDescripcionEdit').val(aviso['descripcion']);
+    $('#avisoTituloEdit').val(aviso['titulo_aviso']);
+    $('#avisoDescripcionEdit').val(aviso['descripcion_aviso']);
 }

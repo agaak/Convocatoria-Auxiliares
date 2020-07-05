@@ -18,9 +18,8 @@ use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 // Route::get('/', ['as' => 'home', 'uses' => 'NavbarController@home']);
 
-Route::get('/', function(){
-	return view('home');
-});
+
+Route::get('/', 'Home\HomeController@index')->name('avisos');
 
 Route::get('/avisos', 'Aviso\AvisosController@index')->name('avisos');
 // Route::get('avisos', function(){

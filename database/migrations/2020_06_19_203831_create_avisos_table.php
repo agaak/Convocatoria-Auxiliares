@@ -17,8 +17,8 @@ class CreateAvisosTable extends Migration
             $table->increments('id');
             $table->integer('id_convocatoria');
             $table->foreign('id_convocatoria')->references('id')->on('convocatoria') ->onDelete('cascade');
-            $table->text('titulo')->nullable();
-            $table->text('descripcion')->nullable();
+            $table->text('titulo_aviso')->nullable();
+            $table->text('descripcion_aviso')->nullable();
             $table->timestamps();
         });
     }
