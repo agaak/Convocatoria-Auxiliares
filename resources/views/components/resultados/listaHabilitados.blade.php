@@ -1,8 +1,8 @@
 <div class="table-requests" >
     <table class="table table-striped table-bordered" style="width:100%" style="text-align:left">
-    <thead class="thead-dark">
+    <thead class="thead-dark text-center">
         <tr> 
-        <th style="font-weight: normal" scope="col">N°</th>
+        <th style="font-weight: normal" scope="col">#</th>
         <th style="font-weight: normal" scope="col">CI</th>
         <th style="font-weight: normal" scope="col">Apellidos</th>
         <th style="font-weight: normal" scope="col">Nombres</th>

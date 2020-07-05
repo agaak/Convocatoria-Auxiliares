@@ -12,6 +12,7 @@ use App\Models\PostuCalifConocFinal;
 use App\Models\Postulante_auxiliatura;
 use App\Models\Porcentaje;
 use App\Models\Calificacion_final;
+use App\Models\PostuCalifMeritoFinal;
 use App\Http\Controllers\Utils\Evaluador\PostulanteComp;
 use App\Http\Controllers\Utils\Convocatoria\ConocimientosComp;
 use App\Http\Controllers\Utils\Convocatoria\RequerimientoComp;
@@ -62,9 +63,7 @@ class AdmConocimientosController extends Controller
         $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'); 
         foreach($postulantes as $postulante){
             $postulante = collect($postulante)->groupBy('id_nota');
-            // return $postulante->pop()[0]->id;
             foreach($postulante as $nota){
-                
                 PostuCalifConoc::where('id', $nota[0]->id_nota)->update([
                     'estado' => 'publicado',
                 ]);
@@ -81,22 +80,18 @@ class AdmConocimientosController extends Controller
                     PostuCalifConocFinal::where('id', $id_not_conoc_fin)->update([
                         'nota_final_conoc' => $calf_final_conoc,
                     ]); 
-                    
-                }
-            }
-            $id_post = $postulante->pop()[0]->id;
-            $auxs = Postulante_auxiliatura::where('id_postulante', $id_post)->get();
-            foreach($auxs as $aux){
-                $nota_fin_conoc = PostuCalifConocFinal::where('id_postulante', $id_post)
-                        ->where('id_auxiliatura',$aux->id_auxiliatura)->value('nota_final_conoc');
+                    $porcentaje_conoc = Calificacion_final::where('id_convocatoria', session()->get('convocatoria'))->value('porcentaje_conocimiento');        
+                    $porciento_conoc =  number_format($calf_final_conoc*$porcentaje_conoc/100 ,2);
 
-                $porcentaje = Calificacion_final::where('id_convocatoria', session()->get('convocatoria'))->value('porcentaje_conocimiento');        
-                $porciento =  number_format($nota_fin_conoc*$porcentaje/100 ,2);
-                $nota_fin = Postulante_auxiliatura::where('id_postulante', $id_post)->value('calificacion');
-                $nota_fin += $porciento;
-                // Postulante_auxiliatura::where('id_postulante', $id_post)->update([
-                //     'calificacion' => $nota_fin,
-                // ]); 
+                    $nota_fin_merito = PostuCalifMeritoFinal::where('id_postulante', $nota[0]->id)->value('nota_final_merito');
+                    
+                    $porcentaje_merit = Calificacion_final::where('id_convocatoria', session()->get('convocatoria'))->value('porcentaje_merito'); 
+                    $porciento_merit =  number_format($nota_fin_merito*$porcentaje_merit/100 ,2);
+
+                    Postulante_auxiliatura::where('id_postulante', $nota[0]->id)->update([
+                        'calificacion' => ($porciento_merit + $porciento_conoc),
+                    ]); 
+                }
             }
         }
 

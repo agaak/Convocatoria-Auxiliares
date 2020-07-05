@@ -23,16 +23,16 @@
             role="tabpanel" aria-labelledby={{ $tematica->id}}>
               <div class="table-requests1">
                 <table id= "notas{{ $tematica->id}}" class="table table-striped table-bordered">
-                  <thead class="thead-dark text-left">
+                  <thead class="thead-dark text-center">
                     <tr>
-                      <th class="font-weight-normal" scope="col">Item</th>
+                      <th class="font-weight-normal" scope="col">#</th>
                       <th class="font-weight-normal" scope="col">CI</th>
                       <th class="font-weight-normal" scope="col">Apellidos</th>
                       <th class="font-weight-normal" scope="col">Nombres</th>
                       <th class="font-weight-normal" scope="col">Nota</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="text-center">
                     @php $num=1; @endphp
                     
                     @foreach ($tematica->postulantes as $item)

@@ -35,8 +35,6 @@ class AdmMeritosController extends Controller
             ->where('estado','publicado')->get()->isNotEmpty();
         $entregado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','entregado')->get()->isNotEmpty();
-            $entregado =true;
-            $publicado = false;
         return view('admResultados.admResMeritos', compact('postulantes','publicado','entregado'));
     }
 
