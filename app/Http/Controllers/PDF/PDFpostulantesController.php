@@ -37,7 +37,9 @@ class PDFpostulantesController extends Controller
         ->join('postulante','postulante_auxiliatura.id_postulante','=','postulante.id')
         ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
         ->join('auxiliatura','postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
-        ->where('postulante_conovocatoria.id_convocatoria',$id_conv)->get();
+        ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
+        ->orderBy('postulante.apellido','ASC')
+        ->get();
         /* ->groupBy('postulante_auxiliatura.id','postulante.id') ->get();*/
         
         $dompdf = new Dompdf();
@@ -121,7 +123,7 @@ class PDFpostulantesController extends Controller
         $dompdf = PDF::loadView('postulantePDF.listaTematica', compact('nom_tematica','postulantes','titulo_conv'));
         //return view('postulantePDF.listaHabilitados', compact('listaAux', 'listPostulantes'));
         
-        return  $dompdf->download('Notas_finales.pdf');
+        return  $dompdf->download('Notas_conocimientos.pdf');
         //return $nom_tematica;
     }
 

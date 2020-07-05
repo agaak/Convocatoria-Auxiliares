@@ -27,7 +27,7 @@
                 @endif   
             </form>
         </div>
-        @if ($publicado || true)
+        @if ($publicado || $entregado)
         <div class="text-right">
           <button type="button" class="btn btn-secondary">
             <a href="/convocatoria/adm-postulantes/notasMeritoPDF" style="color: #FFFF;">PDF</a>

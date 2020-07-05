@@ -10,7 +10,7 @@
             </a>
           </li>
           {{ $initTabs = false  }}
-          @endforeach
+      @endforeach
     </ul>
     @php $initContent = true; @endphp
       <div class="tab-content" id="myTabContent">
@@ -55,6 +55,9 @@
                   </tbody>   
                 </table>
               </div>
+              <button type="button" class="btn btn-secondary">
+                <a href="/convocatoria/adm-resultados/notas-finalesPDF" style="color: #FFFF;">PDF</a>
+              </button>
           </div>
           {{ $initContent = false  }}
           @endforeach
@@ -76,12 +79,12 @@
                   $node.addClass('aprobado')
                 }
             }  ,
-            "pageLength":50,
+            "pageLength":70,"bPaginate": false,
           "language": {
               "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
           },"bLengthChange": false,responsive: true,
           order: [[1, 'asc']], 
-          dom: 'Bfrtip',
+          /* dom: 'Bfrtip',
                 buttons: [
                     {
                         extend: 'pdfHtml5',
@@ -97,7 +100,7 @@
                         }
                         
                     }
-                ]
+                ] */
           });
       
       });

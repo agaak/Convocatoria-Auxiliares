@@ -35,10 +35,11 @@
         td{padding: 5px;}
         tr:nth-child(even) {background-color: #F3F3F3;}
         tr:hover {background-color: #f8f8f8;}
-        .table-requests1 { padding-top: 20px; width: 100%; font-size: 15px; margin-left: 0ch; margin-right: 0ch;}
-        .row_name{width: 65%}
+        .table-requests1 { padding-top: 20px; width: 720px; font-size: 15px; margin-left: 0ch; margin-right: 0ch;}
+        .row_name{width: 30%}
         .row_ic{width: 15%;}
-        .row_con{width: 20%}
+        .row_con{width: 15%}
+        .row_ap{width: 30%}
         .page_break { page-break-before: auto; }
         .aprob{background-color: aquamarine;}
     </style>
@@ -50,16 +51,18 @@
     <table>
         <thead>
             <tr>
-                <th class="row.ic">CI</th>
-                <th class="row.name">Estudiante</th>
-                <th class="row.con">Nota</th>
+                <th class="row_ic">CI</th>
+                <th class="row_name">Apellido</th>
+                <th class="row_ap">Nombre</th>
+                <th class="row_con">Nota</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($postulantes as $item)
                 <tr>
                     <td style="font-weight: normal">{{ $item[0]->ci }}</td>
-                    <td style="font-weight: normal">{{ $item[0]->apellido }} {{ $item[0]->nombre }}</td>
+                    <td style="font-weight: normal">{{ $item[0]->apellido }} </td>
+                    <td style="font-weight: normal">{{ $item[0]->nombre }}</td>
                     <td style="font-weight: normal">{{ $item[0]->calificacion}}</td>
                 </tr>
             @endforeach

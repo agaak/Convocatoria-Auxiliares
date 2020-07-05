@@ -53,8 +53,9 @@
             margin-right: 0;
         }
         .row_ci{width: 15%}
-        .row_name{width: 50%}
-        .row_mer{width: 25%}
+        .row_name{width: 30%}
+        .row_ap{width: 30%}
+        .row_mer{width: 15%}
         .page_break { page-break-before: auto; }
         .aprob{background-color: aquamarine;}
         body {
@@ -70,6 +71,7 @@
         <thead>
             <tr>
             <th class="row_ci">CI</th>    
+            <th class="row_name">Apellido</th>
             <th class="row_name">Nombre</th>
             <th class="row_con">Nota final meritos</th>
             </tr>
@@ -78,7 +80,8 @@
             @foreach ($listaPost as $item)
             <tr>
                 <td style="font-weight: normal">{{ $item->ci}}</td>
-                <td style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</td>
+                <td style="font-weight: normal">{{ $item->apellido }} </td>
+                <td style="font-weight: normal">{{ $item->nombre }}</td>
                 <td style="font-weight: normal">{{ $item->nota }} </td>
             </tr>
                     

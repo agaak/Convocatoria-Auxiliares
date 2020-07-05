@@ -55,7 +55,7 @@
                 @if (auth()->user()->hasRoles(['administrador']))
                   @if (!session()->get('ver'))  
                     <div class="text-center">
-                        <form class="d-inline" action="{{ route('admNotasTematica.publicar',['id' => $tematica->id_aux, 'tem' => $tematica->nombre ]) }}"
+                        <form class="d-inline" action="{{ route('admNotasTematica.publicar',['id' => $tipoConv ==1? $tematica->id: $tematica->id_aux, 'tem' => $tematica->nombre ]) }}"
                             method="POST">
                             {{ csrf_field() }}
                             @if($tematica->publicado)
@@ -91,3 +91,20 @@
       </div>
       
   </div>
+  <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+  @foreach ($tematicas as $tematica)
+    <script>
+      $(document).ready(function() {
+          $('#notas{{ $tematica->id}}').DataTable({
+      
+            "pageLength":50,
+          "language": {
+              "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+          },"bLengthChange": false,responsive: true,
+          order: [[2, 'asc']],"bPaginate": false
+          });
+      
+      });
+      
+  </script>
+  @endforeach 
