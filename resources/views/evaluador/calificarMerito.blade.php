@@ -2,15 +2,17 @@
 
 @section('content-evaluador')
     
-    <div class="overflow-auto content">
-
-        <div class="contenido-mis-convocatorias">
+    <div class="contenido-mis-convocatorias overflow-auto">
+        @foreach ($convs as $conv)
+            @if ($conv->id == session()->get('convocatoria'))
+                <p class="text-center"><span class="text-uppercase font-weight-bold border-bottom border-dark">{{ $conv->titulo }}</span></p>
+            @endif
+        @endforeach
         <h3>
             Calificacion de meritos
         </h3>
         @component('components.calificaciones.tablaPostulantesMeritos',['postulantes'=>$postulantes])
         @endcomponent
-        </div>
 
         <div class="text-center">
             {!! $errors->first('id-evaluador', '<strong class="message-error text-danger">:message</strong>') !!}<br>

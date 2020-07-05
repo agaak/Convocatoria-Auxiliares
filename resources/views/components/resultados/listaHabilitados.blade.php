@@ -1,4 +1,4 @@
-<div class="table-requests1" >
+<div class="table-requests" >
     <table class="table table-striped table-bordered" style="width:100%" style="text-align:left">
     <thead class="thead-dark">
         <tr> 
@@ -48,7 +48,7 @@
                 @if (auth()->user()->hasRoles(['evaluador']))
                     <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
                         <a class="options" href="{{ route('calificarRequisito.index', $item->id) }}">
-                        <img src="{{ asset('img/pen.png') }}" width="20" height="25"></a>
+                        <img src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
                     </td>  
                 @else
                     <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">

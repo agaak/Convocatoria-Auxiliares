@@ -397,20 +397,19 @@ function listaAux(datos, id) {
 }
 
 // scripts de la navegacion de evaluador
-
 if ((window.location.pathname).match(/calificar/) !== null) {
     document.querySelector('.mis-convocatorias .menu-icono').addEventListener('click', () => {
         $('.mis-convocatorias .menu').toggleClass('d-none');
-    });
-    
-    document.querySelector('.btn-2').addEventListener('click', () => {
-        $('.menu-2').toggleClass('d-none');
     });
 } else if ((window.location.pathname).match(/evaluador/) !== null) {
     document.querySelector('.mis-convocatorias .menu-icono').addEventListener('click', () => {
         $('.mis-convocatorias .menu').toggleClass('d-none');
     });
 }
+
+$('.btn-2').on('click', () => {
+    $('.menu-2').toggleClass('d-none');
+});
 
 // fin de los scripts de la navegacion del evaluador
 

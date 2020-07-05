@@ -14,7 +14,12 @@
             return json_encode($arreglo);
         }
     @endphp
-    <div class="overflow-auto content">
+    <div class="contenido-mis-convocatorias overflow-auto">
+        @foreach ($convs as $conv)
+            @if ($conv->id == session()->get('convocatoria'))
+                <p class="text-center"><span class="text-uppercase font-weight-bold border-bottom border-dark">{{ $conv->titulo }}</span></p>
+            @endif
+        @endforeach
         <h2>
             Calificacion de meritos del estudiante:
         </h2>

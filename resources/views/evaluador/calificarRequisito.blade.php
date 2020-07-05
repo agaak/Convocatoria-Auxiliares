@@ -1,7 +1,12 @@
 @extends('evaluador.layoutEvaluador')
 
 @section('content-evaluador')
-    <div class="overflow-auto content" id="editEvalRequisitos" style="width: 100vw; height: 90vh;">
+    <div class="contenido-mis-convocatorias overflow-auto" id="editEvalRequisitos" style="width: 100vw; height: 90vh;">
+      @foreach ($convs as $conv)
+        @if ($conv->id == session()->get('convocatoria'))
+          <p class="text-center"><span class="text-uppercase font-weight-bold border-bottom border-dark">{{ $conv->titulo }}</span></p>
+        @endif
+      @endforeach
         <h3>Calificacion de Requisitos</h3>
 
         <h6> {{ $postulante->nombre.' '.$postulante->apellido }} </h6>

@@ -8,6 +8,7 @@ use App\Models\Requerimiento;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\PrePostulanteAuxiliatura;
+use Dompdf\Dompdf;
 
 class PrePostulanteController extends Controller
 {
@@ -39,6 +40,8 @@ class PrePostulanteController extends Controller
         ->join('auxiliatura','pre_postulante_auxiliatura.id_auxiliatura','=','auxiliatura.id')
         ->get();
         // return view('postulantePDF.postulante', compact('postulante', 'auxiliaturas'));
+        $pdf = new Dompdf();
+        $pdf->set_paper('letter', 'portrait');
         $pdf = PDF::loadView('postulantePDF.postulante', compact('postulante', 'auxiliaturas'));
 
         return $pdf->download('rotulo-postulante.pdf');

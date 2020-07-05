@@ -1,7 +1,12 @@
 @extends('evaluador.layoutEvaluador')
 
 @section('content-evaluador')
-    <div class="contenido-mis-convocatorias overflow-auto">
+<div class="contenido-mis-convocatorias overflow-auto">
+    @foreach ($convs as $conv)
+        @if ($conv->id == session()->get('convocatoria'))
+            <p class="text-center"><span class="text-uppercase font-weight-bold border-bottom border-dark">{{ $conv->titulo }}</span></p>
+        @endif
+    @endforeach
         <h4 class="m-4 font-weight-bold text-center">CALIFICAR</h4>
         @foreach ($roles as $rol)
             @if ($rol->nombre == 'Meritos')
