@@ -60,6 +60,7 @@ class ConvocatoriaComp
         $requests = Convocatoria::where('id_unidad_academica',$idUnidadAcademica)
         ->where('publicado',true)
         ->where('fecha_final', '<', $currentDate)
+        ->orderBy('id','DEC')
         ->get();
 
         $requests = $requests->map(function ($post) {

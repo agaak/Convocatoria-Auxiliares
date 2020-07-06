@@ -16,6 +16,7 @@ class AvisosController extends Controller
     public function index(){
         $listAvisos = Aviso::join('convocatoria','aviso.id_convocatoria','=','convocatoria.id')
                               ->join('unidad_academica','convocatoria.id_unidad_academica','=','unidad_academica.id')
+                              ->orderBy('id','DEC')
                               ->get();
         return view('avisos',compact('listAvisos'));
     }
