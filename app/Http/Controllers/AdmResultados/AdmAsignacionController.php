@@ -32,8 +32,7 @@ class AdmAsignacionController extends Controller
                     ->where('convocatoria.id',$id_conv)
                     ->get();
                     
-        if($tipoConv[0]->id == 1){
-            $listaPost = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
+            $listaPostInvitados = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
             'postulante_auxiliatura.calificacion','postulante_auxiliatura.id_auxiliatura')
             ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
             ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
@@ -44,11 +43,10 @@ class AdmAsignacionController extends Controller
             ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
             ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
             ->whereNotNull('postulante_auxiliatura.calificacion')
+            ->where('postulante_auxiliatura.calificacion', '<', 51)
             ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','postulante_auxiliatura.calificacion')
             ->get();
-            $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
-        
-        }else if($tipoConv[0]->id == 2){
+            $listaPostInvitados = collect($listaPostInvitados)->groupBy('id_auxiliatura');
             
             $listaPost = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
             'postulante_auxiliatura.calificacion','postulante_auxiliatura.item','postulante_auxiliatura.id_auxiliatura')
@@ -61,15 +59,12 @@ class AdmAsignacionController extends Controller
             ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
             ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
             ->whereNotNull('postulante_auxiliatura.calificacion')
+            ->where('postulante_auxiliatura.calificacion', '>=', 51)
             ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','postulante_auxiliatura.calificacion','postulante_auxiliatura.item')
             ->orderBy('postulante_auxiliatura.calificacion', 'DESC')
             ->get();
             $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
-          //  return $listaNull;
-        }else{
-            
-        }
-        // return $listaAux;
+          
         return view('admResultados.admAsignaciones',compact('listaAux','listaPost'));
     }
 
@@ -78,13 +73,14 @@ class AdmAsignacionController extends Controller
         if($condicion==1){
             $errores = ["No hay cupos para esta auxiliatura"];
         }elseif ($condicion==2) {
+            
             $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
                                         ->where('id_postulante', request()->get('id'))
                                         ->where('id_convocatoria', session()->get('convocatoria'))
                                         ->update(['item' => 1]);
         }else{
             $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
-                                        ->where('id_convocatoria', request()->get('id'))
+                                        ->where('id_postulante', request()->get('id'))
                                         ->where('id_convocatoria', session()->get('convocatoria'))
                                         ->increment('item');
         }
@@ -96,55 +92,42 @@ class AdmAsignacionController extends Controller
                     ->where('requerimiento.id_auxiliatura',$ida)
                     ->where('requerimiento.id_convocatoria', session()->get('convocatoria'))
                     ->get();
-        echo $itemsTotal;
         $itemsOcupados= Postulante_auxiliatura::select(DB::raw('sum(postulante_auxiliatura.item) as cantidad'))
                         ->where('postulante_auxiliatura.id_auxiliatura',$ida)
                         ->where('postulante_auxiliatura.id_convocatoria', session()->get('convocatoria'))
                         ->whereNotNull('postulante_auxiliatura.item')
                         ->get();
-        echo $itemsOcupados;
         if($itemsTotal[0]->cant_aux == $itemsOcupados[0]->cantidad)
             $rs=1;
         elseif ($itemsOcupados[0]->cantidad == null) 
             $rs=2;
         else
             $rs=3;
-        echo $rs;
         return $rs;
     }   
 
-    public function itemsPostulante(){
-        $res= Postulante_auxiliatura::select('item')
-                                        ->where('id_auxiliatura', request()->get('ida'))
-                                        ->where('id_postulante', request()->get('id'))
-                                        ->where('id_convocatoria', session()->get('convocatoria'))
-                                        ->get();
-        echo $res[0]->item;
-        return $res[0]->item;
-    }
+    public function quitar(){ 
 
-    public function quitar(){
-        
         $res= Postulante_auxiliatura::select('item')
                                         ->where('id_auxiliatura', request()->get('ida'))
                                         ->where('id_postulante', request()->get('id'))
                                         ->where('id_convocatoria', session()->get('convocatoria'))
                                         ->get();
         $condicion= $res[0]->item;
-        //return $condicion;
         if ($condicion===1) {
             $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
                                         ->where('id_postulante', request()->get('id'))
                                         ->where('id_convocatoria', session()->get('convocatoria'))
                                         ->update(['item' => 0]);
-        }elseif ($condicion>1) {
+        }elseif ($condicion>1) {  
+              
             $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
-                                        ->where('id_convocatoria', request()->get('id'))
+                                        ->where('id_postulante', request()->get('id'))
                                         ->where('id_convocatoria', session()->get('convocatoria'))
                                         ->decrement('item');
-        }else{
-            
+        }else{ 
         }
         return back();
     }
+
 }
