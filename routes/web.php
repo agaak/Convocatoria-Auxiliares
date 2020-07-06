@@ -99,7 +99,9 @@ Route::delete('convocatoria/adm-meritos/{id}', 'AdmConvocatoria\AdmMeritosContro
 Route::get('convocatoria/adm-resultados', 'AdmConvocatoria\AdmResultadosController@index')->name('admResultados');
 
 Route::get('convocatoria/adm-asignacion', 'AdmConvocatoria\AdmAsignacionController@index')->name('admAsignacion');
-
+//rutas asignecion
+Route::post('convocatoria/adm-asignacion-item', 'AdmConvocatoria\AdmAsignacionController@asignar')->name('asignar');
+Route::post('convocatoria/adm-quitar-item', 'AdmConvocatoria\AdmAsignacionController@quitar')->name('quitar');
 
 Route::get('convocatoria/download/{id}', 'ConvocatoriaController@download')->name('convocatoria.download');
 

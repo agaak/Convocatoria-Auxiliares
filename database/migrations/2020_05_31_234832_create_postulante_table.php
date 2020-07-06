@@ -62,6 +62,7 @@ class CreatePostulanteTable extends Migration
             $table->string('observacion')->nullable();
             $table->boolean('habilitado')->nullable();
             $table->double('calificacion', 2, 2)->nullable();
+            $table->integer('item')->nullable();
             $table->timestamps();
         });
 
