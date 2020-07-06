@@ -10,9 +10,10 @@
  
     <!-- Table -->
     <div class="table-requests1">
-        <table id= "table_id" class="table table-striped table-bordered" style="text-align:left">
+        <table id= "evalMerito" class="table table-striped table-bordered" style="text-align:left">
         <thead class="thead-dark">
-            <tr> 
+            <tr>
+            <th style="font-weight: normal" scope="col">#</th>
             <th style="font-weight: normal" scope="col">CI</th>
             <th style="font-weight: normal" scope="col">Nombres</th>
             <th style="font-weight: normal" scope="col">Apellidos</th>
@@ -21,8 +22,10 @@
             </tr>
         </thead>
         <tbody style="background-color: white">
+            @php $num = 1  @endphp
             @foreach($listEvaluadorMerit as $item)
                 <tr>
+                <td style="font-weight: normal">{{ $num++ }}</td>
                 <th style="font-weight: normal">{{ $item->ci }}</th>
                 <th style="font-weight: normal">{{ $item->nombre }}</th>
                 <th style="font-weight: normal">{{ $item->apellido }}</th>
@@ -225,10 +228,17 @@
             </div>
         </div>
     </div>
-
-
-
-
 </div>
-    
+<script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#evalMerito').DataTable({
+        "pageLength":70,"bPaginate": false,
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+        },"bLengthChange": false,responsive: true,
+        order: [0, 'asc'],  "bInfo" : false
+        });
+    });
+</script>
 @endsection

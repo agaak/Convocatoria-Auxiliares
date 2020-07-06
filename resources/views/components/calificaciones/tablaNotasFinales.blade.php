@@ -21,19 +21,24 @@
                 <table id= "notas{{ $auxiliatura->id}}" class="table table-striped table-bordere d">
                   <thead class="thead-dark text-left">
                     <tr>
+                      <th class="font-weight-normal" scope="col">#</th>
                       <th class="font-weight-normal" scope="col">CI</th>
-                      <th class="font-weight-normal" scope="col">Nombre completo</th>
-                      <th class="font-weight-normal" scope="col">Conocimientos</th>
+                      <th class="font-weight-normal" scope="col">Apellido</th>
+                      <th class="font-weight-normal" scope="col">Nombre</th>
+                      <th class="font-weight-normal" scope="col">Conocimiento</th>
                       <th class="font-weight-normal" scope="col">Meritos</th>
                       <th class="font-weight-normal" scope="col">Nota final</th>
                     </tr>
                   </thead>
                   <tbody>
+                    @php $num = 1  @endphp
                     @if($listaPost->has($auxiliatura->id))
                       @foreach ($listaPost[$auxiliatura->id] as $item)
                         <tr>
+                          <td style="font-weight: normal">{{ $num++ }}</td>
                           <td style="font-weight: normal">{{ $item->ci }}</td>
-                          <td style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</td>
+                          <td style="font-weight: normal">{{ $item->apellido }} </td>
+                          <td style="font-weight: normal">{{ $item->nombre }}</td>
                           @if ($item->nota_final_conoc===null)
                             <td style="font-weight: normal">-</td>
                           @else
@@ -55,9 +60,6 @@
                   </tbody>   
                 </table>
               </div>
-              <button type="button" class="btn btn-secondary">
-                <a href="/convocatoria/adm-resultados/notas-finalesPDF" style="color: #FFFF;">PDF</a>
-              </button>
           </div>
           {{ $initContent = false  }}
           @endforeach
@@ -83,24 +85,23 @@
           "language": {
               "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
           },"bLengthChange": false,responsive: true,
-          order: [[1, 'asc']], 
-          /* dom: 'Bfrtip',
+          order: [[0, 'asc']],  "bInfo" : false,
+          dom: 'frtipB',
                 buttons: [
                     {
                         extend: 'pdfHtml5',
-                        
                         title: 'Notas finales {{ $auxiliatura->nombre_aux}}',
                         orientation: 'portrait',
                         pageSize: 'LETTER',
                         customize: function ( doc ) {
                         doc.defaultStyle.alignment = 'left';
                         doc.styles.tableHeader.alignment = 'left';
-                        doc.defaultStyle.fontSize = '11',
-                        doc.content[1].table.widths = ['10%','50%','15%','15%','10%']
+                        doc.defaultStyle.fontSize = '11';
+                        doc.content[1].table.widths = ['5%','10%','25%','20%','15%','15%','10%']
                         }
                         
                     }
-                ] */
+                ]
           });
       
       });

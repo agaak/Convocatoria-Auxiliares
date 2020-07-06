@@ -2,6 +2,7 @@
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
             <tr>
+                <th class="font-weight-normal" scope="col">#</th>
                 <th class="font-weight-normal" scope="col">Descripcion de Meritos</th>
                 <th class="font-weight-normal text-center" scope="col">Porcentaje</th>
                 @if (!session()->get('ver'))
@@ -10,9 +11,10 @@
             </tr>
         </thead>
         <tbody class="bg-white">
-
+            @php $num = 1  @endphp
             @foreach($listaOrdenada as $item)
                 <tr>
+                    <td class="text-center">{{ $num++ }}</td>
                     <td class="{{ $item[0] === null? 'font-weight-bold': 'text-lowercase' }}"
                         style="padding-left: {{ espacios($item[1]) }}px;">{{ $item[1] }}</td>
                     <td class="text-center">{{ $item[2] }}</td>

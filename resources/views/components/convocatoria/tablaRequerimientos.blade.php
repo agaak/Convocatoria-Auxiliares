@@ -2,7 +2,7 @@
     <table class="table table-striped table-bordered" style="text-align: center" >
       <thead class="thead-dark">
         <tr>
-          <th style="font-weight: normal" scope="col">Items</th>
+          <th style="font-weight: normal" scope="col">#</th>
           <th style="font-weight: normal" scope="col">Cantidad</th>
           <th style="font-weight: normal" scope="col">Hrs. Academicas/Mes</th>
           <th style="font-weight: normal" scope="col">Nombre de la Auxiliatura</th>

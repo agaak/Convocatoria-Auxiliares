@@ -18,37 +18,29 @@
     
     <!-- Table -->
     <div class="table-requests1" >
-        <table id="postulantes" class="table table-striped table-bordered" style="width:100%" style="text-align:left">
+        <table id="postulantesConv" class="table table-striped table-bordered" style="width:100%" style="text-align:left">
         <thead class="thead-dark">
             <tr> 
             <th style="font-weight: normal" scope="col">Item</th>
+            {{-- <th style="font-weight: normal" scope="col">#</th> --}}
             <th style="font-weight: normal" scope="col">CI</th>
+            <th style="font-weight: normal" scope="col">Apellido</th>
             <th style="font-weight: normal" scope="col">Nombre</th>
-            <th style="font-weight: normal" scope="col" class="text-center">Fecha y Hora</th>
+            <th style="font-weight: normal" scope="col" class="text-center">Fecha de recepcion de documentos</th>
             {{-- th style="font-weight: normal" scope="col">Apellidos</th> --}}
-            <th style="font-weight: normal" scope="col">Habilitado</th>
-            <th style="font-weight: normal" scope="col">Observaciones</th>
             </tr>
         </thead>
         <tbody style="background-color: white">
+            {{-- @php $num = 1  @endphp --}}
             @foreach($listPostulantes as $item)
                 <tr>
                 <th style="font-weight: normal">{{$item->nombre_aux}}</th>
+                {{-- <th style="font-weight: normal">{{ $num++ }}</th> --}}
                 <th style="font-weight: normal">{{ $item->ci }}</th>
-                <th style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</th>
+                <th style="font-weight: normal">{{ $item->apellido }}</th>
+                <th style="font-weight: normal">{{ $item->nombre }}</th>
                 <th style="font-weight: normal" class="text-center">{{ $item->created_at }}</th>
                 {{-- <th style="font-weight: normal">{{ $item->apellido }}</th> --}}
-                @if ($item->habilitado===null)
-                    <th >-</th>
-                @else
-                    @if ($item->habilitado)
-                        <th >Si</th>
-                    @else
-                        <th >No</th>
-                    @endif
-                @endif
-                {{-- <th style="font-weight: normal">{{ $item->habilitado }}</th> --}}
-                <th style="font-weight: normal">{{ $item->observacion }}</th>
                 </tr>
             @endforeach
         </tbody>
@@ -180,6 +172,30 @@
     <a href="/convocatoria/adm-postulantes/habilitadosPDF" style="color: #FFFF;">PDF</a>
 </button> --}}
 </div>
+
+<script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#postulantesConv').DataTable( {
+            "pageLength":70,
+            responsive: true,
+            "columnDefs": [
+            /* { "orderable": false}, */
+            { "visible": false, "targets": 0 }
+            ],
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            },"bLengthChange": false,
+            orderFixed: [[ 0, 'asc' ],[ 2, 'asc' ],[ 3, 'asc' ]],
+            rowGroup: {
+                dataSrc: 0,startRender: function (rows, group) {
+                return group + ' (' + rows.count() + ' postulantes)';
+        }
+            },
+            
+        } );
+    } );
+</script>
 @endsection
 
     

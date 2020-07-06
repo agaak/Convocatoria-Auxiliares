@@ -3,6 +3,7 @@
         <thead class="thead-dark">
             <thead class="thead-dark text-center">
                 <tr>
+                    <th class="font-weight-normal" scope="col">#</th>
                     <th class="font-weight-normal" scope="col">Evento</th>
                     <th class="font-weight-normal" scope="col">Lugar</th>
                     <th class="font-weight-normal" scope="col">Fecha Inicial</th>
@@ -13,8 +14,10 @@
                 </tr>
             </thead>
         <tbody class="bg-white" style="vertical-align: middle">
+            @php $num = 1  @endphp
             @foreach($importantDatesList as $item)
                 <tr>
+                    <td style="vertical-align: middle;">{{ $num++ }}</td>
                     <td style="vertical-align: middle;">{{ $item->titulo_evento }}</td>
                     <td style="vertical-align: middle;">{{ $item->lugar_evento }}</td>
                     <td style="vertical-align: middle;" class="text-center">{{ $item->fecha_inicio }}</td>
