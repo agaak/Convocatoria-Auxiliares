@@ -8,6 +8,7 @@ use App\Models\EvaluadorConovocatoria;
 use App\Models\PostuCalifConoc;
 use Illuminate\Http\Request;
 use App\Models\Postulante;
+use App\Models\Postulante_conovocatoria;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use App\Http\Controllers\Utils\Evaluador\MenuDina;
 use App\Http\Controllers\Utils\Evaluador\PostulanteComp;
@@ -35,11 +36,17 @@ class CalificarConocController extends Controller
         $compPost = new PostulanteComp();
         $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem) : $compPost->getPostulantesByAux($id_tem,$nom); 
         
+        $publicado_habilitados = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
+            ->where('estado','publicado')->get()->isNotEmpty();
+        
         $entregado = $compPost->getEntregado($tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'));
         $publicado = $compPost->getPublicado($tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'));
 
+        if(!$publicado_habilitados){
+            $postulantes = [];
+        }
         return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 
-            'auxsTemsEval','postulantes','id_tem','nom','publicado','entregado'));
+            'auxsTemsEval','postulantes','id_tem','nom','publicado','entregado','publicado_habilitados'));
     }
 
     public function store(Request $request){
