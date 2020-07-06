@@ -70,8 +70,7 @@ Route::get('convocatoria/adm-notas-merito/{est}', 'AdmResultados\AdmMeritosContr
 Route::get('convocatoria/adm-res-nota-final', 'AdmResultados\AdmNotasFinalesController@index')->name('admResNotaFinal');
 Route::get('convocatoria/adm-asignaciones', 'AdmResultados\AdmAsignacionController@index')->name('admResAsignaciones');
 //rutas asignecion
-Route::post('convocatoria/adm-asignacion-item', 'AdmResultados\AdmAsignacionController@asignar')->name('asignar');
-Route::post('convocatoria/adm-quitar-item', 'AdmResultados\AdmAsignacionController@quitar')->name('quitar');
+
 // ADM Secretaria
 Route::get('convocatoria/adm-convocatoria', 'AdmConvocatoria\AdmConvocatoriaController@index')->name('admConvocatoria');
 
@@ -102,6 +101,9 @@ Route::delete('convocatoria/adm-meritos/{id}', 'AdmConvocatoria\AdmMeritosContro
 Route::get('convocatoria/adm-resultados', 'AdmConvocatoria\AdmResultadosController@index')->name('admResultados');
 
 Route::get('convocatoria/adm-asignacion', 'AdmConvocatoria\AdmAsignacionController@index')->name('admAsignacion');
+
+Route::post('convocatoria/adm-asignacion-item', 'AdmResultados\AdmAsignacionController@asignar')->name('asignar');
+Route::post('convocatoria/adm-quitar-item', 'AdmResultados\AdmAsignacionController@quitar')->name('quitar');
 
 
 Route::get('convocatoria/download/{id}', 'ConvocatoriaController@download')->name('convocatoria.download');
