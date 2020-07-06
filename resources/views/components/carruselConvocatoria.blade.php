@@ -41,4 +41,5 @@
         </div>
         @endif
     </div>
+    {{ $slot }}
 </div>

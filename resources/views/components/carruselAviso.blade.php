@@ -36,9 +36,10 @@
                     </a>
                     </div> @endif
         @else
-        <div style="background: chartreuse justify-content: center;align-items: center;"> --}}
-            <h2 style="color: #9c9c9c">No hays Avisos</h2>
+        <div style="height: 100px;width:100%;display: flex;justify-content: center;align-items: center;">
+            <h2 style="color: #9c9c9c">No hay Avisos</h2>
         </div>
         @endif
     </div>
+    {{ $slot }}
 </div>

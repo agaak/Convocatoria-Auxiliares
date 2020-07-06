@@ -37,7 +37,7 @@
 
     {{-- Anuncios --}}
     
-    <h4 class="text-center">Anuncios</h4>
+    <h4 class="text-center" style="margin-top: 20px">Anuncios</h4>
 
     {{-- Carrusel de cards con datos grals. de un aviso --}}
     @component('components.carruselAviso', 
