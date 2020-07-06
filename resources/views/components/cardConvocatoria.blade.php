@@ -52,20 +52,20 @@
                             <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                 style="background-color:#2F2D4A; color:white;"
                                 class="btn btn-sm">{{ csrf_field() }}Administrar</a>
-                            <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a> 
+                            <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a> 
                         @endif
                         @if (auth()->user()->hasRoles(['secretaria']))
                             <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                 style="background-color:#2F2D4A; color:white;"
                                 class="btn btn-sm">{{ csrf_field() }}Administrar</a>
-                            <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a> 
+                            <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a> 
                         @endif
                         @if (auth()->user()->hasRoles(['evaluador']))
                             <a href="{{ route('helper.redirect', $convo->id) }}" style="background-color:#2F2D4A; color:white;"
                                 class="btn btn-sm">{{ csrf_field() }}Evaluar</a>
                         @endif
                     @else
-                        <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a>
+                        <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a>
                         @if ($convo->pre_posts_habilitado && !($convo->convPasada))
                             <a type="button" onclick="listaAux({{ $auxs }}, {{ $convo->id }})" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#postulanteModal">
                                 Postular ahora
@@ -90,7 +90,7 @@
                         style="background-color:#61DE4D;color:rgb(255, 255, 255);"
                         class="btn btn-sm">{{ csrf_field() }}Publicar</a>
                     @endif
-                    <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-success btn-sm text-white">Ver</a>
+                    <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a>
                     </div>
                     <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
                     convocatoria esta lista para publicarse.</div>
