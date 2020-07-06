@@ -172,7 +172,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="conv-gestion">Gestión</label>
+                                    <label for="conv-gestion">Año</label>
                                     <select name="conv-gestion" id="conv-gestion" class="form-control" required>
                                         <option value="{{ $anioActual-1 }}"
                                             {{ old('conv-gestion') === $anioActual-1 ? 'selected': '' }}>
