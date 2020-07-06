@@ -35,6 +35,11 @@
                       <th class="font-weight-normal" scope="col">Asignar</th>
                     </tr>
                   </thead>
+                  <script>
+                    function mensaje(){
+                      alert('esta seguro de quitar el item'); 
+                    }
+                  </script>
                   <tbody>
                       @php $num=1; @endphp
                     @if($listaPost->has($auxiliatura->id))
@@ -44,30 +49,34 @@
                           <td>{{ $item->ci }}</td>
                           <td>{{ $item->apellido }}</td>
                           <td>{{ $item->nombre }}</td>
-                          <td>-</td>
-                          <td>1</td>
+                          <td>{{ $item->calificacion }}</td>
+                          <td class="text-center">@if($item->item===null)
+                                {{ "-" }}
+                              @elseif($item->item===0)
+                                {{"Dado de baja"}} 
+                              @else
+                                {{ $item->item }}
+                              @endif
+                          </td>
                           <td>
-                            <form class="d-inline" action="#" method="POST">
+                            <form class="d-inline" action="{{ route('asignar') }}" method="POST">
                                 {{ csrf_field() }}
+                                <input type="hidden" name="id" value="{{ $item->id }}" readonly>
+                                <input type="hidden" name="ida" value="{{ $item->id_auxiliatura }}" readonly>
                                 <button type="submit" class="btn btn-link">
                                   <img src="{{ asset('img/add512.png') }}" width="30" height="32">
                                 </button>
                               </form>
-                              <form class="d-inline" action="#" method="POST">
+                              <form class="d-inline" action="{{ route('quitar') }}" method="POST">
                                 {{ csrf_field() }}
+                                <input type="hidden" name="id" value="{{ $item->id }}" readonly>
+                                <input type="hidden" name="ida" value="{{ $item->id_auxiliatura }}" readonly>
                                 <button type="submit" class="btn btn-link">
-                                  <img src="{{ asset('img/minus512.png') }}" width="30" height="32">
+                                  <img src="{{ asset('img/minus512.png') }}" width="30" height="32" onclick="mensaje()">
                                 </button>
                               </form>
-                              <form class="d-inline" action="#" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-link">
-                                  <img src="{{ asset('img/trash.png') }}" width="25" height="30">
-                                </button>
-                              </form>
-                    </td>
-                          </tr>
+                          </td>
+                        </tr>
                       @endforeach
                     @endif
                   </tbody>   
