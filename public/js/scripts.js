@@ -491,7 +491,7 @@ function mostrarModalMeritos(calificacionMerito, formato){
 function verificarNotasMerito(lst){
     rs=true;
     for(k=0; k<lst.length; k++){
-        aux=lst[k];
+        aux=parseInt(lst[k]);
         console.log(aux);
         rs= rs && (aux < 101);
     }
@@ -508,12 +508,15 @@ function calcular(){
                 if(verificarNotasMerito(listaNotas)){
                     notadelMerito= 0;
                     for(var i2 = 0; i2 < listaNotas.length; i2++){
-                        numero = listaNotas[i2];
+                        numero = parseInt(listaNotas[i2]);
                         notadelMerito+= numero;
                     }
                     notadelMerito=notadelMerito/(listaNotas.length);
-                    multiplicador=($("#procentajeMer").val())/100;
-                    $("#notaMerito").val(Math.round(notadelMerito*multiplicador));
+                    multiplicador=parseInt($("#procentajeMer").val())/100;
+                    console.log(multiplicador)
+                    console.log(notadelMerito)
+                    console.log(trunc((notadelMerito*multiplicador),2));
+                    $("#notaMerito").val(trunc((notadelMerito*multiplicador),2));
                     document.getElementById("guardar").disabled=false;
                 }else{
                     console.log('las notas no deven pasar de 100');
@@ -522,15 +525,15 @@ function calcular(){
             else if(document.getElementById('inlineRadio1').checked){
                 notadelMerito= 0;
                 for(var i2 = 0; i2 < listaNotas.length; i2++){
-                    numero = (listaNotas[i2]);
+                    numero = parseInt(listaNotas[i2]);
                     notadelMerito+= numero;
                 }
-                maximo=($("#procentajeMer").val());
+                maximo=parseInt($("#procentajeMer").val());
                 if(notadelMerito>maximo){
                     $("#notaMerito").val(maximo);
                     document.getElementById('guardar').disabled=false;
                 }else{
-                    $("#notaMerito").val(Math.round(notadelMerito));
+                    $("#notaMerito").val((notadelMerito));
                     document.getElementById('guardar').disabled=false;
                 }
             }else{
@@ -557,6 +560,33 @@ function validar(notas){
     return lista;
 }
     
+function trunc (x, posiciones = 0) {
+    var s = x.toString()
+    var l = s.length
+    var decimalLength = s.indexOf('.') + 1
+  
+    if (l - decimalLength <= posiciones){
+      return x
+    }
+    // Parte decimal del número
+    var isNeg  = x < 0
+    var decimal =  x % 1
+    var entera  = isNeg ? Math.ceil(x) : Math.floor(x)
+    // Parte decimal como número entero
+    // Ejemplo: parte decimal = 0.77
+    // decimalFormated = 0.77 * (10^posiciones)
+    // si posiciones es 2 ==> 0.77 * 100
+    // si posiciones es 3 ==> 0.77 * 1000
+    var decimalFormated = Math.floor(
+      Math.abs(decimal) * Math.pow(10, posiciones)
+    )
+    // Sustraemos del número original la parte decimal
+    // y le sumamos la parte decimal que hemos formateado
+    var finalNum = entera + 
+      ((decimalFormated / Math.pow(10, posiciones))*(isNeg ? -1 : 1))
+    
+    return finalNum
+  }
 //fin calificar merito estudiante
 
 $('#pre-posts-habilitar').on('click', () => {

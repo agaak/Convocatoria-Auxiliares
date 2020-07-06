@@ -29,7 +29,8 @@ class NotasAuxiliaturaController extends Controller
 
         
         foreach($listaAux as $aux){
-            $tems = Porcentaje::select('porcentaje.id_tematica','tematica.nombre','porcentaje.id as id_por')
+            $tems = Porcentaje::select('porcentaje.id_tematica','tematica.nombre','porcentaje.id as id_por',
+                            'porcentaje.porcentaje')
             ->join('requerimiento','requerimiento.id','=','porcentaje.id_requerimiento')
             ->where('requerimiento.id_convocatoria',$id_conv)
             ->where('porcentaje.id_auxiliatura',$aux->id)
@@ -41,12 +42,15 @@ class NotasAuxiliaturaController extends Controller
         foreach($listaPost as $postulante){
             $calf_tems = PostuCalifConoc::where('id_postulante',$postulante->id)
             ->where('id_calf_final',$postulante->id_nota_fin_conoc)
+            ->join('porcentaje','porcentaje.id','=','id_porcentaje')
             ->orderBy('id_porcentaje','ASC')
             ->get();
+            // foreach()
             $postulante->notas_tems = $calf_tems;
         }
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
-       
+        
+        // return $listaPost;
         return view('verConvocatoria.notasConocimientoA',compact('listaAux','listaPost'));
     }
 }
