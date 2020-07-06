@@ -76,7 +76,7 @@ class ConvocatoriaController extends Controller
         $conv->save();
 
         session()->put('convocatoria', $conv->id) ;
-        return redirect()->route('requests');
+        return back();
     }
 
     /**

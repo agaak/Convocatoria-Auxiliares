@@ -21,8 +21,7 @@
         <table id="postulantesConv" class="table table-striped table-bordered" style="width:100%" style="text-align:left">
         <thead class="thead-dark text-center">
             <tr> 
-            <td class="text-center" scope="col">Item</td>
-            {{-- <th style="font-weight: normal" scope="col">#</th> --}}
+            <th style="font-weight: normal" class="text-center" scope="col">Item</th>
             <th style="font-weight: normal" scope="col">CI</th>
             <th style="font-weight: normal" scope="col">Apellidos</th>
             <th style="font-weight: normal" scope="col">Nombres</th>

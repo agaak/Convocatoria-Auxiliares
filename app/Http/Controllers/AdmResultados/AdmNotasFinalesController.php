@@ -49,8 +49,9 @@ class AdmNotasFinalesController extends Controller
         }
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
 
+        $conv = Convocatoria::find(session()->get('convocatoria'));
         return view('admResultados.admResNotasFinales',compact('listaAux','listaPost','titulo_conv',
-                'porcentaje_conoc','porcentaje_merit'));
+                'porcentaje_conoc','porcentaje_merit','conv'));
     }
 
 }

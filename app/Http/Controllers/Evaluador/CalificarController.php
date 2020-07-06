@@ -18,7 +18,13 @@ class CalificarController extends Controller
     }
     
     public function index(){
-        $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
+       
+        $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)
+                ->first()->convocatorias;
+        $convs = collect($convs)->reject(function ($value) {
+            return !$value->publicado;
+        });
+
         foreach ($convs as $conv) {
             if ($conv->id == session()->get('convocatoria'))
                 $pivot = $conv->pivot;

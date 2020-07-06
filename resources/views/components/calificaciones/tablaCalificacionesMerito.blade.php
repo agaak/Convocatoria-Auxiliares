@@ -67,3 +67,14 @@
           </tbody>
     </table>
 </div>
+@if (auth()->check())
+    @if (!auth()->user()->hasRoles(['evaluador']))
+    <div class="form-group text-right mr-5">
+       <h6><strong>Nota Final {{$m_total}}</strong></h6>
+    </div>
+    @endif
+@else
+<div class="form-group text-right mr-5">
+    <h6><strong>Nota Final {{$m_total}}</strong></h6>
+ </div>
+@endif

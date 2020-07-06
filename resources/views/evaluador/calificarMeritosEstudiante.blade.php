@@ -26,7 +26,7 @@
         <h3>
             {{ $estudiante[0]->nombre }} {{ $estudiante[0]->apellido }}
         </h3>
-        @component('components.calificaciones.tablaCalificacionesMerito',['lista'=>$lista, 'listaMeritos'=>$listaMeritos])
+        @component('components.calificaciones.tablaCalificacionesMerito',['lista'=>$lista, 'listaMeritos'=>$listaMeritos, 'm_total'=>$notaFinalMerito[0]->m_total])
         @endcomponent
 
         <form action="{{ route('evaluarM.calificarMeritoFinal') }}" method="POSt" id="merit-nota-form">

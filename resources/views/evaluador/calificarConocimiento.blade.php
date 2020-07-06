@@ -5,17 +5,20 @@
     <div class="contenido-mis-convocatorias overflow-auto">
         @foreach ($convs as $conv)
             @if ($conv->id == session()->get('convocatoria'))
-                <p class="text-center"><span class="text-uppercase font-weight-bold border-bottom border-dark">{{ $conv->titulo }}</span></p>
+                <p class="text-center mt-2"><span class="text-uppercase font-weight-bold border-bottom border-dark">{{ $conv->titulo }}</span></p>
             @endif
         @endforeach
         
-        <h3>Calificación de 
+        <h4 class="mx-4">Calificación de 
             @foreach ($auxsTemsEval as $item)
                 @if ($item->id == $id_tem)
                     {{ $item->nombre }}
                 @endif    
             @endforeach
-        </h3>
+            @if ($tipoConv === 2)
+                - {{$nom}}
+            @endif
+        </h4>
         @if($publicado_habilitados)
             @if ($tipoConv === 1)
                 @component('components.calificaciones.tablaPostulantesConocByTem',

@@ -19,7 +19,7 @@
         
         @endphp
         
-        @component('components.calificaciones.tablaCalificacionesMerito',['lista'=>$lista, 'listaMeritos'=>$listaMeritos])
+        @component('components.calificaciones.tablaCalificacionesMerito',['lista'=>$lista, 'listaMeritos'=>$listaMeritos, 'm_total'=>$notaFinalMerito[0]->m_total])
         @endcomponent
         <div class="col-7">
             <div class="float-right">
