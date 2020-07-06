@@ -64,7 +64,7 @@ class AdmAsignacionController extends Controller
             ->orderBy('postulante_auxiliatura.calificacion', 'DESC')
             ->get();
             $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
-          
+       // return $listaPost;
         return view('admResultados.admAsignaciones',compact('listaAux','listaPost'));
     }
 
