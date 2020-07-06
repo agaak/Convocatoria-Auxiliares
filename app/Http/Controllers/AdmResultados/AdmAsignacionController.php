@@ -64,7 +64,9 @@ class AdmAsignacionController extends Controller
             ->orderBy('postulante_auxiliatura.calificacion', 'DESC')
             ->get();
             $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
-          
+
+
+          $conv = Convocatoria::find($id_conv);
         return view('admResultados.admAsignaciones',compact('listaAux','listaPost','conv'));
     }
 

@@ -20,12 +20,12 @@
                 <p class="text-center"><span class="text-uppercase font-weight-bold border-bottom border-dark">{{ $conv->titulo }}</span></p>
             @endif
         @endforeach
-        <h3>
+        <h4>
             Calificación de Meritos del Estudiante:
-        </h3>
-        <h3>
+        </h4>
+        <h5>
             {{ $estudiante[0]->nombre }} {{ $estudiante[0]->apellido }}
-        </h3>
+        </h5>
         @component('components.calificaciones.tablaCalificacionesMerito',['lista'=>$lista, 'listaMeritos'=>$listaMeritos, 'm_total'=>$notaFinalMerito[0]->m_total])
         @endcomponent
 

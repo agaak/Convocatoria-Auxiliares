@@ -71,6 +71,7 @@
     <table>
         <thead>
             <tr>
+            <th class="row_nro">#</th>
             <th class="row_ci">CI</th>    
             <th class="row_name">Apellidos</th>
             <th class="row_name">Nombres</th>
@@ -78,8 +79,10 @@
             </tr>
         </thead>
         <tbody>
+            @php $num = 1  @endphp
             @foreach ($listaPost as $item)
             <tr>
+                <td>{{ $num++ }}</td>
                 <td style="font-weight: normal">{{ $item->ci}}</td>
                 <td style="font-weight: normal">{{ $item->apellido }} </td>
                 <td style="font-weight: normal">{{ $item->nombre }}</td>

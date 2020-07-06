@@ -1,6 +1,7 @@
-@extends('admConvocatoria.layaoutAdmConvocatoria')
+@extends('admResultados.layaoutAdmResultados')
 
-@section('content-adm-convocatoria')
+@section('content-adm-resultados')
+
 <div class="overflow-auto content">
     <h3>Asignacion de items</h3>
     <div class="container">

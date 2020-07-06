@@ -98,7 +98,7 @@
 
     <div class="container">
         
-        <h3 class="mb-3 mt-2">Catálogo de Docencia</h3>
+        <h4 class="mb-3 mt-2">Catálogo de Docencia</h4>
 
         {{-- Seccion para navegar entre auxiliatura y tematica --}}
 

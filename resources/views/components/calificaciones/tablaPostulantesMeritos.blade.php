@@ -52,17 +52,17 @@
       </tbody>
     </table>
   </div>
-<script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+{{-- <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script> --}}
 <script>
-    $(document).ready(function() {
-        $('#tablaMeritos').DataTable({
-        "pageLength":70,"bPaginate": false,
-        "language": {
-            "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-        },"bLengthChange": false,responsive: true,
-        order: [0, 'asc'],  "bInfo" : false
-        });
+    // $(document).ready(function() {
+    //     $('#tablaMeritos').DataTable({
+    //     "pageLength":70,"bPaginate": false,
+    //     "language": {
+    //         "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    //     },"bLengthChange": false,responsive: true,
+    //     order: [0, 'asc'],  "bInfo" : false
+    //     });
     
-    });
+    // });
     
 </script>

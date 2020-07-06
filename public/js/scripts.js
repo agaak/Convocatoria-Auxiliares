@@ -618,3 +618,15 @@ function avisoEditModal(aviso) {
     $('#avisoTituloEdit').val(aviso['titulo_aviso']);
     $('#avisoDescripcionEdit').val(aviso['descripcion_aviso']);
 }
+
+
+$(document).ready(function() {
+    $('#tablaMeritos').DataTable({
+    "pageLength":70,"bPaginate": false,
+    "language": {
+        "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+    },"bLengthChange": false,responsive: true,
+    order: [0, 'asc'],  "bInfo" : false
+    });
+
+});

@@ -74,7 +74,7 @@
       $(document).ready(function() {
           $('#notas{{ $auxiliatura->id}}').DataTable({
             "rowCallback": function( row, data, index ) {
-                var notafinal = (data[4]),
+                var notafinal = (data[6]),
                     $node = this.api().row(row).nodes().to$();
                     
                 if (notafinal > 50.0  ) {
