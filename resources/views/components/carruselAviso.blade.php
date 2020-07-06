@@ -1,14 +1,14 @@
-@if($convos->isNotEmpty())
+@if($listAvisos->isNotEmpty())
 <div class="container text-center my-3">
         <div class="row mx-auto my-auto">
-            @if (count($convos)>0)
-                @if(count($convos)>3)
+            @if (count($listAvisos)>0)
+                @if(count($listAvisos)>3)
                     <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
                         <div class="carousel-inner w-100" role="listbox">
                             @php $num = 0; @endphp
                 @endif
-                            @foreach($convos as $convo)
-                                @if(count($convos)>3)
+                            @foreach($listAvisos as $aviso)
+                                @if(count($listAvisos)>3)
                                     @if($num++ == 0)
                                         <div class="carousel-item active">
                                         @else
@@ -16,14 +16,14 @@
                                     @endif
                                 @endif
                                         
-                                {{-- Visualizar Card de Datos Generales Convocatoria --}}
-                                @component('components.cardConvocatoria', 
-                                    ['convo' => $convo, 'auxs' => $auxs])
+                                {{-- Visualizar card de aviso --}}
+                                @component('components.cardAviso', 
+                                ['aviso' => $aviso])
                                 @endcomponent
                                         
-                                @if(count($convos)>3) </div> @endif
+                                @if(count($listAvisos)>3) </div> @endif
                             @endforeach
-                        @if(count($convos)>3)
+                        @if(count($listAvisos)>3)
                         </div>
                         <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"
