@@ -32,7 +32,8 @@ class VerificarReqController extends Controller
         $existe = Postulante_conovocatoria::where('id_postulante',$idPostulante)
             ->value('calificando_requisito');
         if($existe){
-            return redirect()->route('calificarRequisitosPost.index')->with('revisando','Alguien esta revisando los requisitos de este postulante.');
+            return redirect()->route('calificarRequisitosPost.index')
+                        ->with('revisando','Alguien esta revisando los requisitos de este postulante.');
         }
         session()->put('id-pos',$idPostulante);
         Postulante_conovocatoria::where('id_postulante', $idPostulante)->update([

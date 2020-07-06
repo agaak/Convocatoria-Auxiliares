@@ -15,6 +15,12 @@
                 ['postulantes'=>$postulantes, 'publicado'=> $publicado])
         @endcomponent
 
+        @if (session('revisando')) 
+        <div class="text-center">
+            <strong class="message-error text-danger"> {{ session('revisando') }}</strong>
+        </div>
+        @endif
+
         <div class="text-center">
             {!! $errors->first('id-evaluador', '<strong class="message-error text-danger">:message</strong>') !!}<br>
             <form class="d-inline" action="{{ route('entregarMeritos') }}"

@@ -44,10 +44,12 @@ class CalificacionMController extends Controller
         if($existe){
             if(session()->has('id-pos')){
                 if(session()->get('id-pos') != $idEst){
-                    return redirect()->route('calificarMerito.index');
+                    return redirect()->route('calificarMerito.index')
+                            ->with('revisando','Alguien esta revisando los meritos de este postulante.');
                 }
             }else{
-                return redirect()->route('calificarMerito.index');
+                return redirect()->route('calificarMerito.index')
+                        ->with('revisando','Alguien esta revisando los meritos de este postulante.');
             }
             // return redirect()->route('calificarMerito.index');
         }
