@@ -37,6 +37,7 @@
         tr:hover {background-color: #f8f8f8;}
         .table-requests1 { padding-top: 20px; width: 720px; font-size: 15px; margin-left: 0ch; margin-right: 0ch;}
         .row_name{width: 30%}
+        .row_nro{width: 7%}
         .row_ic{width: 15%;}
         .row_con{width: 15%}
         .row_ap{width: 30%}
@@ -51,15 +52,18 @@
     <table>
         <thead>
             <tr>
+                <th class="row_nro">#</th>
                 <th class="row_ic">CI</th>
-                <th class="row_name">Apellido</th>
-                <th class="row_ap">Nombre</th>
+                <th class="row_name">Apellidos</th>
+                <th class="row_ap">Nombres</th>
                 <th class="row_con">Nota</th>
             </tr>
         </thead>
         <tbody>
+            @php $num = 1  @endphp
             @foreach ($postulantes as $item)
                 <tr>
+                    <td style="font-weight: normal">{{ $num++ }}</td>
                     <td style="font-weight: normal">{{ $item[0]->ci }}</td>
                     <td style="font-weight: normal">{{ $item[0]->apellido }} </td>
                     <td style="font-weight: normal">{{ $item[0]->nombre }}</td>

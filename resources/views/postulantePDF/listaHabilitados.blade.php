@@ -46,7 +46,8 @@
             margin-left: 0;
             margin-right: 0;
         }
-        .row_nom{width: 25%}
+        .row_nro{width: 7%}
+        .row_nom{width: 18%}
         .row_ap{width: 25%}
         .row_hab{width: 10%;}
         .row_obs{width: 40%}
@@ -61,15 +62,15 @@
 <h3 style="text-align: center">Lista de habilitados</h3>
     
         @foreach ($listaAux as $aux)
-         
+        @php $num = 1  @endphp
         <div class="table-requests1">
             <h3>{{ $aux->nombre_aux}}</h3>
-            
             <table >
                 <thead>
                 <tr>
-                <th class="row_ap">Apellido</th>
-                <th class="row_nom">Nombre</th>
+                <th class="row_nro">#</th>
+                <th class="row_ap">Apellidos</th>
+                <th class="row_nom">Nombres</th>
                 <th class="row_hab">Habilitado</th>
                 <th class="row_obs">Observaciones</th>
                 </tr>
@@ -80,6 +81,7 @@
                     
                         @if ($postulante->nombre_aux==$aux->nombre_aux)
                         <tr>
+                        <td>{{ $num++ }}</td>
                         <td>{{ $postulante->apellido }}</td>
                         <td>{{ $postulante->nombre }} </td>
                             @if ($postulante->habilitado===null)
