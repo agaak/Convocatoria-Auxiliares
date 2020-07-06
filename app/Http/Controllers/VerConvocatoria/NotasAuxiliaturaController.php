@@ -45,7 +45,11 @@ class NotasAuxiliaturaController extends Controller
             ->join('porcentaje','porcentaje.id','=','id_porcentaje')
             ->orderBy('id_porcentaje','ASC')
             ->get();
-            // foreach()
+            foreach($calf_tems as $calf){
+                if($calf->calificacion != null){
+                    $calf->calificacion = number_format($calf->calificacion*$calf->porcentaje/100 ,2);
+                }
+            }
             $postulante->notas_tems = $calf_tems;
         }
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');

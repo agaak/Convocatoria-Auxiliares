@@ -19,14 +19,14 @@
             role="tabpanel" aria-labelledby={{ $auxiliatura->id}}>
               <div class="table-requests1">
                 <table id= "notas{{ $auxiliatura->id}}" class="table table-striped table-bordere d">
-                  <thead class="thead-dark text-left">
+                  <thead class="thead-dark text-center">
                     <tr>
                       <th class="font-weight-normal" scope="col">#</th>
                       <th class="font-weight-normal" scope="col">CI</th>
                       <th class="font-weight-normal" scope="col">Apellido</th>
                       <th class="font-weight-normal" scope="col">Nombre</th>
-                      <th class="font-weight-normal" scope="col">Conocimiento</th>
-                      <th class="font-weight-normal" scope="col">Meritos</th>
+                      <th class="font-weight-normal" scope="col">Conocimiento/{{$porcentaje_conoc}}</th>
+                      <th class="font-weight-normal" scope="col">Meritos/{{$porcentaje_merit}}</th>
                       <th class="font-weight-normal" scope="col">Nota final</th>
                     </tr>
                   </thead>
@@ -35,24 +35,24 @@
                     @if($listaPost->has($auxiliatura->id))
                       @foreach ($listaPost[$auxiliatura->id] as $item)
                         <tr>
-                          <td style="font-weight: normal">{{ $num++ }}</td>
-                          <td style="font-weight: normal">{{ $item->ci }}</td>
-                          <td style="font-weight: normal">{{ $item->apellido }} </td>
-                          <td style="font-weight: normal">{{ $item->nombre }}</td>
+                          <td class="text-center">{{ $num++ }}</td>
+                          <td class="text-center">{{ $item->ci }}</td>
+                          <td>{{ $item->apellido }} </td>
+                          <td>{{ $item->nombre }}</td>
                           @if ($item->nota_final_conoc===null)
-                            <td style="font-weight: normal">-</td>
+                            <td class="text-center">-</td>
                           @else
-                            <td style="font-weight: normal">{{ $item->nota_final_conoc }}</td>
+                            <td class="text-center">{{ $item->nota_final_conoc }}</td>
                           @endif
                           @if ($item->nota_final_merito===null)
-                            <td style="font-weight: normal">-</td>
+                            <td class="text-center">-</td>
                           @else
-                            <td style="font-weight: normal">{{ $item->nota_final_merito }}</td>
+                            <td class="text-center">{{ $item->nota_final_merito }}</td>
                           @endif
                           @if ($item->not_fin===null)
-                            <th style="font-weight: normal">-</th>
+                            <td class="text-center">-</td>
                           @else
-                            <th style="font-weight: normal">{{ $item->not_fin }}</th>
+                            <th class="text-center" >{{ $item->not_fin }}</th>
                           @endif
                           </tr>
                       @endforeach

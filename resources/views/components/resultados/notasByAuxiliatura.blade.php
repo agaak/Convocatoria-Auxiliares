@@ -19,10 +19,11 @@
           role="tabpanel" aria-labelledby={{ $auxiliatura->id}}>
           <div class="table-requests1">
               <table id= "notas{{ $auxiliatura->id}}" class="table table-striped table-bordered">
-                  <thead class="thead-dark text-left">
+                  <thead class="thead-dark text-center">
                       <tr>
                           <th class="font-weight-normal" scope="col">CI</th>
-                          <th class="font-weight-normal" scope="col">Nombre completo</th>
+                          <th class="font-weight-normal" scope="col">Apellidos</th>
+                          <th class="font-weight-normal" scope="col">Nombres</th>
                           @foreach ($auxiliatura->tematicas as $tematica)
                           
                           <th class="font-weight-normal" scope="col">{{ $tematica->nombre }}/{{ $tematica->porcentaje }}</th>
@@ -37,11 +38,12 @@
                       @foreach ($listaPost[$auxiliatura->id] as $item)
                       <tr>
                               <th style="font-weight: normal">{{ $item->ci }}</th>
-                              <th style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</th>
+                              <th style="font-weight: normal">{{ $item->apellido }}</th>
+                              <th style="font-weight: normal">{{ $item->nombre }}</th>
                                 @foreach ($item->notas_tems as $tems)
-                                <th class="font-weight-normal" scope="col">{{ $tems->calificacion??'-' }}</th>
+                                <td class="text-center" scope="col">{{ $tems->calificacion??'-' }}</td>
                                 @endforeach
-                              <th style="font-weight: normal">{{ $item->nota_final_conoc??'-' }}</th>
+                              <td class="text-center">{{ $item->nota_final_conoc??'-' }}</td>
                               </tr>
                       @endforeach
                     @endif

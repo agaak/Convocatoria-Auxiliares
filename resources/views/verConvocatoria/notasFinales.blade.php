@@ -5,7 +5,8 @@
         <h1>NOTAS FINALES</h1>
 
         @component('components.calificaciones.tablaNotasFinales',
-        ['listaPost'=>$listaPost, 'listaAux'=>$listaAux, 'titulo_conv'=>$titulo_conv])
+        ['listaPost'=>$listaPost, 'listaAux'=>$listaAux, 'titulo_conv'=>$titulo_conv,
+         'porcentaje_conoc'=>$porcentaje_conoc, 'porcentaje_merit'=>$porcentaje_merit])
         @endcomponent
     </div>
 @endsection
