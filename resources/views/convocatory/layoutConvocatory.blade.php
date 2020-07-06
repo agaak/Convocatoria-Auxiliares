@@ -10,7 +10,7 @@
                     return request()->is($url)? 'navbar-lateral-active': '';
                 }
             @endphp
-            <h2 class="text-uppercase title-navbar">nueva convocatoria</h2>
+            <h2 class="title-navbar">{{ $conv->titulo }}</h2>
             @if (session()->get('ver'))
                 <ul class="container-list-ver m-2">
                     <li class="navbar-item-ver">

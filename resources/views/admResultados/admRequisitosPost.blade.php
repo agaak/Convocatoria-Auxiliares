@@ -2,9 +2,9 @@
 
 @section('content-adm-resultados')
 
-  <div class="overflow-auto content" style="width: 100vw; height: 77vh;">
+  <div class="overflow-auto content">
 
-    <h3>Detalles de calificaion de requisitos</h3>
+    <h3>Detalles de calificaión de Requisitos</h3>
     <div style= "float: right;">
       <a href="{{ route('admHabilitados') }}" class="btn btn-info">
           {{ csrf_field() }}Atras</a>

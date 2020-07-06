@@ -5,8 +5,8 @@ namespace App\Http\Controllers\AdmResultados;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Auxiliatura;
-use App\Models\Postulante;
 use App\Models\Convocatoria;
+use App\Models\Postulante;
 use App\Models\Tematica;
 use App\Models\Requerimiento;
 use Illuminate\Support\Facades\DB;
@@ -70,7 +70,9 @@ class AdmAsignacionController extends Controller
             
         }
         // return $listaAux;
-        return view('admResultados.admAsignaciones',compact('listaAux','listaPost'));
+
+        $conv = Convocatoria::find($id_conv);
+        return view('admResultados.admAsignaciones',compact('listaAux','listaPost','conv'));
     }
 
     public function asignar(){

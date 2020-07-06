@@ -26,11 +26,11 @@ class ConocimientoController extends Controller
     }
     public function knowledgeRating(Request $request){
         $id_conv = $request->session()->get('convocatoria');
-        $convActual = DB::table('convocatoria')->find($id_conv);
+        $conv = DB::table('convocatoria')->find($id_conv);
 
-        $rutaPDF = $convActual->ruta_pdf;
+        $rutaPDF = $conv->ruta_pdf;
 
-        $tipo = $convActual->id_tipo_convocatoria;
+        $tipo = $conv->id_tipo_convocatoria;
         $utilsConocimiento= new ConocimientosComp;
         $requests = $utilsConocimiento->getRequerimientos($id_conv);
         $porcentajes = $utilsConocimiento->getPorcentajes($id_conv);
@@ -47,7 +47,7 @@ class ConocimientoController extends Controller
             
         $porcentajesConvocatoria = Calificacion_final::where('id_convocatoria',session()
                                                     ->get('convocatoria'))->first();
-        return view('convocatory.conocimientos', compact('tematics', 'requests','porcentajes','tems','porcentajesConvocatoria', 'rutaPDF'));
+        return view('convocatory.conocimientos', compact('tematics', 'requests','porcentajes','tems','porcentajesConvocatoria', 'rutaPDF', 'conv'));
     }
 
     public function knowledgeRatingTematicValid(ConocimientoCreateRequest $request){

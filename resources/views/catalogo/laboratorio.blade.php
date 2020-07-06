@@ -172,7 +172,7 @@
         {{-- Contenido de la vista de la boratorios --}}
 
         <div class="container">
-            <h3 class="text-uppercase text-left mb-3">Laboratorio</h3>
+            <h3 class="mb-3 mt-2">Catálogo de Laboratorio</h3>
 
             {{-- Seccion para navegar entre auxiliatura y tematica --}}
 

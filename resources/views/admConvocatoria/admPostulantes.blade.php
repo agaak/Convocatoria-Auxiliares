@@ -1,18 +1,18 @@
 @extends('admConvocatoria.layaoutAdmConvocatoria')
 
 @section('content-adm-convocatoria')
-<div class="overflow-auto content" style="width: 100vw; height: 77vh;">
+<div class="overflow-auto content">
 
-    <h3 class="text-uppercase">Postulantes</h3>
+    <h3>Postulantes</h3>
     {{-- Triger modal --}}
     <div class="row mr-1 ml-1">
         <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
         data-target="#storePostulanteModal">Registrar postulante</button>
         <div class="col"></div>
-        @if ($prePostulante->pre_posts_habilitado)
-            <a href="{{ route('habilitarPostulante', $prePostulante->id) }}" id="pre-posts-habilitar" type="button" class="btn btn-secondary my-3 col-xs-2">Deshabilitar Postulanciones</a> 
+        @if ($conv->pre_posts_habilitado)
+            <a href="{{ route('habilitarPostulante', $conv->id) }}" id="pre-posts-habilitar" type="button" class="btn btn-secondary my-3 col-xs-2">Deshabilitar Postulanciones</a> 
         @else
-            <a href="{{ route('habilitarPostulante', $prePostulante->id) }}" id="pre-posts-habilitar" type="button" class="btn btn-success my-3 col-xs-2">Habilitar Postulanciones</a>  
+            <a href="{{ route('habilitarPostulante', $conv->id) }}" id="pre-posts-habilitar" type="button" class="btn btn-success my-3 col-xs-2">Habilitar Postulanciones</a>  
         @endif
     </div>
     

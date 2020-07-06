@@ -8,6 +8,7 @@ use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
 use App\Http\Requests\AdmConvocatoria\AdmAvisoRequest;
 use App\Http\Requests\AdmConvocatoria\AdmAvisoUpdateRequest;
 use App\Models\Aviso;
+use App\Models\Convocatoria;
 
 class AdmAvisosController extends Controller
 {
@@ -20,7 +21,9 @@ class AdmAvisosController extends Controller
     {
         $convActual = session()->get('convocatoria');
         $listAvisos = Aviso::where('id_convocatoria','=',$convActual)->get();
-        return view('admConvocatoria.admAvisos',compact('listAvisos'));
+
+        $conv = Convocatoria::find($convActual);
+        return view('admConvocatoria.admAvisos',compact('listAvisos', 'conv'));
     }
     
     public function create(AdmAvisoRequest $request )

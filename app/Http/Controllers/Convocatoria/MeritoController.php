@@ -8,6 +8,7 @@ use App\Http\Requests\MeritoRequest;
 use App\Http\Controllers\Utils\Convocatoria\MeritoComp;
 use App\Models\Merito;
 use App\Models\Calificacion_final;
+use App\Models\Convocatoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +28,10 @@ class MeritoController extends Controller
         $idConv = session()->get('convocatoria');
         $listaOrdenada = (new MeritoComp)->getMeritos($idConv);
         $porcentajesConvocatoria = Calificacion_final::where('id_convocatoria',$idConv)->first();
-        return view('convocatory.meritos', compact('listaOrdenada','porcentajesConvocatoria'));
+        
+        $conv = Convocatoria::find($idConv);
+
+        return view('convocatory.meritos', compact('listaOrdenada','porcentajesConvocatoria','conv'));
     }
 
     /**

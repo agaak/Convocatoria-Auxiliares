@@ -8,6 +8,7 @@ use App\Models\Auxiliatura;
 use App\Models\Requerimiento;
 use App\Models\Postulante;
 use App\Models\Convocatoria;
+use App\Models\Calificacion_final;
 use App\Models\Postulante_auxiliatura;
 use App\Models\Postulante_conovocatoria;
 
@@ -25,6 +26,9 @@ class AdmNotasFinalesController extends Controller
         ->where('convocatoria.id',$id_conv)->get();
         $titulo_conv=$titulo_conv[0]['titulo'];
 
+        $porcentaje_conoc = Calificacion_final::where('id_convocatoria', session()->get('convocatoria'))->value('porcentaje_conocimiento'); 
+        $porcentaje_merit = Calificacion_final::where('id_convocatoria', session()->get('convocatoria'))->value('porcentaje_merito'); 
+
         $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id')
         ->join('requerimiento','auxiliatura.id','=','requerimiento.id_auxiliatura')
         ->where('id_convocatoria',$id_conv)
@@ -39,11 +43,14 @@ class AdmNotasFinalesController extends Controller
         ->where('postulante_auxiliatura.habilitado', true)
         ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','calf_fin_postulante_conoc.nota_final_conoc','calf_final_postulante_merito.nota_final_merito','not_fin')
         ->get();
+        foreach($listaPost as $post){
+            $post->nota_final_conoc = number_format($post->nota_final_conoc*$porcentaje_conoc/100 ,2);
+            $post->nota_final_merito = number_format($post->nota_final_merito*$porcentaje_merit/100 ,2);
+        }
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
-        //return $listaPost;
-        // return view('admConvocatoria.admResultados',compact('listaAux','listaPost','titulo_conv'));
-        
-        return view('admResultados.admResNotasFinales',compact('listaAux','listaPost','titulo_conv'));
+
+        return view('admResultados.admResNotasFinales',compact('listaAux','listaPost','titulo_conv',
+                'porcentaje_conoc','porcentaje_merit'));
     }
 
 }

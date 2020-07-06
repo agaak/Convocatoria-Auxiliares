@@ -8,6 +8,7 @@ use App\Models\Postulante;
 use App\Models\Postulante_conovocatoria;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Utils\Convocatoria\MeritoComp;
+use App\Models\Convocatoria;
 
 class NotasMeritoController extends Controller
 {
@@ -21,7 +22,10 @@ class NotasMeritoController extends Controller
         ->orderBy('postulante.apellido','ASC')
         ->get() ;
         $postulantes = collect($postulantes)->unique('id');
-        return view('verConvocatoria.notasMerito', compact('postulantes'));
+
+        $conv = Convocatoria::find(session()->get('convocatoria'));
+
+        return view('verConvocatoria.notasMerito', compact('postulantes', 'conv'));
     }
 
     public function meritos($idEst){
@@ -47,7 +51,9 @@ class NotasMeritoController extends Controller
                     ->get(); 
         $listaMeritos=(new MeritoComp)->getMeritos($id);
 
-        return view('verConvocatoria.notasMeritoEstudiante',compact('id', 'lista', 'estudiante', 'listaMeritos','notaFinalMerito'));
+        $conv = Convocatoria::find($id);
+
+        return view('verConvocatoria.notasMeritoEstudiante',compact('id', 'lista', 'estudiante', 'listaMeritos','notaFinalMerito','conv'));
     
     }
 }

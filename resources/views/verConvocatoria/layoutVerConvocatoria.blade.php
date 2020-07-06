@@ -10,7 +10,7 @@
                     return request()->is($url)? 'navbar-lateral-active': '';
                 }
             @endphp
-            <h2 class="text-uppercase title-navbar">convocatoria actual</h2>
+            <h2 class="title-navbar">{{ $conv->titulo }}</h2>
             <ul class="container-list-ver m-2">
                 <li class="navbar-item-ver"><a href="{{ route('requests') }}" class="link-list">Ver Detalles</a></li>
                 <li class="navbar-item-ver mb-2">
@@ -20,10 +20,10 @@
                 </li>
             </ul>
             <ul class="container-list">
-                <li class="navbar-item {{ activeMenuConten('convocatoria/lista-habilitados') }}">
+                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-*') }}">
                     <a class="link-list" href="{{ route('listHabilitados') }}">Lista Habilitados</a>
                 </li>
-                <li class="navbar-item {{ activeMenuConten('convocatoria/notas-merito') }}">
+                <li class="navbar-item {{ activeMenuConten('convocatoria/notas-merito*') }}">
                     <a class="link-list" href="{{ route('notasMerito') }}">Notas de Merito</a>
                 </li>
                 <li class=" {{ activeMenuConten('convocatoria/notas-conocimiento*') }}">

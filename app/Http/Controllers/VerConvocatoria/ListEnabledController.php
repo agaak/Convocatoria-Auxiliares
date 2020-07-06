@@ -4,6 +4,7 @@ namespace App\Http\Controllers\VerConvocatoria;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Convocatoria;
 use App\Models\Postulante_auxiliatura;
 use App\Models\Postulante;
 class ListEnabledController extends Controller
@@ -22,9 +23,11 @@ class ListEnabledController extends Controller
         ->where('estado','publicado')
         ->orderBy('apellido','ASC')->get();
 
+        $conv = Convocatoria::find(session()->get('convocatoria'));
+
         foreach($listPostulantes as $item){
             $item->nombre_aux = $listPostulanteAux[$item['id']];
         }
-        return view('verConvocatoria.listaHabilitados',compact('listPostulantes'));
+        return view('verConvocatoria.listaHabilitados',compact('listPostulantes', 'conv'));
     }
 }

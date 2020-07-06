@@ -11,6 +11,7 @@ use App\Models\PostuCalifMeritoFinal;
 use App\Models\Postulante_auxiliatura;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Utils\Convocatoria\MeritoComp;
+use App\Models\Convocatoria;
 
 class AdmMeritosController extends Controller
 {
@@ -48,10 +49,14 @@ class AdmMeritosController extends Controller
             ->where('estado','publicado')->get()->isNotEmpty();
         $entregado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','entregado')->get()->isNotEmpty();
-        return view('admResultados.admResMeritos', compact('postulantes','publicado','entregado'));
+
+        $conv = Convocatoria::find($id_conv);
+
+        return view('admResultados.admResMeritos', compact('postulantes','publicado','entregado','conv'));
     }
 
     public function meritos($idEst){
+        
         $id= session()->get('convocatoria');
         $estudiante=DB::table('postulante')->where('id', $idEst)->get();
         $idNotaFinalMerito=DB::table('calf_final_postulante_merito')
@@ -73,8 +78,9 @@ class AdmMeritosController extends Controller
                     ->where('calificacion_merito.id_postulante', $idEst)
                     ->get(); 
         $listaMeritos=(new MeritoComp)->getMeritos($id);
-        
-        return view('admResultados.notasMeritoEstudiante',compact('id', 'lista', 'estudiante', 'listaMeritos','notaFinalMerito'));
+
+        $conv = Convocatoria::find($id);
+        return view('admResultados.notasMeritoEstudiante',compact('id', 'lista', 'estudiante', 'listaMeritos','notaFinalMerito', 'conv'));
     
     }
 

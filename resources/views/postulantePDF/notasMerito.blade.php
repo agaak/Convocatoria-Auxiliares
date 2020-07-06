@@ -52,10 +52,11 @@
             margin-left: 0;
             margin-right: 0;
         }
-        .row_ci{width: 15%}
         .row_name{width: 30%}
-        .row_ap{width: 30%}
+        .row_nro{width: 7%}
+        .row_ic{width: 15%;}
         .row_mer{width: 15%}
+        .row_ap{width: 30%}
         .page_break { page-break-before: auto; }
         .aprob{background-color: aquamarine;}
         body {
@@ -71,8 +72,8 @@
         <thead>
             <tr>
             <th class="row_ci">CI</th>    
-            <th class="row_name">Apellido</th>
-            <th class="row_name">Nombre</th>
+            <th class="row_name">Apellidos</th>
+            <th class="row_name">Nombres</th>
             <th class="row_con">Nota final meritos</th>
             </tr>
         </thead>

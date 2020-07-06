@@ -100,7 +100,7 @@
                                 <li class="nav-item">
                                     <div class="dropdown">
                                         <a class="nav-link dropdown-toggle {{ activeMenu('catalogo') }}" href="#" role="button" id="catalogoLinks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Catalogo
+                                            Catálogo
                                         </a>
                                         <div class="dropdown-menu bg-dark p-1" aria-labelledby="catalogoLinks">
                                             <a class="dropdown-item {{ activeMenu('catalogo/docencia') }}" href="{{ route('docencia.index') }}">Docencia</a>

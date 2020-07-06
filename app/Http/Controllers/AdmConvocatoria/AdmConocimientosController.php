@@ -74,7 +74,10 @@ class AdmConocimientosController extends Controller
 
         }
         $listaEva = EvaluadorConocimientos::get();
-        return view('admConvocatoria.admConocimientos', compact('listaEva', 'listaMultiselect','lista_tem_aux','evaluadores','tipoConvocatoria'));
+
+        $conv = Convocatoria::find($id_conv);
+
+        return view('admConvocatoria.admConocimientos', compact('listaEva', 'listaMultiselect','lista_tem_aux','evaluadores','tipoConvocatoria','conv'));
     }
 
     public function inicio($id) {
