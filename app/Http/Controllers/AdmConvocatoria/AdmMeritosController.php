@@ -10,6 +10,7 @@ use App\Http\Requests\AdmConvocatoria\AdmMeritosUpdateRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Convocatoria;
 
 class AdmMeritosController extends Controller
 {
@@ -29,8 +30,10 @@ class AdmMeritosController extends Controller
             ->where('id_rol_evaluador','1')->get();
 
         $listEvaluadores = EvaluadorConocimientos::get();
+
+        $conv = Convocatoria::find($id_conv);
         
-        return view('admConvocatoria.admMeritos',compact('listEvaluadorMerit','listEvaluadores'));
+        return view('admConvocatoria.admMeritos',compact('listEvaluadorMerit','listEvaluadores','conv'));
     }
 
     public function create(Request $request) {

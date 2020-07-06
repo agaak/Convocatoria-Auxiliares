@@ -4,7 +4,7 @@
 
 <div class="overflow-auto content">
 
-    <h3 class="text-uppercase text-left">Calificación de Méritos</h3>
+    <h3>Sección de Calificación de Méritos</h3>
 
     {{-- Descripcion del contenido y adjunto un icono para edita esta descripcion en un modal --}}
     <div class="row ml-1 mr-1 {{session()->get('ver')? 'my-4': ''}}">

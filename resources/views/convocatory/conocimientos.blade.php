@@ -4,7 +4,7 @@
 
 <div class="overflow-auto content">
 
-  <h3 class="text-uppercase">Calificacion de Conocimientos</h3>
+  <h3>Sección Calificación de Conocimientos</h3>
 
   <div class="card border-dark mb-3 {{session()->get('ver')? 'my-4': ''}}">
     <div class="card-body">

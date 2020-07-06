@@ -2,7 +2,7 @@
 
 @section('content-adm-convocatoria')
 <div class="overflow-auto content">
-    <h3 class="text-uppercase text-center">Comision de evaluacion de meritos</h3>
+    <h3>Comisión de Evaluacion de Meritos</h3>
 
     <!-- Trigger modal -->
     <button type="button" class="btn btn-dark my-3" data-toggle="modal" 

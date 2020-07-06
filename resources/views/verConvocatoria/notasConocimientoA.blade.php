@@ -2,9 +2,9 @@
 
 @section('content-resultados')
     <div class="overflow-auto content">
-        <h1>NOTAS CONOCIMIENTO AUXILIATURA</h1>
+        <h3>Notas de Conocimiento por Auxiliatura</h3>
         
-    <div class="container">
+    <div class="table-requests">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" id="myTab" role="tablist">
           @php $initTabs = true @endphp

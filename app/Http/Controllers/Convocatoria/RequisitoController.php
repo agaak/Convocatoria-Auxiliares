@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Convocatoria\RequisitoCreateRequest;
 use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
+use App\Models\Convocatoria;
 use App\Models\Requisito;
 class RequisitoController extends Controller
 {
@@ -49,6 +50,9 @@ class RequisitoController extends Controller
         if ($notaActual) {
             $datoNota = DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 1)->get()[0];
         }
-        return view('convocatory.requisitos', compact('requerimients', 'datoNota'));
+        
+        $conv = Convocatoria::find($convActual);
+
+        return view('convocatory.requisitos', compact('requerimients', 'datoNota','conv'));
     }
 }

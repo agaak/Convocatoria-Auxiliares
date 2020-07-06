@@ -14,7 +14,11 @@ class NotasTematicaController extends Controller
 {
     public function index() {
         $id_conv = session()->get('convocatoria');
-        $tipoConv = Convocatoria::where('id', $id_conv)->value('id_tipo_convocatoria');
+
+        $conv = Convocatoria::find($id_conv);
+
+        $tipoConv = $conv->id_tipo_convocatoria;
+
         $tematicas = (new ConocimientosComp)->getItems($id_conv);
         $tematicas= $tipoConv === 1? $tematicas : (new RequerimientoComp)->getRequerimientos2($id_conv);
 
@@ -34,6 +38,6 @@ class NotasTematicaController extends Controller
             $tem->publicado = $publicado;
         }
         
-        return view('verConvocatoria.notasConocimientoT',compact('tematicas','tipoConv'));
+        return view('verConvocatoria.notasConocimientoT',compact('tematicas','tipoConv','conv'));
     }
 }

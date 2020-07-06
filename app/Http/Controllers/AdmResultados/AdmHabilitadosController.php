@@ -10,6 +10,7 @@ use App\Models\Postulante_auxiliatura;
 use App\Models\Postulante_conovocatoria;
 use App\Http\Controllers\Utils\Convocatoria\RequisitoComp;
 use App\Http\Controllers\Utils\Evaluador\EvaluarRequisitos;
+use App\Models\Convocatoria;
 
 class AdmHabilitadosController extends Controller
 {
@@ -43,8 +44,10 @@ class AdmHabilitadosController extends Controller
         foreach($listPostulantes as $item){
             $item->nombre_aux = $listPostulanteAux[$item['id']];
         }
+
+        $conv = Convocatoria::find($id_conv);
         // return $listPostulantes->get();
-        return view('admResultados.admHabilitados',compact('listPostulantes','publicado','entregado'));
+        return view('admResultados.admHabilitados',compact('listPostulantes','publicado','entregado','conv'));
     }
 
     public function publicar(){
@@ -59,17 +62,18 @@ class AdmHabilitadosController extends Controller
         $auxiliaturas = (new EvaluarRequisitos)->getAuxiliaturas($idPostulante);
         $requisitos = (new RequisitoComp)->getRequisitos(session()->get('convocatoria'));
         $mapVerifications = (new EvaluarRequisitos)->getMapVerification($auxiliaturas,$requisitos);
+        $conv = Convocatoria::find(session()->get('convocatoria'));
         if (auth()->check()){
             if (auth()->user()->hasRoles(['administrador'])){
                 return view('admResultados.admRequisitosPost',
-                compact('postulante','auxiliaturas','requisitos','mapVerifications','idPostulante'));
+                compact('postulante','auxiliaturas','requisitos','mapVerifications','idPostulante','conv'));
             } else {
                 return view('verConvocatoria.requisitoPostulante',
-                compact('postulante','auxiliaturas','requisitos','mapVerifications','idPostulante'));
+                compact('postulante','auxiliaturas','requisitos','mapVerifications','idPostulante','conv'));
             }
         }else{
             return view('verConvocatoria.requisitoPostulante',
-                compact('postulante','auxiliaturas','requisitos','mapVerifications','idPostulante'));
+                compact('postulante','auxiliaturas','requisitos','mapVerifications','idPostulante','conv'));
         }
         
     }

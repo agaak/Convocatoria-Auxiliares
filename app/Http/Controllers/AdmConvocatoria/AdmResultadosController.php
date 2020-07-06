@@ -23,6 +23,7 @@ class AdmResultadosController extends Controller
         $id_conv = session()->get('convocatoria');
         $titulo_conv= Convocatoria::select('convocatoria.titulo')
         ->where('convocatoria.id',$id_conv)->get();
+
         $titulo_conv=$titulo_conv[0]['titulo'];
 
         $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id')
@@ -40,8 +41,10 @@ class AdmResultadosController extends Controller
         ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','calf_fin_postulante_conoc.nota_final_conoc','calf_final_postulante_merito.nota_final_merito','not_fin')
         ->get();
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
+
+        $conv = Convocatoria::find($id_conv);
         //return $listaPost;
-        return view('admConvocatoria.admResultados',compact('listaAux','listaPost','titulo_conv'));
+        return view('admConvocatoria.admResultados',compact('listaAux','listaPost','titulo_conv', 'conv'));
     }
     
 }

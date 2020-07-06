@@ -2,7 +2,7 @@
 
 @section('content-adm-resultados')
 
-  <div class="overflow-auto content" style="width: 100vw; height: 77vh;">
+  <div class="overflow-auto content">
 
     <h3>Lista de Habilitados</h3>
       

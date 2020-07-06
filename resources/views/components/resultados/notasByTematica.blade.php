@@ -1,4 +1,4 @@
-<div class="container">
+<div class="table-requests">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         @php $initTabs = true @endphp

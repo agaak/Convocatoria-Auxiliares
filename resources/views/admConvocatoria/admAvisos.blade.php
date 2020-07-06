@@ -2,9 +2,9 @@
 
 @section('content-adm-convocatoria')
 
-  <div class="overflow-auto content" style="width: 100vw; height: 77vh;">
+  <div class="overflow-auto content">
 
-  <h3 class="text-uppercase">Avisos</h3>
+  <h3>Avisos</h3>
   <!-- Button trigger modal -->
   <div class="row mr-1 ml-1">
     <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 

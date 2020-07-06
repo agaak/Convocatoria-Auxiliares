@@ -27,7 +27,8 @@ class AdmConocimientosController extends Controller
     public function index()
     {   
         $id_conv = session()->get('convocatoria');
-        $tipoConv = Convocatoria::where('id', $id_conv)->value('id_tipo_convocatoria');
+        $conv = Convocatoria::find($id_conv);
+        $tipoConv = $conv->id_tipo_convocatoria;
         $tematicas = (new ConocimientosComp)->getItems($id_conv);
         $tematicas= $tipoConv === 1? $tematicas : (new RequerimientoComp)->getRequerimientos2($id_conv);
         // return $tematicas;
@@ -51,7 +52,7 @@ class AdmConocimientosController extends Controller
             $tem->entregado = $entregado;
         }
         /* return $tematicas; */
-        return view('admResultados.admResConocimientos',compact('tematicas','tipoConv'));
+        return view('admResultados.admResConocimientos',compact('tematicas','tipoConv','conv'));
     }
 
     public function publicar($id_tem,$nom){

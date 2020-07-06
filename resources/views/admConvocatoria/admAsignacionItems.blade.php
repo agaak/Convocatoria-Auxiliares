@@ -2,7 +2,7 @@
 
 @section('content-adm-convocatoria')
 <div class="overflow-auto content">
-    <h3>Asignacion de items</h3>
+    <h3>Asignacion de Items</h3>
     <div class="container">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">

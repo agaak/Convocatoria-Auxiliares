@@ -17,8 +17,10 @@ class AdmNotasFinalesController extends Controller
     public function index()
     {   
         $id_conv = session()->get('convocatoria');
+
+        $conv = Convocatoria::find($id_conv);
         
-        return view('admResultados.admResMeritos');
+        return view('admResultados.admResMeritos', compact('conv'));
     }
 
 }

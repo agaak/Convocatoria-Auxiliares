@@ -2,9 +2,9 @@
 
 @section('content-adm-resultados')
 
-  <div class="overflow-auto content" style="width: 100vw; height: 77vh;">
+  <div class="overflow-auto content">
 
-    <h3>Calificacion de Conocimientos</h3>
+    <h3>Calificación de Conocimientos</h3>
       
     @component('components.resultados.notasByTematica', 
       ['tematicas' => $tematicas, 'tipoConv' => $tipoConv])

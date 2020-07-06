@@ -20,9 +20,9 @@
                 <p class="text-center"><span class="text-uppercase font-weight-bold border-bottom border-dark">{{ $conv->titulo }}</span></p>
             @endif
         @endforeach
-        <h2>
-            Calificacion de meritos del estudiante:
-        </h2>
+        <h3>
+            Calificación de Meritos del Estudiante:
+        </h3>
         <h3>
             {{ $estudiante[0]->nombre }} {{ $estudiante[0]->apellido }}
         </h3>

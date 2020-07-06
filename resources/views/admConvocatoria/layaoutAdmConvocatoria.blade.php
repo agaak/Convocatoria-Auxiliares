@@ -10,7 +10,7 @@
                     return request()->is($url)? 'navbar-lateral-active': '';
                 }
             @endphp
-            <h2 class="text-uppercase title-navbar">titulo convocatoria</h2>
+            <h2 class="title-navbar">{{ $conv->titulo }}</h2>
             <ul class="container-list">
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-conocimientos') }}">
                     <a class="link-list" href="{{ route('admConocimientos') }}">Comision de evaluación de conocimientos</a>

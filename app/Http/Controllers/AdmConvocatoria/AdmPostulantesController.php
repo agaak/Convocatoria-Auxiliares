@@ -48,10 +48,10 @@ class AdmPostulantesController extends Controller
         ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
         ->where('requerimiento.id_convocatoria',$id_conv)->get();
         
-        $prePostulante = Convocatoria::find($id_conv);
+        $conv = Convocatoria::find($id_conv);
 
         // return $listPostulantes;
-        return view('admConvocatoria.admPostulantes',compact('listPostulantes','listaAux','listaRotulos','prePostulante'));
+        return view('admConvocatoria.admPostulantes',compact('listPostulantes','listaAux','listaRotulos','conv'));
     }
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdmResultados;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Auxiliatura;
+use App\Models\Convocatoria;
 use App\Models\Postulante;
 
 class AdmAsignacionController extends Controller
@@ -18,7 +19,9 @@ class AdmAsignacionController extends Controller
     {   
         $id_conv = session()->get('convocatoria');
 
-        return view('admResultados.admAsignaciones');
+        $conv = Convocatoria::find($id_conv);
+
+        return view('admResultados.admAsignaciones', compact('conv'));
     }
 
 }
