@@ -16,34 +16,37 @@
                 @endif    
             @endforeach
         </h3>
-        @if ($tipoConv === 1)
-            @component('components.calificaciones.tablaPostulantesConocByTem',
-                ['postulantes'=>$postulantes])
-            @endcomponent 
+        @if($publicado_habilitados)
+            @if ($tipoConv === 1)
+                @component('components.calificaciones.tablaPostulantesConocByTem',
+                    ['postulantes'=>$postulantes])
+                @endcomponent 
+            @else
+                @component('components.calificaciones.tablaPostulantesConocByAux',
+                    ['postulantes'=>$postulantes])
+                @endcomponent 
+            @endif
+            <div class="text-center">
+                {!! $errors->first('id-evaluador', '<strong class="message-error text-danger">:message</strong>') !!}<br>
+                <form class="d-inline" action="{{ route('entregarConocimientos',['id' => $id_tem, 'tem' => $nom ]) }}"
+                    method="POST" id="evaluador-meritos-delete">
+                    {{ csrf_field() }}
+                    <input type="hidden"  name="id-evaluador">
+                    @if($entregado || $publicado)
+                        <button type="submit" class="btn btn-info" disabled>Entregar Todo</button> 
+                        <div class="text-right">
+                            <button type="button" class="btn btn-secondary">
+                            <a href="/evaluador/calificar/conocimiento/{{ $id_tem}}/{{$nom}}/pdf" style="color: #FFFF;">PDF</a>
+                            </button>
+                        </div>
+                    @else
+                        <button type="submit" class="btn btn-info">Entregar Todo</button> 
+                    @endif   
+                </form>
+            </div>
         @else
-            @component('components.calificaciones.tablaPostulantesConocByAux',
-                ['postulantes'=>$postulantes])
-            @endcomponent 
+            <h5 class="text-center mt-5"><strong>Aun no hay postulantes habilitados</strong></h5>
         @endif
-        
-        <div class="text-center">
-            {!! $errors->first('id-evaluador', '<strong class="message-error text-danger">:message</strong>') !!}<br>
-            <form class="d-inline" action="{{ route('entregarConocimientos',['id' => $id_tem, 'tem' => $nom ]) }}"
-                method="POST" id="evaluador-meritos-delete">
-                {{ csrf_field() }}
-                <input type="hidden"  name="id-evaluador">
-                @if($entregado || $publicado)
-                    <button type="submit" class="btn btn-info" disabled>Entregar Todo</button> 
-                    <div class="text-right">
-                        <button type="button" class="btn btn-secondary">
-                          <a href="/evaluador/calificar/conocimiento/{{ $id_tem}}/{{$nom}}/pdf" style="color: #FFFF;">PDF</a>
-                        </button>
-                      </div>
-                @else
-                    <button type="submit" class="btn btn-info">Entregar Todo</button> 
-                @endif   
-            </form>
-        </div>
     
     </div>
     

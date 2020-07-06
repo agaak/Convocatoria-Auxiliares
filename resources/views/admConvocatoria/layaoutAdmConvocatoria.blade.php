@@ -24,12 +24,12 @@
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-avisos') }}">
                     <a class="link-list" href="{{ route('admAvisos') }}">Avisos</a>
                 </li>
-                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-resultados') }}">
+                {{-- <li class="navbar-item {{ activeMenuConten('convocatoria/adm-resultados') }}">
                     <a class="link-list" href="{{ route('admResultados') }}">Resultados</a>
                 </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-asignacion') }}">
                     <a class="link-list" href="{{ route('admAsignacion') }}">Asignacion de Items</a>
-                </li>
+                </li> --}}
             </ul>
         </nav>
 

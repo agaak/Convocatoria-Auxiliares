@@ -25,7 +25,7 @@
                           <th class="font-weight-normal" scope="col">Nombre completo</th>
                           @foreach ($auxiliatura->tematicas as $tematica)
                           
-                          <th class="font-weight-normal" scope="col">{{ $tematica->nombre }}</th>
+                          <th class="font-weight-normal" scope="col">{{ $tematica->nombre }}/{{ $tematica->porcentaje }}</th>
                               
                           @endforeach
                         
@@ -53,7 +53,6 @@
       @endforeach
   </div>
 </div>
-
 <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
 @foreach ($listaAux as $auxiliatura)
   <script>
