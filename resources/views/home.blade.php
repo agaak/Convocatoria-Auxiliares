@@ -37,30 +37,11 @@
 
     {{-- Anuncios --}}
     
-    <h4 class="text-center">Anuncios</h4>
+    <h4 class="text-center" style="margin-top: 20px">Anuncios</h4>
 
-    @foreach($listAvisos as $aviso)
-        @component('components.cardAviso', 
-        ['aviso' => $aviso])
-        @endcomponent
-    @endforeach
-    {{-- <div class="list-cards">
-        <div class="card">
-            <div class="card-header">
-              Nombre o Título de la convocatoria
-            </div>
-            <div class="card-body">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </p>
-            </div>
-            <div class="card-footer text-muted p-1">
-              Fecha de convocatoria
-            </div>
-            <div class="btn-home">
-                <a href="" class="btn btn-info">Ir a convocatoria</a>
-            </div>
-        </div>
-    </div> --}}
+    {{-- Carrusel de cards con datos grals. de un aviso --}}
+    @component('components.carruselAviso', 
+    ['listAvisos' => $listAvisos])
+    @endcomponent
 </div>
 @endsection

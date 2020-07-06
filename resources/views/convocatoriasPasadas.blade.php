@@ -55,27 +55,13 @@
     <div class="col-sm-1">
         <button class="btn btn-dark btn-rounded btn-sm my-0 " type="submit" form="convsPasadasSearch">Buscar</button>
     </div>
-        {{-- Carrusel de cards con datos grals. de una convocatoria --}}
-        @if (auth()->check())        
-            @if (auth()->user()->hasRoles(['administrador']))
-                @component('components.carruselConvocatoria', 
-                    ['convos' => $convosPasadas, 'auxs' => $auxs])
-                @endcomponent 
-            @else 
-                @component('components.carruselConvocatoria', 
-                    ['convos' => $convosPasadas, 'auxs' => $auxs])
-                @endcomponent 
-            @endif
-        @else
-            @component('components.carruselConvocatoria', 
-                ['convos' => $convosPasadas, 'auxs' => $auxs])
-            @endcomponent 
-        @endif
-    
-        </div>
-        <script>
-            $(document).ready(function() {
-$('.mdb-select').materialSelect();
-});
-        </script>
+        @component('components.carruselConvocatoria', 
+        ['convos' => $convosPasadas, 'auxs' => $auxs])
+        @endcomponent
+    </div>
+    <script>
+        $(document).ready(function() {
+        $('.mdb-select').materialSelect();
+        });
+    </script>
 @endsection
