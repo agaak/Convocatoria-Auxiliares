@@ -11,7 +11,9 @@
         <th style="font-weight: normal" scope="col">Observacion</th>
         @if (auth()->check())
             @if (auth()->user()->hasRoles(['evaluador']))
-                <th style="font-weight: normal" scope="col">Calificar</th>    
+                @if (!$publicado)
+                    <th style="font-weight: normal" scope="col">Calificar</th> 
+                @endif
             @else
                 <th style="font-weight: normal" scope="col">Ver Detalles</th> 
             @endif
@@ -46,10 +48,11 @@
             @endforeach
             @if (auth()->check())
                 @if (auth()->user()->hasRoles(['evaluador']))
+                    @if (!$publicado)
                     <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
                         <a class="options" href="{{ route('calificarRequisito.index', $item->id) }}">
                         <img src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
-                    </td>  
+                    </td>  @endif
                 @else
                     <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
                         <a class="options" href="{{ route('admHabilitadosPost', $item->id) }}">Ver</a>

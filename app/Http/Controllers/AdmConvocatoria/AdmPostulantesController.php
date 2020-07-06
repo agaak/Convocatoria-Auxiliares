@@ -49,6 +49,8 @@ class AdmPostulantesController extends Controller
         ->where('requerimiento.id_convocatoria',$id_conv)->get();
         
         $prePostulante = Convocatoria::find($id_conv);
+
+        // return $listPostulantes;
         return view('admConvocatoria.admPostulantes',compact('listPostulantes','listaAux','listaRotulos','prePostulante'));
     }
 
@@ -84,6 +86,7 @@ class AdmPostulantesController extends Controller
         $postulante->cod_sis = request()->input('cod-sis');
         $postulante->telefono = request()->input('telefono');
         $postulante->ci = request()->input('ci');
+        $postulante->hojas = request()->input('hojas');
         $postulante->save();
         
         $postulante_con = new Postulante_conovocatoria();

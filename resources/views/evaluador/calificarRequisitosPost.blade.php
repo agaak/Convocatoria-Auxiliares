@@ -16,7 +16,7 @@
             @endif
     <!-- Table -->
     @component('components.resultados.listaHabilitados', 
-        ['listPostulantes' => $listPostulantes])
+        ['listPostulantes' => $listPostulantes, 'publicado' => $publicado])
     @endcomponent
     <div class="text-center">
         {!! $errors->first('id-evaluador', '<strong class="message-error text-danger">:message</strong>') !!}<br>
@@ -25,7 +25,7 @@
             {{ csrf_field() }}
             <input type="hidden"  name="id-evaluador">
             @if($entregado || $publicado)
-                <button type="submit" class="btn btn-info" disabled>Entregar Todo</button> 
+                <button type="submit" class="btn btn-info" disabled>Entregado</button> 
             @else
                 <button type="submit" class="btn btn-info">Entregar Todo</button> 
             @endif   

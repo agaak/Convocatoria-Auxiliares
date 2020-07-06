@@ -6,6 +6,7 @@ use App\Models\Convocatoria;
 use App\Models\Requerimiento;
 use App\Models\Tipo;
 use App\Models\User;
+use App\Models\Role;
 use App\Models\UserRol;
 use App\Http\Requests\ConvocatoriaRequest;
 use App\Http\Controllers\Utils\ConvocatoriaComp as Convos;
@@ -88,6 +89,7 @@ class ConvocatoriaController extends Controller
     {
         $evaluadorUtils =  new EvaluadorComp();
         $convUtils = new ConvocatoriaComp();
+        $id_uniadad = Convocatoria::where('id',session()->get('convocatoria'))->value('id_unidad_academica');
         $evaluadores = $evaluadorUtils->getEvaluadoresConvo($id);
         foreach($evaluadores as $eva){
             $roles = $evaluadorUtils->getRolesEvaluador($eva->id_eva_con);
@@ -113,10 +115,11 @@ class ConvocatoriaController extends Controller
                 // $user->password = bcrypt($contrasenia);
                 // $user->email = $correo;
                 // $user->userToken = $eva->ci;
+                // $user->unidad_academica_id = $id_uniadad;
                 // $user->save();
                 // $userRol = new UserRol();
                 // $userRol->user_id = $user->id;
-                // $userRol->role_id = 2;
+                // $userRol->role_id = Role::where('name','evaluador')->value('id');
                 // $userRol->save();
             }else{
                 // User::where('userToken',$eva->ci)->update([

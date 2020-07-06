@@ -11,7 +11,8 @@
         <h3>
             Calificacion de meritos
         </h3>
-        @component('components.calificaciones.tablaPostulantesMeritos',['postulantes'=>$postulantes])
+        @component('components.calificaciones.tablaPostulantesMeritos',
+                ['postulantes'=>$postulantes, 'publicado'=> $publicado])
         @endcomponent
 
         <div class="text-center">

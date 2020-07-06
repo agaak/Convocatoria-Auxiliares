@@ -9,7 +9,9 @@
           <th style="font-weight: normal" scope="col">Nota Final</th>
           @if (auth()->check())
             @if (auth()->user()->hasRoles(['evaluador']))
+            @if (!$publicado)
               <th style="font-weight: normal" scope="col">Calificar</th>
+              @endif
             @else
               <th style="font-weight: normal" scope="col">Ver detalles</th>
             @endif
@@ -28,23 +30,23 @@
             <td>{{$postulante->apellido}}</td>
             <td>{{ $postulante->nombre }}</td>
             @if($postulante->nota > 0)  <td>{{$postulante->nota}}</td> @else <td>-</td> @endif
-            <td>
             @if (auth()->check())
               @if (auth()->user()->hasRoles(['evaluador']))
-                <a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}"><img
+              @if (!$publicado)
+              <td><a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}"><img
                   src="{{ asset('img/pen.png') }}" width="25" height="25">
-                </a>
+                </a></td>
+                @endif
               @else
                 @if(auth()->user()->hasRoles(['administrador']))
-                <a class="options" href="{{ route('notasResMeritoEst', $idEst) }}">Ver</a>
+                <td><a class="options" href="{{ route('notasResMeritoEst', $idEst) }}">Ver</a></td>
                 @else  
-                  <a class="options" href="{{ route('notasMeritoEst', $idEst) }}">Ver</a>
+                <td><a class="options" href="{{ route('notasMeritoEst', $idEst) }}">Ver</a></td>
                 @endif
               @endif
             @else
-              <a class="options" href="{{ route('notasMeritoEst', $idEst) }}">Ver</a>
+            <td><a class="options" href="{{ route('notasMeritoEst', $idEst) }}">Ver</a></td>
             @endif 
-            </td>
         </tr>
         @endforeach
       </tbody>

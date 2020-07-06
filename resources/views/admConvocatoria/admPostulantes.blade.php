@@ -19,36 +19,27 @@
     <!-- Table -->
     <div class="table-requests1" >
         <table id="postulantes" class="table table-striped table-bordered" style="width:100%" style="text-align:left">
-        <thead class="thead-dark">
+        <thead class="thead-dark text-center">
             <tr> 
             <th style="font-weight: normal" scope="col">Item</th>
             <th style="font-weight: normal" scope="col">CI</th>
-            <th style="font-weight: normal" scope="col">Nombre</th>
+            <th style="font-weight: normal" scope="col">Apellidos</th>
+            <th style="font-weight: normal" scope="col">Nombres</th>
             <th style="font-weight: normal" scope="col" class="text-center">Fecha y Hora</th>
-            {{-- th style="font-weight: normal" scope="col">Apellidos</th> --}}
-            <th style="font-weight: normal" scope="col">Habilitado</th>
-            <th style="font-weight: normal" scope="col">Observaciones</th>
+            <th style="font-weight: normal" scope="col">Telefono</th>
+            <th style="font-weight: normal" scope="col">N° Hojas</th>
             </tr>
         </thead>
         <tbody style="background-color: white">
             @foreach($listPostulantes as $item)
                 <tr>
                 <th style="font-weight: normal">{{$item->nombre_aux}}</th>
-                <th style="font-weight: normal">{{ $item->ci }}</th>
-                <th style="font-weight: normal">{{ $item->apellido }} {{ $item->nombre }}</th>
-                <th style="font-weight: normal" class="text-center">{{ $item->created_at }}</th>
-                {{-- <th style="font-weight: normal">{{ $item->apellido }}</th> --}}
-                @if ($item->habilitado===null)
-                    <th >-</th>
-                @else
-                    @if ($item->habilitado)
-                        <th >Si</th>
-                    @else
-                        <th >No</th>
-                    @endif
-                @endif
-                {{-- <th style="font-weight: normal">{{ $item->habilitado }}</th> --}}
-                <th style="font-weight: normal">{{ $item->observacion }}</th>
+                <td class="text-center">{{ $item->ci }}</td>
+                <th style="font-weight: normal">{{ $item->apellido }}</th>
+                <th style="font-weight: normal">{{ $item->nombre }}</th>
+                <td class="text-center">{{ $item->created_at }}</td>
+                <td class="text-center">{{ $item->telefono }}</td>
+                <td  class="text-center">{{ $item->hojas }}</td>
                 </tr>
             @endforeach
         </tbody>

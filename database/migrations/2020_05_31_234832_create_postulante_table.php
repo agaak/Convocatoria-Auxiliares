@@ -47,6 +47,7 @@ class CreatePostulanteTable extends Migration
             $table->string('cod_sis');
             $table->integer('telefono');
             $table->integer('ci');
+            $table->integer('hojas');
             $table->timestamps();
         });
 
