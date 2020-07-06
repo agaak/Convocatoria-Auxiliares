@@ -126,9 +126,11 @@ body {
 }
 
 .title-navbar {
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: bold;
     color: white;
     text-align: center;
+    text-transform: uppercase;
     background-color: #002640;
     padding: 20px 5px;
     margin: 0;
@@ -165,17 +167,16 @@ body {
     margin-right: 3ch;
 }
 
-.modal-header {
-    background-color: #001523;
-    padding: 0;
-}
 
 .modal-header {
     /* height: 90px; */
+    background-color: #001523;
     display: flex;
-    align-items: center;
+    align-items: center !important;
     color: white;
     font-size: 30px;
+    padding-top: .3rem !important;
+    padding-bottom: .3rem !important;
     padding-left: 1rem;
     margin: 0;
 }
@@ -396,7 +397,7 @@ input[type=number] {
 .card-personal {
     border: 1px solid black;
     margin-bottom: 1rem;
-    border-radius: 5px 5px;
+    border-radius: 1px;
 }
 
 .card-personal-title {

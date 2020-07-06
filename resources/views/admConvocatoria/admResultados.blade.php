@@ -2,7 +2,7 @@
 
 @section('content-adm-convocatoria')
 
-  <div class="overflow-auto content" style="width: 100vw; height: 77vh;">
+  <div class="overflow-auto content">
 
     <h3>Resultados</h3>
 

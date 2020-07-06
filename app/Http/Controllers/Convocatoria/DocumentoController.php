@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Utils\Convocatoria\DocumentoComp;
+use App\Models\Convocatoria;
 use App\Models\Documento;
 class DocumentoController extends Controller
 {
@@ -52,6 +53,8 @@ class DocumentoController extends Controller
             $datoNotaDoc = DB::table('nota')->where('id_convocatoria', $convActual)->where('id_tipo_nota', 2)->get()[0];
         }
 
-        return view('convocatory.documentos', compact('documentos', 'datoNotaDoc')); // return $documentos; := carga los datos de la tabla como [] 
+        $conv = Convocatoria::find($convActual);
+
+        return view('convocatory.documentos', compact('documentos', 'datoNotaDoc','conv')); // return $documentos; := carga los datos de la tabla como [] 
     }
 }

@@ -1,8 +1,8 @@
 @extends('admResultados.layaoutAdmResultados')
 
 @section('content-adm-resultados')
-    <div class="overflow-auto content center">
-        <h3>Detalles de notas de meritos</h3>
+    <div class="overflow-auto content">
+        <h3>Detalles de Notas de Meritos</h3>
         <h6>
             {{ $estudiante[0]->nombre }} {{ $estudiante[0]->apellido }}
         </h6>

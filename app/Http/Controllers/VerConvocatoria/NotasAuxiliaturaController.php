@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\Postulante;
 use App\Models\Auxiliatura;
+use App\Models\Convocatoria;
 use App\Models\Porcentaje;
 use App\Models\PostuCalifConoc;
 use App\Models\Postulante_auxiliatura;
@@ -53,8 +54,9 @@ class NotasAuxiliaturaController extends Controller
             $postulante->notas_tems = $calf_tems;
         }
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
-        
-        // return $listaPost;
-        return view('verConvocatoria.notasConocimientoA',compact('listaAux','listaPost'));
+
+        $conv = Convocatoria::find($id_conv);
+       
+        return view('verConvocatoria.notasConocimientoA',compact('listaAux','listaPost','conv'));
     }
 }

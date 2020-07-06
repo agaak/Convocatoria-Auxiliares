@@ -65,8 +65,8 @@ class RequerimientoController extends Controller
 
     public function requests(Request $request){
         $id_conv = $request->session()->get('convocatoria');
-        $tipo = DB::table('convocatoria')->where('id',$id_conv)
-            ->value('id_tipo_convocatoria');
+        $conv = Convocatoria::find($id_conv);
+        $tipo = $conv->id_tipo_convocatoria;
         $requests= (new RequerimientoComp)->getRequerimientos($id_conv);
         $auxs_res = [];
         foreach($requests as $aux){
@@ -77,6 +77,6 @@ class RequerimientoController extends Controller
             ->where('habilitado', true)
             ->whereNotIn('id', $auxs_res)->get();
         
-        return view('convocatory.requerimientos', compact('requests','auxs')); 
+        return view('convocatory.requerimientos', compact('requests','auxs','conv')); 
     }
 }

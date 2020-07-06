@@ -9,7 +9,7 @@
             @endif
         @endforeach
         
-        <h3>Calificacion de 
+        <h3>Calificación de 
             @foreach ($auxsTemsEval as $item)
                 @if ($item->id == $id_tem)
                     {{ $item->nombre }}

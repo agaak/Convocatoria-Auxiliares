@@ -3,7 +3,7 @@
 @section('content-adm-convocatoria')
 <div class="overflow-auto content">
 
-    <h3 class="text-uppercase text-center">Comision de evaluacion de conocimientos</h3>
+    <h3>Comisión de Evaluación de Conocimientos</h3>
     <!-- Trigger modal -->
     <button class="pl-4 pr-4 btn btn-dark mt-3" type="button" data-toggle="modal" data-target="#admConoModal">Registrar Evaluador</button>
 

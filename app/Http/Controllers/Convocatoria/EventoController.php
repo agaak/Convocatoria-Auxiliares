@@ -23,7 +23,10 @@ class EventoController extends Controller
         $importantDatesList = (new EventoComp)->getEventos($convActual);
         $fechaConv = Convocatoria::select('fecha_inicio','fecha_final')
                                         ->where('id',$convActual)->get();
-        return view('convocatory.eventos', compact('importantDatesList','fechaConv'));
+        
+        $conv = Convocatoria::find($convActual);
+
+        return view('convocatory.eventos', compact('importantDatesList','fechaConv','conv'));
     }
 
     public function importantDateSave(EventoCreateRequest $request){

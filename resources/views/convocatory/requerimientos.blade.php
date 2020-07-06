@@ -4,7 +4,7 @@
 
 <div class="overflow-auto content">
 
-  <h3 class="text-uppercase text-left">seccion Requerimientos</h3>
+  <h3>Sección de Requerimientos</h3>
 
   <!-- Button trigger modal -->
   @if (!session()->get('ver'))

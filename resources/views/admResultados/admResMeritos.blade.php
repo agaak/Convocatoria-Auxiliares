@@ -2,9 +2,9 @@
 
 @section('content-adm-resultados')
 
-  <div class="overflow-auto content" style="width: 100vw; height: 77vh;">
+  <div class="overflow-auto content">
 
-    <h3>Calificacion de Meritos</h3>
+    <h3>Calificación de Meritos</h3>
     @component('components.calificaciones.tablaPostulantesMeritos',['postulantes'=>$postulantes])
     @endcomponent
 

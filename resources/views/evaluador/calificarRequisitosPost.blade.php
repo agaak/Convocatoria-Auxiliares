@@ -8,7 +8,7 @@
                 <p class="text-center"><span class="text-uppercase font-weight-bold border-bottom border-dark">{{ $conv->titulo }}</span></p>
             @endif
         @endforeach
-        <h3> Calificacion de requisitos</h3>
+        <h3> Calificacion de Requisitos</h3>
             <!-- Table -->
             @component('components.resultados.listaHabilitados', 
                 ['listPostulantes' => $listPostulantes, 'publicado' => $publicado])

@@ -2,7 +2,7 @@
 
 @section('content-resultados')
     <div class="overflow-auto content center">
-        <h3>Detalles de notas de meritos</h3>
+        <h3>Detalles de Notas de Meritos</h3>
         <h6>
             {{ $estudiante[0]->nombre }} {{ $estudiante[0]->apellido }}
         </h6>

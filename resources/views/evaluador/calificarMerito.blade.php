@@ -9,7 +9,7 @@
             @endif
         @endforeach
         <h3>
-            Calificacion de meritos
+            Calificación de Méritos
         </h3>
         @component('components.calificaciones.tablaPostulantesMeritos',
                 ['postulantes'=>$postulantes, 'publicado'=> $publicado])
