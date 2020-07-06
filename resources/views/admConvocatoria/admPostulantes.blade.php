@@ -18,10 +18,11 @@
     
     <!-- Table -->
     <div class="table-requests1" >
-        <table id="postulantes" class="table table-striped table-bordered" style="width:100%" style="text-align:left">
+        <table id="postulantesConv" class="table table-striped table-bordered" style="width:100%" style="text-align:left">
         <thead class="thead-dark text-center">
             <tr> 
-            <th style="font-weight: normal" scope="col">Item</th>
+            <td class="text-center" scope="col">Item</td>
+            {{-- <th style="font-weight: normal" scope="col">#</th> --}}
             <th style="font-weight: normal" scope="col">CI</th>
             <th style="font-weight: normal" scope="col">Apellidos</th>
             <th style="font-weight: normal" scope="col">Nombres</th>
@@ -31,6 +32,7 @@
             </tr>
         </thead>
         <tbody style="background-color: white">
+            {{-- @php $num = 1  @endphp --}}
             @foreach($listPostulantes as $item)
                 <tr>
                 <th style="font-weight: normal">{{$item->nombre_aux}}</th>
@@ -171,6 +173,30 @@
     <a href="/convocatoria/adm-postulantes/habilitadosPDF" style="color: #FFFF;">PDF</a>
 </button> --}}
 </div>
+
+<script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#postulantesConv').DataTable( {
+            "pageLength":70,
+            responsive: true,
+            "columnDefs": [
+            /* { "orderable": false}, */
+            { "visible": false, "targets": 0 }
+            ],
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            },"bLengthChange": false,
+            orderFixed: [[ 0, 'asc' ],[ 2, 'asc' ],[ 3, 'asc' ]],
+            rowGroup: {
+                dataSrc: 0,startRender: function (rows, group) {
+                return group + ' (' + rows.count() + ' postulantes)';
+        }
+            },
+            
+        } );
+    } );
+</script>
 @endsection
 
     

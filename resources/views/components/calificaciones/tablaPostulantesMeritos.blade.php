@@ -1,5 +1,5 @@
 <div class="table-requests">
-    <table class="table table-striped table-bordered" style="text-align: center" >
+    <table id="tablaMeritos" class="table table-striped table-bordered" style="text-align: center" >
       <thead class="thead-dark">
         <tr>
           <th style="font-weight: normal" scope="col">#</th>
@@ -52,3 +52,17 @@
       </tbody>
     </table>
   </div>
+<script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#tablaMeritos').DataTable({
+        "pageLength":70,"bPaginate": false,
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+        },"bLengthChange": false,responsive: true,
+        order: [0, 'asc'],  "bInfo" : false
+        });
+    
+    });
+    
+</script>
