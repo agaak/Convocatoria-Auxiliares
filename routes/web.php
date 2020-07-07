@@ -157,6 +157,7 @@ Route::get('/convocatoria/adm-postulantes/habilitadosPDF','PDFpostulantesControl
 Route::get('/convocatoria/adm-resultados/notas-finalesPDF','PDFpostulantesController@listNotasFinales');
 Route::get('/convocatoria/adm-postulantes/notasMeritoPDF','PDFpostulantesController@listNotasMeritos');
 Route::get('evaluador/calificar/conocimiento/{id}/{tem}/pdf', 'PDFpostulantesController@listNotasTematica');
+Route::get('/convocatoria/adm-asignaciones/pdf','PDFpostulantesController@asignacionItems');
 
 Route::get('/convocatoria/adm-postulantes/habilitados', 'VerConvocatoria\ListEnabledController@index')->name('listHabilitados');
 Route::get('convocatoria/notas-merito', 'VerConvocatoria\NotasMeritoController@index')->name('notasMerito');
