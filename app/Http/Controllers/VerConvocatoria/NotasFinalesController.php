@@ -37,14 +37,25 @@ class NotasFinalesController extends Controller
             $post->nota_fin_merit = number_format($post->nota_fin_merit*$porcentaje_merit/100 ,2);
             $notas = Postulante_auxiliatura::select('calificacion as nota_fin','id_auxiliatura')
                 ->where('id_postulante',$post->id)->get();
+
             foreach($notas as $aux){
-                $aux->nota_fin_conoc = PostuCalifConocFinal::where('id_postulante',$post->id)
+                $habilitado = Postulante_auxiliatura::where('id_postulante',$post->id)
+                    ->where('id_auxiliatura',$aux->id_auxiliatura)->value('habilitado');
+                $aux->habilitado = $habilitado;
+                $nota_fin_conoc = PostuCalifConocFinal::where('id_postulante',$post->id)
                     ->where('id_auxiliatura',$aux->id_auxiliatura)->value('nota_final_conoc');
-                $aux->nota_fin_conoc = number_format($aux->nota_fin_conoc*$porcentaje_conoc/100 ,2); 
+                if($nota_fin_conoc != null){
+                    $nota_fin_conoc = number_format($nota_fin_conoc*$porcentaje_conoc/100 ,2); 
+                }
+                $aux->nota_fin_conoc = $nota_fin_conoc;
             }
-            $notas = collect($notas)->groupBy('id_auxiliatura');
+            $notas = collect($notas)->reject(function ($value) {
+                return !$value->habilitado;
+            });
+            $notas = $notas->groupBy('id_auxiliatura');
             $post->aux_conoc = $notas;
         }
+        // return $listaPost;
         $conv = Convocatoria::find(session()->get('convocatoria'));
 
         return view('verConvocatoria.notasFinales',compact('listaAux','listaPost','titulo_conv',

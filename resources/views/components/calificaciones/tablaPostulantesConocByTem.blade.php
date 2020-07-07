@@ -52,9 +52,11 @@
     </table>
     @if (auth()->check())
         @if (auth()->user()->hasRoles(['evaluador']))
+            @if(!$publicado)
             <div class="my-4 py-4 text-right">
                     <input class="btn btn-info" type="submit"  form="request-notas" value="Guardar">
             </div>
+            @endif
         @endif
     @endif
 </div>

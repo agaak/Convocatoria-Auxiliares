@@ -22,11 +22,11 @@
         @if($publicado_habilitados)
             @if ($tipoConv === 1)
                 @component('components.calificaciones.tablaPostulantesConocByTem',
-                    ['postulantes'=>$postulantes])
+                    ['postulantes'=>$postulantes,'publicado'=>$publicado])
                 @endcomponent 
             @else
                 @component('components.calificaciones.tablaPostulantesConocByAux',
-                    ['postulantes'=>$postulantes])
+                    ['postulantes'=>$postulantes,'publicado'=>$publicado])
                 @endcomponent 
             @endif
             <div class="text-center">

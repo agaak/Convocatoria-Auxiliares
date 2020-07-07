@@ -21,10 +21,11 @@ class NotasAuxiliaturaController extends Controller
         ->join('requerimiento','auxiliatura.id','=','requerimiento.id_auxiliatura')
         ->where('id_convocatoria',$id_conv)
         ->get();
+
         $listaPost = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id', 'calf_fin_postulante_conoc.id_auxiliatura',
         'nota_final_conoc', 'calf_fin_postulante_conoc.id as id_nota_fin_conoc')
-        
         ->join('calf_fin_postulante_conoc','postulante.id','=','calf_fin_postulante_conoc.id_postulante')
+        ->where('calf_fin_postulante_conoc.nota_final_conoc','!=',null)
         ->where('calf_fin_postulante_conoc.id_convocatoria',$id_conv)
         ->get();
 

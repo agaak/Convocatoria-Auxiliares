@@ -22,11 +22,19 @@
                         
                         @if (auth()->check())
                             @if (auth()->user()->hasRoles(['evaluador']))
-                            <td class="text-center">
-                                    {{ csrf_field() }}
-                                <input type="hidden" name="id-post[]" value="{{ $item->id_nota}}">
-                                <input name="nota[]" type="number" class="form-control form-control-sm"
-                                    placeholder="-" min="0" max="100" step="0.01" value="{{$item->calificacion}}" style="text-align: center;"></td>
+                                @if(!$publicado)
+                                <td class="text-center">
+                                        {{ csrf_field() }}
+                                    <input type="hidden" name="id-post[]" value="{{ $item->id_nota}}">
+                                    <input name="nota[]" type="number" class="form-control form-control-sm"
+                                        placeholder="-" min="0" max="100" step="0.01" value="{{$item->calificacion}}" style="text-align: center;"></td>
+                                @else
+                                    @if ($item->calificacion != null)
+                                    <td class="text-center">{{ $item->calificacion }}</td>    
+                                    @else
+                                        <td class="text-center">-</td>
+                                    @endif
+                                @endif
                             @else 
                                 @if ($item->calificacion != null)
                                     <td class="text-center">{{ $item->calificacion }}</td>    
@@ -49,9 +57,11 @@
     </table>
     @if (auth()->check())
         @if (auth()->user()->hasRoles(['evaluador']))
+            @if(!$publicado)
             <div class="my-4 py-4 text-right">
                     <input class="btn btn-info" type="submit"  form="request-notas" value="Guardar">
             </div>
-        @endif
+            @endif
+        @endif 
     @endif
 </div>
