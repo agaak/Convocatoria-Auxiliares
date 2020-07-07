@@ -56,11 +56,11 @@ class ConvocatoriaPController extends Controller
         $idDepartamento = $request->input('conv-dept');
         $idTipoConv = $request->input('conv-tipo');
         $selectGestion = $request->input('conv-gestion');
-        
+        $anioActual = date("Y");
         $tipos = Tipo::get();
         $departamentos = UnidadAcademica::get();
         $convosPasadas =  (new Convos)->searchConvocatorias($idDepartamento,$idTipoConv,$selectGestion);
-        $gestiones = [2016,2017,2018,2019,2020,2021,2022,2023,2024];
+        $gestiones = [$anioActual-6,$anioActual-5,$anioActual-4,$anioActual-3,$anioActual-2,$anioActual-1,$anioActual];
         $auxs = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
             ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();

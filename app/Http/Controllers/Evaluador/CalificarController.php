@@ -22,7 +22,7 @@ class CalificarController extends Controller
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)
                 ->first()->convocatorias;
         $convs = collect($convs)->reject(function ($value) {
-            return !$value->publicado;
+            return !$value->publicado && !$value->finalizado;
         });
 
         foreach ($convs as $conv) {
