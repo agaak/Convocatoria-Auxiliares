@@ -55,10 +55,12 @@
                             <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a> 
                         @endif
                         @if (auth()->user()->hasRoles(['secretaria']))
+                            @if (!()$convo->finalizado))
                             <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                 style="background-color:#2F2D4A; color:white;"
                                 class="btn btn-sm">{{ csrf_field() }}Administrar</a>
-                            <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a> 
+                            <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a>                                 
+                            @endif
                         @endif
                         @if (auth()->user()->hasRoles(['evaluador']))
                             <a href="{{ route('helper.redirect', $convo->id) }}" style="background-color:#2F2D4A; color:white;"
@@ -66,7 +68,7 @@
                         @endif
                     @else
                         <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a>
-                        @if ($convo->pre_posts_habilitado && !($convo->convPasada))
+                        @if ($convo->pre_posts_habilitado && !($convo->finalizado))
                             <a type="button" onclick="listaAux({{ $auxs }}, {{ $convo->id }})" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#postulanteModal">
                                 Postular ahora
                             </a>
@@ -76,7 +78,7 @@
                     class="btn btn-info btn-sm">Descargar</a>
                     </div>
                     <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
-                    convocatoria {{ $convo->convPasada? 'finalizo' : 'esta en curso'}}.</div>
+                    convocatoria {{ $convo->finalizado? 'finalizo' : 'esta en curso'}}.</div>
                 @else
                     @if (auth()->user()->hasRoles(['secretaria']))
                         <a href="{{ route('adminConvocatoria',$convo->id ) }}"

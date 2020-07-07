@@ -61,11 +61,6 @@ class ConvocatoriaComp
         ->where('finalizado',true)
         ->orderBy('id','DEC')
         ->get();
-
-        $requests = $requests->map(function ($post) {
-            $post['convPasada'] = true;
-            return $post;
-        });
         return $requests;
     }
 
@@ -80,13 +75,7 @@ class ConvocatoriaComp
         if(!is_null($gestion)){
             $requests = $requests->where('gestion','=',$gestion);
         }
-
         $requests = $requests->orderBy('id','DEC')->get();
-        $requests = $requests->map(function ($post) {
-            $post['convPasada'] = true;
-            return $post;
-        });
-        
         return $requests;
     }
 
