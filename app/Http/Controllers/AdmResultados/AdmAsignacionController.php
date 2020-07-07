@@ -124,7 +124,7 @@ class AdmAsignacionController extends Controller
     public function prePostulantes() {
 
         PrePostulante::where('id_convocatoria', session()->get('convocatoria'))->delete();
-
+        Convocatoria::where('id',session()->get('convocatoria'))->update(['finalizado' => true]);
         return back();
     }
 

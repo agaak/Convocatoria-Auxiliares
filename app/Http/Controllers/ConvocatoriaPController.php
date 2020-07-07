@@ -38,7 +38,11 @@ class ConvocatoriaPController extends Controller
         $tipos = Tipo::get();
         $departamentos = UnidadAcademica::get();
         $convosPasadas =  (new Convos)->getConvocatoriasPasadas($departamentos[0]->id);
-        $gestiones = [2016,2017,2018,2019,2020,2021,2022,2023,2024];
+        $gestiones = array();
+        foreach($convosPasadas as $convP){
+            array_push($gestiones, $convP->gestion);
+        }
+        $gestiones =  array_unique($gestiones);
         $auxs = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
             ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();
@@ -47,7 +51,7 @@ class ConvocatoriaPController extends Controller
         $idTipoConv = null;
         $selectGestion = null;
         
-        return view('convocatoriasPasadas', compact('departamentos','tipos','gestiones','convos','convosPasadas','auxs','idDepartamento','idTipoConv','selectGestion'));
+        return view('convocatoriasPasadas', compact('departamentos','tipos','gestiones','convosPasadas','auxs','idDepartamento','idTipoConv','selectGestion'));
     }
     
     public function search(Request $request){
@@ -59,14 +63,17 @@ class ConvocatoriaPController extends Controller
         $anioActual = date("Y");
         $tipos = Tipo::get();
         $departamentos = UnidadAcademica::get();
+        $convosP =  (new Convos)->getConvocatoriasPasadas($departamentos[0]->id);
+        $gestiones = array();
+        foreach($convosP as $convP){
+            array_push($gestiones, $convP->gestion);
+        }
+        $gestiones =  array_unique($gestiones);
         $convosPasadas =  (new Convos)->searchConvocatorias($idDepartamento,$idTipoConv,$selectGestion);
-        $gestiones = [$anioActual-6,$anioActual-5,$anioActual-4,$anioActual-3,$anioActual-2,$anioActual-1,$anioActual];
         $auxs = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
             ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();
-        
-        
-        return view('convocatoriasPasadas', compact('departamentos','tipos','gestiones','convos','convosPasadas','auxs','idDepartamento','idTipoConv','selectGestion'));
+    return view('convocatoriasPasadas', compact('departamentos','tipos','gestiones','convosPasadas','auxs','idDepartamento','idTipoConv','selectGestion'));
     }
 
     /**

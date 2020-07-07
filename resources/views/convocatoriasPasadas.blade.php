@@ -38,7 +38,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <select class="form-control" id="conv-gestion" name="conv-gestion">
-                            <option selected disabled>Gestion</option>
+                            <option selected disabled>Año</option>
                             @foreach($gestiones as $gestion)
                                 <option value="{{ $gestion }}"
                                 {{-- {{ old('conv-gestion') == $gestion == $selectGestion? 'selected': '' }}> --}}
