@@ -23,7 +23,7 @@ class ConvocatoriaComp
                 $requests = EvaluadorConocimientos::where('correo', auth()->user()->email)
                 ->first()->convocatorias;
                 $requests = collect($requests)->reject(function ($value) {
-                    return !$value->publicado && !$value->finalizado;
+                    return !$value->publicado || $value->finalizado;
                 });
             }
         } else {

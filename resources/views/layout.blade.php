@@ -25,7 +25,13 @@
 
 </head>
 
-<body>
+<body id="body-completado" class="d-none" onload="cargaCompleta();">
+
+    <script>
+        function cargaCompleta() {
+            $('#body-completado').removeClass('d-none');
+        }
+    </script>
     <!-- Barra de navegación principal -->
     <div class="container-body">
         <header class="container-navbar">

@@ -21,10 +21,10 @@ class CalificarController extends Controller
        
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)
                 ->first()->convocatorias;
+       
         $convs = collect($convs)->reject(function ($value) {
-            return !$value->publicado && !$value->finalizado;
-        });
-
+            return !$value->publicado || $value->finalizado;
+        }); 
         foreach ($convs as $conv) {
             if ($conv->id == session()->get('convocatoria'))
                 $pivot = $conv->pivot;

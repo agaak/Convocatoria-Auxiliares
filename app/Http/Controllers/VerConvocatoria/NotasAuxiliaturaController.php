@@ -41,7 +41,7 @@ class NotasAuxiliaturaController extends Controller
             $aux->tematicas = $tems;
         }
         
-        foreach($listaPost as $postulante){
+        foreach($listaPost as $postulante){ 
             $calf_tems = PostuCalifConoc::where('id_postulante',$postulante->id)
             ->where('id_calf_final',$postulante->id_nota_fin_conoc)
             ->join('porcentaje','porcentaje.id','=','id_porcentaje')
@@ -50,6 +50,9 @@ class NotasAuxiliaturaController extends Controller
             foreach($calf_tems as $calf){
                 if($calf->calificacion != null){
                     $calf->calificacion = number_format($calf->calificacion*$calf->porcentaje/100 ,2);
+                }
+                if(strcmp($calf->estado,"publicado") != 0){
+                    $calf->calificacion = null;
                 }
             }
             $postulante->notas_tems = $calf_tems;

@@ -11,6 +11,9 @@ class MenuDina
     
     public function getConvs(){
         $requests = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
+        $requests = collect($requests)->reject(function ($value) {
+            return !$value->publicado || $value->finalizado;
+        });
         return $requests;
     }
     

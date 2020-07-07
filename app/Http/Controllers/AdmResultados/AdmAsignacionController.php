@@ -104,12 +104,11 @@ class AdmAsignacionController extends Controller
     }   
 
     public function quitar(){ 
-
+        
         $item = Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
                             ->where('id_postulante', request()->get('id'))->value('item');
-        if($item != null && $item != 0){
-            
-            if ($item === 1) {
+        if($item != 0 || $item == null){
+            if ($item === 1 || $item == null) {
                 Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
                                             ->where('id_postulante', request()->get('id'))
                                             ->update(['item' => 0]);

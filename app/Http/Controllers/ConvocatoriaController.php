@@ -111,26 +111,26 @@ class ConvocatoriaController extends Controller
                 "auxiliaturas" =>  $lista_aux
             ];
             if(!User::where('userToken',$eva->ci)->exists()){
-                // $user = new User();
-                // $user->name = $nombres;
-                // $user->password = bcrypt($contrasenia);
-                // $user->email = $correo;
-                // $user->userToken = $eva->ci;
-                // $user->unidad_academica_id = $id_uniadad;
-                // $user->save();
-                // $userRol = new UserRol();
-                // $userRol->user_id = $user->id;
-                // $userRol->role_id = Role::where('name','evaluador')->value('id');
-                // $userRol->save();
+                $user = new User();
+                $user->name = $nombres;
+                $user->password = bcrypt($contrasenia);
+                $user->email = $correo;
+                $user->userToken = $eva->ci;
+                $user->unidad_academica_id = $id_uniadad;
+                $user->save();
+                $userRol = new UserRol();
+                $userRol->user_id = $user->id;
+                $userRol->role_id = Role::where('name','evaluador')->value('id');
+                $userRol->save();
             }else{
-                // User::where('userToken',$eva->ci)->update([
-                //     'password' => bcrypt($contrasenia),
-                // ]);  
+                User::where('userToken',$eva->ci)->update([
+                    'password' => bcrypt($contrasenia),
+                ]);  
             }
             
-            // Mail::send("emails.test", $datos, function($mensaje) use($nombres,$correo){
-            //     $mensaje -> to($correo, $nombres) -> subject("Asignacion como evaluador");   
-            // });
+            Mail::send("emails.test", $datos, function($mensaje) use($nombres,$correo){
+                $mensaje -> to($correo, $nombres) -> subject("Asignacion como evaluador");   
+            });
         }
         Convocatoria::where('id', $id)->update([
             'publicado' => true,

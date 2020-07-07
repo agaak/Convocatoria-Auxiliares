@@ -21,6 +21,7 @@
         <div class="card-footer text-muted">
             @if (auth()->check())
                 @if (auth()->user()->hasRoles(['administrador']))
+                @if (!($convo->finalizado))
                     <form class="d-inline"
                         action="{{ route('convocatoria.destroy', $convo->id) }}"
                         method="POST">
@@ -31,6 +32,7 @@
                                 width="36" height="29">
                         </button>
                     </form>
+                    @endif
                 @endif
                 @if (auth()->user()->hasRoles(['secretaria']) && !$convo->creado)
                     <form class="d-inline"
@@ -51,20 +53,23 @@
                         @if (auth()->user()->hasRoles(['administrador']))
                             <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                 style="background-color:#2F2D4A; color:white;"
-                                class="btn btn-sm">{{ csrf_field() }}Administrar</a>
+                                class="btn btn-sm">{{ csrf_field() }}{{ $convo->finalizado? 'Ver Administracion' : 'Administrar'}}</a>
                             <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a> 
                         @endif
                         @if (auth()->user()->hasRoles(['secretaria']))
-                            @if (!()$convo->finalizado))
+                            @if (!($convo->finalizado))
                             <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                 style="background-color:#2F2D4A; color:white;"
                                 class="btn btn-sm">{{ csrf_field() }}Administrar</a>
-                            <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a>                                 
                             @endif
+                            <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a>                                    
                         @endif
                         @if (auth()->user()->hasRoles(['evaluador']))
-                            <a href="{{ route('helper.redirect', $convo->id) }}" style="background-color:#2F2D4A; color:white;"
+                            @if (!($convo->finalizado))
+                                <a href="{{ route('helper.redirect', $convo->id) }}" style="background-color:#2F2D4A; color:white;"
                                 class="btn btn-sm">{{ csrf_field() }}Evaluar</a>
+                            @endif
+                            <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a>
                         @endif
                     @else
                         <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a>

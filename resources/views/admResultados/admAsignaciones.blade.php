@@ -34,7 +34,7 @@
                     <th class="font-weight-normal" scope="col">Nombres</th>
                     <th class="font-weight-normal" scope="col">Nota final</th>
                     <th class="font-weight-normal" scope="col">Cantidad Auxiliaturas</th>
-                    <th class="font-weight-normal" scope="col">Asignar</th>
+                    @if (!$finalizado) <th class="font-weight-normal" scope="col">Asignar</th> @endif
                   </tr>
                 </thead>
                 <script>
@@ -60,7 +60,7 @@
                             @else
                               {{ $item->item }}
                             @endif
-                        </th>
+                        </th>@if (!$finalizado)
                         <td class="text-center">
                           <form class="d-inline" action="{{ route('asignar') }}" method="POST">
                               {{ csrf_field() }}
@@ -78,7 +78,7 @@
                                 <img src="{{ asset('img/minus512.png') }}" width="30" height="32" onclick="mensaje()">
                               </button>
                             </form>
-                        </td>
+                        </td>@endif
                       </tr>
                     @endforeach
                   @endif

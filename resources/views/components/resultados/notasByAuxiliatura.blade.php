@@ -25,8 +25,10 @@
                           <th class="font-weight-normal" scope="col">Apellidos</th>
                           <th class="font-weight-normal" scope="col">Nombres</th>
                           @foreach ($auxiliatura->tematicas as $tematica)
-                          
+                          @if ($tematica->porcentaje != 0)
                           <th class="font-weight-normal" scope="col">{{ $tematica->nombre }}/{{ $tematica->porcentaje }}</th>
+                          @endif
+                          
                               
                           @endforeach
                         

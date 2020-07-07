@@ -18,6 +18,9 @@ class EvaluadorController extends Controller
         session()->forget('convocatoria');
         $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
         session()->put('evaluador', $convs[0]['pivot']['id_evaluador']);
+        $convs = collect($convs)->reject(function ($value) {
+            return !$value->publicado || $value->finalizado;
+        }); 
         return view('evaluador.evaluador', compact('convs')); 
     }
 }
