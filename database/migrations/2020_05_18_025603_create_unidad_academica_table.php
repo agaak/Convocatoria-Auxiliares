@@ -34,6 +34,7 @@ class CreateUnidadAcademicaTable extends Migration
             $table->text('descripcion_convocatoria');
             $table->year('gestion');
             $table->boolean('publicado');
+            $table->boolean('finalizado');
             $table->boolean('pre_posts_habilitado')->default('false');
             $table->boolean('creado');
             $table->string('ruta_pdf')->nullable();

@@ -27,6 +27,7 @@ class ConvocatoriaSeeder extends Seeder
             base los requerimientos que se tienen programados para la gestión 2020. ',
             'gestion'=> 2020,
             'publicado'=> false,
+            'finalizado' => false,
             'creado'=> false,
             'fecha_inicio'=> '6/6/2020',
             'fecha_final'=> '7/7/2020'
@@ -142,6 +143,7 @@ class ConvocatoriaSeeder extends Seeder
             base los requerimientos que se tienen programados para la gestión 2021.',
             'gestion'=> 2021,
             'publicado'=> false,
+            'finalizado' => false,
             'creado'=> false,
             'fecha_inicio'=> '06/06/2020',
             'fecha_final'=> '08/08/2021'
