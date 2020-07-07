@@ -23,16 +23,17 @@
       @foreach ($listaAux as $auxiliatura)
         <div class="tab-pane fade{{ $initContent ? " show active" : '' }}" id={{ "body".$auxiliatura->id}} 
           role="tabpanel" aria-labelledby={{ $auxiliatura->id}}>
+          <h6 class="my-3">Total de auxiliaturas requeridas: {{ $auxiliatura->cant_aux}}</h6>
             <div class="table-requests1">
               <table id= "notas{{ $auxiliatura->id}}" class="table table-striped table-bordered">
-                <thead class="thead-dark text-left">
+                <thead class="thead-dark text-center">
                   <tr>
-                    <th class="font-weight-normal" scope="col">Item</th>
+                    <th class="font-weight-normal" scope="col">#</th>
                     <th class="font-weight-normal" scope="col">CI</th>
                     <th class="font-weight-normal" scope="col">Apellidos</th>
                     <th class="font-weight-normal" scope="col">Nombres</th>
                     <th class="font-weight-normal" scope="col">Nota final</th>
-                    <th class="font-weight-normal" scope="col">Cantidad Items</th>
+                    <th class="font-weight-normal" scope="col">Cantidad Auxiliaturas</th>
                     <th class="font-weight-normal" scope="col">Asignar</th>
                   </tr>
                 </thead>
@@ -41,25 +42,26 @@
                     alert('esta seguro de quitar el item'); 
                   }
                 </script>
-                <tbody>
+                <tbody style="vertical-align: middle;">
                     @php $num=1; @endphp
                   @if($listaPost->has($auxiliatura->id))
                     @foreach ($listaPost[$auxiliatura->id] as $item)
                       <tr class="table-light">
-                        <td>{{ $num++ }}</td>
-                        <td>{{ $item->ci }}</td>
-                        <td>{{ $item->apellido }}</td>
-                        <td>{{ $item->nombre }}</td>
-                        <td>{{ $item->calificacion }}</td>
-                        <td class="text-center">@if($item->item===null)
+                        <td class="text-center" style="vertical-align: middle;">{{ $num++ }}</td>
+                        <td class="text-center" style="vertical-align: middle;">{{ $item->ci }}</td>
+                        <td style="vertical-align: middle;">{{ $item->apellido }}</td>
+                        <td style="vertical-align: middle;">{{ $item->nombre }}</td>
+                        <td style="vertical-align: middle;" class="text-center">{{ $item->calificacion }}</td>
+                        <th style="vertical-align: middle;" class="text-center">
+                          @if($item->item===null)
                               {{ "-" }}
                             @elseif($item->item===0)
                               {{"Dado de baja"}} 
                             @else
                               {{ $item->item }}
                             @endif
-                        </td>
-                        <td>
+                        </th>
+                        <td class="text-center">
                           <form class="d-inline" action="{{ route('asignar') }}" method="POST">
                               {{ csrf_field() }}
                               <input type="hidden" name="id" value="{{ $item->id }}" readonly>
@@ -82,21 +84,25 @@
                   @endif
                 </tbody>   
               </table>
+              @if (!$finalizado)
               <div class="container text-right">
                 <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
                         data-target="#invitarPostulanteModal" data-asig_id_auxiliatura="{{ $auxiliatura->id}}">Invitar postulante</button>
               </div>
+              @endif
             </div>
         </div>
           
         {{ $initContent = false  }}
         @endforeach
     </div>
-    <div style="text-align: right">
-      <button type="button" class="btn btn-secondary">
-        <a href="/convocatoria/adm-asignaciones/pdf" style="color: #FFFF;">PDF</a>
-      </button>
-    </div>
+    @if ($finalizado)
+      <div style="text-align: right">
+        <button type="button" class="btn btn-secondary">
+          <a href="/convocatoria/adm-asignaciones/pdf" style="color: #FFFF;">PDF</a>
+        </button>
+      </div>
+    @endif
 </div>
 
 
@@ -172,7 +178,11 @@
   <div class="text-center mt-5">
     <form method="POST" action="{{ route('eliminarPrePosts') }}">
       {{ csrf_field() }}
-      <button type="submit" id="eliminar-pre-postulantes" class="btn btn-success">Publicar Ganadores</button>
+      @if ($finalizado)
+        <button type="submit" id="eliminar-pre-postulantes" class="btn btn-success" disabled>Publicar Ganadores</button>
+      @else 
+        <button type="submit" id="eliminar-pre-postulantes" class="btn btn-success">Publicar Ganadores</button>
+      @endif
     </form>
   </div>
 </div>

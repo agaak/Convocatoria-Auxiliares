@@ -26,7 +26,7 @@
                     <a class="link-list" href="{{ route('admResNotaFinal') }}">Notas Finales</a>
                 </li>
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-asignaciones') }}">
-                    <a class="link-list" href="{{ route('admResAsignaciones') }}">Asignacion de Items</a>
+                    <a class="link-list" href="{{ route('admResAsignaciones') }}">Asignacion de Auxiliaturas</a>
                 </li>
             </ul>
         </nav>

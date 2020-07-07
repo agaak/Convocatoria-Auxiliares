@@ -106,7 +106,7 @@ class PDFpostulantesController extends Controller
     }
 
     public function asignacionItems(){
-        $id_conv = session()->get('convocatoria');
+        $id_conv = session()->get('convocatoria'); 
         
         $titulo_conv= Convocatoria::select('convocatoria.titulo')
         ->where('convocatoria.id',$id_conv)->get();
@@ -131,6 +131,8 @@ class PDFpostulantesController extends Controller
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
         ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
         ->whereNotNull('postulante_auxiliatura.calificacion')
+        ->where('postulante_auxiliatura.calificacion', '>=', 51)
+        ->orWhere('postulante_auxiliatura.item', '!=', null)
         ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','postulante_auxiliatura.calificacion','postulante_auxiliatura.item')
         ->orderBy('postulante_auxiliatura.calificacion', 'DESC')
         ->get();

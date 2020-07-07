@@ -48,25 +48,24 @@
 <body>
 <h3 style="text-align: center">  {{$titulo_conv}}</h3>
 <h3 style="text-align: center">Lista de ganadores</h3>
-    <h4 style="text-align: left">Felicidades a todos los ganadores</h4>
     @foreach ($listaAux as $auxiliatura)
         <div class="table-requests1">
             <h3>{{ $auxiliatura->nombre_aux}}</h3>
                 <table >
-                    <thead>
+                    <thead style="text-align: center">
                     <tr>
-                        <th class="row_nro">#</th>
-                        <th class="row_ci">CI</th>
-                        <th class="row_name">Apellidos</th>
-                        <th class="row_name">Nombre</th>
-                        <th class="row_con">Nota</th>
-                        <th class="row_fin"># items</th>
+                        <th style="text-align: center" class="row_nro">#</th>
+                        <th style="text-align: center" class="row_ci">CI</th>
+                        <th style="text-align: center" class="row_name">Apellidos</th>
+                        <th style="text-align: center" class="row_name">Nombre</th>
+                        <th style="text-align: center" class="row_con">Nota</th>
+                        <th style="text-align: center" class="row_fin"># items</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="text-align: center">
+                        @php $num = 1  @endphp
                         @if($listaPost->has($auxiliatura->id))
                           @foreach ($listaPost[$auxiliatura->id] as $postulante)
-                          @php $num = 1  @endphp
                           @if ($postulante->item!==null)
                             <tr>
                             <td style="font-weight: normal">{{ $num++ }}</td>

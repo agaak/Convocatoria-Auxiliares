@@ -24,10 +24,10 @@ class AdmAsignacionController extends Controller
     {   
         $id_conv = session()->get('convocatoria');
         
-        $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id')
+        $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id','requerimiento.cant_aux')
         ->join('requerimiento','auxiliatura.id','=','requerimiento.id_auxiliatura')
         ->where('id_convocatoria',$id_conv)
-        ->get();
+        ->get(); 
         $tipoConv= Convocatoria::select('tipo_convocatoria.id')
                     ->join('tipo_convocatoria', 'tipo_convocatoria.id', '=', 'convocatoria.id_tipo_convocatoria')
                     ->where('convocatoria.id',$id_conv)
@@ -68,8 +68,9 @@ class AdmAsignacionController extends Controller
             $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
 
         // return $listaPostInvitados;
+            $finalizado = Convocatoria::where('id',session()->get('convocatoria'))->value('finalizado');
           $conv = Convocatoria::find($id_conv);
-        return view('admResultados.admAsignaciones',compact('listaAux','listaPost','conv','listaPostInvitados'));
+        return view('admResultados.admAsignaciones',compact('listaAux','listaPost','conv','listaPostInvitados','finalizado'));
     }
 
     public function asignar(){
