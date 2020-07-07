@@ -80,13 +80,6 @@
             @endif
           </div>
           {{ $initContent = false  }}
-          {{-- @if ($tematica->publicado)
-            <div class="text-right">
-                <a href="{{ route('PDFconocimientos',['id' => $tematica->id_aux, 'tem' => $tematica->nombre ]) }}" class="btn btn-success btn-sm text-white">Ver</a>
-                <a href="/convocatoria/adm-postulantes/habilitadosPDF" style="color: #FFFF;">PDF</a>
-              
-            </div>
-          @endif --}}
           @endforeach
       </div>
       

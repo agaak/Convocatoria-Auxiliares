@@ -32,31 +32,31 @@
                   </thead>
                   <tbody>
                     @php $num = 1  @endphp
-                    @if($listaPost->has($auxiliatura->id))
-                      @foreach ($listaPost[$auxiliatura->id] as $item)
+                      @foreach ($listaPost as $item)
+                        @if($item->aux_conoc->has($auxiliatura->id))
                         <tr>
                           <td class="text-center">{{ $num++ }}</td>
                           <td class="text-center">{{ $item->ci }}</td>
                           <td>{{ $item->apellido }} </td>
                           <td>{{ $item->nombre }}</td>
-                          @if ($item->nota_final_conoc===null)
+                          @if ($item->aux_conoc[$auxiliatura->id][0]->nota_fin_conoc===null)
                             <td class="text-center">-</td>
                           @else
-                            <td class="text-center">{{ $item->nota_final_conoc }}</td>
+                            <td class="text-center">{{ $item->aux_conoc[$auxiliatura->id][0]->nota_fin_conoc }}</td>
                           @endif
-                          @if ($item->nota_final_merito===null)
+                          @if ($item->nota_fin_merit===null)
                             <td class="text-center">-</td>
                           @else
-                            <td class="text-center">{{ $item->nota_final_merito }}</td>
+                            <td class="text-center">{{ $item->nota_fin_merit }}</td>
                           @endif
-                          @if ($item->not_fin===null)
+                          @if ($item->aux_conoc[$auxiliatura->id][0]->nota_fin===null)
                             <td class="text-center">-</td>
                           @else
-                            <th class="text-center" >{{ $item->not_fin }}</th>
+                            <th class="text-center" >{{ $item->aux_conoc[$auxiliatura->id][0]->nota_fin }}</th>
                           @endif
                           </tr>
+                        @endif
                       @endforeach
-                    @endif
                   </tbody>   
                 </table>
               </div>

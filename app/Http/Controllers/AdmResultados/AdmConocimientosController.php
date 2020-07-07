@@ -88,8 +88,9 @@ class AdmConocimientosController extends Controller
                     
                     $porcentaje_merit = Calificacion_final::where('id_convocatoria', session()->get('convocatoria'))->value('porcentaje_merito'); 
                     $porciento_merit =  number_format($nota_fin_merito*$porcentaje_merit/100 ,2);
-
-                    Postulante_auxiliatura::where('id_postulante', $nota[0]->id)->update([
+                    $id_aux = PostuCalifConocFinal::where('id', $id_not_conoc_fin)->value('id_auxiliatura');
+                    Postulante_auxiliatura::where('id_postulante', $nota[0]->id)
+                            ->where('id_auxiliatura',$id_aux)->update([
                         'calificacion' => ($porciento_merit + $porciento_conoc),
                     ]); 
                 }
