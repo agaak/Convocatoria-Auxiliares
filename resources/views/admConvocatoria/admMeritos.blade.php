@@ -87,7 +87,7 @@
                             {!! $errors->first('adm-cono-ci', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
                         </div>
                         <div class="d-none text-left col-sm-12 mt-0" id="ci-no-existe">
-                            <strong class="text-primary">El CI ingresado ya exite</strong>
+                            <strong class="text-primary">El CI ingresado ya existe</strong>
                         </div>
                         <div class="d-none text-left col-sm-12 mt-0" id="ci-existe">
                             <strong class="text-success">El CI ingresado aun no existe</strong>
@@ -172,7 +172,7 @@
                         {!! $errors->first('adm-cono-ci', '<p class="message-error text-danger id="err"">:message</p>') !!}
                     </div>
                     <div class="d-none text-center col-sm-6" id="ci-no-existe">
-                        <p class="text-success">El CI ingresado ya exite</p>
+                        <p class="text-success">El CI ingresado ya existe</p>
                     </div>
                     <div class="d-none text-center col-sm-6" id="ci-existe">
                         <p class="text-primary">El CI ingresado aun no existe</p>

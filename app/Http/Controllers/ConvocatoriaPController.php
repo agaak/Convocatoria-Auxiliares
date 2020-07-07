@@ -47,7 +47,7 @@ class ConvocatoriaPController extends Controller
         $idTipoConv = null;
         $selectGestion = null;
         
-        return view('convocatoriasPasadas', compact('departamentos','tipos','gestiones','convos','convosPasadas','auxs','idDepartamento','idTipoConv','selectGestion'));
+        return view('convocatoriasPasadas', compact('departamentos','tipos','gestiones','convosPasadas','auxs','idDepartamento','idTipoConv','selectGestion'));
     }
     
     public function search(Request $request){
