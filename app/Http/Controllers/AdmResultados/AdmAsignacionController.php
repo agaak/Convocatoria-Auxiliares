@@ -73,63 +73,50 @@ class AdmAsignacionController extends Controller
     }
 
     public function asignar(){
-        $condicion=$this->hayItems(request()->get('ida'));
-        if($condicion==1){
-            $errores = ["No hay cupos para esta auxiliatura"];
-        }elseif ($condicion==2) {
-            
-            $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
+        if($this->hayItems(request()->get('ida'))) {
+            $item = Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
+                            ->where('id_postulante', request()->get('id'))->value('item');
+            if ($item == null) {
+                Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
+                                            ->where('id_postulante', request()->get('id'))
+                                            ->update(['item' => 1]);
+            }else{
+                Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
                                         ->where('id_postulante', request()->get('id'))
-                                        ->where('id_convocatoria', session()->get('convocatoria'))
-                                        ->update(['item' => 1]);
-        }else{
-            $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
-                                        ->where('id_postulante', request()->get('id'))
-                                        ->where('id_convocatoria', session()->get('convocatoria'))
                                         ->increment('item');
+            }
+        } else {
+            $errores = ["No hay cupos para esta auxiliatura"];
         }
         return back();
     }
 
     public function hayItems($ida){
-        $itemsTotal= Requerimiento::select('cant_aux')
-                    ->where('requerimiento.id_auxiliatura',$ida)
-                    ->where('requerimiento.id_convocatoria', session()->get('convocatoria'))
-                    ->get();
-        $itemsOcupados= Postulante_auxiliatura::select(DB::raw('sum(postulante_auxiliatura.item) as cantidad'))
-                        ->where('postulante_auxiliatura.id_auxiliatura',$ida)
-                        ->where('postulante_auxiliatura.id_convocatoria', session()->get('convocatoria'))
-                        ->whereNotNull('postulante_auxiliatura.item')
-                        ->get();
-        if($itemsTotal[0]->cant_aux == $itemsOcupados[0]->cantidad)
-            $rs=1;
-        elseif ($itemsOcupados[0]->cantidad == null) 
-            $rs=2;
-        else
-            $rs=3;
-        return $rs;
+        $itemsTotal= Requerimiento::where('requerimiento.id_auxiliatura',$ida)
+                    ->where('requerimiento.id_convocatoria', session()->get('convocatoria'))->value('cant_aux');
+
+        $itemsOcupados= Postulante_auxiliatura::where('id_auxiliatura',$ida)
+            ->where('id_convocatoria', session()->get('convocatoria'))
+            ->whereNotNull('item')->sum('item');
+
+        return $itemsTotal - $itemsOcupados > 0;
     }   
 
     public function quitar(){ 
 
-        $res= Postulante_auxiliatura::select('item')
-                                        ->where('id_auxiliatura', request()->get('ida'))
-                                        ->where('id_postulante', request()->get('id'))
-                                        ->where('id_convocatoria', session()->get('convocatoria'))
-                                        ->get();
-        $condicion= $res[0]->item;
-        if ($condicion===1) {
-            $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
-                                        ->where('id_postulante', request()->get('id'))
-                                        ->where('id_convocatoria', session()->get('convocatoria'))
-                                        ->update(['item' => 0]);
-        }elseif ($condicion>1) {  
-              
-            $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
-                                        ->where('id_postulante', request()->get('id'))
-                                        ->where('id_convocatoria', session()->get('convocatoria'))
-                                        ->decrement('item');
-        }else{ 
+        $item = Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
+                            ->where('id_postulante', request()->get('id'))->value('item');
+        if($item != null && $item != 0){
+            
+            if ($item === 1) {
+                Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
+                                            ->where('id_postulante', request()->get('id'))
+                                            ->update(['item' => 0]);
+            }else{
+                Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
+                                            ->where('id_postulante', request()->get('id'))
+                                            ->decrement('item');
+            }
         }
         return back();
     }
@@ -142,22 +129,23 @@ class AdmAsignacionController extends Controller
     }
 
     public function invitar(Request $request) {
-        $condicion=$this->hayItems(request()->get('asig_id_auxiliatura'));
-        if($condicion==1){
+        if($this->hayItems(request()->get('asig_id_auxiliatura'))){
+            $item = Postulante_auxiliatura::where('id_auxiliatura', request()->get('asig_id_auxiliatura'))
+                            ->where('id_postulante', request()->get('post-id'))->value('item');
+            if ($item == null) {
+                Postulante_auxiliatura::where('id_auxiliatura', request()->get('asig_id_auxiliatura'))
+                                            ->where('id_postulante', request()->get('post-id'))
+                                            ->where('id_convocatoria', session()->get('convocatoria'))
+                                            ->update(['item' => 1]);
+            }else{
+                Postulante_auxiliatura::where('id_auxiliatura', request()->get('asig_id_auxiliatura'))
+                                            ->where('id_postulante', request()->get('post-id'))
+                                            ->where('id_convocatoria', session()->get('convocatoria'))
+                                            ->increment('item');
+            }
+        } else {
             $errores = ["No hay cupos para esta auxiliatura"];
-        }elseif ($condicion==2) {
-            
-            $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('asig_id_auxiliatura'))
-                                        ->where('id_postulante', request()->get('post-id'))
-                                        ->where('id_convocatoria', session()->get('convocatoria'))
-                                        ->update(['item' => 1]);
-        }else{
-            $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('asig_id_auxiliatura'))
-                                        ->where('id_postulante', request()->get('post-id'))
-                                        ->where('id_convocatoria', session()->get('convocatoria'))
-                                        ->increment('item');
         }
-        // return $request;
         return back();
     }
 }
