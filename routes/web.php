@@ -68,7 +68,9 @@ Route::get('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@i
 Route::post('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@publicar')->name('admMeritos.publicar');
 Route::get('convocatoria/adm-notas-merito/{est}', 'AdmResultados\AdmMeritosController@meritos')->name('notasResMeritoEst');
 Route::get('convocatoria/adm-res-nota-final', 'AdmResultados\AdmNotasFinalesController@index')->name('admResNotaFinal');
+
 Route::get('convocatoria/adm-asignaciones', 'AdmResultados\AdmAsignacionController@index')->name('admResAsignaciones');
+Route::post('convocatoria/adm-asignaciones', 'AdmResultados\AdmAsignacionController@invitar')->name('admPostulanteInvitar');
 
 Route::post('convocatoria/adm-asignaciones/publicar', 'AdmResultados\AdmAsignacionController@prePostulantes')->name('eliminarPrePosts');
 //rutas asignecion
@@ -102,7 +104,7 @@ Route::delete('convocatoria/adm-meritos/{id}', 'AdmConvocatoria\AdmMeritosContro
 
 Route::get('convocatoria/adm-resultados', 'AdmConvocatoria\AdmResultadosController@index')->name('admResultados');
 
-Route::get('convocatoria/adm-asignacion', 'AdmConvocatoria\AdmAsignacionController@index')->name('admAsignacion');
+// Route::get('convocatoria/adm-asignacion', 'AdmConvocatoria\AdmAsignacionController@index')->name('admAsignacion');
 
 Route::post('convocatoria/adm-asignacion-item', 'AdmResultados\AdmAsignacionController@asignar')->name('asignar');
 Route::post('convocatoria/adm-quitar-item', 'AdmResultados\AdmAsignacionController@quitar')->name('quitar');

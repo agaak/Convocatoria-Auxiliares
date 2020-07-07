@@ -9,8 +9,10 @@
           <th style="font-weight: normal" scope="col">Nota Final</th>
           @if (auth()->check())
             @if (auth()->user()->hasRoles(['evaluador']))
-            @if (!$publicado)
-              <th style="font-weight: normal" scope="col">Calificar</th>
+              @if (!session()->get('ver'))
+                    @if (!$publicado)
+                      <th style="font-weight: normal" scope="col">Calificar</th>
+                    @endif
               @endif
             @else
               <th style="font-weight: normal" scope="col">Ver detalles</th>
@@ -32,10 +34,12 @@
             @if($postulante->nota > 0)  <td>{{$postulante->nota}}</td> @else <td>-</td> @endif
             @if (auth()->check())
               @if (auth()->user()->hasRoles(['evaluador']))
-              @if (!$publicado)
-              <td><a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}"><img
-                  src="{{ asset('img/pen.png') }}" width="25" height="25">
-                </a></td>
+                @if (!session()->get('ver'))
+                  @if (!$publicado)
+                  <td><a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}"><img
+                      src="{{ asset('img/pen.png') }}" width="25" height="25">
+                    </a></td>
+                  @endif
                 @endif
               @else
                 @if(auth()->user()->hasRoles(['administrador']))

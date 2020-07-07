@@ -34,7 +34,7 @@ class AdmAsignacionController extends Controller
                     ->get();
                     
             $listaPostInvitados = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
-            'postulante_auxiliatura.calificacion','postulante_auxiliatura.id_auxiliatura')
+            'postulante_auxiliatura.calificacion','postulante_auxiliatura.id_auxiliatura','postulante_auxiliatura.item')
             ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
             ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
             ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
@@ -45,7 +45,7 @@ class AdmAsignacionController extends Controller
             ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
             ->whereNotNull('postulante_auxiliatura.calificacion')
             ->where('postulante_auxiliatura.calificacion', '<', 51)
-            ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','postulante_auxiliatura.calificacion')
+            ->groupby('postulante_auxiliatura.id_auxiliatura','postulante_auxiliatura.item','postulante.id','postulante_auxiliatura.calificacion')
             ->get();
             $listaPostInvitados = collect($listaPostInvitados)->groupBy('id_auxiliatura');
             
@@ -61,14 +61,15 @@ class AdmAsignacionController extends Controller
             ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
             ->whereNotNull('postulante_auxiliatura.calificacion')
             ->where('postulante_auxiliatura.calificacion', '>=', 51)
+            ->orWhere('postulante_auxiliatura.item', '!=', null)
             ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','postulante_auxiliatura.calificacion','postulante_auxiliatura.item')
             ->orderBy('postulante_auxiliatura.calificacion', 'DESC')
             ->get();
             $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
 
-
+        // return $listaPostInvitados;
           $conv = Convocatoria::find($id_conv);
-        return view('admResultados.admAsignaciones',compact('listaAux','listaPost','conv'));
+        return view('admResultados.admAsignaciones',compact('listaAux','listaPost','conv','listaPostInvitados'));
     }
 
     public function asignar(){
@@ -140,4 +141,23 @@ class AdmAsignacionController extends Controller
         return back();
     }
 
+    public function invitar(Request $request) {
+        $condicion=$this->hayItems(request()->get('asig_id_auxiliatura'));
+        if($condicion==1){
+            $errores = ["No hay cupos para esta auxiliatura"];
+        }elseif ($condicion==2) {
+            
+            $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('asig_id_auxiliatura'))
+                                        ->where('id_postulante', request()->get('post-id'))
+                                        ->where('id_convocatoria', session()->get('convocatoria'))
+                                        ->update(['item' => 1]);
+        }else{
+            $res= Postulante_auxiliatura::where('id_auxiliatura', request()->get('asig_id_auxiliatura'))
+                                        ->where('id_postulante', request()->get('post-id'))
+                                        ->where('id_convocatoria', session()->get('convocatoria'))
+                                        ->increment('item');
+        }
+        // return $request;
+        return back();
+    }
 }

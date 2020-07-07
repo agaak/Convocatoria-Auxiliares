@@ -82,18 +82,21 @@
                   @endif
                 </tbody>   
               </table>
+              <div class="container text-right">
+                <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
+                        data-target="#invitarPostulanteModal" data-asig_id_auxiliatura="{{ $auxiliatura->id}}">Invitar postulante</button>
+              </div>
             </div>
         </div>
+          
         {{ $initContent = false  }}
         @endforeach
     </div>
 </div>
 
-<div class="container text-right">
-    <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
-            data-target="#invitarPostulanteModal">Invitar postulante</button>
-</div>
 
+
+{{-- Modal invitar postulante--}}
 <div class="modal fade" id="invitarPostulanteModal" tabindex="-1" role="dialog" aria-labelledby="postModalTitle"
   aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
@@ -105,17 +108,18 @@
                   </button>
               </div>
               <div class="modal-body">
-                <form method="POST" action="{{ route('admPostulanteCreate') }}" id="form-create-postulante">
+                <form method="POST" action="{{ route('admPostulanteInvitar') }}" id="form-create-postulante">
                   {{ csrf_field() }}
-                  <input type="hidden" name="id-conv-postulante" id="id-conv-postulante" value="">
+                  <input type="hidden" name="asig_id_auxiliatura" id="asig_id_auxiliatura">
+                  <input type="hidden" name="post-id" id="post-id">
                     <div class="form-group row pr-0 mb-3">
                       <div class="col-auto">
                         <label for="adm-post-rotulo"  class="col-form-label col-form-label">Carnet:</label>
                       </div>
                       <div class="col-4 px-0">
-                        <input type="text" name="adm-post-ci" placeholder="Ingrese su rotulo" class="form-control form-control" id="adm-post-ci" required>
+                        <input type="text" name="adm-post-ci" placeholder="Ingrese su carnet" class="form-control form-control" id="adm-post-ci" required>
                       </div> <div class="col-auto">
-                      <button type="button" class="btn btn-primary" onclick="#">Comprobar Postulante</button>
+                      <button type="button" class="btn btn-primary" onclick="comprobarInvitado({{ $listaPostInvitados }})" >Comprobar Postulante</button>
                     </div>
                       {!! $errors->first('adm-post-ci', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
                       </div>
@@ -129,19 +133,19 @@
                       <div class="form-group row">
                           <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Nombres:</label>
                           <div class="col-sm-9">
-                          <input type="text" name="postulante-nombre" disabled id="post-nom" class="form-control" required>
+                          <input type="text" name="postulante-nombre" readonly id="post-nom" class="form-control" required>
                           </div>
                       </div>
                       <div class="form-group row">
                           <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Apellidos:</label>
                           <div class="col-sm-9">
-                              <input class="form-control" type="text" disabled id="post-ape" name="postulante-apellidos" required>
+                              <input class="form-control" type="text" readonly id="post-ape" name="postulante-apellidos" required>
                           </div>
                       </div>
                       <div class="form-group row">
                           <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Nota final:</label>
                           <div class="col-sm-9">
-                              <input class="form-control" type="text" disabled id="post-ape" name="nota-final" required readonly>
+                              <input class="form-control" type="text" readonly id="post-nota" name="post-nota" required readonly>
                           </div>
                       </div>
                 </form>

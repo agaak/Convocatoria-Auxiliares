@@ -588,7 +588,56 @@ function trunc (x, posiciones = 0) {
     return finalNum
   }
 //fin calificar merito estudiante
+// Asignacion de items
 
+$('#invitarPostulanteModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var mid = button.data('asig_id_auxiliatura')
+    var modal = $(this)
+    modal.find('.modal-body #asig_id_auxiliatura').val(mid);
+    
+})
+
+function comprobarInvitado(listaInvitados) {
+    var id_aux = document.getElementById("asig_id_auxiliatura").value;
+    console.log(id_aux);
+    console.log(listaInvitados[id_aux]);
+    listaInvitados = listaInvitados[id_aux];
+    let existe = true;
+    for (const item of listaInvitados) {
+        if($('#adm-post-ci').val() == item['ci']) {
+            existe = false;
+            // $('#err').removeClass('error');
+            // $('#rotulo-no-existe').removeClass('d-none');
+            // $('#rotulo-existe').addClass('d-none');
+            // setTimeout(() => {
+            //     $('#rotulo-no-existe').addClass('d-none');
+            // }, 5000);
+            document.getElementById("post-id").value = item['id'];
+            document.getElementById("post-nom").value = item['nombre'];
+            document.getElementById("post-ape").value = item['apellido'];
+            document.getElementById("post-nota").value = item['calificacion'];
+            document.getElementById("bttn-post").disabled = false;
+            break;
+        }
+    }
+    if (existe) {
+        document.getElementById("bttn-post").disabled = true;
+        // $('#auxiliaturas').find('option').remove().end() ;
+        // $('#rotulo-existe').removeClass('d-none');
+        // $('#rotulo-no-existe').addClass('d-none');
+        // setTimeout(() => {
+        //     $('#rotulo-existe').addClass('d-none');
+        // }, 5000);
+        document.getElementById("post-nom").value = "";
+        document.getElementById("post-ape").value = "";
+        document.getElementById("post-nota").value = "";
+    }
+}
+
+
+
+//fin asignar items
 $('#pre-posts-habilitar').on('click', () => {
     res = confirm('Esta seguro de habilitar o desabilitar a los PRE POSTULANTES');
     if (!res) event.preventDefault();
