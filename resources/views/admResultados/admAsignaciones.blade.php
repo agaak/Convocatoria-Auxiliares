@@ -89,11 +89,9 @@
     </div>
 </div>
 
-<div class="col-11">
-  <div class="float-right">
+<div class="container text-right">
     <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
             data-target="#invitarPostulanteModal">Invitar postulante</button>
-  </div>
 </div>
 
 <div class="modal fade" id="invitarPostulanteModal" tabindex="-1" role="dialog" aria-labelledby="postModalTitle"
@@ -161,6 +159,12 @@
               </div>
           </div>
       </div>
+  </div>
+  <div class="text-center mt-5">
+    <form method="POST" action="{{ route('eliminarPrePosts') }}">
+      {{ csrf_field() }}
+      <button type="submit" id="eliminar-pre-postulantes" class="btn btn-success">Publicar Ganadores</button>
+    </form>
   </div>
 </div>
 @endsection

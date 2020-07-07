@@ -594,6 +594,11 @@ $('#pre-posts-habilitar').on('click', () => {
     if (!res) event.preventDefault();
 });
 
+$('#eliminar-pre-postulantes').on('click', () => {
+    res = confirm('Esta seguro de Publicar Ganadores y Eliminar la lista de PRE POSTULANTES');
+    if (!res) event.preventDefault();
+});
+
 // Auxiliaturas del laboratorio y docencia
 
 function cargarAuxLab(auxiliatura) {

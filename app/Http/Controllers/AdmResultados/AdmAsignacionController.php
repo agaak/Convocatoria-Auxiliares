@@ -11,6 +11,7 @@ use App\Models\Tematica;
 use App\Models\Requerimiento;
 use Illuminate\Support\Facades\DB;
 use App\Models\Postulante_auxiliatura;
+use App\Models\PrePostulante;
 
 class AdmAsignacionController extends Controller
 {
@@ -129,6 +130,13 @@ class AdmAsignacionController extends Controller
                                         ->decrement('item');
         }else{ 
         }
+        return back();
+    }
+
+    public function prePostulantes() {
+
+        PrePostulante::where('id_convocatoria', session()->get('convocatoria'))->delete();
+
         return back();
     }
 

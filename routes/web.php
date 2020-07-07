@@ -69,6 +69,8 @@ Route::post('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@
 Route::get('convocatoria/adm-notas-merito/{est}', 'AdmResultados\AdmMeritosController@meritos')->name('notasResMeritoEst');
 Route::get('convocatoria/adm-res-nota-final', 'AdmResultados\AdmNotasFinalesController@index')->name('admResNotaFinal');
 Route::get('convocatoria/adm-asignaciones', 'AdmResultados\AdmAsignacionController@index')->name('admResAsignaciones');
+
+Route::post('convocatoria/adm-asignaciones/publicar', 'AdmResultados\AdmAsignacionController@prePostulantes')->name('eliminarPrePosts');
 //rutas asignecion
 
 // ADM Secretaria
