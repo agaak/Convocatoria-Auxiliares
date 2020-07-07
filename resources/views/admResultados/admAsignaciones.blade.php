@@ -92,6 +92,11 @@
         {{ $initContent = false  }}
         @endforeach
     </div>
+    <div style="text-align: right">
+      <button type="button" class="btn btn-secondary">
+        <a href="/convocatoria/adm-asignaciones/pdf" style="color: #FFFF;">PDF</a>
+      </button>
+    </div>
 </div>
 
 
