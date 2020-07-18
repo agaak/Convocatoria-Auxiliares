@@ -251,6 +251,14 @@
         <div class="container">
             <h3 class="mb-3 mt-2">Catálogo de Laboratorio</h3>
 
+            <h6>
+                <span class="text-danger">Nro.</span> 
+                Auxiliatura, tematica ó area de evaluación esta ciendo
+                usada en una convocatoria, tenga cuidado al editar, porque 
+                la modificación podria afectar consultas historicas.
+            </h6>
+            <h6><span class="text-success">Nro.</span> Auxiliatura, tematica ó area de evaluación se puede editar con toda confianza.</h6>
+
             {{-- Seccion para navegar entre auxiliatura, tematica y areas de evaluacion --}}
 
             <ul class="nav nav-pills mb-3" role="tablist">
@@ -279,7 +287,7 @@
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
-                            <th scope="col">Nro.</th>
+                            <th scope="col" class="text-center">Nro.</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Código</th>
                             <th scope="col" class="text-center">Opciones</th>
@@ -288,7 +296,7 @@
                         <tbody class="bg-white">
                             @for ($i = 0; $i < count($auxiliaturas); $i++)
                                 <tr>
-                                    <th scope="row">{{ $i+1 }}</th>
+                                    <th scope="row" class="text-center {{ $existAux[$i] ? 'text-danger': 'text-success' }}">{{ $i+1 }}</th>
                                     <td>{{ $auxiliaturas[$i]->nombre_aux }}</td>
                                     <td>{{ $auxiliaturas[$i]->cod_aux }}</td>
                                     <td class="text-center">
@@ -328,7 +336,7 @@
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
-                            <th scope="col">Nro.</th>
+                            <th scope="col" class="text-center">Nro.</th>
                             <th scope="col">Nombre</th>
                             <th scope="col" class="text-center">Opciones</th>
                             </tr>
@@ -336,7 +344,7 @@
                         <tbody class="bg-white">
                             @for ($i = 0; $i < count($tematicas); $i++)
                                 <tr>
-                                    <th scope="row">{{ $i+1 }}</th>
+                                    <th scope="row" class="text-center {{ $existTem[$i] ? 'text-danger': 'text-success' }}">{{ $i+1 }}</th>
                                     <td>{{ $tematicas[$i]->nombre }}</td>
                                     <td class="text-center">
 
@@ -376,7 +384,7 @@
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
-                            <th scope="col">Nro.</th>
+                            <th scope="col" class="text-center">Nro.</th>
                             <th scope="col">Nombre</th>
                             <th scope="col" class="text-center">Opciones</th>
                             </tr>
@@ -384,7 +392,7 @@
                         <tbody class="bg-white">
                             @for ($i = 0; $i < count($areas); $i++)
                                 <tr>
-                                    <th scope="row">{{ $i+1 }}</th>
+                                    <th scope="row" class="text-center {{ $existArea[$i] ? 'text-danger': 'text-success' }}">{{ $i+1 }}</th>
                                     <td>{{ $areas[$i]->nombre }}</td>
                                     <td class="text-center">
 

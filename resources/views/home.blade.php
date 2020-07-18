@@ -5,11 +5,11 @@
 
     {{-- Carrusel --}}
 
-    <div id="carouselHome" class="carousel slide mb-3" data-ride="carousel">
+    <div id="carouselHome" class="carousel slide carousel-fade mb-3" data-ride="carousel">
 
         <div class="carousel-inner">
             <div class="carousel-item carousel-none text-right active">
-                <img src="{{ asset('img/home-1.jpeg') }}" class="d-block w-100" alt="home1">
+                <img src="{{ asset('img/home-1.jpg') }}" class="d-block w-100" alt="home1">
                 <div class="carousel-links">
                     <a href="#" class="text-dark mb-1">CONCURSO PARA <span class="font-weight-bold">AUXILIATURA
                             DOCENCIA</span></a>
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="carousel-item carousel-none text-right">
-                <img src="{{ asset('img/home-2.jpeg') }}" class="d-block w-100" alt="home2">
+                <img src="{{ asset('img/home-2.jpg') }}" class="d-block w-100" alt="home2">
                 <div class="carousel-links carousel-links-2">
                     <a href="#" class="text-dark mb-1">CONCURSO PARA <span class="font-weight-bold">AUXILIATURA
                             LABORATORIO</span></a>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Auxiliatura;
+use App\Models\Porcentaje;
 use App\Models\Requerimiento;
 use App\Models\Tematica;
 
@@ -18,13 +19,40 @@ class LaboratorioController extends Controller
         $auxiliaturas = Auxiliatura::where('id_unidad_academica', $idUnidadAcademica)
         ->where('id_tipo_convocatoria', 1)->orderBy('id', 'ASC')->get();
 
+        $existAux = [];
+
+        foreach ($auxiliaturas as $auxiliatura) {
+            if (Porcentaje::where('id_auxiliatura', $auxiliatura->id)->exists()) 
+                array_push($existAux, true);
+            else 
+                array_push($existAux, false);
+        }
+
         $tematicas = Tematica::where('id_unidad_academica', $idUnidadAcademica)
         ->where('id_tipo_convocatoria', 1)->orderBy('id', 'ASC')->get();
+
+        $existTem = [];
+
+        foreach ($tematicas as $tematica) {
+            if (Porcentaje::where('id_tematica', $tematica->id)->exists()) 
+                array_push($existTem, true);
+            else 
+                array_push($existTem, false);
+        }
 
         $areas = Area::where('id_unidad_academica', $idUnidadAcademica)
         ->where('id_tipo_convocatoria', 1)->orderBy('id', 'ASC')->get();
 
-        return view('catalogo.laboratorio', compact('auxiliaturas', 'tematicas', 'areas'));
+        $existArea = [];
+
+        foreach ($areas as $area) {
+            if (Porcentaje::where('id_area', $area->id)->exists()) 
+                array_push($existArea, true);
+            else 
+                array_push($existArea, false);
+        }
+
+        return view('catalogo.laboratorio', compact('auxiliaturas', 'tematicas', 'areas', 'existAux', 'existTem', 'existArea'));
     }
 
     public function save() {
