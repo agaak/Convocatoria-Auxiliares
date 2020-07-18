@@ -24,7 +24,7 @@ class ConocimientoController extends Controller
     {
         $this->middleware('view');
     }
-    public function knowledgeRating(Request $request){
+    public function index(Request $request){
         $id_conv = $request->session()->get('convocatoria');
         $conv = DB::table('convocatoria')->find($id_conv);
 

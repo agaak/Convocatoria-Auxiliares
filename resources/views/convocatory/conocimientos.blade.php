@@ -14,21 +14,7 @@
     </div>
   </div>
 
-  <!-- Button trigger modal -->
-  @if (!session()->get('ver'))
-    <div class="row my-3" style="margin-left: 3ch">
-      <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#tematicaModal">
-        <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
-        <span class="mx-1">Añadir Tematica</span>
-      </a>
-      <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
-        data-target="#auxiliaturaModal"
-        @if($requests->isNotEmpty()) onclick="selectAuxiliaturaModal({{ json_encode($porcentajes) }}, {{ json_encode($tems) }})" @endif>
-        <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-        <span class="mx-1">Editar Auxiliatura</span>
-      </a>
-    </div>  
-  @endif
+
 
   {{-- Visualizar Tabla de estructura de conocimientos --}}
   @component('components.convocatoria.tablaConocimientos', 
