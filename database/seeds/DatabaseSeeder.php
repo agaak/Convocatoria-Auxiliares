@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->truncateTables(['unidad_academica','tipo_convocatoria','auxiliatura',
-        'tematica','convocatoria','tipo_rol_evaluador','tipo_nota','roles','users',
+        'tematica','area_calificacion','convocatoria','tipo_rol_evaluador','tipo_nota','roles','users',
         'user_rol', 'evento', 'merito', 'pre_postulante', 'pre_postulante_auxiliatura',
         'calificacion_final','postulante','postulante_auxiliatura','postulante_conovocatoria'
         ]);
@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoConvocatoriaSeeder::class);
         $this->call(AuxiliaturaSeeder::class);
         $this->call(TematicaSeeder::class);
+        $this->call(AreaSeeder::class);
         $this->call(ConvocatoriaSeeder::class);
         $this->call(TipoRolEvaluadorSeeder::class);
         $this->call(TipoNotaSeeder::class);

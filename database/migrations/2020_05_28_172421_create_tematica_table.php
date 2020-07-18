@@ -24,6 +24,17 @@ class CreateTematicaTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('area_calificacion', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre');
+            $table->boolean('habilitado')->default('true');
+            $table->integer('id_unidad_academica')->unsigned();
+            $table->foreign('id_unidad_academica')->references('id')->on('unidad_academica')->onDelete('cascade');
+            $table->integer('id_tipo_convocatoria')->unsigned();
+            $table->foreign('id_tipo_convocatoria')->references('id')->on('tipo_convocatoria')->onDelete('cascade');
+            $table->timestamps();
+        });
+
         Schema::create('porcentaje', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_requerimiento');
@@ -32,6 +43,8 @@ class CreateTematicaTable extends Migration
             $table->foreign('id_auxiliatura')->references('id')->on('auxiliatura')->onDelete('cascade');
             $table->integer('id_tematica');
             $table->foreign('id_tematica')->references('id')->on('tematica')->onDelete('cascade'); 
+            $table->integer('id_area');
+            $table->foreign('id_area')->references('id')->on('area_calificacion')->onDelete('cascade'); 
             $table->integer('porcentaje');
 
             $table->timestamps();
@@ -46,6 +59,7 @@ class CreateTematicaTable extends Migration
     public function down()
     {
         Schema::dropIfExists('porcentaje');
+        Schema::dropIfExists('area_calificacion');
         Schema::dropIfExists('tematica');
     }
 }
