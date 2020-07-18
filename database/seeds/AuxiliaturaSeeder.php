@@ -21,7 +21,7 @@ class AuxiliaturaSeeder extends Seeder
         Auxiliatura::create([
             'id_unidad_academica' => '1',
             'id_tipo_convocatoria' => '2',
-            'nombre_aux' => 'Elementos y estructuras de datos ',
+            'nombre_aux' => 'Elementos y estructuras de datos',
             'cod_aux' => 'ELEM'
         ]);
 

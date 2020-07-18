@@ -27,27 +27,19 @@ class ConocimientoController extends Controller
     public function index(Request $request){
         $id_conv = $request->session()->get('convocatoria');
         $conv = DB::table('convocatoria')->find($id_conv);
-
+        $porcentajesConvocatoria = Calificacion_final::where('id_convocatoria',$id_conv)->first();
         $rutaPDF = $conv->ruta_pdf;
 
-        $tipo = $conv->id_tipo_convocatoria;
         $utilsConocimiento= new ConocimientosComp;
-        $requests = $utilsConocimiento->getRequerimientos($id_conv);
+        $list_aux = $utilsConocimiento->getRequerimientos($id_conv);
+        $tems = $utilsConocimiento->getTems($id_conv);
         $porcentajes = $utilsConocimiento->getPorcentajes($id_conv);
-        $tems = $utilsConocimiento->getItems($id_conv);
-
-        $tem_res = [];
-        foreach($tems as $tem){
-            array_push($tem_res, $tem->id);    
-        }
-        $tematics=Tematica::where('id_unidad_academica',1)
-            ->where('id_tipo_convocatoria',$tipo)
-            ->where('habilitado', true)
-            ->whereNotIn('id', $tem_res)->get();
-            
-        $porcentajesConvocatoria = Calificacion_final::where('id_convocatoria',session()
-                                                    ->get('convocatoria'))->first();
-        return view('convocatory.conocimientos', compact('tematics', 'requests','porcentajes','tems','porcentajesConvocatoria', 'rutaPDF', 'conv'));
+        $tematics = $utilsConocimiento->getTematicas($conv->id_tipo_convocatoria, $tems);
+        $areas = $utilsConocimiento->getAreas($conv->id_tipo_convocatoria);
+        
+         
+        // return $tems;
+        return view('convocatory.conocimientos', compact('tematics', 'list_aux','porcentajes','tems','porcentajesConvocatoria', 'rutaPDF', 'conv'));
     }
 
     public function knowledgeRatingTematicValid(ConocimientoCreateRequest $request){

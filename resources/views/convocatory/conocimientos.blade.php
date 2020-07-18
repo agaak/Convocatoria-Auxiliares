@@ -18,7 +18,7 @@
 
   {{-- Visualizar Tabla de estructura de conocimientos --}}
   @component('components.convocatoria.tablaConocimientos', 
-    ['requests' => $requests,'tems' => $tems,'porcentajes' => $porcentajes])
+    ['list_aux' => $list_aux,'tems' => $tems,'porcentajes' => $porcentajes])
   @endcomponent
   
   <!-- Modal Tematica-->
@@ -35,7 +35,7 @@
         <div class="modal-body">
           <form method="POST" action="{{ route('knowledgeRatingTematicValid') }}">
             {{ csrf_field() }}
-            @if($requests->isNotEmpty())
+            @if($list_aux->isNotEmpty())
             <div class="form-group">
               @if($tematics->isEmpty())
                 <label for="nombre">No hay tematicas para añadir</label>
@@ -77,21 +77,21 @@
         <div class="modal-body">
           <form method="POST" action="{{ route('knowledgeRatingAuxUpdate') }}" role="form">
             {{ csrf_field() }}
-            @if($requests->isNotEmpty())
+            @if($list_aux->isNotEmpty())
             <div class="form-group">
               <div class="form-row" style="margin-bottom: 5px">
                 <label class="col-auto col-form-label" for="department-conv">Auxiliatura</label>
                 <div class="col-xl">
                   <select onchange="selectAuxiliaturaModal({{ json_encode($porcentajes) }}, {{ json_encode($tems) }})"
                     class="form-control" id="id-req" name="id-req">
-                    @foreach($requests as $item)
+                    @foreach($list_aux as $item)
                       <option value="{{ $item->id }}">{{ $item->cod_aux }} - {{ $item->nombre_aux }}</option>
                     @endforeach
                   </select>
                 </div>
               </div>
               <div style="visibility: hidden"> {{ $num = 1 }}</div>
-              @foreach($tems as $tematic)
+              @foreach($tems["5"] as $tematic)
                 <input type="hidden" name="id-tem[]" value="{{ $tematic->id }}">
                 <div class="form-row">
                   <div class="form-group col-7">

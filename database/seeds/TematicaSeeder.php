@@ -12,15 +12,26 @@ class TematicaSeeder extends Seeder
      */
     public function run()
     {
+
         Tematica::create([
             'id_unidad_academica' => '1',
             'id_tipo_convocatoria' => '2',
-            'nombre' => 'Examen escrito'
+            'nombre' => 'Introduccion a la Progra'
         ]);
         Tematica::create([
             'id_unidad_academica' => '1',
             'id_tipo_convocatoria' => '2',
-            'nombre' => 'Examen oral'
+            'nombre' => 'Elementos y estructuras de datos '
+        ]);
+        Tematica::create([
+            'id_unidad_academica' => '1',
+            'id_tipo_convocatoria' => '2',
+            'nombre' => 'Computacion'
+        ]);
+        Tematica::create([
+            'id_unidad_academica' => '1',
+            'id_tipo_convocatoria' => '2',
+            'nombre' => 'Teoria de grafos'
         ]);
         Tematica::create([
             'id_unidad_academica' => '1',

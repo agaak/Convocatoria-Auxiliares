@@ -2,7 +2,7 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" id="myTab" role="tablist">
       @php $initTabs = true @endphp
-      @foreach ($requests as $auxiliatura)
+      @foreach ($list_aux as $auxiliatura)
         <li class="nav-item">
           <a class="nav-link{{ $initTabs ? " active" : '' }}" id={{ $auxiliatura->id }} data-toggle="tab" 
               href="#{{ "body".$auxiliatura->id }}" role="tab" aria-controls="home" aria-selected={{ $initTabs }}>
@@ -14,7 +14,7 @@
   </ul>
   @php $initContent = true; @endphp
   <div class="tab-content" id="myTabContent">
-      @foreach ($requests as $auxiliatura)
+      @foreach ($list_aux as $auxiliatura)
         <div class="tab-pane fade{{ $initContent ? " show active" : '' }}" id={{ "body".$auxiliatura->id}} 
           role="tabpanel" aria-labelledby={{ $auxiliatura->id}}>
 
@@ -49,21 +49,18 @@
             </thead>
             <tbody>
               @php $num = 1  @endphp
-              @foreach($tems as $tematic)
+              @foreach($tems[$auxiliatura->id] as $tematic)
                 <tr>
                   <td class="table-light">{{ $num++ }}</td>
                   <td class="table-light">{{ $tematic->nombre }}</td>
-                  {{-- @foreach($porcentajes as $item) --}}
-                    {{-- @if($item->id_tematica == $tematic->id)
+                  @foreach($tematic->areas as $item)
+                    <td class="table-light text-center">{{ $item->area }}</td>
                       @if($item->porcentaje == 0)
-                      <td class="table-light">-</td>
+                          <td class="table-light">-</td>
                       @else
-                      <td class="table-light">{{ $item->porcentaje }}</td>
+                          <td class="table-light">{{ $item->porcentaje }}</td>
                       @endif
-                    @endif --}}
-                  {{-- @endforeach --}}
-                  <td class="table-light">Examen oral</td>
-                  <td class="table-light">80</td>
+                  @endforeach
                   @if (!session()->get('ver'))
                     <td class="table-light">
                       <a class="options" data-toggle="modal" data-target="#tematicaEditModal" data-id="{{ $tematic->id }}"
@@ -91,7 +88,7 @@
 </div>
 </div>
 <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
-@foreach ($requests as $auxiliatura)
+@foreach ($list_aux as $auxiliatura)
 <script>
   $(document).ready(function() {
       $('#notas{{ $auxiliatura->id}}').DataTable({
