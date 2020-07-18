@@ -95,42 +95,48 @@ class ConvocatoriaSeeder extends Seeder
             'id_requerimiento' => 1,
             'id_auxiliatura' => 5,
             'id_tematica' => 3, 
-            'porcentaje' => 90
+            'porcentaje' => 90,
+            'id_area' => 1
         ]);
 
         Porcentaje::create([
             'id_requerimiento' => 2,
             'id_auxiliatura' => 6,
             'id_tematica' => 3, 
-            'porcentaje' => 90
+            'porcentaje' => 90,
+            'id_area' => 1
         ]);
 
         Porcentaje::create([
             'id_requerimiento' => 3,
             'id_auxiliatura' => 7,
             'id_tematica' => 3, 
-            'porcentaje' => 90
+            'porcentaje' => 90,
+            'id_area' => 1
         ]);
         
         Porcentaje::create([
             'id_requerimiento' => 1,
             'id_auxiliatura' => 5,
             'id_tematica' => 4, 
-            'porcentaje' => 10
+            'porcentaje' => 10,
+            'id_area' => 1
         ]);
 
         Porcentaje::create([
             'id_requerimiento' => 2,
             'id_auxiliatura' => 6,
             'id_tematica' => 4, 
-            'porcentaje' => 10
+            'porcentaje' => 10,
+            'id_area' => 1
         ]);
 
         Porcentaje::create([
             'id_requerimiento' => 3,
             'id_auxiliatura' => 7,
             'id_tematica' => 4, 
-            'porcentaje' => 10
+            'porcentaje' => 10,
+            'id_area' => 1
         ]);
 
         Convocatoria::create([
@@ -211,52 +217,60 @@ class ConvocatoriaSeeder extends Seeder
             'id_requerimiento' => $idReq1->id,
             'id_auxiliatura' => 1,
             'id_tematica' => 1, 
-            'porcentaje' => 60
+            'porcentaje' => 60,
+            'id_area' => 1
         ]);
         Porcentaje::create([
             'id_requerimiento' => $idReq1->id,
             'id_auxiliatura' => 1,
             'id_tematica' => 2, 
-            'porcentaje' => 40
+            'porcentaje' => 40,
+            'id_area' => 1
         ]);
 
         Porcentaje::create([
             'id_requerimiento' => $idReq2->id,
             'id_auxiliatura' => 2,
             'id_tematica' => 1, 
-            'porcentaje' => 20
+            'porcentaje' => 20,
+            'id_area' => 1
         ]);
         Porcentaje::create([
             'id_requerimiento' => $idReq2->id,
             'id_auxiliatura' => 2,
             'id_tematica' => 2, 
-            'porcentaje' => 80
+            'porcentaje' => 80,
+            'id_area' => 1
         ]);
 
         Porcentaje::create([
             'id_requerimiento' => $idReq3->id,
             'id_auxiliatura' => 3,
             'id_tematica' => 1, 
-            'porcentaje' => 50
+            'porcentaje' => 50,
+            'id_area' => 1
         ]);
         Porcentaje::create([
             'id_requerimiento' => $idReq3->id,
             'id_auxiliatura' => 3,
             'id_tematica' => 2, 
-            'porcentaje' => 50
+            'porcentaje' => 50,
+            'id_area' => 1
         ]);
 
         Porcentaje::create([
             'id_requerimiento' => $idReq4->id,
             'id_auxiliatura' => 4,
             'id_tematica' => 1, 
-            'porcentaje' => 70
+            'porcentaje' => 70,
+            'id_area' => 1
         ]);
         Porcentaje::create([
             'id_requerimiento' => $idReq4->id,
             'id_auxiliatura' => 4,
             'id_tematica' => 2, 
-            'porcentaje' => 30
+            'porcentaje' => 30,
+            'id_area' => 1
         ]);
     }
 }

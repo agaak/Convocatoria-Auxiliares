@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Catalogo;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Area;
 use App\Models\Auxiliatura;
 use App\Models\Requerimiento;
 use App\Models\Tematica;
@@ -20,7 +21,10 @@ class LaboratorioController extends Controller
         $tematicas = Tematica::where('id_unidad_academica', $idUnidadAcademica)
         ->where('id_tipo_convocatoria', 1)->orderBy('id', 'ASC')->get();
 
-        return view('catalogo.laboratorio', compact('auxiliaturas', 'tematicas'));
+        $areas = Area::where('id_unidad_academica', $idUnidadAcademica)
+        ->where('id_tipo_convocatoria', 1)->orderBy('id', 'ASC')->get();
+
+        return view('catalogo.laboratorio', compact('auxiliaturas', 'tematicas', 'areas'));
     }
 
     public function save() {
@@ -44,8 +48,21 @@ class LaboratorioController extends Controller
                 'cod_aux' => request()->input('codigo-auxs-lab')
             ]);
 
-        } else {
+        } else if (request()->has('nombre-area-lab')) {
 
+            request()->validate([
+                'nombre-area-lab' => 'unique:area_calificacion,nombre,0,id,id_unidad_academica,'.$idUnidadAcademica
+            ], [
+                'nombre-area-lab.unique' => 'El nombre de area ya existe.'
+            ]);
+
+            Area::create([
+                'id_unidad_academica' => $idUnidadAcademica,
+                'id_tipo_convocatoria' => 1,
+                'nombre' => request()->input('nombre-area-lab')
+            ]);
+
+        } else {
             request()->validate([
                 'nombre-tem-lab' => 'unique:tematica,nombre,0,id,id_unidad_academica,'.$idUnidadAcademica
             ], [
@@ -57,7 +74,6 @@ class LaboratorioController extends Controller
                 'id_tipo_convocatoria' => 1,
                 'nombre' => request()->input('nombre-tem-lab')
             ]);
-
         }
         
         return back();
@@ -84,8 +100,21 @@ class LaboratorioController extends Controller
                 'cod_aux' => request()->input('codigo-auxs-edit')
             ]);
 
-        } else {
+        } else if (request()->has('nombre-area-edit')) {
 
+            $idArea = request()->input('id-area');
+
+            request()->validate([
+                'nombre-area-edit' => 'unique:area_calificacion,nombre,'.$idArea.',id,id_unidad_academica,'.$idUnidadAcademica,
+            ], [
+                'nombre-area-edit.unique' => 'El nombre de area ya existe.',
+            ]);
+
+            Area::where('id', $idArea)->update([
+                'nombre' => request()->input('nombre-area-edit')
+            ]);
+
+        } else {
             $idTematica = request()->input('id-tematica');
 
             request()->validate([
@@ -97,7 +126,6 @@ class LaboratorioController extends Controller
             Tematica::where('id', $idTematica)->update([
                 'nombre' => request()->input('nombre-tem-edit')
             ]);
-
         }
 
         return back();
@@ -117,8 +145,19 @@ class LaboratorioController extends Controller
                 ]);
             }
 
-        } else {
+        } else if (request()->has('area')) {
 
+            if (Area::find($id)->habilitado) {
+                Area::where('id', $id)->update([
+                    'habilitado' => false
+                ]);
+            } else {
+                Area::where('id', $id)->update([
+                    'habilitado' => true
+                ]);
+            }
+
+        } else {
             if (Auxiliatura::find($id)->habilitado) {
                 Auxiliatura::where('id', $id)->update([
                     'habilitado' => false
@@ -128,7 +167,6 @@ class LaboratorioController extends Controller
                     'habilitado' => true
                 ]);
             }
-
         }
         
         return back();

@@ -684,3 +684,8 @@ $(document).ready(function() {
     });
 
 });
+
+function cargarAuxArea(area){
+    $('#nombre-area-id').val(area['nombre']);
+    $('#id-area-lab').val(area['id']);
+}

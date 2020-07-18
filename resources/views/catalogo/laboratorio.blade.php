@@ -2,6 +2,83 @@
 
 @section('content')
     <div class="overflow-auto content-div">
+
+        {{-- Modal para agregar area --}}
+
+        <div class="modal fade" id="agregarAreas" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Nueva Area de Evaluación</h5>
+                        <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" accion="{{ route('laboratorio.save') }}">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <label class="d-block">Nombre:
+                                    <input type="text" class="form-control" name="nombre-area-lab"
+                                    placeholder="Ingrese el Nombre de Area" value="{{ old('nombre-area-lab') }}" required>
+                                </label>
+                                {!! $errors->first('nombre-area-lab', '<strong class="message-error text-danger">:message</strong>') !!}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <input class="btn btn-info" type="submit" value="Guardar">
+                            </div>
+                        </form>
+                        @if ($errors->has('nombre-area-lab'))
+                            <script>
+                                window.onload = () => {
+                                    $('#agregarAreas').modal('show');
+                                }
+                            </script>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Modal para editar areas --}}
+
+        <div class="modal fade" id="editarAreas" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Area</h5>
+                        <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" accion="{{ route('laboratorio.update') }}">
+                            {{ csrf_field() }} {{ method_field('PUT') }}
+                            <input type="hidden" id="id-area-lab" name="id-area">
+                            <div class="form-group">
+                                <label class="d-block">Nombre:
+                                    <input type="text" class="form-control" id="nombre-area-id" name="nombre-area-edit" value="{{ old('nombre-area-edit') }}" required>
+                                </label>
+                                {!! $errors->first('nombre-area-edit', '<strong class="message-error text-danger">:message</strong>') !!}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <input class="btn btn-info" type="submit" value="Guardar">
+                            </div>
+                        </form>
+                        @if ($errors->has('nombre-area-edit'))
+                            <script>
+                                window.onload = () => {
+                                    $('#editarAreas').modal('show');
+                                }
+                            </script>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- Modal para agregar tematicas --}}
 
         <div class="modal fade" id="agregarTematicas" tabindex="-1" role="dialog" aria-hidden="true">
@@ -174,7 +251,7 @@
         <div class="container">
             <h3 class="mb-3 mt-2">Catálogo de Laboratorio</h3>
 
-            {{-- Seccion para navegar entre auxiliatura y tematica --}}
+            {{-- Seccion para navegar entre auxiliatura, tematica y areas de evaluacion --}}
 
             <ul class="nav nav-pills mb-3" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -184,6 +261,10 @@
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="pills-tematicas-tab" data-toggle="pill" href="#pills-tematicas"
                     role="tab" aria-controls="pills-tematicas" aria-selected="false">Temáticas</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="pills-areas-tab" data-toggle="pill" href="#pills-areas"
+                    role="tab" aria-controls="pills-areas" aria-selected="false">Areas de Evaluación</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -284,6 +365,55 @@
                         </tbody>
                     </table>
                 </div>
+
+                {{-- Seccion areas de evaluacion --}}
+
+                <div class="tab-pane fade" id="pills-areas" role="tabpanel" aria-labelledby="pills-areas-tab">
+                    <a class="mb-3" type="button" data-toggle="modal" data-target="#agregarAreas">
+                        <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
+                        <span class="mx-1">Añadir Area</span>
+                    </a>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                            <th scope="col">Nro.</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col" class="text-center">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            @for ($i = 0; $i < count($areas); $i++)
+                                <tr>
+                                    <th scope="row">{{ $i+1 }}</th>
+                                    <td>{{ $areas[$i]->nombre }}</td>
+                                    <td class="text-center">
+
+                                        @if ($areas[$i]->habilitado)
+                                            <button class="btn btn-link p-1" data-toggle="modal" data-target="#editarAreas"
+                                            data-dismiss="modal" onclick="cargarAuxArea({{ $areas[$i] }})">
+                                                <img src="{{ asset('img/pen.png') }}" width="25" height="25">
+                                            </button>
+                                        @endif
+                                        <form class="d-inline" action="{{ route('laboratorio.enable', $areas[$i]->id) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <input type="hidden" name="area">
+                                            <button type="submit" class="btn btn-link p-1">
+                                                @if ($areas[$i]->habilitado)
+                                                    <img src="{{ asset('img/enable.png') }}" width="25" height="25">
+                                                @else
+                                                    <img src="{{ asset('img/disable.png') }}" width="25" height="25">
+                                                @endif
+                                            </button>    
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
 
