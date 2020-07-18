@@ -29,8 +29,8 @@ class ConvocatoriaSeeder extends Seeder
             'publicado'=> false,
             'finalizado' => false,
             'creado'=> false,
-            'fecha_inicio'=> '6/6/2020',
-            'fecha_final'=> '7/7/2020'
+            'fecha_inicio'=> '7/7/2020',
+            'fecha_final'=> '8/8/2020'
         ]);
 
         Requerimiento::create([

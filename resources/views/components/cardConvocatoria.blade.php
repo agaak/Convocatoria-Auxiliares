@@ -103,7 +103,7 @@
                     convocatoria esta lista para publicarse.</div>
                 @endif
             @else
-                @if (auth()->user()->hasRoles(['secretaria']))
+                @if (auth()->user()->hasRoles(['administrador']))
                     <a href="{{ route('convocatoria.edit',$convo->id ) }}"
                     style="background-color:#2F2D4A; color:white;"
                     class="btn btn-sm">{{ csrf_field() }}Editar</a>

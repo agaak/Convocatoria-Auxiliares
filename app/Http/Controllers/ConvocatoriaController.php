@@ -22,7 +22,7 @@ class ConvocatoriaController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'roles:administrador,secretaria'])->except('index','download');
+        $this->middleware(['auth', 'roles:administrador'])->except('index','download');
     }
     /**
      * Display a listing of the resource.

@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'correo' => 'publica@gmail.com',
         ]);
         User::create([
-            'name' => 'admin',
+            'name' => 'Jimmy Villarroel',
             'password' => bcrypt('admin123'),
             'email' => 'admin@gmail.com',
             'userToken' => '123456',
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
 
        
         User::create([
-            'name' => 'La Secre',
+            'name' => 'Andrea M.',
             'password' => bcrypt('publica123'),
             'email' => 'sistema@gmail.com',
             'userToken' => '123123',

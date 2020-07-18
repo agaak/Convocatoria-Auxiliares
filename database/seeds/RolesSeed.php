@@ -17,8 +17,8 @@ class RolesSeed extends Seeder
         ]);
 
         Role::create([
-            'name' => 'secretaria',
-            'description' => 'Secretaria del sistema de convocatorias'
+            'name' => 'receptor documentos',
+            'description' => 'Receptor de documentos de postulantes'
         ]);
 
         Role::create([

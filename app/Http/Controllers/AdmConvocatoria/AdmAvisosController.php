@@ -14,7 +14,7 @@ class AdmAvisosController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'roles:secretaria']);
+        $this->middleware(['auth', 'roles:administrador']);
     }
     
     public function index()

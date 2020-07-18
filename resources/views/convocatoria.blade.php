@@ -7,7 +7,7 @@
 
     {{-- Boton para crear una nueva convocatoria --}}
     @if (auth()->check())
-        @if (auth()->user()->hasRoles(['secretaria']))
+        @if (auth()->user()->hasRoles(['administrador']))
             <div class="container">
                 <div class="row my-3">
                     <a type="button" data-toggle="modal" data-target="#convocatoriaModal">

@@ -14,11 +14,11 @@ class ConvocatoriaComp
             if(auth()->user()->hasRoles(['administrador'])){              
                 $requests= Convocatoria::where('id_unidad_academica',$id_unidad)
                     ->where('finalizado',false)
-                    ->where('creado',true)->orderBy('id','ASC')->get();
+                    ->orderBy('id','ASC')->get();
             } else if(auth()->user()->hasRoles(['secretaria'])){
                 $requests= Convocatoria::where('id_unidad_academica',$id_unidad)
-                    ->where('finalizado',false)
-                    ->orderBy('id','ASC')->get();
+                    ->where('finalizado',false)->where('publicado',true)
+                    ->where('creado',true)->orderBy('id','ASC')->get();
             } else if(auth()->user()->hasRoles(['evaluador'])){
                 $requests = EvaluadorConocimientos::where('correo', auth()->user()->email)
                 ->first()->convocatorias;

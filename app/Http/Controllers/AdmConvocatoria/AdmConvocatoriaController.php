@@ -22,9 +22,9 @@ class AdmConvocatoriaController extends Controller
     {   
         session()->put('convocatoria', $id) ;
         if(auth()->user()->hasRoles(['secretaria'])){ 
-            return redirect()->route('admConocimientos');
+            return redirect()->route('admPostulantes');
         } else {
-            return redirect()->route('admHabilitados');
+            return redirect()->route('admConocimientos');
         }
     }
 }
