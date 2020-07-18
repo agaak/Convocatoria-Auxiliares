@@ -173,6 +173,15 @@ class ConocimientoController extends Controller
                     'finalizo.required' => 'No lleno la seccion de eventos importantes.'
                 ]);  
             }
+            if(EventoImportante::where('id_convocatoria',$id_conv)
+                ->where('titulo_evento', 'Presentación de Documentos')
+                ->value('lugar_evento')[1] == '-'){
+                request()->validate([
+                    'finalizo' => 'required'
+                ],[
+                    'finalizo.required' => 'Modifique el evento Presentación de Documentos de la sección de eventos importantes.'
+                ]);  
+            }
             if(!Merito::where('id_convocatoria',$id_conv)->exists()){
                 request()->validate([
                     'finalizo' => 'required'

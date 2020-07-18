@@ -7,7 +7,7 @@ use App\Models\EventoImportante;
 class EventoComp
 {   
     public function getEventos($id_conv){
-        $requests=EventoImportante::where('id_convocatoria', $id_conv)
+        $requests=EventoImportante::where('id_convocatoria', $id_conv)->orderBy('id', 'ASC')
                         ->get();
         return $requests;
     }

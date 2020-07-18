@@ -12,6 +12,7 @@ use App\Http\Requests\ConvocatoriaRequest;
 use App\Http\Controllers\Utils\ConvocatoriaComp as Convos;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use App\Http\Controllers\Utils\ConvocatoriaComp;
+use App\Models\EventoImportante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -41,8 +42,10 @@ class ConvocatoriaController extends Controller
         $auxs = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
             ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();
+        
+        $fechaActual = date('Y-m-d H:i:s');
             
-        return view('convocatoria', compact('tipos','anioActual','convos', 'auxs'));
+        return view('convocatoria', compact('tipos','anioActual','convos', 'auxs', 'fechaActual'));
     }
 
     /**
@@ -75,6 +78,14 @@ class ConvocatoriaController extends Controller
         $conv->finalizado = false;
         $conv->creado = false;
         $conv->save();
+
+        EventoImportante::create([
+            'id_convocatoria' => $conv->id,
+            'titulo_evento' => 'Presentación de Documentos',
+            'lugar_evento' => '------------------------------------------',
+            'fecha_inicio' => $conv->fecha_inicio,
+            'fecha_final' => $conv->fecha_final
+        ]);
 
         session()->put('convocatoria', $conv->id) ;
         return back();

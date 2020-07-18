@@ -73,10 +73,10 @@
                         @endif
                     @else
                         <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a>
-                        @if ($convo->pre_posts_habilitado && !($convo->finalizado))
-                            <a type="button" onclick="listaAux({{ $auxs }}, {{ $convo->id }})" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#postulanteModal">
-                                Postular ahora
-                            </a>
+                        @if ($fechaActual <= (\App\Models\EventoImportante::where('id_convocatoria', $convo->id)->where('titulo_evento', 'Presentación de Documentos')->value('fecha_final')))
+                        <a type="button" onclick="listaAux({{ $auxs }}, {{ $convo->id }})" class="btn btn-success btn-sm text-white" data-toggle="modal" data-target="#postulanteModal">
+                            Postular ahora
+                        </a>
                         @endif
                     @endif                      
                     <a href="{{ route('convocatoria.download',$convo->id ) }}" style="color:white;"
