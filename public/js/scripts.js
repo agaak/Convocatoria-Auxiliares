@@ -94,12 +94,21 @@ $('#requestEditModal').on('show.bs.modal', function (event) {
     
 })
 
-    
+$('#tematicaModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var mid_aux = button.data('id_auxiliatura')
+    var modal = $(this)
+    modal.find('.modal-body #id-auxiliatura').val(mid_aux);
+})
+
 $('#tematicaEditModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var mid = button.data('id')
+        var mid_aux = button.data('id_auxiliatura')
         var modal = $(this)
+
         modal.find('.modal-body #id-tematica-edit').val(mid);
+
 })
 
 $(document).ready(function(){
@@ -144,21 +153,24 @@ $('#requirementsEditModal').on('hidden.bs.modal', () => {
     document.querySelectorAll(".message-error").forEach(e => e.parentNode.removeChild(e));
 });
 
-function selectAuxiliaturaModal(mporcentajes,mtematicas) {
-    var selecte = document.getElementById("id-req");
-    var mid_req = selecte.options[selecte.selectedIndex].value;
-    var x = document.getElementsByClassName('porcentaje-aux');
-    var cont = 0;
-    for(i = 0; i < mporcentajes.length; i++) {
-        if(mporcentajes[i].id_requerimiento == mid_req){
-            for(j = 0; j < mtematicas.length; j++){
-                if(mporcentajes[i].id_tematica == mtematicas[j].id){
-                    x[cont].value = mporcentajes[i].porcentaje;    
-                    cont++; 
-                }
-            }
-        }
-    }
+function selectTematicaModal(mporcentajes,mareas) {
+    $('#nombre-tem-edit')
+        .find('option')
+        .remove()
+        .end()
+        .append('<option value="whatever">'+mporcentajes['nombre']+'</option>')
+        .val('whatever')
+    ;
+    mareas.forEach(area => {
+        document.getElementById('.'+area['id']+'-edit').value = "";
+        document.getElementById('.'+area['id']+'-edit').disabled = true;
+        document.getElementById(area['id']+'-edit').checked = false; 
+    });
+    mporcentajes['areas'].forEach(area => {
+        document.getElementById('.'+area['id_area']+'-edit').value = area['porcentaje'];
+        document.getElementById('.'+area['id_area']+'-edit').disabled = false;
+        document.getElementById(area['id_area']+'-edit').checked = true;
+    });
 }
 
 function seleccionarOpcion(dato) {

@@ -21,16 +21,10 @@
           <!-- Button trigger modal -->
           @if (!session()->get('ver'))
           <div class="row my-3" style="margin-left: 3ch">
-            <a class="text-decoration-none" type="button" data-toggle="modal" data-target="#tematicaModal">
+            <a class="text-decoration-none" type="button" data-toggle="modal" data-id_auxiliatura="{{ $auxiliatura->id }}" data-target="#tematicaModal">
               <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
               <span class="mx-1">Añadir Tematica</span>
             </a>
-            {{-- <a class="text-decoration-none" style="margin-left: 15px" type="button" data-toggle="modal"
-              data-target="#auxiliaturaModal"
-              @if($requests->isNotEmpty()) onclick="selectAuxiliaturaModal({{ json_encode($porcentajes) }}, {{ json_encode($tems) }})" @endif>
-              <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-              <span class="mx-1">Editar Auxiliatura</span>
-            </a> --}}
           </div>  
           @endif
 
@@ -49,10 +43,13 @@
             </thead>
             <tbody>
               @php $num = 1  @endphp
+              <h6>{{$tems}}-{{$auxiliatura->id}}--</h6>
+              <h5>{{$auxiliatura->id}}</h5>
+              @if($tems->has($auxiliatura->id))
               @foreach($tems[$auxiliatura->id] as $tematic)
                 <tr>
-                  <td class="table-light">{{ $num++ }}</td>
-                  <td class="table-light">{{ $tematic->nombre }}</td>
+                  <td class="table-light" scope="col" rowspan="2">{{ $num++ }}</td>
+                  <td class="table-light" scope="col" rowspan="2">{{ $tematic->nombre }}</td>
                   @foreach($tematic->areas as $item)
                     <td class="table-light text-center">{{ $item->area }}</td>
                       @if($item->porcentaje == 0)
@@ -62,9 +59,10 @@
                       @endif
                   @endforeach
                   @if (!session()->get('ver'))
-                    <td class="table-light">
+                    <td class="table-light" scope="col" rowspan="2">
                       <a class="options" data-toggle="modal" data-target="#tematicaEditModal" data-id="{{ $tematic->id }}"
-                      data-nombre="{{ $tematic->nombre }}" data-dismiss="modal">
+                      data-nombre="{{ $tematic->nombre }}" data-id_auxiliatura="{{ $auxiliatura->id }}" 
+                      data-dismiss="modal" onclick="selectTematicaModal({{json_encode($tems[5][$num-2])}},{{json_encode($areas)}})">
                         <img src="{{ asset('img/pen.png') }}" width="25" height="25">
                       </a>
 
@@ -79,6 +77,7 @@
                   @endif
                 </tr>
               @endforeach
+              @endif
             </tbody>
           </table>
         </div>

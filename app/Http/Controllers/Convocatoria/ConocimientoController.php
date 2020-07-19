@@ -37,28 +37,23 @@ class ConocimientoController extends Controller
         $tematics = $utilsConocimiento->getTematicas($conv->id_tipo_convocatoria, $tems);
         $areas = $utilsConocimiento->getAreas($conv->id_tipo_convocatoria);
         
-         
         // return $tems;
-        return view('convocatory.conocimientos', compact('tematics', 'list_aux','porcentajes','tems','porcentajesConvocatoria', 'rutaPDF', 'conv'));
+        return view('convocatory.conocimientos', compact('tematics','areas', 'list_aux','porcentajes','tems','porcentajesConvocatoria', 'rutaPDF', 'conv'));
     }
 
-    public function knowledgeRatingTematicValid(ConocimientoCreateRequest $request){
-        $res = DB::table('tematica')
-            ->where('tematica.id',$request->get('id-tematica')) 
-            ->join('porcentaje', 'tematica.id','=','porcentaje.id_tematica')
-            ->join('requerimiento','porcentaje.id_requerimiento','=','requerimiento.id')
-            ->where('requerimiento.id_convocatoria','=',$request->session()->get('convocatoria'))
-            ->get();
-        if(count($res)==0){
-            $requests=DB::table('requerimiento')->where('id_convocatoria', $request->session()->get('convocatoria'))->get();
-            foreach($requests as $item){
+    public function knowledgeRatingTematicValid(Request $request){
+        return $request;
+        $areas = collect($request->input('area-aux'));
+        $id_req = Requerimiento::where('id_convocatoria',session()->get('convocatoria'))
+            ->where('id_auxiliatura',$request->input('id-auxiliatura'))->value('id');
+        foreach($request->get('area') as $area){
             $por = new Porcentaje(); 
-            $por -> id_requerimiento = $item->id;
-            $por -> id_auxiliatura =  $item->id_auxiliatura;
-            $por -> id_tematica = $request->get('id-tematica'); 
-            $por -> porcentaje = 0; 
+            $por -> id_requerimiento = $id_req;
+            $por -> id_auxiliatura =  $request->input('id-auxiliatura');
+            $por -> id_tematica = $request->input('id-tematica'); 
+            $por -> id_area = $area; 
+            $por -> porcentaje = $areas->shift(); 
             $por -> save();
-            }
         }
         return back();
     }

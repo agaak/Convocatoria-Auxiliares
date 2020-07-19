@@ -52,10 +52,15 @@ class ConocimientosComp
     }
 
     public function getTematicas($tipo, $tems){
+        $tems->collapse()->groupBy('id');
+        $tems_res = [];
+        foreach($tems as $tem){
+            array_push($tems_res, $tem[0]->id);        
+        }
         $tematics = Tematica::select('nombre','id')
             ->where('id_tipo_convocatoria',$tipo)->where('habilitado', true)
+            ->whereNotIn('id',$tems_res)
             ->orderBy('nombre','ASC')->get();
-
         return $tematics;
     }
 

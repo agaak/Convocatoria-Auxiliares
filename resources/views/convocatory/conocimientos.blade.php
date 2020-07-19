@@ -18,7 +18,7 @@
 
   {{-- Visualizar Tabla de estructura de conocimientos --}}
   @component('components.convocatoria.tablaConocimientos', 
-    ['list_aux' => $list_aux,'tems' => $tems,'porcentajes' => $porcentajes])
+    ['list_aux' => $list_aux,'tems' => $tems,'porcentajes' => $porcentajes,'areas' => $areas])
   @endcomponent
   
   <!-- Modal Tematica-->
@@ -41,11 +41,32 @@
                 <label for="nombre">No hay tematicas para añadir</label>
               @else
                 <label for="nombre">Nombre de la Tematica</label>
-                <select class="form-control" id="id-tematica" name="id-tematica">
+                <input type="hidden" id="id-auxiliatura" name="id-auxiliatura">
+                <select class="form-control" id="id-tematica" name="id-tematica" onclick="select_tem({{json_encode($areas)}})">
                   @foreach($tematics as $tematic)
                     <option value={{ $tematic->id }}>{{ $tematic->nombre }}</option>
                   @endforeach
                 </select>
+                <div class="form-row">
+                  <label class="col-sm-6 col-form-label text-center">Area de Evaluacion</label>
+                  <label class="col-sm-5 col-form-label text-center">Porcentaje</label>
+                </div>
+                  @foreach($areas as $area)
+                  <div class="form-row col-sm-12 mt-2">
+                    <div class="form-check col-sm-6 mx-3">
+
+                      <input class="form-check-input" onclick="check({{ $area->id }})" type="checkbox" 
+                          value="{{ $area->id }}" name="area[]" id="{{ $area->id }}">
+                      <label class="form-check-label" for="{{ $area->id }}">
+                        {{ $area->nombre }}
+                      </label>
+                    </div>
+                    <div class="col-sm-3 mx-2">
+                    <input type="number" class="form-control form-control-sm text-center"
+                        name="area-aux[]" min="0" max="100" disabled required id=".{{ $area->id }}">
+                      </div>
+                  </div>
+                  @endforeach
               @endif
             </div>
             @endif
@@ -63,66 +84,7 @@
       </div>
     </div>
   </div>
-  <!-- Modal Auxiliatura-->
-  <div class="modal fade" id="auxiliaturaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Auxiliatura</h5>
-          <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form method="POST" action="{{ route('knowledgeRatingAuxUpdate') }}" role="form">
-            {{ csrf_field() }}
-            @if($list_aux->isNotEmpty())
-            <div class="form-group">
-              <div class="form-row" style="margin-bottom: 5px">
-                <label class="col-auto col-form-label" for="department-conv">Auxiliatura</label>
-                <div class="col-xl">
-                  <select onchange="selectAuxiliaturaModal({{ json_encode($porcentajes) }}, {{ json_encode($tems) }})"
-                    class="form-control" id="id-req" name="id-req">
-                    @foreach($list_aux as $item)
-                      <option value="{{ $item->id }}">{{ $item->cod_aux }} - {{ $item->nombre_aux }}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-              <div style="visibility: hidden"> {{ $num = 1 }}</div>
-              @foreach($tems["5"] as $tematic)
-                <input type="hidden" name="id-tem[]" value="{{ $tematic->id }}">
-                <div class="form-row">
-                  <div class="form-group col-7">
-                    <div class="row">
-                      <label class="col-sm-5 col-form-label">Tematica
-                        {{ $num++ }}{{ ":" }}</label>
-                      <label class="col-sm-7 col-form-label"><span style="font-weight: normal;">{{ $tematic->nombre }}
-                        </span></label>
-                    </div>
-                  </div>
-                  <div class="form-group col-4">
-                    <div class="row">
-                      <label class="col-sm-7 col-form-label" for="porcent-merit">Porcentaje:</label>
-                      <input type="number" class="form-control form-control-sm col-sm-5 porcentaje-aux"
-                        name="porcentaje-aux[]" min="0" max="100" required>
 
-                    </div>
-                  </div>
-                </div>
-              @endforeach
-            </div>
-            @endif
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <input class="btn btn-info" type="submit" value="Guardar">
-          </div>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>
   <!-- Modal Edit Tematica-->
   <div class="modal fade" id="tematicaEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
@@ -146,11 +108,24 @@
                 <label for="nombre">No hay tematicas para cambiar</label>
               @else
                 <label for="nombre">Nombre de la Tematica</label>
-                <select class="form-control" id="nombre-tem" name="nombre-tem">
-                  @foreach($tematics as $tematic)
-                    <option value={{ $tematic->id }}>{{ $tematic->nombre }}</option>
+                <select class="form-control" id="nombre-tem-edit" name="nombre-tem-edit"></select>
+                <div class="form-row">
+                  <label class="col-sm-6 col-form-label text-center">Area de Evaluacion</label>
+                  <label class="col-sm-5 col-form-label text-center">Porcentaje</label>
+                </div>
+                  @foreach($areas as $area)
+                  <div class="form-row col-sm-12 mt-2">
+                    <div class="form-check col-sm-6 mx-3">
+                      <input class="form-check-input" onclick="check2({{ $area->id }})" type="checkbox" 
+                          value="" name="area-edit[]" id="{{ $area->id }}-edit" autocomplete="off">
+                      <label class="form-check-label" for="{{ $area->id }}-edit">{{ $area->nombre }}</label>
+                    </div>
+                    <div class="col-sm-3 mx-2">
+                    <input type="number" class="form-control form-control-sm text-center" autocomplete="off"
+                        name="area-aux-edit[]" min="0" max="100" disabled required id=".{{ $area->id }}-edit">
+                      </div>
+                  </div>
                   @endforeach
-                </select>
               @endif
             </div>
             <div class="modal-footer">
@@ -182,6 +157,22 @@
   @endif
 </div>
 <script>
-
+  function check(id) {
+    var estado = document.getElementById('.'+id).disabled;
+    document.getElementById('.'+id).disabled = !estado;
+    document.getElementById('.'+id).value = "";
+  }
+  function select_tem(areas){
+    areas.forEach(area => {
+      document.getElementById('.'+area['id']).value = "";
+      document.getElementById('.'+area['id']).disabled = true;
+      document.getElementById(area['id']).checked = false;
+    });
+  }
+  function check2(id) {
+    var estado = document.getElementById('.'+id+'-edit').disabled;
+    document.getElementById('.'+id+'-edit').disabled = !estado;
+    document.getElementById('.'+id+'-edit').value = "";
+  }
 </script>
 @endsection
