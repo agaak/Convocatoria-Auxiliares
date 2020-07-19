@@ -470,6 +470,12 @@ input[type=number] {
     margin-right: auto;
 }
 
+.img-home {
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+}
+
 .icono-carousel {
     width: 40px !important;
     height: 40px !important;
@@ -479,14 +485,10 @@ input[type=number] {
 
 .carousel-links {
     position: absolute;
-    bottom: 38rem;
-    right: 32rem;
-}
-
-.carousel-links-2 {
-    position: absolute;
-    bottom: 38rem;
-    right: 10rem;
+    bottom: 1rem;
+    right: 0;
+    left: 0;
+    text-align: center;
 }
 
 .carousel-links a{
@@ -504,13 +506,7 @@ input[type=number] {
     color: teal !important;
 }
 
-@media (max-width: 1300px) {
-    .carousel-links {
-        bottom: 1rem;
-        right: 0;
-        left: 0;
-        text-align: center;
-    }
+@media (max-width: 1200px) {
     .carousel-links a{
         font-size: 1.2rem;
     }
@@ -519,6 +515,8 @@ input[type=number] {
 @media (max-width: 768px) {
     .carousel-links{
         display: block !important;
+    }
+    .carousel-links a {
         font-size: 1rem;
     }
 }
