@@ -18,7 +18,7 @@
 
   {{-- Visualizar Tabla de estructura de conocimientos --}}
   @component('components.convocatoria.tablaConocimientos', 
-    ['list_aux' => $list_aux,'tems' => $tems,'porcentajes' => $porcentajes,'areas' => $areas])
+    ['list_aux' => $list_aux,'tems' => $tems,'porcentajes' => $porcentajes,'areas' => $areas,'tematics' => $tematics])
   @endcomponent
   
   <!-- Modal Tematica-->
@@ -43,9 +43,7 @@
                 <label for="nombre">Nombre de la Tematica</label>
                 <input type="hidden" id="id-auxiliatura" name="id-auxiliatura">
                 <select class="form-control" id="id-tematica" name="id-tematica" onclick="select_tem({{json_encode($areas)}})">
-                  @foreach($tematics as $tematic)
-                    <option value={{ $tematic->id }}>{{ $tematic->nombre }}</option>
-                  @endforeach
+                    {{-- <option value={{ $tematic->id }}>{{ $tematic->nombre }}</option> --}}
                 </select>
                 <div class="form-row">
                   <label class="col-sm-6 col-form-label text-center">Area de Evaluacion</label>
@@ -54,7 +52,6 @@
                   @foreach($areas as $area)
                   <div class="form-row col-sm-12 mt-2">
                     <div class="form-check col-sm-6 mx-3">
-
                       <input class="form-check-input" onclick="check({{ $area->id }})" type="checkbox" 
                           value="{{ $area->id }}" name="area[]" id="{{ $area->id }}">
                       <label class="form-check-label" for="{{ $area->id }}">
@@ -98,11 +95,12 @@
         </div>
         <div class="modal-body">
           <form method="POST"
-            action="{{ route('knowledgeRatingTematicUpdate','2' ) }}"
+            action="{{ route('knowledgeRatingTematicUpdate') }}"
             role="form" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <input type="hidden" id="id-tematica-edit" name="id-tematica-edit">
+            <input type="hidden" id="id-auxiliatura-edit" name="id-auxiliatura-edit">
             <div class="form-group">
               @if($tematics->isEmpty())
                 <label for="nombre">No hay tematicas para cambiar</label>
@@ -117,12 +115,12 @@
                   <div class="form-row col-sm-12 mt-2">
                     <div class="form-check col-sm-6 mx-3">
                       <input class="form-check-input" onclick="check2({{ $area->id }})" type="checkbox" 
-                          value="" name="area-edit[]" id="{{ $area->id }}-edit" autocomplete="off">
+                          name="id-area-edit[]" id="{{ $area->id }}-edit" autocomplete="off">
                       <label class="form-check-label" for="{{ $area->id }}-edit">{{ $area->nombre }}</label>
                     </div>
                     <div class="col-sm-3 mx-2">
                     <input type="number" class="form-control form-control-sm text-center" autocomplete="off"
-                        name="area-aux-edit[]" min="0" max="100" disabled required id=".{{ $area->id }}-edit">
+                        name="porc-edit[]" min="0" max="100" disabled required id=".{{ $area->id }}-edit">
                       </div>
                   </div>
                   @endforeach

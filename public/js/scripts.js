@@ -101,14 +101,28 @@ $('#tematicaModal').on('show.bs.modal', function (event) {
     modal.find('.modal-body #id-auxiliatura').val(mid_aux);
 })
 
+function addModalTem(tematics){
+    var x = document.getElementById("id-tematica");
+    var length = x.options.length;
+    for (i = length-1; i >= 0; i--) {
+        x.options[i] = null;
+    }
+    tematics.forEach(tem => {
+        var option = document.createElement("option");
+        option.text = tem['nombre'];
+        option.value = tem['id'];
+        x.add(option);
+    });
+    
+}
+
 $('#tematicaEditModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var mid = button.data('id')
         var mid_aux = button.data('id_auxiliatura')
         var modal = $(this)
-
         modal.find('.modal-body #id-tematica-edit').val(mid);
-
+        modal.find('.modal-body #id-auxiliatura-edit').val(mid_aux);
 })
 
 $(document).ready(function(){
@@ -165,11 +179,13 @@ function selectTematicaModal(mporcentajes,mareas) {
         document.getElementById('.'+area['id']+'-edit').value = "";
         document.getElementById('.'+area['id']+'-edit').disabled = true;
         document.getElementById(area['id']+'-edit').checked = false; 
+        document.getElementById(area['id']+'-edit').value = area['id'];
     });
     mporcentajes['areas'].forEach(area => {
         document.getElementById('.'+area['id_area']+'-edit').value = area['porcentaje'];
         document.getElementById('.'+area['id_area']+'-edit').disabled = false;
         document.getElementById(area['id_area']+'-edit').checked = true;
+        // document.getElementById(area['id_area']+'-edit').value = area['id'];
     });
 }
 

@@ -18,7 +18,7 @@ class ConocimientosComp
     }
     
     public function getPorcentajes($id_conv){
-        $porcentajes = Porcentaje::select('id_requerimiento','porcentaje.porcentaje','id_area',
+        $porcentajes = Porcentaje::select('id_requerimiento','porcentaje.porcentaje','id_area','porcentaje.id',
         'porcentaje.id_auxiliatura','id_tematica','tematica.nombre','area_calificacion.nombre as area')
         ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
         ->where('requerimiento.id_convocatoria',$id_conv)->orderBy('id_requerimiento','ASC')
@@ -38,7 +38,6 @@ class ConocimientosComp
         ->orderBy('nombre','ASC')->get();
         $tems = collect($tems)->groupBy('id_auxiliatura');
         foreach($tems as $tem){
-            // $tems->$tem = collect($tem)->groupBy('id');
             foreach($tem as $tem_aux){
                 $tem_aux->areas = Porcentaje::select('porcentaje.id','porcentaje','id_area','nombre as area')
                     ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
@@ -51,17 +50,22 @@ class ConocimientosComp
         return $tems;
     }
 
-    public function getTematicas($tipo, $tems){
-        $tems->collapse()->groupBy('id');
-        $tems_res = [];
-        foreach($tems as $tem){
-            array_push($tems_res, $tem[0]->id);        
+    public function getTematicas($tipo, $tems, $list_aux){
+        // $tems->collapse()->groupBy('id');
+        $list_aux = collect($list_aux)->groupBy('id');
+        foreach($list_aux as $aux){
+            $tems_aux = [];
+            if($tems->has($aux[0]['id'])){
+                foreach($tems[$aux[0]['id']] as $tem){
+                    array_push($tems_aux, $tem->id);   
+                }
+            }
+            $aux[0]->tematics = Tematica::select('nombre','id')
+                ->where('id_tipo_convocatoria',$tipo)->where('habilitado', true)
+                ->whereNotIn('id',$tems_aux)
+                ->orderBy('nombre','ASC')->get();
         }
-        $tematics = Tematica::select('nombre','id')
-            ->where('id_tipo_convocatoria',$tipo)->where('habilitado', true)
-            ->whereNotIn('id',$tems_res)
-            ->orderBy('nombre','ASC')->get();
-        return $tematics;
+        return $list_aux;
     }
 
     public function getAreas($tipo){

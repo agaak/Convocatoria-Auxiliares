@@ -21,7 +21,9 @@
           <!-- Button trigger modal -->
           @if (!session()->get('ver'))
           <div class="row my-3" style="margin-left: 3ch">
-            <a class="text-decoration-none" type="button" data-toggle="modal" data-id_auxiliatura="{{ $auxiliatura->id }}" data-target="#tematicaModal">
+            <a class="text-decoration-none" type="button" 
+            onclick="addModalTem({{json_encode($tematics[$auxiliatura->id][0]['tematics'])}})" 
+              data-toggle="modal" data-id_auxiliatura="{{ $auxiliatura->id }}" data-target="#tematicaModal">
               <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
               <span class="mx-1">Añadir Tematica</span>
             </a>
@@ -43,13 +45,11 @@
             </thead>
             <tbody>
               @php $num = 1  @endphp
-              <h6>{{$tems}}-{{$auxiliatura->id}}--</h6>
-              <h5>{{$auxiliatura->id}}</h5>
               @if($tems->has($auxiliatura->id))
               @foreach($tems[$auxiliatura->id] as $tematic)
                 <tr>
-                  <td class="table-light" scope="col" rowspan="2">{{ $num++ }}</td>
-                  <td class="table-light" scope="col" rowspan="2">{{ $tematic->nombre }}</td>
+                  <td class="table-light" scope="col" style="vertical-align: middle;" rowspan="{{count($tematic->areas)}}">{{ $num++ }}</td>
+                  <td class="table-light" scope="col" style="vertical-align: middle;" rowspan="{{count($tematic->areas)}}">{{ $tematic->nombre }}</td>
                   @foreach($tematic->areas as $item)
                     <td class="table-light text-center">{{ $item->area }}</td>
                       @if($item->porcentaje == 0)
@@ -57,16 +57,17 @@
                       @else
                           <td class="table-light">{{ $item->porcentaje }}</td>
                       @endif
+                  @php break; @endphp
                   @endforeach
                   @if (!session()->get('ver'))
-                    <td class="table-light" scope="col" rowspan="2">
+                    <td class="table-light" style="vertical-align: middle;" scope="col" rowspan="{{count($tematic->areas)}}">
                       <a class="options" data-toggle="modal" data-target="#tematicaEditModal" data-id="{{ $tematic->id }}"
                       data-nombre="{{ $tematic->nombre }}" data-id_auxiliatura="{{ $auxiliatura->id }}" 
-                      data-dismiss="modal" onclick="selectTematicaModal({{json_encode($tems[5][$num-2])}},{{json_encode($areas)}})">
+                      data-dismiss="modal" onclick="selectTematicaModal({{json_encode($tems[$auxiliatura->id][$num-2])}},{{json_encode($areas)}})">
                         <img src="{{ asset('img/pen.png') }}" width="25" height="25">
                       </a>
 
-                      <form class="d-inline" action="{{ route('knowledgeRatingTematicDelete', $tematic->id) }}" method="POST">
+                      <form class="d-inline" action="{{ route('knowledgeRatingTematicDelete',['id_tem' => $tematic->id, 'id_aux' => $auxiliatura->id ]) }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <button type="submit" class="btn btn-link">
@@ -75,6 +76,21 @@
                       </form>
                     </td>
                   @endif
+                </tr>
+                <tr>
+                  @php $first= true; @endphp
+                  @foreach($tematic->areas as $item)
+                    @if ($first)
+                      @php $first= false; @endphp
+                    @else
+                        <td class="table-light text-center">{{ $item->area }}</td>
+                        @if($item->porcentaje == 0)
+                            <td class="table-light">-</td>
+                        @else
+                            <td class="table-light">{{ $item->porcentaje }}</td>
+                        @endif
+                    @endif
+                  @endforeach
                 </tr>
               @endforeach
               @endif

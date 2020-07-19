@@ -34,15 +34,15 @@ class ConocimientoController extends Controller
         $list_aux = $utilsConocimiento->getRequerimientos($id_conv);
         $tems = $utilsConocimiento->getTems($id_conv);
         $porcentajes = $utilsConocimiento->getPorcentajes($id_conv);
-        $tematics = $utilsConocimiento->getTematicas($conv->id_tipo_convocatoria, $tems);
+        $tematics = $utilsConocimiento->getTematicas($conv->id_tipo_convocatoria, $tems,$list_aux);
         $areas = $utilsConocimiento->getAreas($conv->id_tipo_convocatoria);
         
-        // return $tems;
+        // return $tematics;
         return view('convocatory.conocimientos', compact('tematics','areas', 'list_aux','porcentajes','tems','porcentajesConvocatoria', 'rutaPDF', 'conv'));
     }
 
     public function knowledgeRatingTematicValid(Request $request){
-        return $request;
+        // return $request;
         $areas = collect($request->input('area-aux'));
         $id_req = Requerimiento::where('id_convocatoria',session()->get('convocatoria'))
             ->where('id_auxiliatura',$request->input('id-auxiliatura'))->value('id');
@@ -58,44 +58,46 @@ class ConocimientoController extends Controller
         return back();
     }
     
-
-
-    public function knowledgeRatingTematicDelete($id){
-        DB::table('porcentaje')->where('id_tematica', $id)->delete();
+    public function knowledgeRatingTematicDelete($id_tem, $id_aux){
+        $porcentajes = (new ConocimientosComp)->getPorcentajes(session()->get('convocatoria'));
+        foreach($porcentajes as $porc){
+            Porcentaje::where('id_tematica', $id_tem)->where('id_auxiliatura', $id_aux)->delete();
+        }
         return back();
     }
 
-    public function knowledgeRatingTematicUpdate(TematicaEditRequest $request, $id){
-        $id_conv = $request->session()->get('convocatoria');
-        $porcentaje = Porcentaje::select('porcentaje.id')
-            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
-            ->where('requerimiento.id_convocatoria',$id_conv)
-            ->where('id_tematica', $request->input('id-tematica-edit'))->get();
-        foreach($porcentaje as $item){
-            DB::table('porcentaje')->where('id', $item->id)->update([
-                'id_tematica' => $request->input('nombre-tem')
-            ]);
-        }  
-        return back();
-    }
+    public function knowledgeRatingTematicUpdate(Request $request){
+        // return $request;
+        $porcentajes = (new ConocimientosComp)->getPorcentajes(session()->get('convocatoria'));
+        $porcentajes = $porcentajes->has($request->input('id-auxiliatura-edit'))? $porcentajes[$request->input('id-auxiliatura-edit')] : [];
+        $porcentajes = collect($porcentajes)->groupBy('id_tematica')[$request->input('id-tematica-edit')];
+        foreach($porcentajes as $porc){
+            if(Porcentaje::where('id',$porc->id)->whereNotIn('id_area',
+                $request->input('id-area-edit'))->get()->isEmpty()){
 
-    public function knowledgeRatingAuxUpdate(Request $request){
-        $tematics = collect($request->input('id-tem'));
-        $porcentaje = $request->input('porcentaje-aux');
-        if(collect($request->input('porcentaje-aux'))->sum()==100){
-            foreach($porcentaje as $por){
-                DB::table('porcentaje')->where([['id_requerimiento', $request->input('id-req')],
-                    ['id_tematica', $tematics->shift()]])->update([
-                    'porcentaje' => $por,
-                ]);
+            } else {
+                Porcentaje::where('id',$porc->id)->whereNotIn('id_area',$request->input('id-area-edit'))->delete();
             }
-        } else {
-            request()->validate([
-                'finalizo' => 'required'
-            ],[
-                'finalizo.required' => 'Error al intentar actualizar, los porcentajes no es 100%.'
-            ]);
-        } 
+        }
+        $id_req = Requerimiento::where('id_convocatoria',session()->get('convocatoria'))
+            ->where('id_auxiliatura',$request->input('id-auxiliatura-edit'))->value('id');
+        $porcentajes = $porcentajes->groupBy('id_area');
+        $porc_edit = collect($request->input('porc-edit'));
+        foreach($request->get('id-area-edit') as $id_area){
+            if($porcentajes->has($id_area)){
+                Porcentaje::where('id', $porcentajes[$id_area][0]['id'])->update([
+                    'porcentaje' => $porc_edit->shift()
+                ]);
+            } else {
+                $por = new Porcentaje(); 
+                $por -> id_requerimiento = $id_req;
+                $por -> id_auxiliatura =  $request->input('id-auxiliatura-edit');
+                $por -> id_tematica = $request->input('id-tematica-edit'); 
+                $por -> id_area = $id_area; 
+                $por -> porcentaje = $porc_edit->shift(); 
+                $por -> save();
+            }
+        }  
         return back();
     }
     
