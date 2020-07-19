@@ -730,3 +730,22 @@ $('#auxiliatura-guardar').on('click', () => {
     res = confirm('Esta seguro de modificar esta Auxiliatura, los cambios afectaran a las consultas historicas. Si es una modificación drastica se sujiere crear otra Auxiliatura.');
     if (!res) event.preventDefault();
 });
+
+function startTime() {
+    let hora = new Date();
+    let hr = hora.getHours();
+    let min = hora.getMinutes();
+    let sec = hora.getSeconds();
+    hr = checkTime(hr);
+    min = checkTime(min);
+    sec = checkTime(sec);
+    document.getElementById("time-real").innerHTML = `${hr}:${min}:${sec}`;
+    setTimeout(function(){ startTime() }, 1000);
+}
+
+function checkTime(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}
