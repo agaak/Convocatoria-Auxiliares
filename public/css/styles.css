@@ -504,7 +504,7 @@ input[type=number] {
     color: teal !important;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
     .carousel-links {
         bottom: 1rem;
         right: 0;

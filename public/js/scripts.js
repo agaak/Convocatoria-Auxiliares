@@ -701,3 +701,16 @@ function cargarAuxArea(area){
     $('#nombre-area-id').val(area['nombre']);
     $('#id-area-lab').val(area['id']);
 }
+
+$('#area-guardar').on('click', () => {
+    res = confirm('Esta seguro de modificar esta Area, los cambios afectaran a las consultas historicas. Si es una modificación drastica se sujiere crear otra Area.');
+    if (!res) event.preventDefault();
+});
+$('#tematica-guardar').on('click', () => {
+    res = confirm('Esta seguro de modificar esta Tematica, los cambios afectaran a las consultas historicas. Si es una modificación drastica se sujiere crear otra Tematica.');
+    if (!res) event.preventDefault();
+});
+$('#auxiliatura-guardar').on('click', () => {
+    res = confirm('Esta seguro de modificar esta Auxiliatura, los cambios afectaran a las consultas historicas. Si es una modificación drastica se sujiere crear otra Auxiliatura.');
+    if (!res) event.preventDefault();
+});
