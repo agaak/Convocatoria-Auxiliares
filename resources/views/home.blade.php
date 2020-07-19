@@ -3,6 +3,15 @@
 @section('content')
 <div class="container-carousel p-0">
 
+    {{-- Anuncios --}}
+    
+    <h4 class="text-center" style="margin-top: 20px">Anuncios</h4>
+
+    {{-- Carrusel de cards con datos grals. de un aviso --}}
+    @component('components.carruselAviso', 
+    ['listAvisos' => $listAvisos])
+    @endcomponent
+
     {{-- Carrusel --}}
 
     <div id="carouselHome" class="carousel slide carousel-fade mb-3" data-ride="carousel">
@@ -35,13 +44,6 @@
         </a>
     </div>
 
-    {{-- Anuncios --}}
     
-    <h4 class="text-center" style="margin-top: 20px">Anuncios</h4>
-
-    {{-- Carrusel de cards con datos grals. de un aviso --}}
-    @component('components.carruselAviso', 
-    ['listAvisos' => $listAvisos])
-    @endcomponent
 </div>
 @endsection

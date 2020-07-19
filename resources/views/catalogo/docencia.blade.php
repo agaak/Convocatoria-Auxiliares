@@ -64,7 +64,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <input class="btn btn-info" type="submit" value="Guardar">
+                            <input class="btn btn-info" id="area-guardar" type="submit" value="Guardar">
                         </div>
                     </form>
                     @if ($errors->has('nombre-area-edit'))
@@ -140,7 +140,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <input class="btn btn-info" type="submit" value="Guardar">
+                            <input class="btn btn-info" id="tematica-guardar" type="submit" value="Guardar">
                         </div>
                     </form>
                     @if ($errors->has('nombre-tem-edit'))
@@ -231,7 +231,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <input class="btn btn-info" type="submit" value="Guardar">
+                            <input class="btn btn-info" id="auxiliatura-guardar" type="submit" value="Guardar">
                         </div>
                     </form>
                     @if ($errors->has('nombre-auxs-edit') || $errors->has('codigo-auxs-edit'))
@@ -250,15 +250,7 @@
 
     <div class="container">
         
-        <h4 class="mb-3 mt-2">Catálogo de Docencia</h4>
-
-        <h6>
-            <span class="text-danger">Nro.</span> 
-            Auxiliatura, tematica ó area de evaluación esta ciendo
-            usada en una convocatoria, tenga cuidado al editar, porque 
-            la modificación podria afectar consultas historicas.
-        </h6>
-        <h6><span class="text-success">Nro.</span> Auxiliatura, tematica ó area de evaluación se puede editar con toda confianza.</h6>
+        <h3 class="mb-3 mt-2">Catálogo de Docencia</h3>
 
         {{-- Seccion para navegar entre auxiliatura, tematica y areas de evaluacion --}}
 
@@ -288,7 +280,7 @@
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                        <th scope="col" class="text-center">Nro.</th>
+                        <th scope="col">Nro.</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Código</th>
                         <th scope="col" class="text-center">Opciones</th>
@@ -297,7 +289,7 @@
                     <tbody class="bg-white">
                         @for ($i = 0; $i < count($auxiliaturas); $i++)
                             <tr>
-                                <th scope="row" class="text-center {{ $existAux[$i] ? 'text-danger': 'text-success' }}">{{ $i+1 }}</th>
+                                <th scope="row" class="{{ $existAux[$i] ? 'text-danger': 'text-success' }}">{{ $i+1 }}</th>
                                 <td>{{ $auxiliaturas[$i]->nombre_aux }}</td>
                                 <td>{{ $auxiliaturas[$i]->cod_aux }}</td>
                                 <td class="text-center">
@@ -337,7 +329,7 @@
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                        <th scope="col" class="text-center">Nro.</th>
+                        <th scope="col">Nro.</th>
                         <th scope="col">Nombre</th>
                         <th scope="col" class="text-center">Opciones</th>
                         </tr>
@@ -345,7 +337,7 @@
                     <tbody class="bg-white">
                         @for ($i = 0; $i < count($tematicas); $i++)
                             <tr>
-                                <th scope="row" class="text-center {{ $existTem[$i] ? 'text-danger': 'text-success' }}">{{ $i+1 }}</th>
+                                <th scope="row" class="{{ $existTem[$i] ? 'text-danger': 'text-success' }}">{{ $i+1 }}</th>
                                 <td>{{ $tematicas[$i]->nombre }}</td>
                                 <td class="text-center">
 
@@ -385,7 +377,7 @@
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                        <th scope="col" class="text-center">Nro.</th>
+                        <th scope="col">Nro.</th>
                         <th scope="col">Nombre</th>
                         <th scope="col" class="text-center">Opciones</th>
                         </tr>
@@ -393,7 +385,7 @@
                     <tbody class="bg-white">
                         @for ($i = 0; $i < count($areas); $i++)
                             <tr>
-                                <th scope="row" class="text-center {{ $existArea[$i] ? 'text-danger': 'text-success' }}">{{ $i+1 }}</th>
+                                <th scope="row" class="{{ $existArea[$i] ? 'text-danger': 'text-success' }}">{{ $i+1 }}</th>
                                 <td>{{ $areas[$i]->nombre }}</td>
                                 <td class="text-center">
 
