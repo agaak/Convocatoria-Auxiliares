@@ -53,14 +53,14 @@
                   <div class="form-row col-sm-12 mt-2">
                     <div class="form-check col-sm-6 mx-3">
                       <input class="form-check-input" onclick="check({{ $area->id }})" type="checkbox" 
-                          value="{{ $area->id }}" name="area[]" id="{{ $area->id }}">
-                      <label class="form-check-label" for="{{ $area->id }}">
+                          value="{{ $area->id }}" name="area[]" id="{{ $area->id }}-check">
+                      <label class="form-check-label" for="{{ $area->id }}-check">
                         {{ $area->nombre }}
                       </label>
                     </div>
                     <div class="col-sm-3 mx-2">
                     <input type="number" class="form-control form-control-sm text-center"
-                        name="area-aux[]" min="0" max="100" disabled required id=".{{ $area->id }}">
+                        name="area-aux[]" min="1" max="100" disabled required id=".{{ $area->id }}">
                       </div>
                   </div>
                   @endforeach
@@ -120,7 +120,7 @@
                     </div>
                     <div class="col-sm-3 mx-2">
                     <input type="number" class="form-control form-control-sm text-center" autocomplete="off"
-                        name="porc-edit[]" min="0" max="100" disabled required id=".{{ $area->id }}-edit">
+                        name="porc-edit[]" min="1" max="100" disabled required id=".{{ $area->id }}-edit">
                       </div>
                   </div>
                   @endforeach
@@ -164,7 +164,8 @@
     areas.forEach(area => {
       document.getElementById('.'+area['id']).value = "";
       document.getElementById('.'+area['id']).disabled = true;
-      document.getElementById(area['id']).checked = false;
+      document.getElementById(area['id']+'-check').checked = false;
+
     });
   }
   function check2(id) {
