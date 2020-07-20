@@ -28,6 +28,15 @@ class ConocimientosComp
         $porcentajes = collect($porcentajes)->groupBy('id_auxiliatura');
         return $porcentajes;
     }
+
+    public function getAreaByTem($id_conv){
+        $porcentajes = Porcentaje::select('id_area', 'porcentaje.id_auxiliatura','id_tematica','area_calificacion.nombre as area')
+        ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+        ->where('requerimiento.id_convocatoria',$id_conv)->orderBy('id_requerimiento','ASC')
+        ->join('area_calificacion','porcentaje.id_area','=','area_calificacion.id')->get();
+        $porcentajes = collect($porcentajes)->groupBy('id_tematica');
+        return $porcentajes;
+    }
     
     public function getTems($id_conv){
         $tems = Tematica::select('tematica.nombre','tematica.id','requerimiento.id_auxiliatura')

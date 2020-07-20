@@ -9,11 +9,11 @@
         <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
         data-target="#storePostulanteModal">Registrar postulante</button>
         <div class="col"></div>
-        @if ($conv->pre_posts_habilitado)
+        {{-- @if ($conv->pre_posts_habilitado)
             <a href="{{ route('habilitarPostulante', $conv->id) }}" id="pre-posts-habilitar" type="button" class="btn btn-secondary my-3 col-xs-2">Deshabilitar Postulaciones</a> 
         @else
             <a href="{{ route('habilitarPostulante', $conv->id) }}" id="pre-posts-habilitar" type="button" class="btn btn-success my-3 col-xs-2">Habilitar Postulaciones</a>  
-        @endif
+        @endif --}}
     </div>
     
     <!-- Table -->

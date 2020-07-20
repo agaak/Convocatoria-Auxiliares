@@ -37,7 +37,7 @@ class CalificarController extends Controller
         $roles = $rolsEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
 
-        $auxsTemsEval = $tipoConv === 1? $rolsEval->getTemsEvaluador($idEC) :$rolsEval->getAuxsEvaluador($idEC);
+        $auxsTemsEval = $rolsEval->getTematicsEvaluador($idEC);
         
         return view('evaluador.calificar', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval'));
     }

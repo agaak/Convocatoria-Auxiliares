@@ -7,6 +7,7 @@ use App\Models\EvaluadorConovocatoria;
 use App\Models\EvaluadorTematica;
 use App\Models\EvaluadorAuxiliatura;
 use App\Models\Tipo_evaluador;
+use App\Http\Controllers\Utils\Convocatoria\ConocimientosComp;
 
 class EvaluadorComp
 {   
@@ -40,6 +41,20 @@ class EvaluadorComp
         ->join('evaluador_conovocatoria','evaluador_tematica.id_evaluador_convocatoria','=','evaluador_conovocatoria.id')
         ->where('evaluador_conovocatoria.id',$id_eva_conv)
         ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')->get();
+        return $requests;
+    }
+
+    public function getTematicsEvaluador($id_eva_conv){
+        $requests = EvaluadorTematica::select('tematica.nombre', 'tematica.id') 
+        ->join('evaluador_conovocatoria','evaluador_tematica.id_evaluador_convocatoria','=','evaluador_conovocatoria.id')
+        ->where('evaluador_conovocatoria.id',$id_eva_conv)
+        ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')->get();
+
+        $porcentajes = (new ConocimientosComp)->getAreaByTem(session()->get('convocatoria'));
+        foreach($requests as $tem){
+            $tem->areas = $porcentajes->has($tem->id)? $porcentajes[$tem->id] : [];
+        }
+        
         return $requests;
     }
 

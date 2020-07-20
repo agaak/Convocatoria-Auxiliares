@@ -23,7 +23,7 @@ class AdmPostulantesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'roles:secretaria']);
+        $this->middleware(['auth', 'roles:receptor documentos']);
     }
     
     public function index()

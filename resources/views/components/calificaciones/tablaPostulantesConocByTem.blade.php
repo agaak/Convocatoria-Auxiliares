@@ -29,12 +29,12 @@
                                     @endforeach
                                     <input type="hidden" name="id-post[]" value="{{ $item[0]->id }}">
                                     <input name="nota[]" type="number" class="form-control form-control-sm"
-                                        placeholder="-" min="0" max="100" step="0.01" value="{{$item[0]->calificacion}}" style="text-align: center;"></td>
+                                        placeholder="" min="0" max="100" step="0.01" value="{{$item[0]->calificacion}}" style="text-align: center;"></td>
                             @else 
                                 @if ($item[0]->calificacion != null)
                                     <td class="text-center">{{ $item[0]->calificacion }}</td>    
                                 @else
-                                    <td class="text-center">-</td>
+                                    <td class="text-center"></td>
                                 @endif
                             @endif
                         @else

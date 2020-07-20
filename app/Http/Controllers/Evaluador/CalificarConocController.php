@@ -25,17 +25,16 @@ class CalificarConocController extends Controller
     public function index($id_tem,$nom){
         $menu = new MenuDina();
         $convs = $menu->getConvs(); 
-        
         $compEval = new EvaluadorComp();
         $idEC = $compEval->getIdEvaConv();
        
         $roles = $compEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        $auxsTemsEval = $tipoConv === 1? $compEval->getTemsEvaluador($idEC) :$compEval->getAuxsEvaluador($idEC);
-
+        $auxsTemsEval = $compEval->getTematicsEvaluador($idEC);
         $compPost = new PostulanteComp();
-        $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem) : $compPost->getPostulantesByAux($id_tem,$nom); 
+        $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem,$nom) : $compPost->getPostulantesByAux($id_tem,$nom); 
         
+        // return $postulantes;
         $publicado_habilitados = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','publicado')->get()->isNotEmpty();
         
@@ -45,6 +44,7 @@ class CalificarConocController extends Controller
         if(!$publicado_habilitados){
             $postulantes = [];
         }
+        // return $postulantes;
         return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 
             'auxsTemsEval','postulantes','id_tem','nom','publicado','entregado','publicado_habilitados'));
     }
@@ -80,9 +80,9 @@ class CalificarConocController extends Controller
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
         
         $compPost = new PostulanteComp();
-        $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem) : $compPost->getPostulantesByAux($id_tem,$nom); 
+        $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem,$nom) : $compPost->getPostulantesByAux($id_tem,$nom); 
 
-        $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id');
+        // $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id');
 
         foreach($postulantes as $postulante){
             foreach($postulante as $nota){

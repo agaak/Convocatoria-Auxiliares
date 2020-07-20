@@ -15,7 +15,7 @@ class ConvocatoriaComp
                 $requests= Convocatoria::where('id_unidad_academica',$id_unidad)
                     ->where('finalizado',false)
                     ->orderBy('id','ASC')->get();
-            } else if(auth()->user()->hasRoles(['secretaria'])){
+            } else if(auth()->user()->hasRoles(['receptor documentos'])){
                 $requests= Convocatoria::where('id_unidad_academica',$id_unidad)
                     ->where('finalizado',false)->where('publicado',true)
                     ->where('creado',true)->orderBy('id','ASC')->get();

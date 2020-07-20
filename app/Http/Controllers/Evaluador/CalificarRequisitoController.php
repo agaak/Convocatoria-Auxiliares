@@ -32,7 +32,7 @@ class CalificarRequisitoController extends Controller
         $idEC = $compEval->getIdEvaConv();
         $roles = $compEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        $auxsTemsEval = $tipoConv === 1? $compEval->getTemsEvaluador($idEC) :$compEval->getAuxsEvaluador($idEC);
+        $auxsTemsEval = $compEval->getTematicsEvaluador($idEC);
 
         $listPostulanteAux = Postulante_auxiliatura::select('postulante_auxiliatura.observacion', 'postulante_auxiliatura.id_postulante',
         'postulante_auxiliatura.habilitado','auxiliatura.nombre_aux')

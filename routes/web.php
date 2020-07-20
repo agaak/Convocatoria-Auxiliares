@@ -75,7 +75,7 @@ Route::post('convocatoria/adm-asignaciones', 'AdmResultados\AdmAsignacionControl
 Route::post('convocatoria/adm-asignaciones/publicar', 'AdmResultados\AdmAsignacionController@prePostulantes')->name('eliminarPrePosts');
 //rutas asignecion
 
-// ADM Secretaria
+// ADM receptor documentos
 Route::get('convocatoria/adm-convocatoria', 'AdmConvocatoria\AdmConvocatoriaController@index')->name('admConvocatoria');
 
 Route::get('convocatoria/adm-convocatoria/{id}', 'AdmConvocatoria\AdmConvocatoriaController@inicio')->name('adminConvocatoria');

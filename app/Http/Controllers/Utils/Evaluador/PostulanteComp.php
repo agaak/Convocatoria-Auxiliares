@@ -17,13 +17,14 @@ class PostulanteComp
         return $requests;
     }
 
-    public function  getPostulantesByTem($id_tem){
+    public function  getPostulantesByTem($id_tem,$id_area){
         $requests = PostuCalifConocFinal::select('postulante.nombre', 'postulante.apellido', 'postulante.ci', 
-            'postulante.id', 'calif_conoc_post.calificacion','calif_conoc_post.id as id_nota')
+            'postulante.id', 'calif_conoc_post.calificacion','calif_conoc_post.id as id_nota','porcentaje.id_area')
             ->where('calf_fin_postulante_conoc.id_convocatoria', session()->get('convocatoria'))
             ->join('calif_conoc_post','calif_conoc_post.id_calf_final','=', 'calf_fin_postulante_conoc.id')
             ->join('porcentaje','porcentaje.id','=','calif_conoc_post.id_porcentaje')
             ->where('porcentaje.id_tematica',$id_tem)
+            ->where('porcentaje.id_area',$id_area)
             ->join('postulante','postulante.id','=','calf_fin_postulante_conoc.id_postulante')
             
             ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')

@@ -25,7 +25,7 @@ class ConvocatoriaPController extends Controller
     
     public function __construct()
     {
-        // $this->middleware(['auth', 'roles:administrador,secretaria'])->except('index','download');
+        $this->middleware(['auth', 'roles:administrador,receptor documentos'])->except('index','download');
     }
     /**
      * Display a listing of the resource.

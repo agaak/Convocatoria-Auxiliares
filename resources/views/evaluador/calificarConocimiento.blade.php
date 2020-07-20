@@ -12,12 +12,14 @@
         <h4 class="mx-4">Calificación de 
             @foreach ($auxsTemsEval as $item)
                 @if ($item->id == $id_tem)
-                    {{ $item->nombre }}
+                    {{ $item->nombre }} -
+                    @foreach ($item['areas'] as $area)
+                        @if ($area->id_area == $nom)
+                            {{ $area->area }}
+                        @endif
+                    @endforeach
                 @endif    
             @endforeach
-            @if ($tipoConv === 2)
-                - {{$nom}}
-            @endif
         </h4>
         @if($publicado_habilitados)
             @if ($tipoConv === 1)

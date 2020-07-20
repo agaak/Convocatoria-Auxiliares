@@ -21,30 +21,18 @@
         <div class="card-footer text-muted">
             @if (auth()->check())
                 @if (auth()->user()->hasRoles(['administrador']))
-                @if (!($convo->finalizado))
-                    <form class="d-inline"
-                        action="{{ route('convocatoria.destroy', $convo->id) }}"
-                        method="POST">
-                        {{ method_field('DELETE') }}
-                        {{ csrf_field() }}
-                        <button type="submit" class="btn btn-link btn-sm">
-                            <img src="{{ asset('img/trash2.png') }}"
-                                width="36" height="29">
-                        </button>
-                    </form>
+                    @if (!($convo->finalizado))
+                        <form class="d-inline"
+                            action="{{ route('convocatoria.destroy', $convo->id) }}"
+                            method="POST">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+                            <button type="submit" class="btn btn-link btn-sm">
+                                <img src="{{ asset('img/trash2.png') }}"
+                                    width="36" height="29">
+                            </button>
+                        </form>
                     @endif
-                @endif
-                @if (auth()->user()->hasRoles(['secretaria']) && !$convo->creado)
-                    <form class="d-inline"
-                        action="{{ route('convocatoria.destroy', $convo->id) }}"
-                        method="POST">
-                        {{ method_field('DELETE') }}
-                        {{ csrf_field() }}
-                        <button type="submit" class="btn btn-link btn-sm">
-                            <img src="{{ asset('img/trash2.png') }}"
-                                width="36" height="29">
-                        </button>
-                    </form>
                 @endif
             @endif
             @if($convo->creado)
@@ -56,7 +44,7 @@
                                 class="btn btn-sm">{{ csrf_field() }}{{ $convo->finalizado? 'Ver Administracion' : 'Administrar'}}</a>
                             <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a> 
                         @endif
-                        @if (auth()->user()->hasRoles(['secretaria']))
+                        @if (auth()->user()->hasRoles(['receptor documentos']))
                             @if (!($convo->finalizado))
                             <a href="{{ route('adminConvocatoria',$convo->id ) }}"
                                 style="background-color:#2F2D4A; color:white;"
@@ -85,18 +73,12 @@
                     <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta
                     convocatoria {{ $convo->finalizado? 'finalizo' : 'esta en curso'}}.</div>
                 @else
-                    @if (auth()->user()->hasRoles(['secretaria']))
-                        <a href="{{ route('adminConvocatoria',$convo->id ) }}"
-                            style="background-color:#2F2D4A; color:white;"
-                            class="btn btn-sm">{{ csrf_field() }}Administrar</a>
-                    @else
-                        <a href="{{ route('adminConvocatoria',$convo->id ) }}"
-                        style="background-color:#2F2D4A; color:white;"
-                        class="btn btn-sm">{{ csrf_field() }}Administrar</a>
-                        <a href="{{ route('convocatoria.show',$convo->id ) }}"
-                        style="background-color:#61DE4D;color:rgb(255, 255, 255);"
-                        class="btn btn-sm">{{ csrf_field() }}Publicar</a>
-                    @endif
+                    <a href="{{ route('adminConvocatoria',$convo->id ) }}"
+                    style="background-color:#2F2D4A; color:white;"
+                    class="btn btn-sm">{{ csrf_field() }}Administrar</a>
+                    <a href="{{ route('convocatoria.show',$convo->id ) }}"
+                    style="background-color:#61DE4D;color:rgb(255, 255, 255);"
+                    class="btn btn-sm">{{ csrf_field() }}Publicar</a>
                     <a href="{{ route('helper.redirect.ver', $convo->id) }}" class="btn btn-primary btn-sm text-white">Ver</a>
                     </div>
                     <div class="card-footer text-muted" style="height: 50px;font-size:14px;">Esta

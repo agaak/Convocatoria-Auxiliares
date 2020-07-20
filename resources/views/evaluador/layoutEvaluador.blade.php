@@ -21,7 +21,7 @@
             </div>
             <div class="convocatoria-actual">
                 @if (request()->is('evaluador/calificar*') || request()->is('evaluador/merito*'))
-                    <h3 class="eva-title"><a class="text-white text-decoration-none" href="{{ route('calificar.index') }}">Convocatoria Actual</a></h3>
+                    <h3 class="eva-title"><a class="text-white text-decoration-none" href="#">Convocatoria Actual</a></h3>
                     <ul class="menu">
                     @foreach ($roles as $rol)
                         @if ($rol->nombre == 'Meritos')
@@ -36,29 +36,18 @@
                                 ((request()->is('evaluador/calificar/requisitos*')? 'd-none': 
                                 (request()->is('evaluador/merito*')? 'd-none': ''))))}}">
                                     @foreach ($auxsTemsEval as $item)
-                                        @if ($tipoConv === 1) 
-                                            <li class="menu-item ml-3">
-                                                <a class="menu-link" href="{{ route('calificarConoc.index',['id' => $item->id, 'tem' => 'todos']) }}">
-                                                    {{ $item->nombre }}
-                                                </a>
-                                            </li>
-                                        @else 
-                                            <li class="menu-item ml-3">
-                                                <a class="menu-link menu-icono btn-3" href="#">{{ $item->nombre }}</a>
-                                                <ul class="menu menu-3">
+                                        <li class="menu-item ml-3">
+                                            <a class="menu-link menu-icono btn-3" href="#">{{ $item->nombre }}</a>
+                                            <ul class="menu menu-3">
+                                                @foreach ($item['areas'] as $area)
                                                     <li class="menu-item ml-3">
-                                                        <a class="menu-link" href="{{ route('calificarConoc.index',['id' => $item->id, 'tem' => 'oral']) }}">
-                                                            Examen Oral
+                                                        <a class="menu-link" href="{{ route('calificarConoc.index',['id' => $item->id, 'tem' => $area->id_area ]) }}">
+                                                            {{  $area->area }}
                                                         </a>
                                                     </li>
-                                                    <li class="menu-item ml-3">
-                                                        <a class="menu-link" href="{{ route('calificarConoc.index',['id' => $item->id, 'tem' => 'escrito']) }}">
-                                                            Examen Escrito
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        @endif
+                                                @endforeach
+                                            </ul>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </li>

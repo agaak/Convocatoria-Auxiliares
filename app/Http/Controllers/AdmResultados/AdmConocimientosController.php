@@ -29,29 +29,34 @@ class AdmConocimientosController extends Controller
         $id_conv = session()->get('convocatoria');
         $conv = Convocatoria::find($id_conv);
         $tipoConv = $conv->id_tipo_convocatoria;
-        $tematicas = (new ConocimientosComp)->getItems($id_conv);
+        $tematicas = (new ConocimientosComp)->getTems($id_conv);
         $tematicas= $tipoConv === 1? $tematicas : (new RequerimientoComp)->getRequerimientos2($id_conv);
         // return $tematicas;
         $compPost = new PostulanteComp();
-        foreach($tematicas as $tem){
-            
-            $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($tem->id) : 
-                                           $compPost->getPostulantesByAux($tem->id_aux,$tem->nombre);
-            $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'); 
+        $list_aux = (new ConocimientosComp)->getRequerimientos($id_conv);
+        // return $list_aux;
+        foreach($list_aux as $aux){
+            foreach($tematicas[$aux->id] as $tem){
+                foreach($tem['areas'] as $area){
+                    $postulantes= $compPost->getPostulantesByTem($tem['id'],$area->id_area);
 
-            $entregado = $compPost->getEntregado($postulantes);
-            $publicado = $compPost->getPublicado($postulantes);
+                    // $postulantes= $tipoConv === 1? $postulantes : collect($postulantes)->groupBy('id'); 
 
-            if(!$publicado){
-                if(!$entregado){
-                    $postulantes = [];
+                    $entregado = $compPost->getEntregado($postulantes);
+                    $publicado = $compPost->getPublicado($postulantes);
+
+                    if(!$publicado){
+                        if(!$entregado){
+                            $postulantes = [];
+                        }
+                    }                             
+                    $area->postulantes = $postulantes;
+                    $area->publicado = $publicado;
+                    $area->entregado = $entregado;
                 }
-            }                             
-            $tem->postulantes = $postulantes;
-            $tem->publicado = $publicado;
-            $tem->entregado = $entregado;
+            }
         }
-        /* return $tematicas; */
+        return $tematicas;
         return view('admResultados.admResConocimientos',compact('tematicas','tipoConv','conv'));
     }
 
