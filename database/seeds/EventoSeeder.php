@@ -14,8 +14,8 @@ class EventoSeeder extends Seeder
     {
         EventoImportante::create([
             'id_convocatoria' => 1,
-            'titulo_evento' => 'Entrega de documentos',
-            'lugar_evento' => 'Laboratorio Informatica y Sistemas',
+            'titulo_evento' => 'Presentación de Documentos',
+            'lugar_evento' => '------------------------------------------',
             'fecha_inicio' => '2020-06-07',
             'fecha_final' => '2020-07-06'
         ]);
@@ -29,8 +29,8 @@ class EventoSeeder extends Seeder
 
         EventoImportante::create([
             'id_convocatoria' => 2,
-            'titulo_evento' => 'Entrega de planilla de documentos',
-            'lugar_evento' => 'Laboratorio Informatica y Sistemas',
+            'titulo_evento' => 'Presentación de Documentos',
+            'lugar_evento' => '------------------------------------------',
             'fecha_inicio' => '2020-11-11',
             'fecha_final' => '2020-12-12'
         ]);
