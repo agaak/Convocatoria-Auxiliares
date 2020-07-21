@@ -52,14 +52,14 @@ class NotasAuxiliaturaController extends Controller
             if(count($calf_tems) > 0){
                 $postulante->notas_tems = $calf_tems->groupBy('id_tematica');
             } else {
-                $postulante->completo = false;
+                $postulante->notas_tems = [];
+                $postulante->incompleto = true;
                 $listaPost = collect($listaPost)->reject(function ($value) {
-                    return !$value->completo;
+                    return $value->incompleto;
                 });
             }
         }
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
-
         $conv = Convocatoria::find($id_conv);
         return view('verConvocatoria.notasConocimientoA',compact('listaAux','tematicas','listaPost','conv'));
     }
