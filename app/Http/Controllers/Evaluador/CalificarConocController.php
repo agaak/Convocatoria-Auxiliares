@@ -32,19 +32,17 @@ class CalificarConocController extends Controller
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
         $auxsTemsEval = $compEval->getTematicsEvaluador($idEC);
         $compPost = new PostulanteComp();
-        $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem,$nom) : $compPost->getPostulantesByAux($id_tem,$nom); 
+        $postulantes= $compPost->getPostulantesByTem($id_tem,$nom); 
         
-        // return $postulantes;
         $publicado_habilitados = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','publicado')->get()->isNotEmpty();
         
-        $entregado = $compPost->getEntregado($tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'));
-        $publicado = $compPost->getPublicado($tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'));
+        $entregado = $compPost->getEntregado($postulantes);
+        $publicado = $compPost->getPublicado($postulantes);
 
         if(!$publicado_habilitados){
             $postulantes = [];
         }
-        // return $postulantes;
         return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 
             'auxsTemsEval','postulantes','id_tem','nom','publicado','entregado','publicado_habilitados'));
     }
@@ -77,12 +75,8 @@ class CalificarConocController extends Controller
 
     public function entregar(Request $request,$id_tem,$nom){
         
-        $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        
         $compPost = new PostulanteComp();
-        $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem,$nom) : $compPost->getPostulantesByAux($id_tem,$nom); 
-
-        // $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id');
+        $postulantes = $compPost->getPostulantesByTem($id_tem,$nom); 
 
         foreach($postulantes as $postulante){
             foreach($postulante as $nota){

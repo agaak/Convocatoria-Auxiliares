@@ -22,15 +22,9 @@
             @endforeach
         </h4>
         @if($publicado_habilitados)
-            @if ($tipoConv === 1)
-                @component('components.calificaciones.tablaPostulantesConocByTem',
-                    ['postulantes'=>$postulantes,'publicado'=>$publicado])
-                @endcomponent 
-            @else
-                @component('components.calificaciones.tablaPostulantesConocByAux',
-                    ['postulantes'=>$postulantes,'publicado'=>$publicado])
-                @endcomponent 
-            @endif
+            @component('components.calificaciones.tablaPostulantesConocByTem',
+                ['postulantes'=>$postulantes,'publicado'=>$publicado])
+            @endcomponent
             <div class="text-center">
                 {!! $errors->first('id-evaluador', '<strong class="message-error text-danger">:message</strong>') !!}<br>
                 <form class="d-inline" action="{{ route('entregarConocimientos',['id' => $id_tem, 'tem' => $nom ]) }}"
