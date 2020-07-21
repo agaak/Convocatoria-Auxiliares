@@ -54,6 +54,7 @@ class ConocimientosComp
 
     public function getTems($id_conv){
         $tems = Tematica::select('tematica.nombre','tematica.id','requerimiento.id_auxiliatura')
+        // ->where('tematica.habilitado',true)
         ->join('porcentaje','tematica.id','=','porcentaje.id_tematica')
         ->join('requerimiento','porcentaje.id_requerimiento', '=', 'requerimiento.id')
         ->where('requerimiento.id_convocatoria',$id_conv)

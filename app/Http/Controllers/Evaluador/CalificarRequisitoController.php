@@ -53,6 +53,7 @@ class CalificarRequisitoController extends Controller
             ->where('estado','entregado')->get()->isNotEmpty();
         $publicado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','publicado')->get()->isNotEmpty();
+            // despues de la fecha recepcion de doc listPostulantes else listPostulantes = [];
         return view('evaluador.calificarRequisitosPost', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','listPostulantes','entregado','publicado'));
     }
 

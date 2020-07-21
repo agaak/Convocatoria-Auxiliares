@@ -15,7 +15,7 @@
                 <li class="navbar-item-ver"><a href="{{ route('requests') }}" class="link-list">Ver Detalles</a></li>
                 <li class="navbar-item-ver mb-2">
                     <a href="{{ route('listHabilitados') }}" class="link-list navbar-lateral-active">
-                        <img src="{{ asset('img/navigation.svg') }}" width="15" height="15" class="mb-1"> Ver Resultados
+                        Ver Resultados <img src="{{ asset('img/navigation.svg') }}" width="15" height="15" class="mb-1 ml-2"> 
                     </a>
                 </li>
             </ul>

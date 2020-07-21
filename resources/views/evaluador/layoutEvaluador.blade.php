@@ -30,7 +30,7 @@
                         @endif
                         @if ($rol->nombre == 'Conocimientos')
                             <li class="menu-item">
-                                <a class="menu-link menu-icono btn-2" href="#">{{ $tipoConv === 1? 'Temáticas': 'Auxiliaturas' }}</a>
+                                <a class="menu-link menu-icono btn-2" href="#">Temáticas</a>
                                 <ul class="menu menu-2 {{ request()->is('evaluador/calificar')? 'd-none':
                                 (request()->is('evaluador/calificar/merito*')? 'd-none':
                                 ((request()->is('evaluador/calificar/requisitos*')? 'd-none': 
