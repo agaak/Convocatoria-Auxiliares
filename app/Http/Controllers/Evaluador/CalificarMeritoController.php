@@ -52,6 +52,7 @@ class CalificarMeritoController extends Controller
             ->where('estado','entregado')->get()->isNotEmpty();
         $publicado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','publicado')->get()->isNotEmpty();
+        // return $auxsTemsEval;
         return view('evaluador.calificarMerito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes','entregado','publicado'));
     }
 

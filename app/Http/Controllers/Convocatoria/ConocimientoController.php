@@ -42,7 +42,6 @@ class ConocimientoController extends Controller
     }
 
     public function knowledgeRatingTematicValid(Request $request){
-        // return $request;
         $areas = collect($request->input('area-aux'));
         $id_req = Requerimiento::where('id_convocatoria',session()->get('convocatoria'))
             ->where('id_auxiliatura',$request->input('id-auxiliatura'))->value('id');
@@ -67,7 +66,6 @@ class ConocimientoController extends Controller
     }
 
     public function knowledgeRatingTematicUpdate(Request $request){
-        // return $request;
         $porcentajes = (new ConocimientosComp)->getPorcentajes(session()->get('convocatoria'));
         $porcentajes = $porcentajes->has($request->input('id-auxiliatura-edit'))? $porcentajes[$request->input('id-auxiliatura-edit')] : [];
         $porcentajes = collect($porcentajes)->groupBy('id_tematica')[$request->input('id-tematica-edit')];

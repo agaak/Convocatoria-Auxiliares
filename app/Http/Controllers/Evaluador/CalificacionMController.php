@@ -85,9 +85,10 @@ class CalificacionMController extends Controller
         $idEC = $compEval->getIdEvaConv();
         $roles = $compEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        $auxsTemsEval = $tipoConv === 1? $compEval->getTemsEvaluador($idEC) :$compEval->getAuxsEvaluador($idEC);
+        $auxsTemsEval = $compEval->getTematicsEvaluador($idEC);
 
-        return view('evaluador.calificarMeritosEstudiante',compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','id', 'lista', 'estudiante', 'listaMeritos','idNotaFinalMerito','notaFinalMerito'));
+        return view('evaluador.calificarMeritosEstudiante',compact('convs', 'roles', 'tipoConv', 'auxsTemsEval',
+                'id', 'lista', 'estudiante', 'listaMeritos','idNotaFinalMerito','notaFinalMerito'));
     }
 
     public function calificarMeritoEspecifico(){

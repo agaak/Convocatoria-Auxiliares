@@ -23,9 +23,6 @@ class AdmNotasFinalesController extends Controller
     public function index()
     {   
         $id_conv = session()->get('convocatoria');
-        $titulo_conv= Convocatoria::select('convocatoria.titulo')
-        ->where('convocatoria.id',$id_conv)->get();
-        $titulo_conv=$titulo_conv[0]['titulo'];
 
         $porcentaje_conoc = Calificacion_final::where('id_convocatoria', session()->get('convocatoria'))->value('porcentaje_conocimiento'); 
         $porcentaje_merit = Calificacion_final::where('id_convocatoria', session()->get('convocatoria'))->value('porcentaje_merito'); 
@@ -63,7 +60,7 @@ class AdmNotasFinalesController extends Controller
             $post->aux_conoc = $notas;
         }
         $conv = Convocatoria::find(session()->get('convocatoria'));
-        return view('admResultados.admResNotasFinales',compact('listaAux','listaPost','titulo_conv',
+        return view('admResultados.admResNotasFinales',compact('listaAux','listaPost',
                 'porcentaje_conoc','porcentaje_merit','conv'));
     }
 

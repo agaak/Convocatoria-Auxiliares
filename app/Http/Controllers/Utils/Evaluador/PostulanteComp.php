@@ -37,6 +37,27 @@ class PostulanteComp
         return $requests;    
     }
 
+    public function  getPostulantesByTemFin($id_tem,$id_area){
+        $requests = PostuCalifConocFinal::select('postulante.nombre', 'postulante.apellido', 'postulante.ci', 
+            'postulante.id', 'calif_conoc_post.calificacion','porcentaje.id_area')
+            ->where('calf_fin_postulante_conoc.id_convocatoria', session()->get('convocatoria'))
+            ->join('calif_conoc_post','calif_conoc_post.id_calf_final','=', 'calf_fin_postulante_conoc.id')
+            ->join('porcentaje','porcentaje.id','=','calif_conoc_post.id_porcentaje')
+            ->where('porcentaje.id_tematica',$id_tem)
+            ->where('porcentaje.id_area',$id_area)
+            ->join('postulante','postulante.id','=','calf_fin_postulante_conoc.id_postulante')
+            
+            ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
+            ->where('postulante_auxiliatura.habilitado',true)
+
+            ->orderBy('postulante.apellido','ASC')
+            ->groupBy('postulante.nombre', 'postulante.apellido', 'postulante.ci', 
+                'postulante.id', 'calif_conoc_post.calificacion','porcentaje.id_area')
+            ->get();
+        // $requests = collect($requests)->groupBy('id');
+        return $requests;    
+    }
+
     public function  getPostulantesByAux($id_aux,$nom_tem){
         $nom_tem_db = strcmp($nom_tem,'escrito') == 0? 'Examen escrito' : 'Examen oral';
         $id_tem = Tematica::where('nombre',$nom_tem_db)->value('id');

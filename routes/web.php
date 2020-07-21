@@ -63,7 +63,7 @@ Route::get('convocatoria/adm-habilitados', 'AdmResultados\AdmHabilitadosControll
 Route::get('convocatoria/adm-habilitados/{id}', 'AdmResultados\AdmHabilitadosController@detalles')->name('admHabilitadosPost');
 Route::post('convocatoria/adm-habilitados', 'AdmResultados\AdmHabilitadosController@publicar')->name('admHabilitados.publicar');
 Route::get('convocatoria/adm-res-conocimientos', 'AdmResultados\AdmConocimientosController@index')->name('admResConocimientos');
-Route::post('convocatoria/adm-res-conocimientos/{id}/{tem}', 'AdmResultados\AdmConocimientosController@publicar')->name('admNotasTematica.publicar');
+Route::post('convocatoria/adm-res-conocimientos/{id_tem}/{id_area}', 'AdmResultados\AdmConocimientosController@publicar')->name('admNotasTematica.publicar');
 Route::get('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@index')->name('admResMeritos');
 Route::post('convocatoria/adm-res-meritos', 'AdmResultados\AdmMeritosController@publicar')->name('admMeritos.publicar');
 Route::get('convocatoria/adm-notas-merito/{est}', 'AdmResultados\AdmMeritosController@meritos')->name('notasResMeritoEst');

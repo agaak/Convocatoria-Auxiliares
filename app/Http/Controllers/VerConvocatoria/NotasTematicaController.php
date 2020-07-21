@@ -14,30 +14,20 @@ class NotasTematicaController extends Controller
 {
     public function index() {
         $id_conv = session()->get('convocatoria');
-
         $conv = Convocatoria::find($id_conv);
-
         $tipoConv = $conv->id_tipo_convocatoria;
-
-        $tematicas = (new ConocimientosComp)->getItems($id_conv);
-        $tematicas= $tipoConv === 1? $tematicas : (new RequerimientoComp)->getRequerimientos2($id_conv);
-
-        $compPost = new PostulanteComp();
+        $tematicas = (new ConocimientosComp)->getTemConv($id_conv);
         foreach($tematicas as $tem){
-            
-            $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($tem->id) : 
-                                           $compPost->getPostulantesByAux($tem->id_aux,$tem->nombre);
-            $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'); 
-
-            $publicado = $compPost->getPublicado($postulantes);
-
-            if(!$publicado){
-                $postulantes = [];
-            }                             
-            $tem->postulantes = $postulantes;
-            $tem->publicado = $publicado;
+            foreach($tem['areas'] as $area){
+                $postulantes= (new PostulanteComp)->getPostulantesByTem($tem['id'],$area->id_area);
+                $publicado = (new PostulanteComp)->getPublicado($postulantes);
+                if(!$publicado){
+                    $postulantes = [];
+                }                             
+                $area->postulantes = $postulantes;
+                $area->publicado = $publicado;
+            }
         }
-        
         return view('verConvocatoria.notasConocimientoT',compact('tematicas','tipoConv','conv'));
     }
 }

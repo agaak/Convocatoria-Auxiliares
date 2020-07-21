@@ -30,9 +30,9 @@
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-res-conocimientos') }}">
                     <a class="link-list" href="{{ route('admResConocimientos') }}">Notas de Conocimientos</a>
                 </li>
-                <li class="navbar-item {{ activeMenuConten('convocatoria/adm-res-nota-final') }}">
+                {{-- <li class="navbar-item {{ activeMenuConten('convocatoria/adm-res-nota-final') }}">
                     <a class="link-list" href="{{ route('admResNotaFinal') }}">Notas Finales</a>
-                </li>
+                </li> --}}
                 <li class="navbar-item {{ activeMenuConten('convocatoria/adm-asignaciones') }}">
                     <a class="link-list" href="{{ route('admResAsignaciones') }}">Asignacion de Auxiliaturas</a>
                 </li>

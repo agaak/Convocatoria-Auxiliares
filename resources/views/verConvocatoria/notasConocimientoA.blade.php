@@ -4,7 +4,7 @@
     <div class="overflow-auto content">
         <h3>Notas de Conocimiento por Auxiliatura</h3>
         @component('components.resultados.notasByAuxiliatura', 
-          ['listaAux' => $listaAux,'listaPost'=>$listaPost])
+          ['listaAux' => $listaAux,'tematicas' => $tematicas,'listaPost'=>$listaPost])
         @endcomponent
     </div>
 @endsection

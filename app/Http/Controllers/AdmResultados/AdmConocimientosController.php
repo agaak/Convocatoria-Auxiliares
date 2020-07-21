@@ -11,6 +11,7 @@ use App\Models\PostuCalifConoc;
 use App\Models\PostuCalifConocFinal;
 use App\Models\Postulante_auxiliatura;
 use App\Models\Porcentaje;
+use App\Models\Tematica;
 use App\Models\Calificacion_final;
 use App\Models\PostuCalifMeritoFinal;
 use App\Http\Controllers\Utils\Evaluador\PostulanteComp;
@@ -29,44 +30,30 @@ class AdmConocimientosController extends Controller
         $id_conv = session()->get('convocatoria');
         $conv = Convocatoria::find($id_conv);
         $tipoConv = $conv->id_tipo_convocatoria;
-        $tematicas = (new ConocimientosComp)->getTems($id_conv);
-        $tematicas= $tipoConv === 1? $tematicas : (new RequerimientoComp)->getRequerimientos2($id_conv);
-        // return $tematicas;
-        $compPost = new PostulanteComp();
-        $list_aux = (new ConocimientosComp)->getRequerimientos($id_conv);
-        // return $list_aux;
-        foreach($list_aux as $aux){
-            foreach($tematicas[$aux->id] as $tem){
-                foreach($tem['areas'] as $area){
-                    $postulantes= $compPost->getPostulantesByTem($tem['id'],$area->id_area);
+        $tematicas = (new ConocimientosComp)->getTemConv($id_conv);
+        foreach($tematicas as $tem){
+            foreach($tem['areas'] as $area){
+                $postulantes= (new PostulanteComp)->getPostulantesByTem($tem['id'],$area->id_area);
 
-                    // $postulantes= $tipoConv === 1? $postulantes : collect($postulantes)->groupBy('id'); 
+                $entregado = (new PostulanteComp)->getEntregado($postulantes);
+                $publicado = (new PostulanteComp)->getPublicado($postulantes);
 
-                    $entregado = $compPost->getEntregado($postulantes);
-                    $publicado = $compPost->getPublicado($postulantes);
-
-                    if(!$publicado){
-                        if(!$entregado){
-                            $postulantes = [];
-                        }
-                    }                             
-                    $area->postulantes = $postulantes;
-                    $area->publicado = $publicado;
-                    $area->entregado = $entregado;
-                }
+                if(!$publicado){
+                    if(!$entregado){
+                        $postulantes = [];
+                    }
+                }                            
+                $area->postulantes = $postulantes;
+                $area->publicado = $publicado;
+                $area->entregado = $entregado;
             }
         }
-        return $tematicas;
+        // return $tematicas;
         return view('admResultados.admResConocimientos',compact('tematicas','tipoConv','conv'));
     }
 
-    public function publicar($id_tem,$nom){
-        
-        $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        
-        $compPost = new PostulanteComp();
-        $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem) : $compPost->getPostulantesByAux($id_tem,$nom); 
-        $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'); 
+    public function publicar($id_tem,$id_area){
+        $postulantes= (new PostulanteComp)->getPostulantesByTem($id_tem,$id_area);
         foreach($postulantes as $postulante){
             $postulante = collect($postulante)->groupBy('id_nota');
             foreach($postulante as $nota){
@@ -101,7 +88,6 @@ class AdmConocimientosController extends Controller
                 }
             }
         }
-
         return back();
     }
 

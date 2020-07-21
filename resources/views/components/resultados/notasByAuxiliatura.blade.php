@@ -18,35 +18,49 @@
         <div class="tab-pane fade{{ $initContent ? " show active" : '' }}" id={{ "body".$auxiliatura->id}} 
           role="tabpanel" aria-labelledby={{ $auxiliatura->id}}>
           <div class="table-requests1">
-              <table id= "notas{{ $auxiliatura->id}}" class="table table-striped table-bordered">
+              <table id= "notas{{ $auxiliatura->id}}" class="table table-striped table-bordered"
+                  style="width: 100%">
                   <thead class="thead-dark text-center">
                       <tr>
-                          <th class="font-weight-normal" scope="col">CI</th>
-                          <th class="font-weight-normal" scope="col">Apellidos</th>
-                          <th class="font-weight-normal" scope="col">Nombres</th>
-                          @foreach ($auxiliatura->tematicas as $tematica)
-                          @if ($tematica->porcentaje != 0)
-                          <th class="font-weight-normal" scope="col">{{ $tematica->nombre }}/{{ $tematica->porcentaje }}</th>
-                          @endif
-                          
-                              
+                          <th style="vertical-align: middle;" scope="col" rowspan="2">#</th>
+                          <th style="vertical-align: middle;" class="font-weight-normal" scope="col" rowspan="2">CI</th>
+                          <th style="vertical-align: middle;" class="font-weight-normal" scope="col" rowspan="2">Apellidos</th>
+                          <th style="vertical-align: middle;" class="font-weight-normal" scope="col" rowspan="2">Nombres</th>
+                          @foreach ($tematicas[$auxiliatura->id] as $tematica)
+                            <th class="font-weight-normal" scope="col" colspan="{{ count($tematica->areas) }}">{{ $tematica->nombre }}</th>
                           @endforeach
-                        
-                          <th class="font-weight-normal" scope="col">Nota final</th>
+                          <th style="vertical-align: middle;" class="font-weight-normal" scope="col" rowspan="2">Nota final</th>
+                      </tr>
+                      <tr>
+                        @foreach ($tematicas[$auxiliatura->id] as $tematica)
+                          @foreach ($tematica['areas'] as $area)
+                            <th class="font-weight-normal" scope="col">{{ $area->area }}/{{ $area->porcentaje }}</th>
+                          @endforeach
+                        @endforeach
                       </tr>
                   </thead>
                   <tbody>
                     @if($listaPost->has($auxiliatura->id))
+                      @php $num = 1  @endphp
                       @foreach ($listaPost[$auxiliatura->id] as $item)
-                      <tr>
+                        <tr>    
+                              <th style="font-weight: normal">{{ $num++ }}</th>
                               <th style="font-weight: normal">{{ $item->ci }}</th>
                               <th style="font-weight: normal">{{ $item->apellido }}</th>
                               <th style="font-weight: normal">{{ $item->nombre }}</th>
-                                @foreach ($item->notas_tems as $tems)
-                                <td class="text-center" scope="col">{{ $tems->calificacion??'-' }}</td>
-                                @endforeach
-                              <td class="text-center">{{ $item->nota_final_conoc??'-' }}</td>
-                              </tr>
+                              @foreach ($tematicas[$auxiliatura->id] as $tematica)
+                                  @foreach ($tematica['areas'] as $area)
+                                    <td class="text-center" scope="col">
+                                      @foreach ($item->notas_tems[$tematica->id] as $tems)
+                                        @if($tems->id_area == $area->id_area)
+                                          {{ $tems->calificacion != null ?$tems->calificacion:'-' }}
+                                        @endif
+                                      @endforeach
+                                    </td>
+                                  @endforeach
+                              @endforeach
+                              <td class="text-center">{{ $item->nota_final_conoc }}</td>
+                        </tr>
                       @endforeach
                     @endif
                   </tbody>
