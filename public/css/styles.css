@@ -116,7 +116,7 @@ body {
 .content-div {
     background-color: #E7E7E7;
     display: flex;
-    height: 800px;
+    min-height: 800px;
 }
 
 /* Contenido - barra de navegación */
@@ -390,6 +390,7 @@ input[type=number] {
 
 .convocatoria-actual {
     border-top: 1px solid white;
+    overflow: auto;
 }
 
 /* Card personal de evaluador mis convocatorias */
