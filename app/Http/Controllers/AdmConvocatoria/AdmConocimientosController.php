@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
 use App\Http\Controllers\Utils\ConvocatoriaComp;
+use App\Models\EventoImportante;
 use App\Models\Porcentaje;
 use App\Models\Requerimiento;
 use App\Models\Tipo_evaluador;
@@ -77,7 +78,9 @@ class AdmConocimientosController extends Controller
 
         $conv = Convocatoria::find($id_conv);
 
-        return view('admConvocatoria.admConocimientos', compact('listaEva', 'listaMultiselect','lista_tem_aux','evaluadores','tipoConvocatoria','conv'));
+        $activo = date('Y-m-d H:i:s') <= EventoImportante::where('id_convocatoria', $id_conv)->where('titulo_evento', 'Presentación de Documentos')->value('fecha_final');
+
+        return view('admConvocatoria.admConocimientos', compact('listaEva', 'listaMultiselect','lista_tem_aux','evaluadores','tipoConvocatoria','conv', 'activo'));
     }
 
     public function inicio($id) {

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Convocatoria;
+use App\Models\EventoImportante;
 
 class AdmMeritosController extends Controller
 {
@@ -32,8 +33,10 @@ class AdmMeritosController extends Controller
         $listEvaluadores = EvaluadorConocimientos::get();
 
         $conv = Convocatoria::find($id_conv);
+
+        $activo = date('Y-m-d H:i:s') <= EventoImportante::where('id_convocatoria', $id_conv)->where('titulo_evento', 'Presentación de Documentos')->value('fecha_final');
         
-        return view('admConvocatoria.admMeritos',compact('listEvaluadorMerit','listEvaluadores','conv'));
+        return view('admConvocatoria.admMeritos',compact('listEvaluadorMerit','listEvaluadores','conv', 'activo'));
     }
 
     public function create(Request $request) {
