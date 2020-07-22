@@ -56,7 +56,7 @@
         <button class="btn btn-dark btn-rounded btn-sm my-0 " type="submit" form="convsPasadasSearch">Buscar</button>
     </div>
         @component('components.carruselConvocatoria', 
-        ['convos' => $convosPasadas, 'auxs' => $auxs])
+        ['convos' => $convosPasadas, 'auxs' => $auxs, 'fechaActual' => $fechaActual])
         @endcomponent
     </div>
     <script>

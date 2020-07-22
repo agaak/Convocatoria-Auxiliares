@@ -50,8 +50,10 @@ class ConvocatoriaPController extends Controller
         $idDepartamento = $departamentos[0]->id;
         $idTipoConv = null;
         $selectGestion = null;
+
+        $fechaActual = date('Y-m-d H:i:s');
         
-        return view('convocatoriasPasadas', compact('departamentos','tipos','gestiones','convosPasadas','auxs','idDepartamento','idTipoConv','selectGestion'));
+        return view('convocatoriasPasadas', compact('departamentos','tipos','gestiones','convosPasadas','auxs','idDepartamento','idTipoConv','selectGestion','fechaActual'));
     }
     
     public function search(Request $request){
