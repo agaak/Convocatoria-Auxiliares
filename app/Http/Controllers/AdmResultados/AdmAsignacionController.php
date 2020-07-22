@@ -12,6 +12,9 @@ use App\Models\Requerimiento;
 use Illuminate\Support\Facades\DB;
 use App\Models\Postulante_auxiliatura;
 use App\Models\PrePostulante;
+use App\Models\PostuCalifConocFinal;
+use App\Models\PostuCalifConoc;
+use App\Http\Controllers\Utils\Convocatoria\ConocimientosComp;
 
 class AdmAsignacionController extends Controller
 {
@@ -23,54 +26,53 @@ class AdmAsignacionController extends Controller
     public function index()
     {   
         $id_conv = session()->get('convocatoria');
-        
         $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id','requerimiento.cant_aux')
-        ->join('requerimiento','auxiliatura.id','=','requerimiento.id_auxiliatura')
-        ->where('id_convocatoria',$id_conv)
-        ->get(); 
-        $tipoConv= Convocatoria::select('tipo_convocatoria.id')
-                    ->join('tipo_convocatoria', 'tipo_convocatoria.id', '=', 'convocatoria.id_tipo_convocatoria')
-                    ->where('convocatoria.id',$id_conv)
-                    ->get();
-                    
-            $listaPostInvitados = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
-            'postulante_auxiliatura.calificacion','postulante_auxiliatura.id_auxiliatura','postulante_auxiliatura.item')
-            ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
-            ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
-            ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
-            ->where('postulante_auxiliatura.habilitado', true)
-            ->join('calf_fin_postulante_conoc', 'calf_fin_postulante_conoc.id_postulante', '=', 'postulante.id')
-            ->where('calf_fin_postulante_conoc.id_convocatoria', $id_conv)
-            ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
-            ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
-            ->whereNotNull('postulante_auxiliatura.calificacion')
-            ->where('postulante_auxiliatura.calificacion', '<', 51)
-            ->groupby('postulante_auxiliatura.id_auxiliatura','postulante_auxiliatura.item','postulante.id','postulante_auxiliatura.calificacion')
-            ->get();
-            $listaPostInvitados = collect($listaPostInvitados)->groupBy('id_auxiliatura');
-            
-            $listaPost = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
-            'postulante_auxiliatura.calificacion','postulante_auxiliatura.item','postulante_auxiliatura.id_auxiliatura')
-            ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
-            ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
-            ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
-            ->where('postulante_auxiliatura.habilitado', true)
-            ->join('calf_fin_postulante_conoc', 'calf_fin_postulante_conoc.id_postulante', '=', 'postulante.id')
-            ->where('calf_fin_postulante_conoc.id_convocatoria', $id_conv)
-            ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
-            ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
-            ->whereNotNull('postulante_auxiliatura.calificacion')
-            ->where('postulante_auxiliatura.calificacion', '>=', 51)
-            ->orWhere('postulante_auxiliatura.item', '!=', null)
-            ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','postulante_auxiliatura.calificacion','postulante_auxiliatura.item')
-            ->orderBy('postulante_auxiliatura.calificacion', 'DESC')
-            ->get();
-            $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
-
-        // return $listaPostInvitados;
-            $finalizado = Convocatoria::where('id',session()->get('convocatoria'))->value('finalizado');
-          $conv = Convocatoria::find($id_conv);
-        return view('admResultados.admAsignaciones',compact('listaAux','listaPost','conv','listaPostInvitados','finalizado'));
+            ->join('requerimiento','auxiliatura.id','=','requerimiento.id_auxiliatura')
+            ->where('id_convocatoria',$id_conv)->get(); 
+        $tematicas = (new ConocimientosComp)->getTems($id_conv);
+        $listaPost = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
+        'postulante_auxiliatura.calificacion','postulante_auxiliatura.item','postulante_auxiliatura.id_auxiliatura')
+        ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
+        ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
+        ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
+        ->where('postulante_auxiliatura.habilitado', true)
+        ->join('calf_fin_postulante_conoc', 'calf_fin_postulante_conoc.id_postulante', '=', 'postulante.id')
+        ->where('calf_fin_postulante_conoc.id_convocatoria', $id_conv)
+        ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
+        ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
+        ->whereNotNull('postulante_auxiliatura.calificacion')
+        // ->where('postulante_auxiliatura.calificacion', '>=', 51)
+        ->orWhere('postulante_auxiliatura.item', '!=', null)
+        ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','postulante_auxiliatura.calificacion','postulante_auxiliatura.item')
+        ->orderBy('postulante_auxiliatura.calificacion', 'DESC')->get();
+        
+        foreach($listaPost as $postulante){
+            $id_calf_fin_conoc = PostuCalifConocFinal::where('id_postulante',$postulante->id)->where('id_convocatoria',$id_conv)
+                ->where('id_auxiliatura',$postulante->id_auxiliatura)->value('id');
+            $test = PostuCalifConoc::where('id_calf_final',$id_calf_fin_conoc)
+                ->where('estado','entregado')->get()->isNotEmpty();
+            $test2 = PostuCalifConoc::where('id_calf_final',$id_calf_fin_conoc)
+                ->where('estado','publicado')->count();
+            $test3 = count($tematicas[$postulante->id_auxiliatura][0]['areas']);
+            if($test || ($test2 != $test3)){
+                $listaPost = [];
+                break;
+            }
+            if($postulante->item == null || $postulante->item == 0){
+                if($postulante->calificacion < 51){
+                    $postulante->estado = "Postulantes Reprobados";   
+                } else {
+                    $postulante->estado = "Postulantes Aprobados";
+                }
+            } else {
+                $postulante->estado = "Auxiliaturas Asignadas";
+            }
+        }
+        $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
+        // return $listaPost;
+        $finalizado = Convocatoria::where('id',session()->get('convocatoria'))->value('finalizado');
+        $conv = Convocatoria::find($id_conv);
+        return view('admResultados.admAsignaciones',compact('listaAux','listaPost','conv','finalizado'));
     }
 
     public function asignar(){

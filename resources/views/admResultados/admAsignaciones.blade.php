@@ -25,16 +25,17 @@
           role="tabpanel" aria-labelledby={{ $auxiliatura->id}}>
           <h6 class="my-3">Total de auxiliaturas requeridas: {{ $auxiliatura->cant_aux}}</h6>
             <div class="table-requests1">
-              <table id= "notas{{ $auxiliatura->id}}" class="table table-striped table-bordered">
+              <table id= "notas{{ $auxiliatura->id}}" class="table table-striped table-bordered" style="width: 100%">
                 <thead class="thead-dark text-center">
                   <tr>
-                    <th class="font-weight-normal" scope="col">#</th>
+                    <th class="font-weight-normal" scope="col">Estado</th>
                     <th class="font-weight-normal" scope="col">CI</th>
                     <th class="font-weight-normal" scope="col">Apellidos</th>
                     <th class="font-weight-normal" scope="col">Nombres</th>
                     <th class="font-weight-normal" scope="col">Nota final</th>
+                    <th class="font-weight-normal" scope="col">Horas Acumuladas</th>
                     <th class="font-weight-normal" scope="col">Cantidad Auxiliaturas</th>
-                    @if (!$finalizado) <th class="font-weight-normal" scope="col">Asignar</th> @endif
+                    @if (!$finalizado) <th class="font-weight-normal" scope="col">Acciones</th> @endif
                   </tr>
                 </thead>
                 <script>
@@ -47,49 +48,55 @@
                   @if($listaPost->has($auxiliatura->id))
                     @foreach ($listaPost[$auxiliatura->id] as $item)
                       <tr class="table-light">
-                        <td class="text-center" style="vertical-align: middle;">{{ $num++ }}</td>
+                        <td class="text-center" style="vertical-align: middle;">{{ $item->estado }}</td>
                         <td class="text-center" style="vertical-align: middle;">{{ $item->ci }}</td>
                         <td style="vertical-align: middle;">{{ $item->apellido }}</td>
                         <td style="vertical-align: middle;">{{ $item->nombre }}</td>
-                        <td style="vertical-align: middle;" class="text-center">{{ $item->calificacion }}</td>
+                        <th style="vertical-align: middle;" class="text-center">{{ $item->calificacion }}</th>
+                        <td style="vertical-align: middle;" class="text-center">40 hrs</td>
                         <th style="vertical-align: middle;" class="text-center">
                           @if($item->item===null)
-                              {{ "-" }}
-                            @elseif($item->item===0)
-                              {{"Dado de baja"}} 
-                            @else
+                              {{ "0" }}
+                          @else
                               {{ $item->item }}
-                            @endif
-                        </th>@if (!$finalizado)
+                          @endif
+                        </th>
+                        @if (!$finalizado)
                         <td class="text-center">
+                          @if($item->item===null || $item->item == 0)
+                            <form class="d-inline" action="{{ route('asignar') }}" method="POST">
+                              {{ csrf_field() }}
+                              <input type="hidden" name="id" value="{{ $item->id }}" readonly>
+                              <input type="hidden" name="ida" value="{{ $item->id_auxiliatura }}" readonly>
+                              <input class="btn btn-light btn-block" type="submit" style="background-color:#CCEAEC; color:rgb(0, 0, 0);" value="Asignar">
+                            </form>
+                          @else
                           <form class="d-inline" action="{{ route('asignar') }}" method="POST">
                               {{ csrf_field() }}
                               <input type="hidden" name="id" value="{{ $item->id }}" readonly>
                               <input type="hidden" name="ida" value="{{ $item->id_auxiliatura }}" readonly>
-                              <button type="submit" class="btn btn-link">
-                                <img src="{{ asset('img/add512.png') }}" width="30" height="32">
-                              </button>
+                              <input class="btn btn-light" type="submit" style="background-color:#AEF1B5; color:rgb(0, 0, 0);" value="Asignar mas">
                             </form>
                             <form class="d-inline" action="{{ route('quitar') }}" method="POST">
                               {{ csrf_field() }}
-                              <input type="hidden" name="id" value="{{ $item->id }}" readonly>
+                              <input type="hidden" name="id" value="{{ $item->id }}" readonly> 
                               <input type="hidden" name="ida" value="{{ $item->id_auxiliatura }}" readonly>
-                              <button type="submit" class="btn btn-link">
-                                <img src="{{ asset('img/minus512.png') }}" width="30" height="32" onclick="mensaje()">
-                              </button>
+                              <input class="btn btn-light" type="submit" onclick="mensaje()" style="background-color:#F1AEAE; color:rgb(0, 0, 0);" value="Quitar">
                             </form>
-                        </td>@endif
+                            @endif
+                        </td>
+                        @endif
                       </tr>
                     @endforeach
                   @endif
                 </tbody>   
               </table>
-              @if (!$finalizado)
-              <div class="container text-right">
-                <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
-                        data-target="#invitarPostulanteModal" data-asig_id_auxiliatura="{{ $auxiliatura->id}}">Invitar postulante</button>
-              </div>
-              @endif
+              {{-- @if (!$finalizado)
+                <div class="container text-right">
+                  <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
+                          data-target="#invitarPostulanteModal" data-asig_id_auxiliatura="{{ $auxiliatura->id}}">Invitar postulante</button>
+                </div>
+              @endif --}}
             </div>
         </div>
           
@@ -130,7 +137,7 @@
                       <div class="col-4 px-0">
                         <input type="text" name="adm-post-ci" placeholder="Ingrese su carnet" class="form-control form-control" id="adm-post-ci" required>
                       </div> <div class="col-auto">
-                      <button type="button" class="btn btn-primary" onclick="comprobarInvitado({{ $listaPostInvitados }})" >Comprobar Postulante</button>
+                      <button type="button" class="btn btn-primary" onclick="comprobarInvitado({{ $listaPost }})" >Comprobar Postulante</button>
                     </div>
                       {!! $errors->first('adm-post-ci', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
                       </div>
@@ -186,4 +193,29 @@
     </form>
   </div>
 </div>
+<script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
+@foreach ($listaAux as $auxiliatura)
+<script>
+    $(document).ready(function() {
+        $('#notas{{ $auxiliatura->id}}').DataTable( {
+            "pageLength":70,
+            responsive: true,
+            "columnDefs": [
+            /* { "orderable": false}, */
+            { "visible": false, "targets": 0 }
+            ],
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            },"bLengthChange": false,
+            orderFixed: [[ 0, 'asc' ],[ 4, 'asc' ]],
+            rowGroup: {
+                dataSrc: 0,startRender: function (rows, group) {
+                return group + ' (' + rows.count() + ' postulantes)';
+        }
+            },
+            
+        } );
+    } );
+</script>
+@endforeach
 @endsection
