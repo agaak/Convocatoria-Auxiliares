@@ -76,6 +76,8 @@ class LaboratorioController extends Controller
                 'cod_aux' => request()->input('codigo-auxs-lab')
             ]);
 
+            session()->put('dato', 1);
+
         } else if (request()->has('nombre-area-lab')) {
 
             request()->validate([
@@ -90,6 +92,8 @@ class LaboratorioController extends Controller
                 'nombre' => request()->input('nombre-area-lab')
             ]);
 
+            session()->put('dato', 3);
+
         } else {
             request()->validate([
                 'nombre-tem-lab' => 'unique:tematica,nombre,0,id,id_unidad_academica,'.$idUnidadAcademica
@@ -102,6 +106,9 @@ class LaboratorioController extends Controller
                 'id_tipo_convocatoria' => 1,
                 'nombre' => request()->input('nombre-tem-lab')
             ]);
+
+            session()->put('dato', 2);
+
         }
         
         return back();
@@ -128,6 +135,8 @@ class LaboratorioController extends Controller
                 'cod_aux' => request()->input('codigo-auxs-edit')
             ]);
 
+            session()->put('dato', 1);
+
         } else if (request()->has('nombre-area-edit')) {
 
             $idArea = request()->input('id-area');
@@ -142,6 +151,8 @@ class LaboratorioController extends Controller
                 'nombre' => request()->input('nombre-area-edit')
             ]);
 
+            session()->put('dato', 3);
+
         } else {
             $idTematica = request()->input('id-tematica');
 
@@ -154,6 +165,9 @@ class LaboratorioController extends Controller
             Tematica::where('id', $idTematica)->update([
                 'nombre' => request()->input('nombre-tem-edit')
             ]);
+
+            session()->put('dato', 2);
+            
         }
 
         return back();
@@ -172,7 +186,7 @@ class LaboratorioController extends Controller
                     'habilitado' => true
                 ]);
             }
-
+            session()->put('dato', 2);
         } else if (request()->has('area')) {
 
             if (Area::find($id)->habilitado) {
@@ -184,7 +198,7 @@ class LaboratorioController extends Controller
                     'habilitado' => true
                 ]);
             }
-
+            session()->put('dato', 3);
         } else {
             if (Auxiliatura::find($id)->habilitado) {
                 Auxiliatura::where('id', $id)->update([
@@ -195,6 +209,7 @@ class LaboratorioController extends Controller
                     'habilitado' => true
                 ]);
             }
+            session()->put('dato', 1);
         }
         
         return back();

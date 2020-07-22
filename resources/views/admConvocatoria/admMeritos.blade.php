@@ -5,8 +5,10 @@
     <h3>Comisión de Evaluacion de Meritos</h3>
 
     <!-- Trigger modal -->
-    <button type="button" class="btn btn-dark my-3" data-toggle="modal" 
-    data-target="#modalCrearEvaluadorMerit" >Registrar nuevo evaluador</button>
+    @if ($activo)
+        <button type="button" class="btn btn-dark my-3" data-toggle="modal"
+        data-target="#modalCrearEvaluadorMerit" >Registrar nuevo evaluador</button>
+    @endif
  
     <!-- Table -->
     <div class="table-requests1">

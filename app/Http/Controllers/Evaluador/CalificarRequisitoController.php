@@ -14,6 +14,7 @@ use App\Http\Controllers\Utils\Evaluador\MenuDina;
 use App\Http\Controllers\Utils\Evaluador\PostulanteComp;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\ConvocatoriaComp;
+use App\Models\EventoImportante;
 use App\Models\Postulante_conovocatoria;
 
 class CalificarRequisitoController extends Controller
@@ -48,6 +49,10 @@ class CalificarRequisitoController extends Controller
 
         foreach($listPostulantes as $item){
             $item->nombre_aux = $listPostulanteAux[$item['id']];
+        }
+        $activo = date('Y-m-d H:i:s') <= EventoImportante::where('id_convocatoria', session()->get('convocatoria'))->where('titulo_evento', 'Presentación de Documentos')->value('fecha_final');
+        if ($activo) {
+            $listPostulantes = [];
         }
         $entregado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','entregado')->get()->isNotEmpty();

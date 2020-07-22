@@ -21,7 +21,7 @@ class TematicaSeeder extends Seeder
         Tematica::create([
             'id_unidad_academica' => '1',
             'id_tipo_convocatoria' => '2',
-            'nombre' => 'Elementos y estructuras de datos '
+            'nombre' => 'Elementos y estructuras de datos'
         ]);
         Tematica::create([
             'id_unidad_academica' => '1',

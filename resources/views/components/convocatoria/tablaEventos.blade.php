@@ -16,7 +16,7 @@
         <tbody class="bg-white" style="vertical-align: middle">
             @php $num = 1  @endphp
             @foreach($importantDatesList as $item)
-                <tr class="{{ $item->lugar_evento[1] == '-'? 'bg-danger': '' }}">
+                <tr class="{{ $item->lugar_evento[1] == '-'? 'text-danger': '' }}">
                     <td style="vertical-align: middle;">{{ $num++ }}</td>
                     <td style="vertical-align: middle;">{{ $item->titulo_evento }}</td>
                     <td style="vertical-align: middle;">{{ $item->lugar_evento }}</td>
