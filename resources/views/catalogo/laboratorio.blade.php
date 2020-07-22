@@ -256,15 +256,15 @@
 
             <ul class="nav nav-pills mb-3" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="pills-auxiliaturas-tab" data-toggle="pill" 
+                    <a class="nav-link {{ session()->get('dato') === 1 || session()->get('dato') === null? 'active': '' }}" id="pills-auxiliaturas-tab" data-toggle="pill" 
                     href="#pills-auxiliaturas" role="tab" aria-controls="pills-auxiliaturas" aria-selected="true">Auxiliaturas</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="pills-tematicas-tab" data-toggle="pill" href="#pills-tematicas"
+                    <a class="nav-link {{ session()->get('dato') === 2? 'active': '' }}" id="pills-tematicas-tab" data-toggle="pill" href="#pills-tematicas"
                     role="tab" aria-controls="pills-tematicas" aria-selected="false">Temáticas</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="pills-areas-tab" data-toggle="pill" href="#pills-areas"
+                    <a class="nav-link {{ session()->get('dato') === 3? 'active': '' }}" id="pills-areas-tab" data-toggle="pill" href="#pills-areas"
                     role="tab" aria-controls="pills-areas" aria-selected="false">Areas de Evaluación</a>
                 </li>
             </ul>
@@ -272,7 +272,7 @@
 
                 {{-- Seccion de las auxiliaturas --}}
 
-                <div class="tab-pane fade show active" id="pills-auxiliaturas" role="tabpanel" aria-labelledby="pills-auxiliaturas-tab">
+                <div class="tab-pane fade {{ session()->get('dato') === 1 || session()->get('dato') === null? 'show active': '' }}" id="pills-auxiliaturas" role="tabpanel" aria-labelledby="pills-auxiliaturas-tab">
                     <a class="mb-3" type="button" data-toggle="modal" data-target="#agregarAuxiliaturas">
                         <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
                         <span class="mx-1">Añadir Auxiliatura</span>
@@ -321,7 +321,7 @@
 
                 {{-- Seccion de las tematicas --}}
 
-                <div class="tab-pane fade" id="pills-tematicas" role="tabpanel" aria-labelledby="pills-tematicas-tab">
+                <div class="tab-pane fade {{ session()->get('dato') === 2? 'show active': '' }}" id="pills-tematicas" role="tabpanel" aria-labelledby="pills-tematicas-tab">
                     <a class="mb-3" type="button" data-toggle="modal" data-target="#agregarTematicas">
                         <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
                         <span class="mx-1">Añadir Temática</span>
@@ -369,7 +369,7 @@
 
                 {{-- Seccion areas de evaluacion --}}
 
-                <div class="tab-pane fade" id="pills-areas" role="tabpanel" aria-labelledby="pills-areas-tab">
+                <div class="tab-pane fade {{ session()->get('dato') === 3? 'show active': '' }}" id="pills-areas" role="tabpanel" aria-labelledby="pills-areas-tab">
                     <a class="mb-3" type="button" data-toggle="modal" data-target="#agregarAreas">
                         <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
                         <span class="mx-1">Añadir Area</span>

@@ -70,6 +70,8 @@ class DocenciaController extends Controller
                 'nombre' => request()->input('nombre-tem-doc')
             ]);
 
+            session()->put('dato', 2);
+
         } else if (request()->has('nombre-area-lab')) {
 
             request()->validate([
@@ -83,6 +85,8 @@ class DocenciaController extends Controller
                 'id_tipo_convocatoria' => 2,
                 'nombre' => request()->input('nombre-area-lab')
             ]);
+
+            session()->put('dato', 3);
 
         } else {
 
@@ -106,6 +110,8 @@ class DocenciaController extends Controller
                 'id_tipo_convocatoria' => 2,
                 'nombre' => request()->input('nombre-auxs-lab')
             ]);
+
+            session()->put('dato', 1);
 
         }
 
@@ -132,6 +138,9 @@ class DocenciaController extends Controller
                 'nombre_aux' => request()->input('nombre-auxs-edit'),
                 'cod_aux' => request()->input('codigo-auxs-edit')
             ]);
+
+            session()->put('dato', 1);
+
         } else if (request()->has('nombre-area-edit')) {
 
             $idArea = request()->input('id-area');
@@ -146,6 +155,8 @@ class DocenciaController extends Controller
                 'nombre' => request()->input('nombre-area-edit')
             ]);
 
+            session()->put('dato', 3);
+
         } else {
             $idTematica = request()->input('id-tematica');
 
@@ -158,6 +169,9 @@ class DocenciaController extends Controller
             Tematica::where('id', $idTematica)->update([
                 'nombre' => request()->input('nombre-tem-edit')
             ]);
+
+            session()->put('dato', 2);
+
         }
 
         

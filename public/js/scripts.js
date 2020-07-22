@@ -29,7 +29,8 @@ $('.timepicker').click(function() {
 function editDatesList(listDates) {
     // date_create_from_format('d/m/Y:H:i:s', );
     $('#id-datos-edit').val(listDates['id']);
-    if ('Presentación de Documentos' === listDates.titulo_evento) $('#titulo-evento-edit').attr('readonly', true);
+    if ('Presentación de Documentos' === listDates.titulo_evento) $('#titulo-evento-edit').attr('readonly', true)
+    else $('#titulo-evento-edit').attr('readonly', false);
     $('#titulo-evento-edit').val(listDates['titulo_evento']);
     $('#lugar-evento-edit').val(listDates['lugar_evento']);
     $('#fecha-ini-evento-edit').val(listDates['fecha_inicio'].replace(" ", "T"));
