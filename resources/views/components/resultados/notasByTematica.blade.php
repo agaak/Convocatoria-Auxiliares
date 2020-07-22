@@ -95,7 +95,7 @@
       $(document).ready(function() {
           $('#notas{{ $tematica->id.'-'.$area->id_area}}').DataTable({
       
-            "pageLength":50,
+            "pageLength":50,retrieve: true,
           "language": {
               "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
           },"bLengthChange": false,responsive: true,

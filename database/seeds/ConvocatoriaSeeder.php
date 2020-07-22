@@ -218,14 +218,14 @@ class ConvocatoriaSeeder extends Seeder
             'id_auxiliatura' => 1,
             'id_tematica' => 1, 
             'porcentaje' => 60,
-            'id_area' => 1
+            'id_area' => 3
         ]);
         Porcentaje::create([
             'id_requerimiento' => $idReq1->id,
             'id_auxiliatura' => 1,
             'id_tematica' => 1, 
             'porcentaje' => 40,
-            'id_area' => 2
+            'id_area' => 4
         ]);
 
         Porcentaje::create([
@@ -233,44 +233,44 @@ class ConvocatoriaSeeder extends Seeder
             'id_auxiliatura' => 2,
             'id_tematica' => 2, 
             'porcentaje' => 20,
-            'id_area' => 1
+            'id_area' => 3
         ]);
         Porcentaje::create([
             'id_requerimiento' => $idReq2->id,
             'id_auxiliatura' => 2,
             'id_tematica' => 2, 
             'porcentaje' => 80,
-            'id_area' => 2
+            'id_area' => 4
         ]);
 
         Porcentaje::create([
             'id_requerimiento' => $idReq3->id,
             'id_auxiliatura' => 3,
-            'id_tematica' => 3, 
+            'id_tematica' => 4, 
             'porcentaje' => 50,
-            'id_area' => 1
+            'id_area' => 3
         ]);
         Porcentaje::create([
             'id_requerimiento' => $idReq3->id,
             'id_auxiliatura' => 3,
-            'id_tematica' => 3, 
+            'id_tematica' => 4, 
             'porcentaje' => 50,
-            'id_area' => 2
+            'id_area' => 4
         ]);
 
         Porcentaje::create([
             'id_requerimiento' => $idReq4->id,
             'id_auxiliatura' => 4,
-            'id_tematica' => 4, 
+            'id_tematica' => 3, 
             'porcentaje' => 70,
-            'id_area' => 1
+            'id_area' => 3
         ]);
         Porcentaje::create([
             'id_requerimiento' => $idReq4->id,
             'id_auxiliatura' => 4,
-            'id_tematica' => 4, 
+            'id_tematica' => 3, 
             'porcentaje' => 30,
-            'id_area' => 2
+            'id_area' => 4
         ]);
     }
 }

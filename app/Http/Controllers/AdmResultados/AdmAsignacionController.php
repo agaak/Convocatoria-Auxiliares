@@ -42,10 +42,9 @@ class AdmAsignacionController extends Controller
         ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
         ->whereNotNull('postulante_auxiliatura.calificacion')
         // ->where('postulante_auxiliatura.calificacion', '>=', 51)
-        ->orWhere('postulante_auxiliatura.item', '!=', null)
+        // ->orWhere('postulante_auxiliatura.item', '!=', null)
         ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','postulante_auxiliatura.calificacion','postulante_auxiliatura.item')
         ->orderBy('postulante_auxiliatura.calificacion', 'DESC')->get();
-        
         foreach($listaPost as $postulante){
             $id_calf_fin_conoc = PostuCalifConocFinal::where('id_postulante',$postulante->id)->where('id_convocatoria',$id_conv)
                 ->where('id_auxiliatura',$postulante->id_auxiliatura)->value('id');
@@ -54,7 +53,7 @@ class AdmAsignacionController extends Controller
             $test2 = PostuCalifConoc::where('id_calf_final',$id_calf_fin_conoc)
                 ->where('estado','publicado')->count();
             $test3 = count($tematicas[$postulante->id_auxiliatura][0]['areas']);
-            if($test || ($test2 != $test3)){
+            if($test || ($test2 < $test3)){
                 $listaPost = [];
                 break;
             }
@@ -76,6 +75,7 @@ class AdmAsignacionController extends Controller
     }
 
     public function asignar(){
+        session()->put('id_tab',request()->get('ida'));
         if($this->hayItems(request()->get('ida'))) {
             $item = Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
                             ->where('id_postulante', request()->get('id'))->value('item');
@@ -106,7 +106,7 @@ class AdmAsignacionController extends Controller
     }   
 
     public function quitar(){ 
-        
+        session()->put('id_tab',request()->get('ida'));
         $item = Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
                             ->where('id_postulante', request()->get('id'))->value('item');
         if($item != 0 || $item == null){

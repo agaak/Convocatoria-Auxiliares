@@ -53,7 +53,6 @@ class AdmPostulantesController extends Controller
 
         $activo = date('Y-m-d H:i:s') <= EventoImportante::where('id_convocatoria', $id_conv)->where('titulo_evento', 'Presentación de Documentos')->value('fecha_final');
 
-        // return $listPostulantes;
         return view('admConvocatoria.admPostulantes',compact('listPostulantes','listaAux','listaRotulos','conv', 'activo'));
     }
 

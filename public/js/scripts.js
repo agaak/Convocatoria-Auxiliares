@@ -674,7 +674,7 @@ $('#pre-posts-habilitar').on('click', () => {
 });
 
 $('#eliminar-pre-postulantes').on('click', () => {
-    res = confirm('Esta seguro de Publicar Ganadores y Eliminar la lista de PRE POSTULANTES');
+    res = confirm('Esta seguro de Publicar Ganadores');
     if (!res) event.preventDefault();
 });
 

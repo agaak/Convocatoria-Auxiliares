@@ -30,13 +30,13 @@ class AdmConocimientosController extends Controller
         $id_conv = session()->get('convocatoria');
         $conv = Convocatoria::find($id_conv);
         $tipoConv = $conv->id_tipo_convocatoria;
-        $tematicas = (new ConocimientosComp)->getTemConv($id_conv);
+        $tematicas = (new ConocimientosComp)->getTemConv2($id_conv);
         foreach($tematicas as $tem){
             foreach($tem['areas'] as $area){
                 $postulantes= (new PostulanteComp)->getPostulantesByTem($tem['id'],$area->id_area);
 
                 $entregado = (new PostulanteComp)->getEntregado($postulantes);
-                $publicado = (new PostulanteComp)->getPublicado($postulantes);
+                $publicado = (new PostulanteComp)->getPublicado($postulantes); 
 
                 if(!$publicado){
                     if(!$entregado){

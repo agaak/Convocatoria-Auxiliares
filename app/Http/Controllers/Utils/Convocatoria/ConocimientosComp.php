@@ -37,7 +37,37 @@ class ConocimientosComp
         $areas = collect($areas)->groupBy('id_tematica');
         return $areas;
     }
+
+    public function getAreaByTem2($id_conv){
+        $areas = Porcentaje::select('id_area','id_tematica','area_calificacion.nombre as area')
+        ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+        ->where('requerimiento.id_convocatoria',$id_conv)->orderBy('id_requerimiento','ASC')
+        ->join('area_calificacion','porcentaje.id_area','=','area_calificacion.id')
+        ->get();
+        $areas = collect($areas)->groupBy('id_tematica');
+        return $areas;
+    }
     
+    public function getTemConv2($id_conv){
+        $tematicas = Tematica::select('tematica.nombre','tematica.id')
+        ->join('porcentaje','tematica.id','=','porcentaje.id_tematica')
+        ->join('requerimiento','porcentaje.id_requerimiento', '=', 'requerimiento.id')
+        ->where('requerimiento.id_convocatoria',$id_conv)
+        ->groupBy('tematica.nombre','tematica.id')
+        ->orderBy('nombre','ASC')->get();
+        $areas = $this->getAreaByTem($id_conv);
+        foreach($tematicas as $tem){
+            $area_aux = $areas->has($tem->id)? $areas[$tem->id] : [];
+            $area_aux = $area_aux->groupBy('id_area');
+            $area_aux2 = [];
+            foreach($area_aux as $aarea){
+                array_push($area_aux2, $aarea[0]);
+            }
+            $tem->areas = $area_aux2;
+        }
+        return $tematicas;
+    }
+
     public function getTemConv($id_conv){
         $tematicas = Tematica::select('tematica.nombre','tematica.id')
         ->join('porcentaje','tematica.id','=','porcentaje.id_tematica')

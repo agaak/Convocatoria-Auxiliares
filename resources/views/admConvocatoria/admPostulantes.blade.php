@@ -5,17 +5,12 @@
 
     <h3>Postulantes</h3>
     {{-- Triger modal --}}
-    <div class="row mr-1 ml-1">
-        <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
-        data-target="#storePostulanteModal">Registrar postulante</button>
-        <div class="col"></div>
-        {{-- @if ($conv->pre_posts_habilitado)
-            <a href="{{ route('habilitarPostulante', $conv->id) }}" id="pre-posts-habilitar" type="button" class="btn btn-secondary my-3 col-xs-2">Deshabilitar Postulaciones</a> 
-        @else
-            <a href="{{ route('habilitarPostulante', $conv->id) }}" id="pre-posts-habilitar" type="button" class="btn btn-success my-3 col-xs-2">Habilitar Postulaciones</a>  
-        @endif --}}
-    </div>
-    
+    @if ($activo)
+        <div class="row mr-1 ml-1">
+            <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
+            data-target="#storePostulanteModal">Registrar postulante</button>
+        </div>
+    @endif
     <!-- Table -->
     <div class="table-requests1" >
         <table id="postulantesConv" class="table table-striped table-bordered" style="width:100%" style="text-align:left">

@@ -36,12 +36,11 @@ class ConocimientoController extends Controller
         $porcentajes = $utilsConocimiento->getPorcentajes($id_conv);
         $tematics = $utilsConocimiento->getTematicas($conv->id_tipo_convocatoria, $tems,$list_aux);
         $areas = $utilsConocimiento->getAreas($conv->id_tipo_convocatoria);
-        
-        // return $tematics;
         return view('convocatory.conocimientos', compact('tematics','areas', 'list_aux','porcentajes','tems','porcentajesConvocatoria', 'rutaPDF', 'conv'));
     }
 
     public function knowledgeRatingTematicValid(Request $request){
+        session()->put('id_conoc',$request->input('id-auxiliatura'));
         $areas = collect($request->input('area-aux'));
         $id_req = Requerimiento::where('id_convocatoria',session()->get('convocatoria'))
             ->where('id_auxiliatura',$request->input('id-auxiliatura'))->value('id');
@@ -58,6 +57,7 @@ class ConocimientoController extends Controller
     }
     
     public function knowledgeRatingTematicDelete($id_tem, $id_aux){
+        session()->put('id_conoc',$id_aux);
         $porcentajes = (new ConocimientosComp)->getPorcentajes(session()->get('convocatoria'));
         foreach($porcentajes as $porc){
             Porcentaje::where('id_tematica', $id_tem)->where('id_auxiliatura', $id_aux)->delete();
@@ -66,6 +66,7 @@ class ConocimientoController extends Controller
     }
 
     public function knowledgeRatingTematicUpdate(Request $request){
+        session()->put('id_conoc',$request->input('id-auxiliatura-edit'));
         $porcentajes = (new ConocimientosComp)->getPorcentajes(session()->get('convocatoria'));
         $porcentajes = $porcentajes->has($request->input('id-auxiliatura-edit'))? $porcentajes[$request->input('id-auxiliatura-edit')] : [];
         $porcentajes = collect($porcentajes)->groupBy('id_tematica')[$request->input('id-tematica-edit')];

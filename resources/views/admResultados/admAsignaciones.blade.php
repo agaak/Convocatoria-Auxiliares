@@ -7,21 +7,20 @@
   <div class="container">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" id="myTab" role="tablist">
-      @php $initTabs = true @endphp
+      @php $initTabs = session()->get('id_tab') == null ?$listaAux[0]->id:session()->get('id_tab') @endphp
       @foreach ($listaAux as $auxiliatura)
           <li class="nav-item">
-            <a class="nav-link{{ $initTabs ? " active" : '' }}" id={{ $auxiliatura->id }} data-toggle="tab" 
+            <a class="nav-link{{ $initTabs==$auxiliatura->id ? " active" : '' }}" id={{ $auxiliatura->id }} data-toggle="tab" 
               href="#{{ "body".$auxiliatura->id }}" role="tab" aria-controls="home" aria-selected={{ $initTabs }}>
               {{ $auxiliatura->nombre_aux }}
             </a>
           </li>
-          {{ $initTabs = false  }}
           @endforeach
     </ul>
-    @php $initContent = true; @endphp
+    @php $initContent = session()->get('id_tab') == null ?$listaAux[0]->id:session()->get('id_tab'); @endphp
     <div class="tab-content" id="myTabContent">
       @foreach ($listaAux as $auxiliatura)
-        <div class="tab-pane fade{{ $initContent ? " show active" : '' }}" id={{ "body".$auxiliatura->id}} 
+        <div class="tab-pane fade{{ $initContent==$auxiliatura->id ? " show active" : '' }}" id={{ "body".$auxiliatura->id}} 
           role="tabpanel" aria-labelledby={{ $auxiliatura->id}}>
           <h6 class="my-3">Total de auxiliaturas requeridas: {{ $auxiliatura->cant_aux}}</h6>
             <div class="table-requests1">
@@ -100,7 +99,6 @@
             </div>
         </div>
           
-        {{ $initContent = false  }}
         @endforeach
     </div>
     @if ($finalizado)
@@ -201,13 +199,13 @@
             "pageLength":70,
             responsive: true,
             "columnDefs": [
-            /* { "orderable": false}, */
+            // { "orderable": true},
             { "visible": false, "targets": 0 }
             ],
             "language": {
                 "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
             },"bLengthChange": false,
-            orderFixed: [[ 0, 'asc' ],[ 4, 'asc' ]],
+            orderFixed: [[ 0, 'asc' ],[ 4, 'desc' ]],
             rowGroup: {
                 dataSrc: 0,startRender: function (rows, group) {
                 return group + ' (' + rows.count() + ' postulantes)';

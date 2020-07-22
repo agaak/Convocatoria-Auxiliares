@@ -27,7 +27,12 @@
                     {{ csrf_field() }}
                     <input type="hidden"  name="id-evaluador">
                     @if($entregado || $publicado)
-                        <button type="submit" class="btn btn-info" disabled>Entregado</button> 
+                        @if ($entregado)
+                            <button type="submit" class="btn btn-info" disabled>Entregado</button> 
+                        @else
+                            <button type="submit" class="btn btn-info" disabled>Publicado</button> 
+                        @endif
+                        
                     @else
                         <button type="submit" class="btn btn-info">Entregar Todo</button> 
                     @endif   

@@ -91,7 +91,7 @@ class AdmMeritosController extends Controller
         foreach($postulantes as $postulante){
             $porciento =  number_format($postulante->nota_final_merito*$porcentaje/100 ,2);
             $nota_fin = Postulante_auxiliatura::where('id_postulante', $postulante->id_postulante)->value('calificacion');
-            $nota_fin = $porciento;
+            $nota_fin += $porciento;
             Postulante_auxiliatura::where('id_postulante', $postulante->id_postulante)->update([
                 'calificacion' => $nota_fin,
             ]); 

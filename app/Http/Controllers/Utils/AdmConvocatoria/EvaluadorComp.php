@@ -50,9 +50,29 @@ class EvaluadorComp
         ->where('evaluador_conovocatoria.id',$id_eva_conv)
         ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')->get();
 
-        $porcentajes = (new ConocimientosComp)->getAreaByTem(session()->get('convocatoria'));
+        $areas = (new ConocimientosComp)->getAreaByTem(session()->get('convocatoria'));
         foreach($requests as $tem){
-            $tem->areas = $porcentajes->has($tem->id)? $porcentajes[$tem->id] : [];
+            $tem->areas = $areas->has($tem->id)? $areas[$tem->id] : [];
+        }
+        
+        return $requests;
+    }
+
+    public function getTematicsEvaluador2($id_eva_conv){
+        $requests = EvaluadorTematica::select('tematica.nombre', 'tematica.id') 
+        ->join('evaluador_conovocatoria','evaluador_tematica.id_evaluador_convocatoria','=','evaluador_conovocatoria.id')
+        ->where('evaluador_conovocatoria.id',$id_eva_conv)
+        ->join('tematica','evaluador_tematica.id_tematica','=','tematica.id')->get();
+
+        $areas = (new ConocimientosComp)->getAreaByTem2(session()->get('convocatoria'));
+        foreach($requests as $tem){
+            $area_aux = $areas->has($tem->id)? $areas[$tem->id] : [];
+            $area_aux = $area_aux->groupBy('id_area');
+            $area_aux2 = [];
+            foreach($area_aux as $aarea){
+                array_push($area_aux2, $aarea[0]);
+            }
+            $tem->areas = $area_aux2;
         }
         
         return $requests;

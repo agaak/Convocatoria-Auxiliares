@@ -11,6 +11,7 @@ use App\Models\Postulante_auxiliatura;
 use App\Models\Postulante_conovocatoria;
 use App\Models\Convocatoria;
 use App\Models\Tematica;
+use App\Models\Area;
 use App\Http\Controllers\Utils\Evaluador\PostulanteComp;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -142,28 +143,28 @@ class PDFpostulantesController extends Controller
         $dompdf = new Dompdf();
         $dompdf->set_paper('letter', 'portrait');
         $dompdf = PDF::loadView('postulantePDF.listaGanadores', compact('listaAux','listaPost','titulo_conv'));
-        return  $dompdf->download('Notas_meritos.pdf');
+        return  $dompdf->download('Asignacion_Auxiliaturas.pdf');
     }
 
     public function listNotasTematica($id_tem,$nom_tem){
+        // return $id_tem.'-'.$nom_tem;
         $id_conv = session()->get('convocatoria');
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
         
-        $nom_tematica = $tipoConv==1? Tematica::where('id',$id_tem)->value('nombre') : Auxiliatura::where('id',$id_tem)->value('nombre_aux').'-'.$nom_tem;
+        $nom_tematica = Tematica::where('id',$id_tem)->value('nombre').' - '.Area::where('id',$nom_tem)->value('nombre');
         $titulo_conv= Convocatoria::select('convocatoria.titulo')
         ->where('convocatoria.id',$id_conv)->get();
         $titulo_conv=$titulo_conv[0]['titulo'];
 
         $compPost = new PostulanteComp();
-        $postulantes= $tipoConv === 1? $compPost->getPostulantesByTem($id_tem) : $compPost->getPostulantesByAux($id_tem,$nom_tem);
-            $postulantes= $tipoConv === 1? $postulantes :collect($postulantes)->groupBy('id'); 
+        $postulantes = $compPost->getPostulantesByTem($id_tem,$nom_tem); 
        /* return $postulantes;  */
         $dompdf = new Dompdf();
         $dompdf->set_paper('letter', 'portrait');
         $dompdf = PDF::loadView('postulantePDF.listaTematica', compact('nom_tematica','postulantes','titulo_conv'));
         //return view('postulantePDF.listaHabilitados', compact('listaAux', 'listPostulantes'));
         
-        return  $dompdf->download('Notas_conocimientos.pdf');
+        return  $dompdf->download($nom_tematica.'.pdf');
         //return $nom_tematica;
     }
 

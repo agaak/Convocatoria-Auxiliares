@@ -44,7 +44,7 @@ class NotasFinalesController extends Controller
                 $test2 = PostuCalifConoc::where('id_calf_final',$id_nota_fin_conoc)
                     ->where('estado','publicado')->count();
                 $test3 = count($tematicas[$aux->id_auxiliatura][0]['areas']);
-                $aux->control = $test && ($test2 == $test3);
+                $aux->control = $test && ($test2 >= $test3);
                 $nota_fin_conoc = PostuCalifConocFinal::where('id',$id_nota_fin_conoc)
                     ->value('nota_final_conoc');
                 if($nota_fin_conoc != null){

@@ -35,7 +35,7 @@
                         <button type="submit" class="btn btn-info" disabled>Entregar Todo</button> 
                         <div class="text-right">
                             <button type="button" class="btn btn-secondary">
-                            <a href="/evaluador/calificar/conocimiento/{{ $id_tem}}/{{$nom}}/pdf" style="color: #FFFF;">PDF</a>
+                            <a href="/evaluador/calificar/conocimiento/{{$id_tem}}/{{$nom}}/pdf" style="color: #FFFF;">PDF</a>
                             </button>
                         </div>
                     @else

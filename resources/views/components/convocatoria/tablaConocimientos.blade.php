@@ -1,21 +1,20 @@
 <div class="container">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" id="myTab" role="tablist">
-      @php $initTabs = true @endphp
+      @php $initTabs = session()->get('id_conoc')==null? $list_aux[0]['id']: session()->get('id_conoc');@endphp
       @foreach ($list_aux as $auxiliatura)
         <li class="nav-item">
-          <a class="nav-link{{ $initTabs ? " active" : '' }}" id={{ $auxiliatura->id }} data-toggle="tab" 
+          <a class="nav-link{{ $initTabs==$auxiliatura->id ? " active" : '' }}" id={{ $auxiliatura->id }} data-toggle="tab" 
               href="#{{ "body".$auxiliatura->id }}" role="tab" aria-controls="home" aria-selected={{ $initTabs }}>
             {{ $auxiliatura->nombre_aux }}
           </a>
         </li>
-       {{ $initTabs = false  }}
       @endforeach
   </ul>
-  @php $initContent = true; @endphp
+  @php $initContent = session()->get('id_conoc')==null? $list_aux[0]['id']: session()->get('id_conoc'); @endphp
   <div class="tab-content" id="myTabContent">
       @foreach ($list_aux as $auxiliatura)
-        <div class="tab-pane fade{{ $initContent ? " show active" : '' }}" id={{ "body".$auxiliatura->id}} 
+        <div class="tab-pane fade{{ $initContent==$auxiliatura->id ? " show active" : '' }}" id={{ "body".$auxiliatura->id}} 
           role="tabpanel" aria-labelledby={{ $auxiliatura->id}}>
 
           <!-- Button trigger modal -->
@@ -98,7 +97,6 @@
           </table>
         </div>
       </div>
-      @php $initContent = false @endphp
     @endforeach
 </div>
 </div>

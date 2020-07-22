@@ -30,7 +30,7 @@ class CalificarConocController extends Controller
        
         $roles = $compEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        $auxsTemsEval = $compEval->getTematicsEvaluador($idEC);
+        $auxsTemsEval = $compEval->getTematicsEvaluador2($idEC);
         $compPost = new PostulanteComp();
         $postulantes= $compPost->getPostulantesByTem($id_tem,$nom); 
         
@@ -43,6 +43,7 @@ class CalificarConocController extends Controller
         if(!$publicado_habilitados){
             $postulantes = [];
         }
+        // return  $auxsTemsEval;
         return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 
             'auxsTemsEval','postulantes','id_tem','nom','publicado','entregado','publicado_habilitados'));
     }
