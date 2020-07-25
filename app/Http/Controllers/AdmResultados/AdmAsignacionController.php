@@ -26,9 +26,15 @@ class AdmAsignacionController extends Controller
     public function index()
     {   
         $id_conv = session()->get('convocatoria');
-        $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id','requerimiento.cant_aux')
+        $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id','cant_aux','horas_mes')
             ->join('requerimiento','auxiliatura.id','=','requerimiento.id_auxiliatura')
             ->where('id_convocatoria',$id_conv)->get(); 
+        foreach($listaAux as $aux){
+            $itemsOcupados = Postulante_auxiliatura::where('id_auxiliatura',$aux->id)
+                ->where('id_convocatoria', session()->get('convocatoria'))
+                ->whereNotNull('item')->sum('item');
+            $aux->items_libres = $aux->cant_aux - $itemsOcupados;
+        }
         $tematicas = (new ConocimientosComp)->getTems($id_conv);
         $listaPost = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
         'postulante_auxiliatura.calificacion','postulante_auxiliatura.item','postulante_auxiliatura.id_auxiliatura')
@@ -41,8 +47,6 @@ class AdmAsignacionController extends Controller
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
         ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
         ->whereNotNull('postulante_auxiliatura.calificacion')
-        // ->where('postulante_auxiliatura.calificacion', '>=', 51)
-        // ->orWhere('postulante_auxiliatura.item', '!=', null)
         ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','postulante_auxiliatura.calificacion','postulante_auxiliatura.item')
         ->orderBy('postulante_auxiliatura.calificacion', 'DESC')->get();
         foreach($listaPost as $postulante){
@@ -59,13 +63,22 @@ class AdmAsignacionController extends Controller
             }
             if($postulante->item == null || $postulante->item == 0){
                 if($postulante->calificacion < 51){
-                    $postulante->estado = "Postulantes Reprobados";   
+                    $postulante->estado = "Postulante Reprobado";   
                 } else {
-                    $postulante->estado = "Postulantes Aprobados";
+                    $postulante->estado = "Postulante Aprobado";
                 }
             } else {
                 $postulante->estado = "Auxiliaturas Asignadas";
             }
+            $items_totales = Postulante_auxiliatura::select('id_auxiliatura', 'id_convocatoria', 'item as items')
+                ->join('postulante','postulante.id','=','postulante_auxiliatura.id_postulante')
+                ->where('postulante.ci',  $postulante->ci)->whereNotNull('item')->get();
+            $total_horas = 0;
+            foreach($items_totales as $item){
+                $total_horas += Requerimiento::where('id_convocatoria',$item->id_convocatoria)
+                    ->where('id_auxiliatura',$item->id_auxiliatura)->value('horas_mes') * $item->items;
+            }
+            $postulante->horas = $total_horas;
         }
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
         // return $listaPost;
@@ -76,6 +89,11 @@ class AdmAsignacionController extends Controller
 
     public function asignar(){
         session()->put('id_tab',request()->get('ida'));
+        request()->validate([
+            'horas' => 'required|integer|between:1,80',
+        ],[
+            'horas.between' => 'La suma de las horas acumuladas del que quiere asignar sobrepasa del limite de 80 hrs'
+        ]);
         if($this->hayItems(request()->get('ida'))) {
             $item = Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
                             ->where('id_postulante', request()->get('id'))->value('item');
@@ -89,7 +107,11 @@ class AdmAsignacionController extends Controller
                                         ->increment('item');
             }
         } else {
-            $errores = ["No hay cupos para esta auxiliatura"];
+            request()->validate([
+                'horas' => 'required|integer|between:0,1',
+            ],[
+                'horas.between' => 'No hay cupos para esta auxiliatura'
+            ]);
         }
         return back();
     }
@@ -113,7 +135,7 @@ class AdmAsignacionController extends Controller
             if ($item === 1 || $item == null) {
                 Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
                                             ->where('id_postulante', request()->get('id'))
-                                            ->update(['item' => 0]);
+                                            ->update(['item' => null]);
             }else{
                 Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
                                             ->where('id_postulante', request()->get('id'))

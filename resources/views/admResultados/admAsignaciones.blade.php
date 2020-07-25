@@ -22,7 +22,7 @@
       @foreach ($listaAux as $auxiliatura)
         <div class="tab-pane fade{{ $initContent==$auxiliatura->id ? " show active" : '' }}" id={{ "body".$auxiliatura->id}} 
           role="tabpanel" aria-labelledby={{ $auxiliatura->id}}>
-          <h6 class="my-3">Total de auxiliaturas requeridas: {{ $auxiliatura->cant_aux}}</h6>
+          <h6 class="my-3">Items requeridos: {{ $auxiliatura->items_libres}} - carga horaria mes: {{ $auxiliatura->horas_mes}}</h6>
             <div class="table-requests1">
               <table id= "notas{{ $auxiliatura->id}}" class="table table-striped table-bordered" style="width: 100%">
                 <thead class="thead-dark text-center">
@@ -39,9 +39,12 @@
                 </thead>
                 <script>
                   function mensaje(){
-                    alert('esta seguro de quitar el item'); 
+                    alert('Esta seguro de quitar el item'); 
                   }
                 </script>
+                <div class="text-center">
+                {!! $errors->first('horas', '<strong class="message-error text-danger">:message</strong>') !!}
+                </div>
                 <tbody style="vertical-align: middle;">
                     @php $num=1; @endphp
                   @if($listaPost->has($auxiliatura->id))
@@ -52,7 +55,7 @@
                         <td style="vertical-align: middle;">{{ $item->apellido }}</td>
                         <td style="vertical-align: middle;">{{ $item->nombre }}</td>
                         <th style="vertical-align: middle;" class="text-center">{{ $item->calificacion }}</th>
-                        <td style="vertical-align: middle;" class="text-center">40 hrs</td>
+                        <td style="vertical-align: middle;" class="text-center">{{ $item->horas }} hrs</td>
                         <th style="vertical-align: middle;" class="text-center">
                           @if($item->item===null)
                               {{ "0" }}
@@ -65,15 +68,18 @@
                           @if($item->item===null || $item->item == 0)
                             <form class="d-inline" action="{{ route('asignar') }}" method="POST">
                               {{ csrf_field() }}
-                              <input type="hidden" name="id" value="{{ $item->id }}" readonly>
-                              <input type="hidden" name="ida" value="{{ $item->id_auxiliatura }}" readonly>
-                              <input class="btn btn-light btn-block" type="submit" style="background-color:#CCEAEC; color:rgb(0, 0, 0);" value="Asignar">
+                              <input type="hidden" name="id" value="{{ $item->id }}">
+                              <input type="hidden" name="ida" value="{{ $item->id_auxiliatura}}">
+                              <input type="hidden" name="horas" value="{{ $item->horas+$auxiliatura->horas_mes }}">
+                              <input class="btn btn-light btn-block" type="submit" style="background-color:#CCEAEC; color:rgb(0, 0, 0);" value="{{strcmp($item->estado,'Postulante Reprobado')==0?'Asignar por Invitacion':'Asignar'}}">
                             </form>
                           @else
                           <form class="d-inline" action="{{ route('asignar') }}" method="POST">
                               {{ csrf_field() }}
-                              <input type="hidden" name="id" value="{{ $item->id }}" readonly>
-                              <input type="hidden" name="ida" value="{{ $item->id_auxiliatura }}" readonly>
+                              <input type="hidden" name="id" value="{{ $item->id }}">
+                              <input type="hidden" name="ida" value="{{ $item->id_auxiliatura }}">
+                              <input type="hidden" name="horas" value="{{ $item->horas+$auxiliatura->horas_mes }}">
+
                               <input class="btn btn-light" type="submit" style="background-color:#AEF1B5; color:rgb(0, 0, 0);" value="Asignar mas">
                             </form>
                             <form class="d-inline" action="{{ route('quitar') }}" method="POST">
