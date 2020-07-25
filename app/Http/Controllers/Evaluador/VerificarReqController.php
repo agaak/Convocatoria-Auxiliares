@@ -45,7 +45,7 @@ class VerificarReqController extends Controller
         $idEC = $compEval->getIdEvaConv();
         $roles = $compEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        $auxsTemsEval = $compEval->getTematicsEvaluador($idEC);
+        $auxsTemsEval = $compEval->getTematicsEvaluador2($idEC);
 
 
         $postulante = Postulante::where('id','=',$idPostulante)->first();

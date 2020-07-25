@@ -183,7 +183,7 @@
   <div class="text-center mt-5">
     <form method="POST" action="{{ route('eliminarPrePosts') }}">
       {{ csrf_field() }}
-      @if ($finalizado)
+      @if ($finalizado || count($listaPost) == 0)
         <button type="submit" id="eliminar-pre-postulantes" class="btn btn-success" disabled>Publicar Ganadores</button>
       @else 
         <button type="submit" id="eliminar-pre-postulantes" class="btn btn-success">Publicar Ganadores</button>

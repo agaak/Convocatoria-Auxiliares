@@ -11,6 +11,7 @@ use App\Models\PostuCalifMeritoFinal;
 use App\Models\Postulante_conovocatoria;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Utils\AdmConvocatoria\EvaluadorComp;
+use App\Http\Controllers\Utils\Evaluador\MenuDina;
 
 class CalificarMeritoController extends Controller
 {
@@ -27,7 +28,8 @@ class CalificarMeritoController extends Controller
             session()->forget('id-pos');
         }
 
-        $convs = EvaluadorConocimientos::where('correo', auth()->user()->email)->first()->convocatorias;
+        $menu = new MenuDina();
+        $convs = $menu->getConvs(); 
         foreach ($convs as $conv) {
             if ($conv->id == session()->get('convocatoria'))
                 $pivot = $conv->pivot;
@@ -38,7 +40,7 @@ class CalificarMeritoController extends Controller
         $roles = $rolsEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
 
-        $auxsTemsEval = $rolsEval->getTematicsEvaluador($idEC);
+        $auxsTemsEval = $rolsEval->getTematicsEvaluador2($idEC);
 
         $postulantes= Postulante::select('postulante.nombre', 'postulante.apellido', 'postulante.ci', 'postulante.id', 'calf_final_postulante_merito.nota_final_merito as nota')
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')

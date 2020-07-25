@@ -27,7 +27,7 @@ class CalificacionMController extends Controller
         $idEC = $compEval->getIdEvaConv();
         $roles = $compEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        $auxsTemsEval = $compEval->getTematicsEvaluador($idEC);
+        $auxsTemsEval = $compEval->getTematicsEvaluador2($idEC);
 
         $postulantes= Postulante::select('postulante.*', 'calf_final_postulante_merito.nota_final_merito as nota', 'calf_final_postulante_merito.id as idNF')
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
@@ -85,7 +85,7 @@ class CalificacionMController extends Controller
         $idEC = $compEval->getIdEvaConv();
         $roles = $compEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        $auxsTemsEval = $compEval->getTematicsEvaluador($idEC);
+        $auxsTemsEval = $compEval->getTematicsEvaluador2($idEC);
 
         return view('evaluador.calificarMeritosEstudiante',compact('convs', 'roles', 'tipoConv', 'auxsTemsEval',
                 'id', 'lista', 'estudiante', 'listaMeritos','idNotaFinalMerito','notaFinalMerito'));

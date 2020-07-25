@@ -32,19 +32,19 @@ class RequerimientoController extends Controller
             $req ->horas_mes = $request->get('horas');
             $req ->cant_aux = $request->get('cantidad');
             $req -> save();
-            $porcen = Porcentaje::select('id_tematica')
-            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
-            ->where('requerimiento.id_convocatoria',$id_conv)
-            ->join('tematica','porcentaje.id_tematica','=','tematica.id')
-            ->groupBy('id_tematica')->get();
-                foreach($porcen as $porcentaje){
-                    $por = new Porcentaje(); 
-                    $por -> id_requerimiento = $req->id;
-                    $por -> id_auxiliatura =  $aux[1];
-                    $por -> id_tematica = $porcentaje->id_tematica; 
-                    $por -> porcentaje = 0; 
-                    $por -> save();
-                }
+            // $porcen = Porcentaje::select('id_tematica')
+            // ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+            // ->where('requerimiento.id_convocatoria',$id_conv)
+            // ->join('tematica','porcentaje.id_tematica','=','tematica.id')
+            // ->groupBy('id_tematica')->get();
+            //     foreach($porcen as $porcentaje){
+            //         $por = new Porcentaje(); 
+            //         $por -> id_requerimiento = $req->id;
+            //         $por -> id_auxiliatura =  $aux[1];
+            //         $por -> id_tematica = $porcentaje->id_tematica; 
+            //         $por -> porcentaje = 0; 
+            //         $por -> save();
+            //     }
         }
         return back();
     }
