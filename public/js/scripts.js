@@ -751,3 +751,14 @@ function checkTime(i) {
     }
     return i;
 }
+
+$('#btn-entregar').on('click', () => {
+    res = confirm('Esta usted seguro de entregar las notas de esta Temática.');
+    if (!res) event.preventDefault();
+});
+
+$('.notas-guardar').each((index, element) => {
+    if (element.value !== '') {
+        $('#btn-entregar').addClass('d-inline-block')
+    }
+});

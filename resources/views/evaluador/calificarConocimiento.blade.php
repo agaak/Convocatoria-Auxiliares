@@ -39,7 +39,7 @@
                             </button>
                         </div>
                     @else
-                        <button type="submit" class="btn btn-info">Entregar Todo</button> 
+                        <button type="submit" class="btn btn-info d-none" id="btn-entregar">Entregar Todo</button> 
                     @endif   
                 </form>
             </div>
