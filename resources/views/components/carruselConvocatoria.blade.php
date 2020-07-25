@@ -17,7 +17,7 @@
                                     
                             {{-- Visualizar Card de Datos Generales Convocatoria --}}
                             @component('components.cardConvocatoria', 
-                                ['convo' => $convo, 'auxs' => $auxs])
+                                ['convo' => $convo, 'auxs' => $auxs, 'fechaActual' => $fechaActual])
                             @endcomponent
                                     
                             @if(count($convos)>3) </div> @endif

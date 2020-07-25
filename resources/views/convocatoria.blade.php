@@ -206,7 +206,7 @@
 
     {{-- Carrusel de cards con datos grals. de una convocatoria --}}
     @component('components.carruselConvocatoria', 
-        ['convos' => $convos, 'auxs' => $auxs])
+        ['convos' => $convos, 'auxs' => $auxs, 'fechaActual' => $fechaActual])
     @endcomponent
 
     </div>

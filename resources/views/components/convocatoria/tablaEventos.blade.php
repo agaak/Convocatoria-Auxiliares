@@ -16,7 +16,7 @@
         <tbody class="bg-white" style="vertical-align: middle">
             @php $num = 1  @endphp
             @foreach($importantDatesList as $item)
-                <tr>
+                <tr class="{{ $item->lugar_evento[1] == '-'? 'bg-danger': '' }}">
                     <td style="vertical-align: middle;">{{ $num++ }}</td>
                     <td style="vertical-align: middle;">{{ $item->titulo_evento }}</td>
                     <td style="vertical-align: middle;">{{ $item->lugar_evento }}</td>
@@ -24,11 +24,13 @@
                     <td style="vertical-align: middle;" class="text-center">{{ $item->fecha_final }}</td>
                     @if (!session()->get('ver'))
                         <td style="vertical-align: middle;" class="text-center">
+                            
                             <a type="button" onclick="editDatesList({{ convertir($item) }})" data-toggle="modal"
                                 data-target="#importantDatesModalUpdate">
                                 <img src="{{ asset('img/pen.png') }}" width="30" height="30">
-                            </a>
+                            </a> 
                             
+                            @if ('Presentación de Documentos' !== $item->titulo_evento)
                             <form class="d-inline" action="{{ route('importantDatesDelete', $item->id) }}" method="POST">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
@@ -36,7 +38,7 @@
                                     <img src="{{ asset('img/trash.png') }}" width="30" height="30">
                                 </button>
                             </form>
-
+                            @endif
                         </td>
                     @endif
                 </tr>
