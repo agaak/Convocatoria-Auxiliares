@@ -25,16 +25,15 @@ class VerificarReqController extends Controller
     {
         $this->middleware(['auth', 'roles:evaluador']);
     }
-    
+    public function index2($postulanteId){
+        Postulante_conovocatoria::where('id_postulante', $postulanteId)->update([
+            'calificando_requisito' => false,
+        ]);
+        redirect()->route('calificarRequisitosPost.index');
+    }
+
     public function index($idPostulante) {
         $idConv = session()->get('convocatoria');
-
-        $existe = Postulante_conovocatoria::where('id_postulante',$idPostulante)
-            ->value('calificando_requisito');
-        if($existe){
-            return redirect()->route('calificarRequisitosPost.index')
-                        ->with('revisando','Alguien esta revisando los requisitos de este postulante.');
-        }
         session()->put('id-pos',$idPostulante);
         Postulante_conovocatoria::where('id_postulante', $idPostulante)->update([
             'calificando_requisito' => true,
@@ -46,7 +45,6 @@ class VerificarReqController extends Controller
         $roles = $compEval->getRolesEvaluador($idEC);
         $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
         $auxsTemsEval = $compEval->getTematicsEvaluador2($idEC);
-
 
         $postulante = Postulante::where('id','=',$idPostulante)->first();
         $auxiliaturas = (new EvaluarRequisitos)->getAuxiliaturas($idPostulante);
@@ -61,7 +59,6 @@ class VerificarReqController extends Controller
         
         $auxiliaturasReq = json_decode($request->input('mapverification'),true);
         $postulanteId= request()->input('id-postulante');
-        // dd($auxiliaturasReq);
         foreach (array_keys($auxiliaturasReq) as $postulanteAuxiliaturaId) {
             foreach(array_keys($auxiliaturasReq[$postulanteAuxiliaturaId]) as $requisitoId){
                 Postulante_req_aux::where('id_postulante_auxiliatura','=', $postulanteAuxiliaturaId)
@@ -72,7 +69,6 @@ class VerificarReqController extends Controller
                 ]);
             }
         }
-        
         $isErrorReq = false;
         $isErrorObs = false;
         foreach (array_keys($auxiliaturasReq) as $postulanteAuxiliaturaId) {

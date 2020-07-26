@@ -50,11 +50,20 @@
             @if (auth()->check())
                 @if (auth()->user()->hasRoles(['evaluador']))
                     @if (!session()->get('ver'))
-                    @if (!$publicado)
-                    <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
-                        <a class="options" href="{{ route('calificarRequisito.index', $item->id) }}">
-                        <img src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
-                    </td>  @endif @endif
+                        @if (!$publicado)
+                            @if ($item->calificando_requisito)
+                                <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
+                                    <a class="options" id="{{'btn-calificar'.$item->id}}" onclick="calificarRequisito({{$item->id}})" href="{{ route('calificarRequisito.index', $item->id) }}">
+                                    <img src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
+                                </td>    
+                            @else
+                                <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
+                                    <a class="options" href="{{ route('calificarRequisito.index', $item->id) }}">
+                                    <img src="{{ asset('img/pen.png') }}" width="25" height="25"></a>
+                                </td> 
+                            @endif
+                        @endif 
+                    @endif
                 @else
                     <td class="table-light text-center" scope="col" rowspan="{{$tam}}" style="vertical-align: middle;">
                         <a class="options" href="{{ route('admHabilitadosPost', $item->id) }}">Ver</a>

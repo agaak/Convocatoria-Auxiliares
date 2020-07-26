@@ -27,7 +27,6 @@ class CalificarMeritoController extends Controller
             ]);
             session()->forget('id-pos');
         }
-
         $menu = new MenuDina();
         $convs = $menu->getConvs(); 
         foreach ($convs as $conv) {
@@ -42,26 +41,29 @@ class CalificarMeritoController extends Controller
 
         $auxsTemsEval = $rolsEval->getTematicsEvaluador2($idEC);
 
-        $postulantes= Postulante::select('postulante.nombre', 'postulante.apellido', 'postulante.ci', 'postulante.id', 'calf_final_postulante_merito.nota_final_merito as nota')
-        ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
-        ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
-        ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
-        ->where('postulante_auxiliatura.habilitado',true)
-        ->orderBy('postulante.apellido','ASC')
-        ->get() ;
+        $postulantes= Postulante::select('postulante.nombre', 'apellido', 'ci', 'calificando_merito',
+            'postulante.id', 'calf_final_postulante_merito.nota_final_merito as nota')
+            ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
+            ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
+            ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
+            ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
+            ->where('postulante_auxiliatura.habilitado',true)
+            ->orderBy('postulante.apellido','ASC')
+            ->get() ;
         $postulantes = collect($postulantes)->unique('id'); 
+        $habilitados = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
+            ->where('estado','publicado')->get()->isNotEmpty();
+        if(!$habilitados){
+            $postulantes = [];
+        }
         $entregado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','entregado')->get()->isNotEmpty();
         $publicado = PostuCalifMeritoFinal::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','publicado')->get()->isNotEmpty();
-        // return $auxsTemsEval;
         return view('evaluador.calificarMerito', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','postulantes','entregado','publicado'));
     }
 
     public function entregar(Request $request){
-        // $listPostulantes = PostuCalifMeritoFinal::where('id_convocatoria',session()->get('convocatoria'))
-        // ->where('nota_final_merito',null)->get();
-
         $listPostulantes= Postulante::select('postulante.nombre', 'postulante.apellido', 'postulante.ci', 'postulante.id', 'calf_final_postulante_merito.nota_final_merito as nota')
         ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
         ->where('nota_final_merito',null)
@@ -70,7 +72,6 @@ class CalificarMeritoController extends Controller
         ->where('postulante_auxiliatura.habilitado',true)
         ->orderBy('postulante.apellido','ASC')
         ->get() ;
-
         if($listPostulantes->isNotEmpty()){
             request()->validate([
                 'id-evaluador' => 'required'

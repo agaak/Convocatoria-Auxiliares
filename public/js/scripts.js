@@ -473,43 +473,6 @@ function desValidarRequisito($idAuxiliatura, $idRequisito) {
     tagTextArea.required = false;
 }
 
-// function validarAreasRequisitos() {
-//     $mapVerifications = JSON.parse(document.getElementById("mapverification").value);
-//     messageError = '';
-//     auxMapVerifications = Object.keys(mapVerifications).forEach(function(auxiliaturaId){
-//         Object.keys($mapVerifications[auxiliaturaId]).forEach(
-//             function(requisitoId){
-//                 obs = document.getElementById('obsText'+auxiliaturaId+requisitoId).value;
-
-//                 if(auxMapVerifications[auxiliaturaId][requisitoId]['esValido'] !==null){
-//                     messageError = 'Necesita calificar todos los requisitos'
-//                     return false;
-//                 }else{
-//                     if(auxMapVerifications[auxiliaturaId][requisitoId]['esValido']){
-//                     }else{
-//                         if(obs === '' ){
-//                             messageError = 'No debe dejar ningun requisito incumplido sin su observacion'
-//                             return false;
-//                         }else{
-//                             auxMapVerifications[auxiliaturaId][requisitoId]['observacion'] = obs;
-//                         }
-//                     }
-//                 }
-//             }
-//         );
-//     });
-//     $('#mapverification').val(JSON.stringify(auxMapVerifications));
-//     if(messageError === ''){
-//         return true
-//     }else{
-//         document.getElementById('errorRequisito').innerHTML = messageError;
-//         return false;
-//     }
-// }
-
-
-// Fin script de revision de requisitos
-//calificar merito estudiante
 
 function mostrarModalMeritos(calificacionMerito, formato){
     document.getElementById("porcentajeMerito").innerHTML = calificacionMerito.porcentaje;
@@ -598,26 +561,19 @@ function trunc (x, posiciones = 0) {
     if (l - decimalLength <= posiciones){
       return x
     }
-    // Parte decimal del número
     var isNeg  = x < 0
     var decimal =  x % 1
     var entera  = isNeg ? Math.ceil(x) : Math.floor(x)
-    // Parte decimal como número entero
-    // Ejemplo: parte decimal = 0.77
-    // decimalFormated = 0.77 * (10^posiciones)
-    // si posiciones es 2 ==> 0.77 * 100
-    // si posiciones es 3 ==> 0.77 * 1000
     var decimalFormated = Math.floor(
       Math.abs(decimal) * Math.pow(10, posiciones)
     )
-    // Sustraemos del número original la parte decimal
-    // y le sumamos la parte decimal que hemos formateado
     var finalNum = entera + 
       ((decimalFormated / Math.pow(10, posiciones))*(isNeg ? -1 : 1))
     
     return finalNum
   }
 //fin calificar merito estudiante
+
 // Asignacion de items
 
 $('#invitarPostulanteModal').on('show.bs.modal', function (event) {
@@ -627,45 +583,6 @@ $('#invitarPostulanteModal').on('show.bs.modal', function (event) {
     modal.find('.modal-body #asig_id_auxiliatura').val(mid);
     
 })
-
-function comprobarInvitado(listaInvitados) {
-    var id_aux = document.getElementById("asig_id_auxiliatura").value;
-    console.log(id_aux);
-    console.log(listaInvitados[id_aux]);
-    listaInvitados = listaInvitados[id_aux];
-    let existe = true;
-    for (const item of listaInvitados) {
-        if($('#adm-post-ci').val() == item['ci']) {
-            existe = false;
-            // $('#err').removeClass('error');
-            // $('#rotulo-no-existe').removeClass('d-none');
-            // $('#rotulo-existe').addClass('d-none');
-            // setTimeout(() => {
-            //     $('#rotulo-no-existe').addClass('d-none');
-            // }, 5000);
-            document.getElementById("post-id").value = item['id'];
-            document.getElementById("post-nom").value = item['nombre'];
-            document.getElementById("post-ape").value = item['apellido'];
-            document.getElementById("post-nota").value = item['calificacion'];
-            document.getElementById("bttn-post").disabled = false;
-            break;
-        }
-    }
-    if (existe) {
-        document.getElementById("bttn-post").disabled = true;
-        // $('#auxiliaturas').find('option').remove().end() ;
-        // $('#rotulo-existe').removeClass('d-none');
-        // $('#rotulo-no-existe').addClass('d-none');
-        // setTimeout(() => {
-        //     $('#rotulo-existe').addClass('d-none');
-        // }, 5000);
-        document.getElementById("post-nom").value = "";
-        document.getElementById("post-ape").value = "";
-        document.getElementById("post-nota").value = "";
-    }
-}
-
-
 
 //fin asignar items
 $('#pre-posts-habilitar').on('click', () => {
@@ -694,8 +611,6 @@ function cargarAuxTem(tematica){
 }
 
 // Script editar avisos
-
-
 
 function avisoEditModal(aviso) {
     $('#idAvisoEdit').val(aviso['id']);
@@ -767,3 +682,23 @@ $('#btn-enviar-correo').on('click', () => {
     res = confirm('Se enviara un correo al evaluador con su usuario y nueva contraseña.');
     if (!res) event.preventDefault();
 })
+
+function calificarRequisito(id){
+    res = confirm('Este postulante ya esta siendo calificado, esta usted seguro de calificar.');
+    if (!res) event.preventDefault();
+}
+
+$('#btn-entregarRequisitos').on('click', () => {
+    res = confirm('¿Esta seguro que desa entregar todas las calificaciones?.');
+    if (!res) event.preventDefault();
+})
+
+$('#btn-entregarMeritos').on('click', () => {
+    res = confirm('¿Esta seguro que desa entregar todas las calificaciones?.');
+    if (!res) event.preventDefault();
+})
+
+function calificarMeritos(id){
+    res = confirm('Este postulante ya esta siendo calificado, esta usted seguro de calificar.');
+    if (!res) event.preventDefault();
+}

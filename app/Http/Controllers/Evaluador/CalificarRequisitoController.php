@@ -42,7 +42,7 @@ class CalificarRequisitoController extends Controller
         ->get();
         $listPostulanteAux = collect($listPostulanteAux)->groupBy('id_postulante');
 
-        $listPostulantes = Postulante::select('postulante.*')
+        $listPostulantes = Postulante::select('postulante.*','calificando_requisito')
         ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
         ->where('id_convocatoria',session()->get('convocatoria'))
         ->orderBy('apellido','ASC')->get();
@@ -58,7 +58,6 @@ class CalificarRequisitoController extends Controller
             ->where('estado','entregado')->get()->isNotEmpty();
         $publicado = Postulante_conovocatoria::where('id_convocatoria', session()->get('convocatoria'))
             ->where('estado','publicado')->get()->isNotEmpty();
-            // despues de la fecha recepcion de doc listPostulantes else listPostulantes = [];
         return view('evaluador.calificarRequisitosPost', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','listPostulantes','entregado','publicado'));
     }
 

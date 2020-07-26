@@ -32,7 +32,7 @@
                     {{ csrf_field() }}
                     <input type="hidden"  name="id-evaluador">
                     @if($entregado || $publicado)
-                        <button type="submit" class="btn btn-info" disabled>Entregar Todo</button> 
+                        <button type="submit" class="btn btn-info" disabled>Entregado</button> 
                         <div class="text-right">
                             <button type="button" class="btn btn-secondary">
                             <a href="/evaluador/calificar/conocimiento/{{$id_tem}}/{{$nom}}/pdf" style="color: #FFFF;">PDF</a>

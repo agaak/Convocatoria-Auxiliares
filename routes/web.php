@@ -122,6 +122,7 @@ Route::get('evaluador/calificar', 'Evaluador\CalificarController@index')->name('
 
 Route::get('evaluador/calificar/requisitos','Evaluador\CalificarRequisitoController@index')->name('calificarRequisitosPost.index');
 Route::get('evaluador/calificar/requisitos/{idPostulante}','Evaluador\VerificarReqController@index')->name('calificarRequisito.index');
+Route::get('evaluador/calificar/requisitos/otro/{idPostulante}','Evaluador\VerificarReqController@index2')->name('calificarRequisito.index2');
 Route::put('evaluador/calificar/requisitos/actualizar','Evaluador\VerificarReqController@update')->name('calificarRequisito.update');
 Route::post('evaluador/calificar/requisitos','Evaluador\CalificarRequisitoController@entregar')->name('entregarHabilitados');
 

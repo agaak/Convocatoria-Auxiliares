@@ -19,40 +19,9 @@ class CalificacionMController extends Controller
     {
         $this->middleware(['auth', 'roles:evaluador']);
     }
-    
-    public function index($id){
-        $menu = new MenuDina();
-        $convs = $menu->getConvs(); 
-        $compEval = new EvaluadorComp();
-        $idEC = $compEval->getIdEvaConv();
-        $roles = $compEval->getRolesEvaluador($idEC);
-        $tipoConv = Convocatoria::where('id', session()->get('convocatoria'))->value('id_tipo_convocatoria');
-        $auxsTemsEval = $compEval->getTematicsEvaluador2($idEC);
-
-        $postulantes= Postulante::select('postulante.*', 'calf_final_postulante_merito.nota_final_merito as nota', 'calf_final_postulante_merito.id as idNF')
-        ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
-        ->where('calf_final_postulante_merito.id_convocatoria', session()->get('convocatoria'))
-        ->get();
-        return view('evaluador.calificarMeritos', compact('convs', 'roles', 'tipoConv', 'auxsTemsEval','id', 'postulantes'));
-    }
 
     public function calificarMeritos($idEst){
         $id= session()->get('convocatoria');
-
-        $existe = Postulante_conovocatoria::where('id_postulante',$idEst)
-            ->value('calificando_merito');
-        if($existe){
-            if(session()->has('id-pos')){
-                if(session()->get('id-pos') != $idEst){
-                    return redirect()->route('calificarMerito.index')
-                            ->with('revisando','Alguien esta revisando los meritos de este postulante.');
-                }
-            }else{
-                return redirect()->route('calificarMerito.index')
-                        ->with('revisando','Alguien esta revisando los meritos de este postulante.');
-            }
-            // return redirect()->route('calificarMerito.index');
-        }
         session()->put('id-pos',$idEst);
         Postulante_conovocatoria::where('id_postulante', $idEst)->update([
             'calificando_merito' => true,
