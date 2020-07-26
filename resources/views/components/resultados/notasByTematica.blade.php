@@ -1,12 +1,15 @@
 <div class="table-requests">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-        @php $initTabs = true @endphp
+        @php $initTabs = true  @endphp
+        @php $initTabs = session()->has('id_tem')? session()->get('id_tem').'-'.session()->get('id_area') : 
+              $tematicas[0]['id'].'-'.$tematicas[0]['areas'][0]['id_area']; @endphp
         @foreach ($tematicas as $tematica)
           @foreach($tematica['areas'] as $area)
             <li class="nav-item">
-              <a class="nav-link{{ $initTabs ? " active" : '' }}" id="{{ $tematica->id.'-'.$area->id_area }}" data-toggle="tab" 
-                href="#{{ "body".$tematica->id.'-'.$area->id_area  }}" role="tab" aria-controls="home" aria-selected={{ $initTabs }}>
+              <a class="nav-link{{ $initTabs==$tematica->id.'-'.$area->id_area ? " active" : '' }}" 
+              id="{{ $tematica->id.'-'.$area->id_area }}" data-toggle="tab" href="#{{ "body".$tematica->id.'-'.$area->id_area  }}" 
+              role="tab" aria-controls="home" aria-selected={{ $initTabs }}>
                 @if (count($area->postulantes)==0)
                   {{ $tematica->nombre.'-'.$area->area}}
                 @else
@@ -14,15 +17,15 @@
                 @endif
               </a>
             </li>
-            {{ $initTabs = false  }}
           @endforeach
         @endforeach
     </ul>
-      @php $initContent = true; @endphp
+    @php $initContent = session()->has('id_tem')? session()->get('id_tem').'-'.session()->get('id_area') : 
+      $tematicas[0]['id'].'-'.$tematicas[0]['areas'][0]['id_area']; @endphp
       <div class="tab-content" id="myTabContent">
         @foreach ($tematicas as $tematica)
           @foreach($tematica['areas'] as $area)
-          <div class="tab-pane fade{{ $initContent ? " show active" : '' }}" id={{ "body".$tematica->id.'-'.$area->id_area}} 
+          <div class="tab-pane fade{{ $initContent==$tematica->id.'-'.$area->id_area ? " show active" : '' }}" id={{ "body".$tematica->id.'-'.$area->id_area}} 
             role="tabpanel" aria-labelledby={{ $tematica->id.'-'.$area->id_area}}>
               <div class="table-requests1">
                 <table id= "notas{{ $tematica->id.'-'.$area->id_area}}" class="table table-striped table-bordered">
@@ -82,7 +85,6 @@
                 @endif
             @endif
           </div>
-          {{ $initContent = false  }}
           @endforeach
           @endforeach
       </div>

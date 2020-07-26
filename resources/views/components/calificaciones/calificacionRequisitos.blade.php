@@ -30,7 +30,7 @@
                         <div class="form-group row">
                         <label for="exampleFormControlTextarea1" class="col-1">{{chr($alphas++).')'  }}</label>
                         <div class="col-9">
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"
+                          <textarea class="form-control" id="exampleFormControlTextarea2{{$auxiliatura->id.$requisito->id}}" rows="5"
                              style="min-width: 80%" disabled float="right">{{$requisito->descripcion}} 
                           </textarea></div>
                         @php $esEva = false; @endphp

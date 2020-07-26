@@ -27,10 +27,12 @@
                 method="POST" id="evaluador-meritos-delete">
                 {{ csrf_field() }}
                 <input type="hidden"  name="id-evaluador">
+                @if(count($postulantes)>0)
                 @if($entregado || $publicado)
-                    <button type="submit" class="btn btn-info" disabled>Entregar Todo</button> 
+                    <button type="submit" class="btn btn-info" disabled>Entregado</button> 
                 @else
-                    <button type="submit" class="btn btn-info">Entregar Todo</button> 
+                    <button type="submit" id="btn-entregarMeritos" class="btn btn-info">Entregar Todo</button> 
+                @endif
                 @endif   
             </form>
         </div>
