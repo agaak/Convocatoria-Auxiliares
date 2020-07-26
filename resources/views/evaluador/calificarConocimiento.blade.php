@@ -23,7 +23,7 @@
         </h4>
         @if($publicado_habilitados)
             @component('components.calificaciones.tablaPostulantesConocByTem',
-                ['postulantes'=>$postulantes,'publicado'=>$publicado])
+                ['postulantes'=>$postulantes,'publicado'=>$publicado, 'entregado'=>$entregado])
             @endcomponent
             <div class="text-center">
                 {!! $errors->first('id-evaluador', '<strong class="message-error text-danger">:message</strong>') !!}<br>

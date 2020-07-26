@@ -767,3 +767,17 @@ $('#btn-enviar-correo').on('click', () => {
     res = confirm('Se enviara un correo al evaluador con su usuario y nueva contraseña.');
     if (!res) event.preventDefault();
 })
+
+
+function datosAsignacion(data, postulante) {
+    if (postulante['estado'] === 'Postulante Reprobado') {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i]['estado'] === 'Postulante Aprobado'){
+                res = confirm('Esta seguro de invitar al postulante, exiten postulantes aprobados sin asignar.');
+                if (!res) event.preventDefault();
+                break;
+            }
+            
+        }
+    }
+}

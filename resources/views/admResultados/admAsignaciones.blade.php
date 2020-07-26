@@ -71,7 +71,7 @@
                               <input type="hidden" name="id" value="{{ $item->id }}">
                               <input type="hidden" name="ida" value="{{ $item->id_auxiliatura}}">
                               <input type="hidden" name="horas" value="{{ $item->horas+$auxiliatura->horas_mes }}">
-                              <input class="btn btn-light btn-block" type="submit" style="background-color:#CCEAEC; color:rgb(0, 0, 0);" value="{{strcmp($item->estado,'Postulante Reprobado')==0?'Asignar por Invitacion':'Asignar'}}">
+                              <input class="btn btn-light btn-block" onclick="datosAsignacion({{ $listaPost[$auxiliatura->id] }}, {{ $item }})" type="submit" style="background-color:#CCEAEC; color:rgb(0, 0, 0);" value="{{strcmp($item->estado,'Postulante Reprobado')==0?'Asignar por Invitacion':'Asignar'}}">
                             </form>
                           @else
                           <form class="d-inline" action="{{ route('asignar') }}" method="POST">
