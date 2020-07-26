@@ -52,12 +52,14 @@
                         <img src="{{ asset('img/trash.png') }}" width="25" height="30">
                       </button>
                     </form>
-                    <form class="d-inline" action="{{ route('admConocimientosEmail', $evaluador->id) }}" method="POST">
-                        {{ csrf_field() }}
-                        <button type="submit" class="btn btn-link">
-                          <img src="{{ asset('img/email.png') }}" width="30" height="32">
-                        </button>
-                      </form>
+                    @if ($conv->publicado)
+                        <form class="d-inline" action="{{ route('admConocimientosEmail', $evaluador->id) }}" method="POST">
+                            {{ csrf_field() }}
+                            <button type="submit" id="btn-enviar-correo" class="btn btn-link">
+                                <img src="{{ asset('img/email.png') }}" width="30" height="32">
+                            </button>
+                        </form>
+                    @endif
                   </td>  
             </tr>
             @foreach ($lista_tem_aux as $tem_aux)

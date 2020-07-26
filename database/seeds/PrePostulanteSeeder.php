@@ -244,13 +244,13 @@ class PrePostulanteSeeder extends Seeder
         $prePos12 = PrePostulante::create([
             'rotulo' => 12312321,
             'id_convocatoria' => 2,
-            'nombre' => 'Miguel',
-            'apellido' => 'Mamani Lopez',
-            'direccion' => 'Tampoco see - Cochabamba',
-            'correo' => 'miguel@gmail.com',
-            'cod_sis' => '200909699',
-            'telefono' => 77533859,
-            'ci' => 4665926
+            'nombre' => 'Alejando',
+            'apellido' => 'Calderon Agreda',
+            'direccion' => 'Cochabamba - Cercado',
+            'correo' => 'alejando@gmail.com',
+            'cod_sis' => '201609959',
+            'telefono' => 68533859,
+            'ci' => 4695326
         ]);
 
         PrePostulanteAuxiliatura::create([
@@ -265,13 +265,13 @@ class PrePostulanteSeeder extends Seeder
         $prePos13 = PrePostulante::create([
             'rotulo' => 12312322,
             'id_convocatoria' => 2,
-            'nombre' => 'Rafael',
-            'apellido' => 'Colque Canchari',
-            'direccion' => 'Cochabamba - Ciudad',
-            'correo' => 'rafael@gmail.com',
-            'cod_sis' => '200803359',
-            'telefono' => 79562509,
-            'ci' => 4691326
+            'nombre' => 'Karen',
+            'apellido' => 'Mamani Lopez',
+            'direccion' => 'Tampoco see - Cochabamba',
+            'correo' => 'kare@gmail.com',
+            'cod_sis' => '201209959',
+            'telefono' => 78533859,
+            'ci' => 4695926
         ]);
 
         PrePostulanteAuxiliatura::create([

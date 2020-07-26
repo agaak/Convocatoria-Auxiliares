@@ -762,3 +762,8 @@ $('.notas-guardar').each((index, element) => {
         $('#btn-entregar').addClass('d-inline-block')
     }
 });
+
+$('#btn-enviar-correo').on('click', () => {
+    res = confirm('Se enviara un correo al evaluador con su usuario y nueva contraseña.');
+    if (!res) event.preventDefault();
+})

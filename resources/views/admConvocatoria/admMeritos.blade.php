@@ -20,7 +20,7 @@
             <th style="font-weight: normal" scope="col">Nombres</th>
             <th style="font-weight: normal" scope="col">Apellidos</th>
             <th style="font-weight: normal" scope="col">Email</th>
-            <th style="font-weight: normal" scope="col">Opciones</th>
+            <th style="font-weight: normal" class="text-center" scope="col">Opciones</th>
             </tr>
         </thead>
         <tbody style="background-color: white">
@@ -32,7 +32,7 @@
                 <th style="font-weight: normal">{{ $item->nombre }}</th>
                 <th style="font-weight: normal">{{ $item->apellido }}</th>
                 <th style="font-weight: normal">{{ $item->correo }}</th>
-                <th>
+                <th class="text-center">
                     <button type="submit" class="btn btn-link" onclick="editEvaluadorMeritos({{ json_encode($item) }})" 
                     data-toggle="modal" data-target="#modalUpdateEvaluadorMerit">
                     <img src="{{ asset('img/pen.png') }}" width="26" height="26">
@@ -46,12 +46,14 @@
                             <img src="{{ asset('img/trash.png') }}" width="26" height="26">
                         </button>    
                     </form>
+                    @if ($conv->publicado)
                     <form class="d-inline" action="{{ route('admConocimientosEmail', $item->id) }}" method="POST">
                         {{ csrf_field() }}
-                        <button type="submit" class="btn btn-link">
-                          <img src="{{ asset('img/email.png') }}" width="30" height="32">
+                        <button type="submit" id="btn-enviar-correo" class="btn btn-link">
+                            <img src="{{ asset('img/email.png') }}" width="30" height="32">
                         </button>
-                      </form>
+                    </form>
+                    @endif
                 </th>
                 </tr>
             @endforeach
