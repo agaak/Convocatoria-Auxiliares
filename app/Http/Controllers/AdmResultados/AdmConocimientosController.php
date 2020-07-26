@@ -53,6 +53,8 @@ class AdmConocimientosController extends Controller
     }
 
     public function publicar($id_tem,$id_area){
+        session()->put('id_tem',$id_tem);
+        session()->put('id_area',$id_area);
         $postulantes= (new PostulanteComp)->getPostulantesByTem($id_tem,$id_area);
         foreach($postulantes as $postulante){
             $postulante = collect($postulante)->groupBy('id_nota');

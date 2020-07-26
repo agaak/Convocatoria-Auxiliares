@@ -8,7 +8,7 @@
           <th style="font-weight: normal" scope="col">Nombre de la Auxiliatura</th>
           <th style="font-weight: normal" scope="col">Codigo de Auxiliatura</th>
           @if (!session()->get('ver'))  
-            <th style="font-weight: normal" scope="col">Opciones</th>
+            <th style="font-weight: normal;width: 125px;" scope="col">Opciones</th>
           @endif
         </tr>
       </thead>

@@ -5,7 +5,7 @@
         <th style="font-weight: normal" scope="col">#</th>
         <th style="font-weight: normal" scope="col">Descripcion</th>
         @if (!session()->get('ver'))
-          <th style="font-weight: normal" scope="col">Opciones</th>
+          <th style="font-weight: normal; width: 125px;" scope="col ">Opciones</th>
         @endif
       </tr>
     </thead>

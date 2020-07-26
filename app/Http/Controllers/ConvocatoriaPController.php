@@ -75,7 +75,8 @@ class ConvocatoriaPController extends Controller
         $auxs = Requerimiento::select('auxiliatura.*','requerimiento.id_convocatoria as id_conv')
             ->join('auxiliatura','requerimiento.id_auxiliatura','=','auxiliatura.id')
             ->groupBy('requerimiento.id_convocatoria','auxiliatura.id')->get();
-    return view('convocatoriasPasadas', compact('departamentos','tipos','gestiones','convosPasadas','auxs','idDepartamento','idTipoConv','selectGestion'));
+        $fechaActual = date('Y-m-d H:i:s');
+    return view('convocatoriasPasadas', compact('departamentos','tipos','gestiones','fechaActual','convosPasadas','auxs','idDepartamento','idTipoConv','selectGestion'));
     }
 
     /**

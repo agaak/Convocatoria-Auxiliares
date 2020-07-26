@@ -9,7 +9,7 @@
                     <th class="font-weight-normal" scope="col">Fecha Inicial</th>
                     <th class="font-weight-normal" scope="col">Fecha Fin</th>
                     @if (!session()->get('ver'))
-                    <th class="font-weight-normal" scope="col">Opciones</th>
+                    <th class="font-weight-normal" style="width: 125px;" scope="col">Opciones</th>
                     @endif
                 </tr>
             </thead>

@@ -1,7 +1,7 @@
 <div class="col-md-4 mb-3 mt-3">
     <div class="card text-center" style="height: 375px">
-        <div class="card-header"
-            style="font-size:16px; background: #0A091B; color: white; height: 65px;">
+        <div class="card-header p-1 "
+            style="font-size:14px; background: #0A091B; color: white; height: 75px;">
             {{ $convo->titulo }}
         </div>
         @php

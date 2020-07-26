@@ -89,10 +89,12 @@ class AdmAsignacionController extends Controller
 
     public function asignar(){
         session()->put('id_tab',request()->get('ida'));
+        $nom_post=Postulante::find(request()->get('id'));
+        $nom_post=$nom_post->nombre.' '.$nom_post->apellido;
         request()->validate([
             'horas' => 'required|integer|between:1,80',
         ],[
-            'horas.between' => 'La suma de las horas acumuladas del que quiere asignar sobrepasa del limite de 80 hrs'
+            'horas.between' => 'La suma de las horas acumuladas del estudiante '.$nom_post.' sobrepasa del limite de 80 hrs'
         ]);
         if($this->hayItems(request()->get('ida'))) {
             $item = Postulante_auxiliatura::where('id_auxiliatura', request()->get('ida'))
