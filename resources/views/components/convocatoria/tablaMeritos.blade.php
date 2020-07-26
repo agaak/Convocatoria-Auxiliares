@@ -6,7 +6,7 @@
                 <th class="font-weight-normal" scope="col">Descripcion de Meritos</th>
                 <th class="font-weight-normal text-center" scope="col">Porcentaje</th>
                 @if (!session()->get('ver'))
-                    <th class="font-weight-normal text-center" scope="col">Opciones</th>
+                    <th class="font-weight-normal text-center" style="width: 125px;" scope="col">Opciones</th>
                 @endif
             </tr>
         </thead>

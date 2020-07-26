@@ -38,7 +38,7 @@
                 <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">Area de Evaluacion</th>
                 <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">Porcentaje</th>
                 @if (!session()->get('ver'))
-                  <th style="vertical-align: middle; font-weight: normal;" scope="col" rowspan="2">Opciones</th>
+                  <th style="vertical-align: middle; font-weight: normal; width: 125px;" scope="col" rowspan="2">Opciones</th>
                 @endif
               </tr>
             </thead>
