@@ -1,6 +1,11 @@
 @extends('layout')
 
 @section('content')
+@php
+    function activeMenuConten($url) {
+        return request()->is($url)? 'navbar-lateral-active': '';
+    }
+@endphp
     <!-- Divición del contenido de la página -->
     <div class="content-div">
         <div class="bg-dark pl-2 pr-2 mis-convocatorias">
@@ -25,8 +30,8 @@
                     <ul class="menu">
                     @foreach ($roles as $rol)
                         @if ($rol->nombre == 'Meritos')
-                            <li class="menu-item"><a class="menu-link" href="{{ route('calificarRequisitosPost.index') }}">Requisito</a></li>
-                            <li class="menu-item"><a class="menu-link" href="{{ route('calificarMerito.index') }}">Merito</a></li>
+                            <li class="menu-item {{activeMenuConten('evaluador/calificar/requisitos')}}"><a class="menu-link" href="{{ route('calificarRequisitosPost.index') }}">Requisito</a></li>
+                            <li class="menu-item {{activeMenuConten('evaluador/calificar/merito')}}"><a class="menu-link" href="{{ route('calificarMerito.index') }}">Merito</a></li>
                         @endif
                         @if ($rol->nombre == 'Conocimientos')
                             <li class="menu-item">
@@ -40,7 +45,7 @@
                                             <a class="menu-link menu-icono btn-3" href="#">{{ $item->nombre }}</a>
                                             <ul class="menu menu-3">
                                                 @foreach ($item['areas'] as $area)
-                                                    <li class="menu-item ml-3">
+                                                    <li class="menu-item ml-3 {{ activeMenuConten('evaluador/calificar/conocimiento/'.$item->id.'/'.$area->id_area) }}">
                                                         <a class="menu-link" href="{{ route('calificarConoc.index',['id' => $item->id, 'tem' => $area->id_area ]) }}">
                                                             {{  $area->area }}
                                                         </a>

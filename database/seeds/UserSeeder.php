@@ -45,5 +45,30 @@ class UserSeeder extends Seeder
             'unidad_academica_id' => 1
         ]);
 
+        User::create([
+            'name' => 'Jose Villarroel',
+            'password' => bcrypt('admin123'),
+            'email' => 'admin1234@gmail.com',
+            'userToken' => '1234567',
+            'unidad_academica_id' => 2
+        ]);
+
+       
+        User::create([
+            'name' => 'Mria Andrea',
+            'password' => bcrypt('publica123'),
+            'email' => 'sistema1234@gmail.com',
+            'userToken' => '123123123',
+            'unidad_academica_id' => 2
+        ]);
+
+        User::create([
+            'name' => 'Alex Aguilar',
+            'password' => bcrypt('publica123'),
+            'email' => 'publica1234@gmail.com',
+            'userToken' => '7654321',
+            'unidad_academica_id' => 2
+        ]);
+
     } 
 }

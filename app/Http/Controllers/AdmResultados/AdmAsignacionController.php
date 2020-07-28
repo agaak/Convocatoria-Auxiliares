@@ -63,7 +63,7 @@ class AdmAsignacionController extends Controller
                 break;
             }
             if($postulante->item == null || $postulante->item == 0){
-                if($postulante->calificacion < 51){
+                if($postulante->calificacion < 50.5){
                     $postulante->estado = "Postulante Reprobado";   
                 } else {
                     $postulante->estado = "Postulante Aprobado";

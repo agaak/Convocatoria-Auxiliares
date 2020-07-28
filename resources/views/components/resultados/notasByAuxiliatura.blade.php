@@ -1,4 +1,4 @@
-<div class="container">
+<div class="table-requests1 mx-4">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" id="myTab" role="tablist">
       @php $initTabs = true @endphp
@@ -76,7 +76,14 @@
   <script>
     $(document).ready(function() {
         $('#notas{{ $auxiliatura->id}}').DataTable({
-        
+        "rowCallback": function( row, data, index ) {
+                var notafinal = (data[4 + {{count($tematicas[$auxiliatura->id])}}]),
+                    $node = this.api().row(row).nodes().to$();
+                    
+                if (notafinal >= 50.5  ) {
+                  $node.addClass('aprobado')
+                }
+            },
           "pageLength":50,
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"

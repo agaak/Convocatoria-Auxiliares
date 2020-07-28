@@ -678,10 +678,10 @@ $('.notas-guardar').each((index, element) => {
     }
 });
 
-$('#btn-enviar-correo').on('click', () => {
+function enviarCorreo() {
     res = confirm('Se enviara un correo al evaluador con su usuario y nueva contraseña.');
     if (!res) event.preventDefault();
-})
+}
 
 
 function datosAsignacion(data, postulante) {

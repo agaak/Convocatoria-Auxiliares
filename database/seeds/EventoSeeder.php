@@ -31,15 +31,15 @@ class EventoSeeder extends Seeder
             'id_convocatoria' => 2,
             'titulo_evento' => 'Presentación de Documentos',
             'lugar_evento' => '------------------------------------------',
-            'fecha_inicio' => '2020-11-11',
-            'fecha_final' => '2020-12-12'
+            'fecha_inicio' => '2020-07-11',
+            'fecha_final' => '2020-07-12'
         ]);
         EventoImportante::create([
             'id_convocatoria' => 2,
             'titulo_evento' => 'Revision del rotulo del estudiante',
             'lugar_evento' => 'Secretaría Informatica y Sistemas',
-            'fecha_inicio' => '2020-12-12',
-            'fecha_final' => '2021-01-01'
+            'fecha_inicio' => '2020-06-12',
+            'fecha_final' => '2020-07-11'
         ]);
     }
 }

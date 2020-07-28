@@ -36,19 +36,19 @@ class ConvocatoriaSeeder extends Seeder
         Requerimiento::create([
             'id_convocatoria' =>  1,
             'id_auxiliatura' => 5,
-            'horas_mes' => 80,
+            'horas_mes' => 60,
             'cant_aux' => 2
         ]);
         Requerimiento::create([
             'id_convocatoria' =>  1,
             'id_auxiliatura' => 6,
-            'horas_mes' => 60,
+            'horas_mes' => 80,
             'cant_aux' => 1
         ]);
         Requerimiento::create([
             'id_convocatoria' =>  1,
             'id_auxiliatura' => 7,
-            'horas_mes' => 70,
+            'horas_mes' => 35,
             'cant_aux' => 3
         ]);
         
@@ -147,37 +147,37 @@ class ConvocatoriaSeeder extends Seeder
             De Sistemas de la Facultad de Ciencias y Tecnología, convoca al concurso de méritos y
             examen de competencia para la provisión de Auxiliares de Docencia, tomando como
             base los requerimientos que se tienen programados para la gestión 2021.',
-            'gestion'=> 2021,
+            'gestion'=> 2020,
             'publicado'=> false,
             'finalizado' => false,
             'creado'=> false,
             'fecha_inicio'=> '06/06/2020',
-            'fecha_final'=> '08/08/2021'
+            'fecha_final'=> '08/08/2020'
         ]);
 
         $idReq1 = Requerimiento::create([
             'id_convocatoria' =>  2,
             'id_auxiliatura' => 1,
-            'horas_mes' => 80,
+            'horas_mes' => 10,
             'cant_aux' => 4
         ]);
         $idReq2 = Requerimiento::create([
             'id_convocatoria' =>  2,
             'id_auxiliatura' => 2,
-            'horas_mes' => 70,
-            'cant_aux' => 3
+            'horas_mes' => 15,
+            'cant_aux' => 6
         ]);
         $idReq3 = Requerimiento::create([
             'id_convocatoria' =>  2,
             'id_auxiliatura' => 3,
-            'horas_mes' => 50,
-            'cant_aux' => 1
+            'horas_mes' => 20,
+            'cant_aux' => 4
         ]);
         $idReq4 = Requerimiento::create([
             'id_convocatoria' =>  2,
             'id_auxiliatura' => 4,
-            'horas_mes' => 40,
-            'cant_aux' => 1
+            'horas_mes' => 12,
+            'cant_aux' => 8
         ]);
 
         Requisito::create([

@@ -49,7 +49,7 @@
                     @if ($conv->publicado)
                     <form class="d-inline" action="{{ route('admConocimientosEmail', $item->id) }}" method="POST">
                         {{ csrf_field() }}
-                        <button type="submit" id="btn-enviar-correo" class="btn btn-link">
+                        <button type="submit" onclick="enviarCorreo()" class="btn btn-link">
                             <img src="{{ asset('img/email.png') }}" width="30" height="32">
                         </button>
                     </form>
