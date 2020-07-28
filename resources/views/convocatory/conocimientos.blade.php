@@ -17,9 +17,14 @@
 
 
   {{-- Visualizar Tabla de estructura de conocimientos --}}
-  @component('components.convocatoria.tablaConocimientos', 
-    ['list_aux' => $list_aux,'tems' => $tems,'porcentajes' => $porcentajes,'areas' => $areas,'tematics' => $tematics])
-  @endcomponent
+  @if (count($list_aux)==0)
+      <h3>No hay Auxiliaturas</h3>
+  @else
+    @component('components.convocatoria.tablaConocimientos', 
+      ['list_aux' => $list_aux,'tems' => $tems,'porcentajes' => $porcentajes,'areas' => $areas,'tematics' => $tematics])
+    @endcomponent
+  @endif
+  
   
   <!-- Modal Tematica-->
   <div class="modal fade" id="tematicaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -147,9 +152,15 @@
           @endif
           <input type="hidden" name="finalizo" value=""> 
         </div><br>
+        @if (count($list_aux)==0)
+        <button type="submit" class="btn btn-info mt-3" tabindex="-1" role="button" aria-disabled="true" disabled>
+          Finalizar
+        </button>
+        @else
         <button type="submit" class="btn btn-info mt-3" tabindex="-1" role="button" aria-disabled="true">
           Finalizar
         </button>
+        @endif
       </form>
     </div>
   @endif

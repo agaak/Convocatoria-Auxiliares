@@ -72,7 +72,7 @@ class RequerimientoController extends Controller
         foreach($requests as $aux){
             array_push($auxs_res, $aux->id_auxiliatura);  
         }
-        $auxs=DB::table('auxiliatura')->where('id_unidad_academica',1)
+        $auxs=DB::table('auxiliatura')->where('id_unidad_academica',$conv->id_unidad_academica)
             ->where('id_tipo_convocatoria',$tipo)
             ->where('habilitado', true)
             ->whereNotIn('id', $auxs_res)->get();

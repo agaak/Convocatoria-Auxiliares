@@ -67,7 +67,7 @@ class ConvocatoriaController extends Controller
     public function store(ConvocatoriaRequest $request)
     {
         $conv = new Convocatoria();
-        $conv->id_unidad_academica = 1;
+        $conv->id_unidad_academica = auth()->user()->unidad_academica_id;
         $conv->id_tipo_convocatoria = $request->input('conv-tipo');
         $conv->titulo = $request->input('conv-titulo');
         $conv->descripcion_convocatoria = $request->input('conv-descripcion');
