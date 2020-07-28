@@ -14,10 +14,10 @@
                 ['listPostulantes' => $listPostulantes, 'publicado' => $publicado])
             @endcomponent
 
-            @if (session('revisando')) 
-            <div class="text-center">
-                <strong class="message-error text-danger"> {{ session('revisando') }}</strong>
-            </div>
+            @if (session()->has('revisando'))
+                <div class="text-center"> 
+                    <strong class="message-error text-danger"> {{ session('revisando') }}</strong>
+                </div>
             @endif
         
             <div class="text-center">
@@ -34,7 +34,7 @@
                         @endif
                         
                     @else
-                        <button type="submit" class="btn btn-info">Entregar Todo</button> 
+                        <button type="submit" id="btn-entregarRequisitos" class="btn btn-info">Entregar Todo</button> 
                     @endif   
                 </form>
             </div>

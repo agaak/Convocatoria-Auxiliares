@@ -77,7 +77,7 @@
                 var notafinal = (data[6]),
                     $node = this.api().row(row).nodes().to$();
                     
-                if (notafinal > 50.0  ) {
+                if (notafinal >= 51.0  ) {
                   $node.addClass('aprobado')
                 }
             }  ,

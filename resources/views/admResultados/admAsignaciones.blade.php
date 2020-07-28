@@ -71,7 +71,7 @@
                               <input type="hidden" name="id" value="{{ $item->id }}">
                               <input type="hidden" name="ida" value="{{ $item->id_auxiliatura}}">
                               <input type="hidden" name="horas" value="{{ $item->horas+$auxiliatura->horas_mes }}">
-                              <input class="btn btn-light btn-block" type="submit" style="background-color:#CCEAEC; color:rgb(0, 0, 0);" value="{{strcmp($item->estado,'Postulante Reprobado')==0?'Asignar por Invitacion':'Asignar'}}">
+                              <input class="btn btn-light btn-block" onclick="datosAsignacion({{ $listaPost[$auxiliatura->id] }}, {{ $item }})" type="submit" style="background-color:#CCEAEC; color:rgb(0, 0, 0);" value="{{strcmp($item->estado,'Postulante Reprobado')==0?'Asignar por Invitacion':'Asignar'}}">
                             </form>
                           @else
                           <form class="d-inline" action="{{ route('asignar') }}" method="POST">
@@ -96,12 +96,6 @@
                   @endif
                 </tbody>   
               </table>
-              {{-- @if (!$finalizado)
-                <div class="container text-right">
-                  <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
-                          data-target="#invitarPostulanteModal" data-asig_id_auxiliatura="{{ $auxiliatura->id}}">Invitar postulante</button>
-                </div>
-              @endif --}}
             </div>
         </div>
           
@@ -116,77 +110,7 @@
     @endif
 </div>
 
-
-
-{{-- Modal invitar postulante--}}
-<div class="modal fade" id="invitarPostulanteModal" tabindex="-1" role="dialog" aria-labelledby="postModalTitle"
-  aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="postModalTitle">Invitar Postulante</h5>
-                  <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <div class="modal-body">
-                <form method="POST" action="{{ route('admPostulanteInvitar') }}" id="form-create-postulante">
-                  {{ csrf_field() }}
-                  <input type="hidden" name="asig_id_auxiliatura" id="asig_id_auxiliatura">
-                  <input type="hidden" name="post-id" id="post-id">
-                    <div class="form-group row pr-0 mb-3">
-                      <div class="col-auto">
-                        <label for="adm-post-rotulo"  class="col-form-label col-form-label">Carnet:</label>
-                      </div>
-                      <div class="col-4 px-0">
-                        <input type="text" name="adm-post-ci" placeholder="Ingrese su carnet" class="form-control form-control" id="adm-post-ci" required>
-                      </div> <div class="col-auto">
-                      <button type="button" class="btn btn-primary" onclick="comprobarInvitado({{ $listaPost }})" >Comprobar Postulante</button>
-                    </div>
-                      {!! $errors->first('adm-post-ci', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
-                      </div>
-                      {!! $errors->first('ci', '<div class="error" id="err"> <strong class="message-error text-danger col-sm-12">:message</strong></div>') !!}
-                      <div class="d-none text-left col-sm-12 mt-0" id="rotulo-no-existe">
-                          <strong class="text-primary">El carnet ingresado existe</strong>
-                      </div>
-                      <div class="d-none text-left col-sm-12 mt-0" id="rotulo-existe">
-                          <strong class="text-danger">El carnet ingresado no existe</strong>
-                      </div>                        
-                      <div class="form-group row">
-                          <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Nombres:</label>
-                          <div class="col-sm-9">
-                          <input type="text" name="postulante-nombre" readonly id="post-nom" class="form-control" required>
-                          </div>
-                      </div>
-                      <div class="form-group row">
-                          <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Apellidos:</label>
-                          <div class="col-sm-9">
-                              <input class="form-control" type="text" readonly id="post-ape" name="postulante-apellidos" required>
-                          </div>
-                      </div>
-                      <div class="form-group row">
-                          <label for="adm-cono-nombre" class="col-sm-3 col-form-label">Nota final:</label>
-                          <div class="col-sm-9">
-                              <input class="form-control" type="text" readonly id="post-nota" name="post-nota" required readonly>
-                          </div>
-                      </div>
-                </form>
-              </div>
-              @if($errors->any())
-                              <script>
-                                  window.onload = () => {
-                                      $('#storePostulanteModal').modal('show');
-                                  }
-                              </script>
-              @endif
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                  <button type="submit" class="btn btn-info" form="form-create-postulante" id="bttn-post" disabled>Guardar</button>
-              </div>
-          </div>
-      </div>
-  </div>
-  <div class="text-center mt-5">
+<div class="text-center mt-5">
     <form method="POST" action="{{ route('eliminarPrePosts') }}">
       {{ csrf_field() }}
       @if ($finalizado || count($listaPost) == 0)

@@ -36,9 +36,17 @@
               @if (auth()->user()->hasRoles(['evaluador']))
                 @if (!session()->get('ver'))
                   @if (!$publicado)
-                  <td><a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}"><img
-                      src="{{ asset('img/pen.png') }}" width="25" height="25">
-                    </a></td>
+                  <td>
+                    @if($postulante->calificando_merito)
+                      <a class="options" id="calf-merit{{$idEst}}" onclick="calificarMeritos({{$idEst}})" href="{{ route('evaluarM.calificarMeritos', $idEst) }}"><img
+                        src="{{ asset('img/pen.png') }}" width="25" height="25">
+                      </a>
+                    @else
+                      <a class="options" href="{{ route('evaluarM.calificarMeritos', $idEst) }}"><img
+                        src="{{ asset('img/pen.png') }}" width="25" height="25">
+                      </a>
+                    @endif
+                  </td>
                   @endif
                 @endif
               @else

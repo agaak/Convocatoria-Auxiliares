@@ -26,6 +26,7 @@ class AdmAsignacionController extends Controller
     public function index()
     {   
         $id_conv = session()->get('convocatoria');
+        $conv = Convocatoria::find($id_conv);
         $listaAux = Auxiliatura::select('auxiliatura.nombre_aux','auxiliatura.id','cant_aux','horas_mes')
             ->join('requerimiento','auxiliatura.id','=','requerimiento.id_auxiliatura')
             ->where('id_convocatoria',$id_conv)->get(); 
@@ -70,12 +71,15 @@ class AdmAsignacionController extends Controller
             } else {
                 $postulante->estado = "Auxiliaturas Asignadas";
             }
-            $items_totales = Postulante_auxiliatura::select('id_auxiliatura', 'id_convocatoria', 'item as items')
+            $items_totales = Postulante_auxiliatura::select('id_auxiliatura', 'convocatoria.id', 'item as items')
                 ->join('postulante','postulante.id','=','postulante_auxiliatura.id_postulante')
-                ->where('postulante.ci',  $postulante->ci)->whereNotNull('item')->get();
+                ->where('postulante.ci',  $postulante->ci)->whereNotNull('item') 
+                ->join('postulante_conovocatoria','postulante_auxiliatura.id_postulante','=','postulante_conovocatoria.id_postulante')
+                ->join('convocatoria','convocatoria.id','=','postulante_conovocatoria.id_convocatoria')
+                ->where('convocatoria.gestion',$conv->gestion)->get();
             $total_horas = 0;
             foreach($items_totales as $item){
-                $total_horas += Requerimiento::where('id_convocatoria',$item->id_convocatoria)
+                $total_horas += Requerimiento::where('id_convocatoria',$item->id)
                     ->where('id_auxiliatura',$item->id_auxiliatura)->value('horas_mes') * $item->items;
             }
             $postulante->horas = $total_horas;
@@ -83,7 +87,7 @@ class AdmAsignacionController extends Controller
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
         // return $listaPost;
         $finalizado = Convocatoria::where('id',session()->get('convocatoria'))->value('finalizado');
-        $conv = Convocatoria::find($id_conv);
+        
         return view('admResultados.admAsignaciones',compact('listaAux','listaPost','conv','finalizado'));
     }
 
