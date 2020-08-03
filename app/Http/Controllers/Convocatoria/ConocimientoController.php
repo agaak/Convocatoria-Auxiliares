@@ -34,7 +34,7 @@ class ConocimientoController extends Controller
         $list_aux = $utilsConocimiento->getRequerimientos($id_conv);
         $tems = $utilsConocimiento->getTems($id_conv);
         $porcentajes = $utilsConocimiento->getPorcentajes($id_conv);
-        $tematics = $utilsConocimiento->getTematicas($conv->id_tipo_convocatoria, $tems,$list_aux);
+        $tematics = $utilsConocimiento->getTematicas($conv->id_tipo_convocatoria, $tems,$list_aux,$conv->id_unidad_academica);
         $areas = $utilsConocimiento->getAreas($conv->id_tipo_convocatoria,$conv->id_unidad_academica);
         return view('convocatory.conocimientos', compact('tematics','areas', 'list_aux','porcentajes','tems','porcentajesConvocatoria', 'rutaPDF', 'conv'));
     }

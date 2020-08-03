@@ -104,7 +104,7 @@ class ConocimientosComp
         return $tems;
     }
 
-    public function getTematicas($tipo, $tems, $list_aux){
+    public function getTematicas($tipo, $tems, $list_aux, $id_unidad){
         // $tems->collapse()->groupBy('id');
         $list_aux = collect($list_aux)->groupBy('id');
         foreach($list_aux as $aux){
@@ -116,6 +116,7 @@ class ConocimientosComp
             }
             $aux[0]->tematics = Tematica::select('nombre','id')
                 ->where('id_tipo_convocatoria',$tipo)->where('habilitado', true)
+                ->where('id_unidad_academica', $id_unidad)
                 ->whereNotIn('id',$tems_aux)
                 ->orderBy('nombre','ASC')->get();
         }

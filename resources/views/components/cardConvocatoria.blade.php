@@ -2,7 +2,9 @@
     <div class="card text-center" style="height: 375px">
         <div class="card-header p-1 d-flex align-items-center"
             style="text-align: center ;font-size:14px; background: #0A091B; color: white; height: 75px; ">
-            {{ $convo->titulo }}
+            <p class="text-center m-0 w-100">
+                {{ $convo->titulo }}
+            </p>
         </div>
         @php
             $meses = ["Enero", "Febrero", "Marzo", "Abril" ,"Mayo" ,"Junio" ,"Julio" ,"Agosto" ,"Septiembre" ,"Octubre" ,"Noviembre" ,"Diciembre"];
