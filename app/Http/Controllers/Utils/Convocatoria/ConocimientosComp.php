@@ -122,8 +122,9 @@ class ConocimientosComp
         return $list_aux;
     }
 
-    public function getAreas($tipo){
-        $areas = Area::select('nombre','id')
+    public function getAreas($tipo,$id_unidad){
+        $areas = Area::select('nombre','id','habilitado')
+            ->where('id_unidad_academica',$id_unidad)
             ->where('id_tipo_convocatoria',$tipo)
             ->orderBy('nombre','ASC')->get();
         return $areas;

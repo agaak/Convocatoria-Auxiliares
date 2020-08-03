@@ -55,6 +55,7 @@
                   <label class="col-sm-5 col-form-label text-center">Porcentaje</label>
                 </div>
                   @foreach($areas as $area)
+                  @if($area->habilitado)
                   <div class="form-row col-sm-12 mt-2">
                     <div class="form-check col-sm-6 mx-3">
                       <input class="form-check-input" onclick="check({{ $area->id }})" type="checkbox" 
@@ -68,6 +69,7 @@
                         name="area-aux[]" min="1" max="100" disabled required id=".{{ $area->id }}">
                       </div>
                   </div>
+                  @endif
                   @endforeach
               @endif
             </div>
