@@ -8,7 +8,7 @@
       @if (!$finalizado && count($listaPost) > 0)
         {{-- <button type="submit" class="btn btn-outline-primary" disabled>Publicar Ganadores</button> --}}
       {{-- @else  --}}
-        <button type="button" class="btn btn-outline-primary"
+        <button type="button" class="btn btn-dark mr-5"
         data-toggle="modal" data-target="#avisoPublicar">Publicar Ganadores</button>
       @endif
   </div>
