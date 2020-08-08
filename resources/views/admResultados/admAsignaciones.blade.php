@@ -4,6 +4,14 @@
 
 <div class="overflow-auto content">
   <h3>Asignacion de Auxiliaturas</h3>
+  <div class="text-right">
+      @if (!$finalizado && count($listaPost) > 0)
+        {{-- <button type="submit" class="btn btn-outline-primary" disabled>Publicar Ganadores</button> --}}
+      {{-- @else  --}}
+        <button type="button" class="btn btn-outline-primary"
+        data-toggle="modal" data-target="#avisoPublicar">Publicar Ganadores</button>
+      @endif
+  </div>
   <div class="container">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -110,15 +118,42 @@
     @endif
 </div>
 
-<div class="text-center mt-5">
-    <form method="POST" action="{{ route('eliminarPrePosts') }}">
-      {{ csrf_field() }}
-      @if ($finalizado || count($listaPost) == 0)
-        <button type="submit" id="eliminar-pre-postulantes" class="btn btn-success" disabled>Publicar Ganadores</button>
-      @else 
-        <button type="submit" id="eliminar-pre-postulantes" class="btn btn-success">Publicar Ganadores</button>
-      @endif
-    </form>
+<!-- Modal -->
+<div class="modal fade" id="avisoPublicar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Publicar todas las asignaciones</h5>
+          <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          @foreach ($listaAux as $auxiliatura)
+            <h6>{{$auxiliatura->nombre_aux}}:@if ($auxiliatura->items_libres==0)
+               Se han asignado todos los items.
+            @else
+               Hay {{$auxiliatura->items_libres}} @if ($auxiliatura->items_libres==1) item
+                @else items @endif sin asignar.
+            @endif
+            </h6><br>
+          @endforeach
+          <div class="form-check">
+            <input type="checkbox" name="agree" class="form-check-input" id="defaultUnchecked" onchange="isChecked(this,'sub1')">
+            <label class="form-check-label" for="defaultUnchecked">La informacion es correcta y he terminado de asignar los items a TODAS las auxiliaturas de esta convocatoria.
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <form method="POST" action="{{ route('eliminarPrePosts') }}">
+            {{ csrf_field() }}
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <input class="btn btn-info" type="submit" value="Publicar" id="sub1" disabled="disabled">
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>

@@ -715,3 +715,8 @@ function calificarMeritos(id){
     res = confirm('Este postulante ya esta siendo calificado, esta usted seguro de calificar.');
     if (!res) event.preventDefault();
 }
+
+//Verificacion publicar asignaciones
+function isChecked(checkbox, sub1) {
+    document.getElementById(sub1).disabled = !checkbox.checked;
+}
