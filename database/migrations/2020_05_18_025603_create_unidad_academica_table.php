@@ -36,6 +36,7 @@ class CreateUnidadAcademicaTable extends Migration
             $table->boolean('publicado');
             $table->boolean('finalizado');
             $table->boolean('pre_posts_habilitado')->default('false');
+            $table->boolean('recepcionar')->default('true');
             $table->boolean('creado');
             $table->string('ruta_pdf')->nullable();
             $table->date('fecha_inicio');

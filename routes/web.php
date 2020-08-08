@@ -83,6 +83,7 @@ Route::get('convocatoria/adm-convocatoria/{id}', 'AdmConvocatoria\AdmConvocatori
 Route::get('convocatoria/adm-postulantes', 'AdmConvocatoria\AdmPostulantesController@index')->name('admPostulantes');
 Route::post('convocatoria/adm-postulantes','AdmConvocatoria\AdmPostulantesController@create')->name('admPostulanteCreate');
 Route::get('convocatoria/adm-postulantes/habilitar/{id}','AdmConvocatoria\AdmPostulantesController@habilitar')->name('habilitarPostulante');
+Route::get('convocatoria/adm-postulantes/finalizar','AdmConvocatoria\AdmPostulantesController@finalizarRecepcion')->name('finalizarRecepcion');
 
 Route::get('convocatoria/adm-avisos', 'AdmConvocatoria\AdmAvisosController@index')->name('admAvisos');
 Route::post('convocatoria/adm-avisos', 'AdmConvocatoria\AdmAvisosController@create')->name('admAvisos.create');

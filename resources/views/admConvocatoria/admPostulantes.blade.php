@@ -5,8 +5,17 @@
 
     <h3>Postulantes</h3>
     {{-- Triger modal --}}
-    @if ($activo)
-        <div class="row mr-1 ml-1">
+    @if ($conv->recepcionar)
+        @if (!$activo)
+            <div class="ml-1 d-flex flex-column flex-xl-row-reverse">
+                <a href="{{ route('finalizarRecepcion') }}" class="btn btn-danger">Finalizar Recepción</a>
+                <p class="text-danger font-weight-bold col-form-label mr-4">
+                    La recepción de documentos ya concluyó, recuerda que tiene que finalizar
+                    la recepción:
+                </p>
+            </div>
+        @endif
+        <div class="ml-1">
             <button type="button" class="btn btn-dark my-3 col-xs-2" data-toggle="modal" 
             data-target="#storePostulanteModal">Registrar postulante</button>
         </div>
