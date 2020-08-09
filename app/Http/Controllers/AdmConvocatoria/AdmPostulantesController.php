@@ -153,4 +153,12 @@ class AdmPostulantesController extends Controller
         }
         return back();
     }
+
+    public function finalizarRecepcion() {
+        $id_conv = session()->get('convocatoria');
+        Convocatoria::where('id', $id_conv)->update([
+            'recepcionar' => false
+        ]);
+        return back();
+    }
 }

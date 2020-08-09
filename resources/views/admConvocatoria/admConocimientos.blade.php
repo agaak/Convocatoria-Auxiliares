@@ -5,7 +5,7 @@
 
     <h3>Comisión de Evaluación de Conocimientos</h3>
     <!-- Trigger modal -->
-    @if ($activo) 
+    @if ($conv->recepcionar) 
         <button class="pl-4 pr-4 btn btn-dark mt-3" type="button" data-toggle="modal" data-target="#admConoModal">Registrar Evaluador</button>
     @endif
 

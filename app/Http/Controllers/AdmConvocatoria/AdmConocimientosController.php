@@ -78,8 +78,6 @@ class AdmConocimientosController extends Controller
 
         $conv = Convocatoria::find($id_conv);
 
-        $activo = date('Y-m-d H:i:s') <= EventoImportante::where('id_convocatoria', $id_conv)->where('titulo_evento', 'Presentación de Documentos')->value('fecha_final');
-
         return view('admConvocatoria.admConocimientos', compact('listaEva', 'listaMultiselect','lista_tem_aux','evaluadores','tipoConvocatoria','conv', 'activo'));
     }
 
