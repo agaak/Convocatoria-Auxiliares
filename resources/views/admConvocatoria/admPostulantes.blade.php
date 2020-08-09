@@ -10,8 +10,7 @@
             <div class="ml-1 d-flex flex-column flex-xl-row-reverse">
                 <a href="{{ route('finalizarRecepcion') }}" class="btn btn-danger">Finalizar Recepción</a>
                 <p class="text-danger font-weight-bold col-form-label mr-4">
-                    La recepción de documentos ya concluyó, recuerda que tiene que finalizar
-                    la recepción:
+                    El plazo de recepción de documentos terminó, recuerde que tiene que cerrar el libro:
                 </p>
             </div>
         @endif

@@ -30,7 +30,7 @@ class ConvocatoriaSeeder extends Seeder
             'finalizado' => false,
             'creado'=> false,
             'fecha_inicio'=> '7/7/2020',
-            'fecha_final'=> '8/8/2020'
+            'fecha_final'=> '09/09/2020'
         ]);
 
         Requerimiento::create([
@@ -152,7 +152,7 @@ class ConvocatoriaSeeder extends Seeder
             'finalizado' => false,
             'creado'=> false,
             'fecha_inicio'=> '06/06/2020',
-            'fecha_final'=> '08/08/2020'
+            'fecha_final'=> '09/09/2020'
         ]);
 
         $idReq1 = Requerimiento::create([

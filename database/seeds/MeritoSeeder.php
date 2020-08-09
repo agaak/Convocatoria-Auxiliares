@@ -81,8 +81,8 @@ class MeritoSeeder extends Seeder
         ]);
         Calificacion_final::create([
             'id_convocatoria' => 2,
-            'porcentaje_merito' => 80,
-            'porcentaje_conocimiento' => 20
+            'porcentaje_merito' => 30,
+            'porcentaje_conocimiento' => 70
         ]);
     }
 }

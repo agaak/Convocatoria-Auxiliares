@@ -35,7 +35,7 @@
                 @if($num == 1 && $tem_aux->id_eva == $evaluador->id_eva_conv)
                 @php  $num++ @endphp
                 <td scope="col" style="text-align: left">{{$tem_aux->nombre}}</td>
-                @endif 
+                @endif
             @endforeach
             <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}" >{{$evaluador->ci}}</td>
             <td scope="col" style="vertical-align: middle;" rowspan="{{$tam}}">{{$evaluador->nombre}}</td>
