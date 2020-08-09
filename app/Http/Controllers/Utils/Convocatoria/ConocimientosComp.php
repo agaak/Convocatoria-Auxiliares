@@ -93,7 +93,7 @@ class ConocimientosComp
         $tems = collect($tems)->groupBy('id_auxiliatura');
         foreach($tems as $tem){
             foreach($tem as $tem_aux){
-                $tem_aux->areas = Porcentaje::select('porcentaje.id','porcentaje','id_area','nombre as area')
+                $tem_aux->areas = Porcentaje::select('porcentaje.id','porcentaje','id_area','nombre as area', 'id_porc_dependiente')
                     ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
                     ->where('requerimiento.id_convocatoria',$id_conv)
                     ->where('porcentaje.id_tematica', $tem_aux->id)->where('porcentaje.id_auxiliatura', $tem_aux->id_auxiliatura)

@@ -50,23 +50,31 @@
                 <select class="form-control" id="id-tematica" name="id-tematica" onclick="select_tem({{json_encode($areas)}})">
                     {{-- <option value={{ $tematic->id }}>{{ $tematic->nombre }}</option> --}}
                 </select>
-                <div class="form-row">
-                  <label class="col-sm-6 col-form-label text-center">Area de Evaluacion</label>
-                  <label class="col-sm-5 col-form-label text-center">Porcentaje</label>
+                <div class="form-row mt-1">
+                  <label class="col-sm-4 col-form-label text-center">Modalidad de Evaluacion</label>
+                  <label class="col-sm-3 col-form-label text-center">Porcentaje</label>
+                  <label class="col-sm-4 col-form-label text-center">Dependiente</label>
                 </div>
                   @foreach($areas as $area)
                   @if($area->habilitado)
-                  <div class="form-row col-sm-12 mt-2">
-                    <div class="form-check col-sm-6 mx-3">
+                  <div class="form-row col-sm-12 mt-3">
+                    <div class="form-check col-sm-4 ml-3">
                       <input class="form-check-input" onclick="check({{ $area->id }})" type="checkbox" 
                           value="{{ $area->id }}" name="area[]" id="{{ $area->id }}-check">
                       <label class="form-check-label" for="{{ $area->id }}-check">
                         {{ $area->nombre }}
                       </label>
                     </div>
-                    <div class="col-sm-3 mx-2">
-                    <input type="number" class="form-control form-control-sm text-center"
+                    <div class="form-check col-sm-2">
+                      <input type="number" class="form-control form-control-sm text-center"
                         name="area-aux[]" min="1" max="100" disabled required id=".{{ $area->id }}">
+                    </div>
+                      <div class="form-check col-sm-4 ml-5">
+                        <input class="form-check-input" onclick="check_dep({{ $area->id }},{{$areas}})" type="checkbox" 
+                            value="{{ $area->id }}" name="area-2[]" id="{{ $area->id }}-check2" disabled>
+                            <select class="form-control form-control-sm text-center" id="{{ $area->id }}-dep" name="{{ $area->id }}-dep[]" disabled>
+                              <option>ninguna</option>
+                          </select>
                       </div>
                   </div>
                   @endif
@@ -76,7 +84,6 @@
             @endif
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              {{-- <input class="btn btn-info" type="submit" value="Guardar"> --}}
               @if($tematics->isEmpty())
                 <input class="btn btn-info" type="submit" value="Guardar" disabled>
               @else
@@ -114,22 +121,31 @@
               @else
                 <label for="nombre">Nombre de la Tematica</label>
                 <select class="form-control" id="nombre-tem-edit" name="nombre-tem-edit"></select>
-                <div class="form-row">
-                  <label class="col-sm-6 col-form-label text-center">Area de Evaluacion</label>
-                  <label class="col-sm-5 col-form-label text-center">Porcentaje</label>
+                <div class="form-row mt-1">
+                  <label class="col-sm-4 col-form-label text-center">Modalidad de Evaluacion</label>
+                  <label class="col-sm-3 col-form-label text-center">Porcentaje</label>
+                  <label class="col-sm-4 col-form-label text-center">Dependiente</label>
                 </div>
                   @foreach($areas as $area)
-                  <div class="form-row col-sm-12 mt-2">
-                    <div class="form-check col-sm-6 mx-3">
+                  <div class="form-row col-sm-12 mt-3">
+                    <div class="form-check col-sm-4 ml-3">
                       <input class="form-check-input" onclick="check2({{ $area->id }})" type="checkbox" 
                           name="id-area-edit[]" id="{{ $area->id }}-edit" autocomplete="off">
                       <label class="form-check-label" for="{{ $area->id }}-edit">{{ $area->nombre }}</label>
                     </div>
-                    <div class="col-sm-3 mx-2">
-                    <input type="number" class="form-control form-control-sm text-center" autocomplete="off"
+                    <div class="form-check col-sm-2">
+                      <input type="number" class="form-control form-control-sm text-center" autocomplete="off"
                         name="porc-edit[]" min="1" max="100" disabled required id=".{{ $area->id }}-edit">
+                    </div>
+                      <div class="form-check col-sm-4 ml-5">
+                        <input class="form-check-input" onclick="check_dep_edit({{ $area->id }},{{$areas}})" type="checkbox" 
+                            value="{{ $area->id }}" name="area-2[]" id="{{ $area->id }}-check2-edit" disabled>
+                            <select class="form-control form-control-sm text-center" id="{{ $area->id }}-dep-edit" name="{{ $area->id }}-dep-edit[]" disabled>
+                              <option>ninguna</option>
+                            </select>
                       </div>
                   </div>
+
                   @endforeach
               @endif
             </div>
@@ -172,19 +188,66 @@
     var estado = document.getElementById('.'+id).disabled;
     document.getElementById('.'+id).disabled = !estado;
     document.getElementById('.'+id).value = "";
+    document.getElementById(id+'-check2').disabled = !estado;
+    document.getElementById(id+'-check2').checked = false;
+    document.getElementById(id+'-dep').disabled = true;
+  }
+  function check_dep(id,areas) {
+    var estado = document.getElementById(id+'-dep').disabled;
+    document.getElementById(id+'-dep').disabled = !estado;
+    var x = document.getElementById(id+'-dep');
+    var length = x.options.length;
+    for (i = length-1; i >= 0; i--) {
+        x.options[i] = null;
+    }
+    areas.forEach(area => {
+        if(area['id'] != id){
+          if(!document.getElementById('.'+area['id']).disabled){
+            var option = document.createElement("option");
+            option.text = area['nombre'];
+            option.value = area['id'];
+            x.add(option);
+          }
+        }
+    });
+
+  }
+  function check_dep_edit(id,areas) {
+    var estado = document.getElementById(id+'-dep-edit').disabled;
+    document.getElementById(id+'-dep-edit').disabled = !estado;
+    var x = document.getElementById(id+'-dep-edit');
+    var length = x.options.length;
+    for (i = length-1; i >= 0; i--) {
+        x.options[i] = null;
+    }
+    areas.forEach(area => {
+        if(area['id'] != id){
+          if(!document.getElementById('.'+area['id']+'-edit').disabled){
+            var option = document.createElement("option");
+            option.text = area['nombre'];
+            option.value = area['id'];
+            x.add(option);
+          }
+        }
+    });
   }
   function select_tem(areas){
     areas.forEach(area => {
       document.getElementById('.'+area['id']).value = "";
       document.getElementById('.'+area['id']).disabled = true;
       document.getElementById(area['id']+'-check').checked = false;
-
+      document.getElementById(area['id']+'-check2').disabled = true;
+      document.getElementById(area['id']+'-check2').checked = false;
+      document.getElementById(area['id']+'-dep').disabled = true;
     });
   }
   function check2(id) {
     var estado = document.getElementById('.'+id+'-edit').disabled;
     document.getElementById('.'+id+'-edit').disabled = !estado;
     document.getElementById('.'+id+'-edit').value = "";
+    document.getElementById(id+'-check2-edit').disabled = !estado;
+    document.getElementById(id+'-check2-edit').checked = false;
+    document.getElementById(id+'-dep-edit').disabled = true;
   }
 </script>
 @endsection

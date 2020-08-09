@@ -46,7 +46,7 @@ class CreateTematicaTable extends Migration
             $table->integer('id_area');
             $table->foreign('id_area')->references('id')->on('area_calificacion')->onDelete('cascade'); 
             $table->integer('porcentaje');
-
+            $table->integer('id_porc_dependiente')->nullable();
             $table->timestamps();
         });
     }

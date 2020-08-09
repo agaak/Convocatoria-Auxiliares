@@ -42,6 +42,7 @@ class ConocimientoController extends Controller
     public function knowledgeRatingTematicValid(Request $request){
         session()->put('id_conoc',$request->input('id-auxiliatura'));
         $areas = collect($request->input('area-aux'));
+        $areas_dep = collect($request->input('area-2'));
         $id_req = Requerimiento::where('id_convocatoria',session()->get('convocatoria'))
             ->where('id_auxiliatura',$request->input('id-auxiliatura'))->value('id');
         foreach($request->get('area') as $area){
@@ -51,6 +52,10 @@ class ConocimientoController extends Controller
             $por -> id_tematica = $request->input('id-tematica'); 
             $por -> id_area = $area; 
             $por -> porcentaje = $areas->shift(); 
+            if($areas_dep->contains($area) && collect($request->input('area'))
+                                        ->contains($request->input($area.'-dep')[0])){
+                $por -> id_porc_dependiente = $request->input($area.'-dep')[0]; 
+            }
             $por -> save();
         }
         return back();
@@ -67,6 +72,7 @@ class ConocimientoController extends Controller
 
     public function knowledgeRatingTematicUpdate(Request $request){
         session()->put('id_conoc',$request->input('id-auxiliatura-edit'));
+        $areas_dep = collect($request->input('area-2'));
         $porcentajes = (new ConocimientosComp)->getPorcentajes(session()->get('convocatoria'));
         $porcentajes = $porcentajes->has($request->input('id-auxiliatura-edit'))? $porcentajes[$request->input('id-auxiliatura-edit')] : [];
         $porcentajes = collect($porcentajes)->groupBy('id_tematica')[$request->input('id-tematica-edit')];
@@ -83,10 +89,21 @@ class ConocimientoController extends Controller
         $porcentajes = $porcentajes->groupBy('id_area');
         $porc_edit = collect($request->input('porc-edit'));
         foreach($request->get('id-area-edit') as $id_area){
+            $dependiente = $areas_dep->contains($id_area) && collect($request->input('id-area-edit'))
+                    ->contains($request->input($id_area.'-dep-edit')[0]);
             if($porcentajes->has($id_area)){
                 Porcentaje::where('id', $porcentajes[$id_area][0]['id'])->update([
                     'porcentaje' => $porc_edit->shift()
                 ]);
+                if($dependiente){ 
+                    Porcentaje::where('id', $porcentajes[$id_area][0]['id'])->update([
+                        'id_porc_dependiente' => $request->input($id_area.'-dep-edit')[0]
+                    ]);
+                } else {
+                    Porcentaje::where('id', $porcentajes[$id_area][0]['id'])->update([
+                        'id_porc_dependiente' => null
+                    ]);
+                }
             } else {
                 $por = new Porcentaje(); 
                 $por -> id_requerimiento = $id_req;
@@ -94,6 +111,9 @@ class ConocimientoController extends Controller
                 $por -> id_tematica = $request->input('id-tematica-edit'); 
                 $por -> id_area = $id_area; 
                 $por -> porcentaje = $porc_edit->shift(); 
+                if($dependiente){
+                    $por -> id_porc_dependiente = $request->input($id_area.'-dep-edit')[0]; 
+                }
                 $por -> save();
             }
         }  

@@ -14,6 +14,11 @@
                 <form method="POST" action="{{ route('calificarConoc.store') }}" id="request-notas">
                 <input type="hidden" name="id-tipo" value="1">
                 @foreach ($postulantes as $item)
+                    @if ($item[0]->id_porc_dependiente != null)
+                        @if (!$item[0]->habilitado)
+                            @php continue; @endphp
+                        @endif
+                    @endif
                     <tr>
                         <td class="text-center">{{ $cont++ }}</td>
                         <td class="text-center">{{ $item[0]->ci }}</td>

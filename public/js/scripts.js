@@ -182,12 +182,25 @@ function selectTematicaModal(mporcentajes,mareas) {
         document.getElementById('.'+area['id']+'-edit').disabled = true;
         document.getElementById(area['id']+'-edit').checked = false; 
         document.getElementById(area['id']+'-edit').value = area['id'];
+        document.getElementById(area['id']+'-check2-edit').disabled = true;
+        document.getElementById(area['id']+'-check2-edit').checked = false;
+        document.getElementById(area['id']+'-dep-edit').disabled = true;
     });
     mporcentajes['areas'].forEach(area => {
         document.getElementById('.'+area['id_area']+'-edit').value = area['porcentaje'];
         document.getElementById('.'+area['id_area']+'-edit').disabled = false;
         document.getElementById(area['id_area']+'-edit').checked = true;
         // document.getElementById(area['id_area']+'-edit').value = area['id'];
+        document.getElementById(area['id_area']+'-check2-edit').disabled = false;
+        if(area['id_porc_dependiente'] != null){
+            document.getElementById(area['id_area']+'-check2-edit').checked = true;
+        }
+    });
+    mporcentajes['areas'].forEach(area => {
+        if(area['id_porc_dependiente'] != null){
+            check_dep_edit(area['id_area'],mareas);
+            document.getElementById(area['id_area']+'-dep-edit').disabled = false;
+        }
     });
 }
 

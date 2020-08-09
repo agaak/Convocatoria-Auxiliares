@@ -39,12 +39,15 @@ class CalificarConocController extends Controller
         
         $entregado = $compPost->getEntregado($postulantes);
         $publicado = $compPost->getPublicado($postulantes);
-
         if(!$publicado_habilitados){
             $postulantes = [];
         }
-        // return  $auxsTemsEval;
-        return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 
+        if(count($postulantes)>0){
+            if($postulantes->collapse()[0]->id_porc_dependiente != null){
+                $postulantes = $compPost->getDependencia($postulantes);    
+            }
+        }
+        return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv',
             'auxsTemsEval','postulantes','id_tem','nom','publicado','entregado','publicado_habilitados'));
     }
 
