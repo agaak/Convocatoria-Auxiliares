@@ -101,7 +101,7 @@ class ConvocatoriaController extends Controller
     {
         $evaluadorUtils =  new EvaluadorComp();
         $convUtils = new ConvocatoriaComp();
-        $id_uniadad = Convocatoria::where('id',session()->get('convocatoria'))->value('id_unidad_academica');
+        $id_uniadad = Convocatoria::where('id',$id)->value('id_unidad_academica');
         $evaluadores = $evaluadorUtils->getEvaluadoresConvo($id);
         foreach($evaluadores as $eva){
             $roles = $evaluadorUtils->getRolesEvaluador($eva->id_eva_con);
