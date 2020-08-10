@@ -397,14 +397,14 @@ input[type=number] {
 
 .card-personal {
     border: 1px solid black;
+    border-radius: 5px;
     margin-bottom: 1rem;
-    border-radius: 1px;
 }
 
 .card-personal-title {
     display: block;
     padding: .8rem;
-    border-bottom: 1px solid black;
+    border-radius: 5px;
     color: white;
     background-color: #343a40;
 }

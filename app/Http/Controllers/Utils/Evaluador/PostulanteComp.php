@@ -117,14 +117,17 @@ class PostulanteComp
                             ->where('id_area',$post->id_porc_dependiente)->get();
                     
                     if($porc_dependiente->isEmpty()) continue;
+
                     if($post_otro->calificacion != null){
                         if($post_otro->calificacion > 50.5 && strcmp($post_otro->estado,'publicado') == 0){
                             $post->habilitado = true;
                             break;
                         }
+                        if(strcmp($post_otro->estado,'publicado') != 0)
+                            $post->esperando_dep = true;
                     } else {
                         if(strcmp($post_otro->estado,'publicado') != 0)
-                                $post->esperando_dep = true;
+                            $post->esperando_dep = true;
                     }
                 } 
             }

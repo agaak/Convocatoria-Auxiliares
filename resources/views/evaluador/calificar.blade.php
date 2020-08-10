@@ -12,34 +12,29 @@
             @if ($rol->nombre == 'Meritos')
                 <div class="row text-center my-4">
                     <div class="col-sm-6">
-                        <div class="card-personal">
-                            <a class="card-personal-title" href="{{ route('calificarRequisitosPost.index') }}">Requisito</a>
-                            <p class="card-personal-body">Descripción de los requisitos de esta convocatoria</p>
-                        </div>
+                        <a class="card-personal-title border" href="{{ route('calificarRequisitosPost.index') }}">Requisito</a>
                     </div>
                     <div class="col-sm-6">
-                        <div class="card-personal">
-                            <a class="card-personal-title" href="{{ route('calificarMerito.index') }}">Merito</a>
-                            <p class="card-personal-body">Descripción de los requisitos de esta convocatoria</p>
-                        </div>
+                        <a class="card-personal-title border" href="{{ route('calificarMerito.index') }}">Merito</a>
                     </div>
                 </div>
             @endif
             @if ($rol->nombre == 'Conocimientos')
                     <h5 class="mb-4 font-weight-bold text-center text-uppercase">{{ $tipoConv === 1? 'Temáticas': 'Auxiliaturas' }}</h5>
+                    <div class="d-flex justify-content-around flex-wrap">
                         @foreach ($auxsTemsEval as $item) 
-                            <div class="card-personal text-center">
-                                <h5 class="card-personal-body font-weight-bold">{{ $item->nombre }}</h5>
-                                <div class="row w-100 m-0">
-                                    @foreach ($item['areas'] as $area)
-                                        <div class="col-sm p-0 border border-info">
-                                            <a class="card-personal-title" href="{{ route('calificarConoc.index',['id' => $item->id, 'tem' => $area->id_area]) }}">{{  $area->area }}</a>
-                                            <p class="card-personal-body">Descripción de las temáticas de esta convocatoria</p>
-                                        </div>
-                                    @endforeach
+                                <div class="border border-dark mb-3">
+                                    <h5 class="card-personal-body text-center font-weight-bold m-0">{{ $item->nombre }}</h5>
+                                    <ul class="text-center p-0">
+                                        @foreach ($item['areas'] as $area)
+                                            <li class="menu-link">
+                                                <a class="font-weight-bold text-info" href="{{ route('calificarConoc.index',['id' => $item->id, 'tem' => $area->id_area]) }}">{{  $area->area }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 </div>
+                                @endforeach
                             </div>
-                        @endforeach
                     </ul>
                 </li>
                 

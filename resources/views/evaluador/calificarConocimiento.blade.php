@@ -33,7 +33,9 @@
                     <input type="hidden"  name="id-evaluador">
                     @if (count($postulantes)==0 && $dependiente)
                         <input type="hidden" name="desierto" value="true">
-                        <button type="submit" class="btn btn-info" id="btn-desierto"  {{ $publicado? 'disabled': '' }}>Declarar como Desierto</button>
+                        <button type="submit" class="btn btn-info" id="btn-desierto"  {{ $publicado? 'disabled': '' }}>
+                            Declarar como Desierto
+                        </button>
                     @else
                         @if($entregado || $publicado)
                             <button type="submit" class="btn btn-info" disabled>Entregado</button> 

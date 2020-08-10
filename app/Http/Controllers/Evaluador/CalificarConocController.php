@@ -46,8 +46,9 @@ class CalificarConocController extends Controller
         
         if(count($postulantes)>0){
             $dependiente = $postulantes->collapse()[0]->id_porc_dependiente != null;
+
             if($dependiente){
-                $postulantes = $compPost->getDependencia($postulantes); 
+                $postulantes = $compPost->getDependencia($postulantes);
                 $postulantes = $postulantes->collapse()->reject(function ($value) {
                     return !$value->habilitado && !$value->esperando_dep;
                 });

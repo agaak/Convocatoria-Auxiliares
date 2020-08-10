@@ -12,13 +12,13 @@
         data-toggle="modal" data-target="#avisoPublicar">Publicar Ganadores</button>
       @endif
   </div>
-  <div class="container">
+  <div class="m-4">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" id="myTab" role="tablist">
       @php $initTabs = session()->get('id_tab') == null ?$listaAux[0]->id:session()->get('id_tab') @endphp
       @foreach ($listaAux as $auxiliatura)
           <li class="nav-item">
-            <a class="nav-link{{ $initTabs==$auxiliatura->id ? " active" : '' }}" id={{ $auxiliatura->id }} data-toggle="tab" 
+            <a class="font-weight-bold nav-link{{ $initTabs==$auxiliatura->id ? " active" : '' }}" id={{ $auxiliatura->id }} data-toggle="tab" 
               href="#{{ "body".$auxiliatura->id }}" role="tab" aria-controls="home" aria-selected={{ $initTabs }}>
               {{ $auxiliatura->nombre_aux }}
             </a>
@@ -41,7 +41,7 @@
                     <th class="font-weight-normal" scope="col">Nombres</th>
                     <th class="font-weight-normal" scope="col">Nota final</th>
                     <th class="font-weight-normal" scope="col">Horas Acumuladas</th>
-                    <th class="font-weight-normal" scope="col">Cantidad Auxiliaturas</th>
+                    <th class="font-weight-normal" scope="col">Cantidad Items</th>
                     @if (!$finalizado) <th class="font-weight-normal" scope="col">Acciones</th> @endif
                   </tr>
                 </thead>
@@ -131,7 +131,7 @@
         </div>
         <div class="modal-body">
           @foreach ($listaAux as $auxiliatura)
-            <h6>{{$auxiliatura->nombre_aux}}:@if ($auxiliatura->items_libres==0)
+            <h6 class="font-weight-normal"><span class="font-weight-bold">{{$auxiliatura->nombre_aux}}</span>:@if ($auxiliatura->items_libres==0)
                Se han asignado todos los items.
             @else
                Hay {{$auxiliatura->items_libres}} @if ($auxiliatura->items_libres==1) item
