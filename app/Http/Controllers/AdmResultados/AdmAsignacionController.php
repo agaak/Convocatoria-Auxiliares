@@ -50,6 +50,35 @@ class AdmAsignacionController extends Controller
         ->whereNotNull('postulante_auxiliatura.calificacion')
         ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','postulante_auxiliatura.calificacion','postulante_auxiliatura.item')
         ->orderBy('postulante_auxiliatura.calificacion', 'DESC')->get();
+
+        $listaPostNull = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
+        'postulante_auxiliatura.calificacion','postulante_auxiliatura.item','postulante_auxiliatura.id_auxiliatura')
+        ->join('postulante_auxiliatura','postulante.id','=','postulante_auxiliatura.id_postulante')
+        ->join('postulante_conovocatoria','postulante.id','=','postulante_conovocatoria.id_postulante')
+        ->where('postulante_conovocatoria.id_convocatoria',$id_conv)
+        ->where('postulante_auxiliatura.habilitado', true)
+        ->join('calf_fin_postulante_conoc', 'calf_fin_postulante_conoc.id_postulante', '=', 'postulante.id')
+        ->where('calf_fin_postulante_conoc.id_convocatoria', $id_conv)
+        ->join('calf_final_postulante_merito', 'calf_final_postulante_merito.id_postulante', '=', 'postulante.id')
+        ->where('calf_final_postulante_merito.id_convocatoria', $id_conv)
+        ->whereNotNull('postulante_auxiliatura.calificacion')
+        ->join('calif_conoc_post', 'calif_conoc_post.id_postulante', '=', 'psotulante.id')
+        ->whereNull('calif_conoc_post.calificacion')
+        ->join('calificacion_final','calificacion_final.id','=','calif_conoc_post.id_calf_final')
+        ->where('calificacion_final.id_convocatoria',$id_conv)
+        ->groupby('postulante_auxiliatura.id_auxiliatura','postulante.id','postulante_auxiliatura.calificacion','postulante_auxiliatura.item')
+        ->orderBy('postulante_auxiliatura.calificacion', 'DESC')->get();
+
+        foreach($listaPostNull as $postNull){
+            $indice=0;
+            foreach($listaPost as $postul){
+                if(($postNull->id == $postu->id) && ($postNull->id_auxiliatura == $postu->id_auxiliatura)){
+                    unset($listaPost[$indice]);
+                }
+                $indice++;
+            }
+        }
+
         foreach($listaPost as $postulante){
             $id_calf_fin_conoc = PostuCalifConocFinal::where('id_postulante',$postulante->id)->where('id_convocatoria',$id_conv)
                 ->where('id_auxiliatura',$postulante->id_auxiliatura)->value('id');
