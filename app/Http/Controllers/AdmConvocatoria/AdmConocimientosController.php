@@ -87,7 +87,6 @@ class AdmConocimientosController extends Controller
     }
 
     public function store(Request $request) {
-        // return $request;
         $id_conv = session()->get('convocatoria');
         $tipoConvocatoria  = Convocatoria::where('id',$id_conv)->value('id_tipo_convocatoria');
         $evaluadorID = EvaluadorConocimientos::where('ci', $request->input('adm-cono-ci'))->value('id');
@@ -143,7 +142,6 @@ class AdmConocimientosController extends Controller
             'id_rol_evaluador' => 2,
             'id_evaluador_convocatoria' => $idEvaConvo
         ]);
-
         $arreglo = $request->input('adm-cono-tipo');
         if ($tipoConvocatoria === 2) {
             for($i=0; $i<count($arreglo); $i++) {
@@ -151,19 +149,18 @@ class AdmConocimientosController extends Controller
                     'id_evaluador_convocatoria' => $idEvaConvo,
                     'id_auxiliatura' => $arreglo[$i]
                 ]);
-            }
-
-            $jsonTematicas = Porcentaje::select('id_tematica as id_unico')
-            ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
-            ->where('requerimiento.id_convocatoria', $id_conv)
-            ->join('tematica','porcentaje.id_tematica','=','tematica.id')->groupBy('tematica.nombre','id_tematica')->get();
-
-            foreach($jsonTematicas as $item){
-                EvaluadorTematica::create([
-                    'id_evaluador_convocatoria' => $idEvaConvo,
-                    'id_tematica' => $item['id_unico']
-                ]);
-            }
+                $jsonTematicas = Porcentaje::select('id_tematica as id_unico')
+                ->where('porcentaje.id_auxiliatura',$arreglo[$i])
+                ->join('requerimiento', 'porcentaje.id_requerimiento', '=', 'requerimiento.id')
+                ->where('requerimiento.id_convocatoria', $id_conv)
+                ->groupBy('id_unico')->get();
+                foreach($jsonTematicas as $item){
+                    EvaluadorTematica::create([
+                        'id_evaluador_convocatoria' => $idEvaConvo,
+                        'id_tematica' => $item['id_unico']
+                    ]);
+                }
+            } 
 
         } else {
             for($i=0; $i<count($arreglo); $i++) {
