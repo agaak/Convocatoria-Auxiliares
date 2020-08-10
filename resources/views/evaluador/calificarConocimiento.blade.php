@@ -31,16 +31,21 @@
                     method="POST" id="evaluador-meritos-delete">
                     {{ csrf_field() }}
                     <input type="hidden"  name="id-evaluador">
-                    @if($entregado || $publicado)
-                        <button type="submit" class="btn btn-info" disabled>Entregado</button> 
-                        <div class="text-right">
-                            <button type="button" class="btn btn-secondary">
-                            <a href="/evaluador/calificar/conocimiento/{{$id_tem}}/{{$nom}}/pdf" style="color: #FFFF;">PDF</a>
-                            </button>
-                        </div>
+                    @if (count($postulantes)==0 && $dependiente)
+                        <input type="hidden" name="desierto" value="true">
+                        <button type="submit" class="btn btn-info" id="btn-desierto"  {{ $publicado? 'disabled': '' }}>Declarar como Desierto</button>
                     @else
-                        <button type="submit" class="btn btn-info d-none" id="btn-entregar">Entregar Todo</button> 
-                    @endif   
+                        @if($entregado || $publicado)
+                            <button type="submit" class="btn btn-info" disabled>Entregado</button> 
+                            <div class="text-right">
+                                <button type="button" class="btn btn-secondary">
+                                <a href="/evaluador/calificar/conocimiento/{{$id_tem}}/{{$nom}}/pdf" style="color: #FFFF;">PDF</a>
+                                </button>
+                            </div>
+                        @else
+                            <button type="submit" class="btn btn-info d-none" id="btn-entregar">Entregar Todo</button> 
+                        @endif   
+                    @endif
                 </form>
             </div>
         @else

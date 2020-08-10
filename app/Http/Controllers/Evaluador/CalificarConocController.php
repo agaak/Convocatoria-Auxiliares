@@ -42,12 +42,19 @@ class CalificarConocController extends Controller
         if(!$publicado_habilitados){
             $postulantes = [];
         }
+        $dependiente = false;
+        
         if(count($postulantes)>0){
-            if($postulantes->collapse()[0]->id_porc_dependiente != null){
-                $postulantes = $compPost->getDependencia($postulantes);    
+            $dependiente = $postulantes->collapse()[0]->id_porc_dependiente != null;
+            if($dependiente){
+                $postulantes = $compPost->getDependencia($postulantes); 
+                $postulantes = $postulantes->collapse()->reject(function ($value) {
+                    return !$value->habilitado && !$value->esperando_dep;
+                });
+                $postulantes = $postulantes->groupBy('id');
             }
-        }
-        return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv',
+        } 
+        return view('evaluador.calificarConocimiento', compact('convs', 'roles', 'tipoConv', 'dependiente',
             'auxsTemsEval','postulantes','id_tem','nom','publicado','entregado','publicado_habilitados'));
     }
 
@@ -81,12 +88,18 @@ class CalificarConocController extends Controller
         
         $compPost = new PostulanteComp();
         $postulantes = $compPost->getPostulantesByTem($id_tem,$nom); 
-
         foreach($postulantes as $postulante){
             foreach($postulante as $nota){
-                PostuCalifConoc::where('id', $nota->id_nota)->update([
-                    'estado' => 'entregado',
-                ]);
+                if($request->has('desierto')){
+                    PostuCalifConoc::where('id', $nota->id_nota)->update([
+                        'estado' => 'publicado',
+                    ]);
+                } else {
+                    PostuCalifConoc::where('id', $nota->id_nota)->update([
+                        'estado' => 'entregado',
+                    ]);
+                }
+                
             }
         }
         return back();

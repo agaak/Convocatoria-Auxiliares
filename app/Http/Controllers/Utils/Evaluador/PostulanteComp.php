@@ -109,16 +109,22 @@ class PostulanteComp
         foreach($postulantes as $postulante){
             foreach($postulante as $post){ 
                 $post->habilitado = false;
+                $post->esperando_dep = false;
                 $id_cal_conoc_fin = PostuCalifConoc::where('id', $post->id_nota)->value('id_calf_final');
                 $otros_post = PostuCalifConoc::where('id_calf_final', $id_cal_conoc_fin)->where('id' ,'!=', $post->id_nota)->get();
                 foreach($otros_post as $post_otro){
                     $porc_dependiente = Porcentaje::where('id',$post_otro->id_porcentaje)
                             ->where('id_area',$post->id_porc_dependiente)->get();
+                    
                     if($porc_dependiente->isEmpty()) continue;
-                    if($post_otro->calificacion != null)
-                    if($post_otro->calificacion > 50.5 && strcmp($post_otro->estado,'publicado') == 0){
-                        $post->habilitado = true;
-                        break;
+                    if($post_otro->calificacion != null){
+                        if($post_otro->calificacion > 50.5 && strcmp($post_otro->estado,'publicado') == 0){
+                            $post->habilitado = true;
+                            break;
+                        }
+                    } else {
+                        if(strcmp($post_otro->estado,'publicado') != 0)
+                                $post->esperando_dep = true;
                     }
                 } 
             }

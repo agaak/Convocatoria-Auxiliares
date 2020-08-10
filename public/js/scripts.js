@@ -685,6 +685,11 @@ $('#btn-entregar').on('click', () => {
     if (!res) event.preventDefault();
 });
 
+$('#btn-desierto').on('click', () => {
+    res = confirm('Esta usted seguro de declarar como desierto las notas de esta Temática.');
+    if (!res) event.preventDefault();
+});
+
 $('.notas-guardar').each((index, element) => {
     if (element.value !== '') {
         $('#btn-entregar').addClass('d-inline-block')

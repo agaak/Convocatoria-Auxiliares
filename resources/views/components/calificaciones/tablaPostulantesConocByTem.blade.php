@@ -57,7 +57,7 @@
     </table>
     @if (auth()->check())
         @if (auth()->user()->hasRoles(['evaluador']))
-            @if(!$publicado)
+            @if(!$publicado && count($postulantes)>0)
                 <div class="my-4 py-4 text-right">
                     <input class="btn btn-info" type="submit" {{ $entregado? 'disabled': '' }} form="request-notas" value="Guardar">
                 </div>

@@ -87,6 +87,7 @@ class AdmConocimientosController extends Controller
     }
 
     public function store(Request $request) {
+        // return $request;
         $id_conv = session()->get('convocatoria');
         $tipoConvocatoria  = Convocatoria::where('id',$id_conv)->value('id_tipo_convocatoria');
         $evaluadorID = EvaluadorConocimientos::where('ci', $request->input('adm-cono-ci'))->value('id');

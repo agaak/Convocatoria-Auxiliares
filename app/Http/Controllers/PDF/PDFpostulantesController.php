@@ -158,6 +158,16 @@ class PDFpostulantesController extends Controller
 
         $compPost = new PostulanteComp();
         $postulantes = $compPost->getPostulantesByTem($id_tem,$nom_tem); 
+        if(count($postulantes)>0){
+            $dependiente = $postulantes->collapse()[0]->id_porc_dependiente != null;
+            if($dependiente){
+                $postulantes = $compPost->getDependencia($postulantes); 
+                $postulantes = $postulantes->collapse()->reject(function ($value) {
+                    return !$value->habilitado && !$value->esperando_dep;
+                });
+                $postulantes = $postulantes->groupBy('id'); 
+            }
+        } 
        /* return $postulantes;  */
         $dompdf = new Dompdf();
         $dompdf->set_paper('letter', 'portrait');
