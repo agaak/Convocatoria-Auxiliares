@@ -62,6 +62,12 @@ class AdmAsignacionController extends Controller
                 $listaPost = [];
                 break;
             }
+
+            $test4 = PostuCalifConoc::where('id_calf_final',$id_calf_fin_conoc)
+                ->where('calificacion', null)->get()->isEmpty();
+
+            $postulante->habilitado2 = $test4;
+
             if($postulante->item == null || $postulante->item == 0){
                 if($postulante->calificacion < 50.5){
                     $postulante->estado = "Postulante Reprobado";   
@@ -84,8 +90,10 @@ class AdmAsignacionController extends Controller
             }
             $postulante->horas = $total_horas;
         }
+        $listaPost = $listaPost->reject(function ($value) {
+                    return !$value->habilitado2;
+        });
         $listaPost = collect($listaPost)->groupBy('id_auxiliatura');
-        // return $listaPost;
         $finalizado = Convocatoria::where('id',session()->get('convocatoria'))->value('finalizado');
         
         return view('admResultados.admAsignaciones',compact('listaAux','listaPost','conv','finalizado'));

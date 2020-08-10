@@ -9,7 +9,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Nueva Area de Evaluación</h5>
+                        <h5 class="modal-title">Nueva Modalidad de Evaluación</h5>
                         <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -47,7 +47,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Editar Area</h5>
+                        <h5 class="modal-title">Editar Modalidad de Evaluación</h5>
                         <button type="button" class="modal-icon" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -265,7 +265,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link {{ session()->get('dato') === 3? 'active': '' }}" id="pills-areas-tab" data-toggle="pill" href="#pills-areas"
-                    role="tab" aria-controls="pills-areas" aria-selected="false">Areas de Evaluación</a>
+                    role="tab" aria-controls="pills-areas" aria-selected="false">Modalidad de Evaluación</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -372,7 +372,7 @@
                 <div class="tab-pane fade {{ session()->get('dato') === 3? 'show active': '' }}" id="pills-areas" role="tabpanel" aria-labelledby="pills-areas-tab">
                     <a class="mb-3" type="button" data-toggle="modal" data-target="#agregarAreas">
                         <img src="{{ asset('img/addBLUE.png') }}" width="30" height="30">
-                        <span class="mx-1">Añadir Area</span>
+                        <span class="mx-1">Añadir Modalidad de Evaluación</span>
                     </a>
                     <table class="table">
                         <thead class="thead-dark">
