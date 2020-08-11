@@ -43,7 +43,7 @@ class NotasAuxiliaturaController extends Controller
                 if($calf->calificacion != null){
                     $calf->calificacion = number_format($calf->calificacion*$calf->porcentaje/100 ,2);
                 }
-                if(strcmp($calf->estado,"publicado") != 0){
+                if(strcmp($calf->estado,"publicado") != 0 || $calf->calificacion == null){
                     $calf->calificacion = null;
                     $calf_tems = [];
                     break;

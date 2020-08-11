@@ -23,7 +23,18 @@ class NotasTematicaController extends Controller
                 $publicado = (new PostulanteComp)->getPublicado($postulantes);
                 if(!$publicado){
                     $postulantes = [];
-                }                             
+                }           
+                $dependiente = false;
+                if(count($postulantes)>0){
+                    $dependiente = $postulantes->collapse()[0]->id_porc_dependiente != null;
+                    if($dependiente){
+                        $postulantes = (new PostulanteComp)->getDependencia($postulantes); 
+                        $postulantes = $postulantes->collapse()->reject(function ($value) {
+                            return !$value->habilitado && !$value->esperando_dep;
+                        });
+                        $postulantes = $postulantes->groupBy('id');
+                    }
+                }                      
                 $area->postulantes = $postulantes;
                 $area->publicado = $publicado;
             }

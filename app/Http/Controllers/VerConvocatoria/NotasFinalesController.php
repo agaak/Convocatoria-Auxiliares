@@ -23,7 +23,6 @@ class NotasFinalesController extends Controller
         $porcentaje_merit = Calificacion_final::where('id_convocatoria', $id_conv)->value('porcentaje_merito'); 
 
         $tematicas = (new ConocimientosComp)->getTems($id_conv);
-        // return $tematicas;
         $listaAux = (new ConocimientosComp)->getRequerimientos($id_conv);
         $listaPost = Postulante::select('postulante.nombre','postulante.apellido','postulante.ci','postulante.id',
                 'calf_final_postulante_merito.nota_final_merito as nota_fin_merit')
@@ -43,8 +42,10 @@ class NotasFinalesController extends Controller
                     ->where('estado','entregado')->get()->isEmpty();
                 $test2 = PostuCalifConoc::where('id_calf_final',$id_nota_fin_conoc)
                     ->where('estado','publicado')->count();
-                $test3 = count($tematicas[$aux->id_auxiliatura][0]['areas']);
-                $aux->control = $test && ($test2 >= $test3);
+                $test3 = count($tematicas[$aux->id_auxiliatura][0]['areas']); 
+                $test4 = PostuCalifConoc::where('id_calf_final',$id_nota_fin_conoc)
+                    ->where('calificacion', null)->get()->isEmpty();
+                $aux->control = $test && ($test2 >= $test3) && $test4;
                 $nota_fin_conoc = PostuCalifConocFinal::where('id',$id_nota_fin_conoc)
                     ->value('nota_final_conoc');
                 if($nota_fin_conoc != null){

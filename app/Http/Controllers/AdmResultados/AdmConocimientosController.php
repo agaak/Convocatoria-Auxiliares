@@ -59,7 +59,6 @@ class AdmConocimientosController extends Controller
                 $area->entregado = $entregado;
             }
         }
-        // return $tematicas;
         return view('admResultados.admResConocimientos',compact('tematicas','tipoConv','conv'));
     }
 
