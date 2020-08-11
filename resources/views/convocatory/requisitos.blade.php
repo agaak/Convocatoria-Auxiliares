@@ -25,7 +25,7 @@
     <form method="POST" class="my-5" action="{{ route('requisitoNota') }}">
       {{ csrf_field() }}
       <div class="form-group">
-        <label for="nota-requisito">Nota(*)</label>
+        <label for="nota-requisito">Nota (Opcional)</label>
         @if (!session()->get('ver'))
           <input class="btn btn-info btn-sm mx-3" type="submit" value="Guardar nota">
         @endif

@@ -122,7 +122,7 @@
                         {!! $errors->first('adm-cono-correo', '<strong class="message-error text-danger text-right col-sm-10 mt-0 mb-1">:message</strong>') !!}
                         </div>
                         <div class="form-group row">
-                        <label for="adm-cono-correo2"  class="col-sm-3 col-form-label">Correo Alt(*)</label>
+                        <label for="adm-cono-correo2"  class="col-sm-3 col-form-label">Correo Alt</label>
                         <div class="input-group col-sm-9">
                             <input type="email" class="form-control" name="adm-cono-correo2" disabled id="adm-correo2" aria-label="Recipient's username" 
                                 aria-describedby="basic-addon2">
@@ -130,6 +130,7 @@
                               <span class="input-group-text" id="basic-addon2">@</span>
                             </div>
                         </div>
+                        <label for="adm-cono-correo2"  class="col-sm-3 col-form-label mt-0">(Opcional)</label>
                         {!! $errors->first('adm-cono-correo2', '<strong class="message-error text-danger text-center col-sm-12">:message</strong>') !!}
                         </div>
                         @if ($errors->any())
@@ -207,14 +208,15 @@
                         {!! $errors->first('adm-cono-correo-edit', '<strong class="message-error text-danger text-right col-sm-10 mt-0 mb-1">:message</strong>') !!}
                     </div>
                    <div class="form-group row">
-                        <label for="adm-cono-correo2-edit"  class="col-sm-3 col-form-label">Correo Alt(*)</label>
-                        <div class="input-group mb-1 col-sm-9">
+                        <label for="adm-cono-correo2-edit"  class="col-sm-3 col-form-label mb-0">Correo</label>
+                        <div class="input-group mb-1 col-sm-9 mb-0">
                             <input type="email" class="form-control" name="adm-cono-correo2-edit"  value="{{ old('adm-cono-correo2-edit') }}" id="adm-cono-correo2-edit" aria-label="Recipient's username" 
                                 aria-describedby="basic-addon2">
                             <div class="input-group-append">
                               <span class="input-group-text" id="basic-addon2">@</span>
                             </div>
                         </div>
+                        <label for="adm-cono-correo2"  class="col-sm-3 col-form-label mt-0">(Opcional)</label>
                     </div>
                         @if($errors->any())
                             <script>
